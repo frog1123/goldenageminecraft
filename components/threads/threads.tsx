@@ -7,6 +7,9 @@ const Threads: FC = async () => {
   const threads: ThreadWithAuthor[] = await db.thread.findMany({
     include: {
       author: true
+    },
+    orderBy: {
+      createdAt: 'desc'
     }
   });
 
