@@ -17,7 +17,7 @@ const Threads: FC = async () => {
     <div>
       <div className='grid grid-flow-row gap-2'>
         {threads.map(thread => (
-          <Thread thread={thread} />
+          <Thread thread={thread} key={thread.id} />
         ))}
       </div>
     </div>
