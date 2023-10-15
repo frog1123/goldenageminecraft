@@ -5,7 +5,7 @@ const MainLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className='w-full h-screen'>
       <Navbar />
-      {children}
+      <div className='py-20'>{children}</div>
     </div>
   );
 };

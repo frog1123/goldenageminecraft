@@ -1,15 +1,20 @@
 import { db } from '@/lib/db';
 import { FC } from 'react';
+import Thread from './thread';
+import { ThreadWithAuthor } from '@/types';
 
 const Threads: FC = async () => {
-  const threads = await db.thread.findMany({});
+  const threads: ThreadWithAuthor[] = await db.thread.findMany({
+    include: {
+      author: true
+    }
+  });
 
   return (
     <div>
-      threads
-      <div>
+      <div className='grid grid-flow-row gap-2 w-[80%] mx-auto'>
         {threads.map(thread => (
-          <div>{thread.title}</div>
+          <Thread thread={thread} />
         ))}
       </div>
     </div>
