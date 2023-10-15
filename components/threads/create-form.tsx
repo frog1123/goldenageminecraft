@@ -12,7 +12,8 @@ import axios from 'axios';
 const formSchema = z.object({
   title: z.string().min(1, {
     message: 'Title is required'
-  })
+  }),
+  content: z.string()
 });
 
 const CreateThreadForm: FC = () => {

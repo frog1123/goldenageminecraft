@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={inter.className}>
+        <body className={inter.className} dir='ltr'>
           <ThemeProvider attribute='class' defaultTheme='dark' enableSystem storageKey='golden-age-minecraft-theme'>
             {children}
           </ThemeProvider>

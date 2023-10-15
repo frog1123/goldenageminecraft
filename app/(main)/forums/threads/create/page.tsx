@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 
 const ThreadsCreatePage: NextPage = () => {
   return (
-    <div>
+    <div className='w-[40%] mx-auto'>
       <CreateThreadForm />
     </div>
   );
