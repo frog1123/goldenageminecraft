@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id       String   @id @default(uuid())
+  userId   String   @unique
+  name     String
+  email    String   @db.Text
+  imageUrl String   @db.Text
+  rank     UserRank @default(COAL)
+
+  Thread      Thread[]
+  ThreadReply ThreadReply[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRank {
+  COAL
+  IRON
+  GOLD
+  REDSTONE
+  LAPIS
+  DIAMOND
+}
+
+model Thread {
+  id      String @id @default(uuid())
+  title   String
+  content String
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  replies ThreadReply[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+}
+
+model ThreadReply {
+  id      String @id @default(uuid())
+  content String
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([threadId])
+  @@index([authorId])
+}
