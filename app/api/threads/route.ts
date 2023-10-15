@@ -11,6 +11,14 @@ export async function POST(req: Request) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    if (title.length >= 100) {
+      return new NextResponse('Title too long', { status: 400 });
+    }
+
+    if (content.length >= 1000) {
+      return new NextResponse('Content too long', { status: 400 });
+    }
+
     const server = await db.thread.create({
       data: {
         title,

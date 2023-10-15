@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   title: z
@@ -24,6 +25,8 @@ const formSchema = z.object({
 });
 
 const CreateThreadForm: FC = () => {
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,8 +40,8 @@ const CreateThreadForm: FC = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post('/api/threads', values);
-
       form.reset();
+      router.push('/forums');
     } catch (err) {
       console.log(err);
     }
