@@ -1,9 +1,11 @@
+import Control from '@/components/control';
 import Threads from '@/components/threads/threads';
 import { NextPage } from 'next';
 
 const Home: NextPage = async () => {
   return (
-    <div>
+    <div className='grid grid-flow-row gap-2 w-[60%] mx-auto'>
+      <Control />
       <Threads />
     </div>
   );

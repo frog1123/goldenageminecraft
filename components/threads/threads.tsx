@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
 import { FC } from 'react';
-import Thread from './thread';
+import Thread from '@/components/threads/thread';
 import { ThreadWithAuthor } from '@/types';
 
 const Threads: FC = async () => {
@@ -12,7 +12,7 @@ const Threads: FC = async () => {
 
   return (
     <div>
-      <div className='grid grid-flow-row gap-2 w-[80%] mx-auto'>
+      <div className='grid grid-flow-row gap-2'>
         {threads.map(thread => (
           <Thread thread={thread} />
         ))}
