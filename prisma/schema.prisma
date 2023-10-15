@@ -36,9 +36,9 @@ enum UserRank {
 }
 
 model Thread {
-  id      String @id @default(uuid())
+  id      String  @id @default(uuid())
   title   String
-  content String
+  content String?
 
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)

@@ -1,7 +1,12 @@
+import CreateThreadForm from '@/components/threads/create-form';
 import { NextPage } from 'next';
 
 const ThreadsCreatePage: NextPage = () => {
-  return <div>asdasdasd</div>;
+  return (
+    <div>
+      <CreateThreadForm />
+    </div>
+  );
 };
 
 export default ThreadsCreatePage;
