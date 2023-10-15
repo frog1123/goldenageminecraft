@@ -7,7 +7,7 @@ const Control: FC = () => {
   const router = useRouter();
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto'>
       <input placeholder='search' />
       <button onClick={() => router.push('/forums/threads/create')}>Create thread</button>
     </div>

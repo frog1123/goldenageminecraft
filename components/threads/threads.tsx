@@ -14,12 +14,10 @@ const Threads: FC = async () => {
   });
 
   return (
-    <div>
-      <div className='grid grid-flow-row gap-2'>
-        {threads.map(thread => (
-          <Thread thread={thread} key={thread.id} />
-        ))}
-      </div>
+    <div className='grid grid-flow-row gap-2 w-full'>
+      {threads.map(thread => (
+        <Thread thread={thread} key={thread.id} />
+      ))}
     </div>
   );
 };

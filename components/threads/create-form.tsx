@@ -10,10 +10,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: 'Title is required'
-  }),
-  content: z.string()
+  title: z
+    .string()
+    .min(1, {
+      message: 'Title is required'
+    })
+    .max(100, {
+      message: 'Title needs to be under 100 characters'
+    }),
+  content: z.string().max(1000, {
+    message: 'Content needs to be under 1000 characters'
+  })
 });
 
 const CreateThreadForm: FC = () => {
