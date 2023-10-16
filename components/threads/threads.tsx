@@ -7,26 +7,31 @@ import axios from 'axios';
 
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadWithAuthor[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchThreads = async () => {
-      const data: ThreadWithAuthor[] = await axios.get(`/api/threads`, { params: { take: 10, skip: 0 } });
-
-      // setThreads(data);
+      try {
+        const response = await axios.get(`/api/threads?take=${10}&skip=${0}`);
+        const data = response.data;
+        setThreads(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching threads:', error);
+      }
     };
 
     fetchThreads();
   }, []);
 
-  console.log(threads);
+  if (isLoading)
+    return (
+      <div className='text-center'>
+        <p>Loading...</p>
+      </div>
+    );
 
-  return (
-    <div className='grid grid-flow-row gap-2 w-full'>
-      {threads.map(thread => (
-        <Thread thread={thread} key={thread.id} />
-      ))}
-    </div>
-  );
+  return <div className='grid grid-flow-row gap-2 w-full'>{threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}</div>;
 };
 
 export default Threads;

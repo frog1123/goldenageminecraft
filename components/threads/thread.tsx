@@ -11,7 +11,7 @@ const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
           <Link href={`/forums/threads/${thread.id}`}>
             <p className='font-semibold text-lg'>{thread.title}</p>
           </Link>
-          <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt)}</p>
+          <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
         <p className='ml-auto'>{thread.author.name}</p>
       </div>

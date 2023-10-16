@@ -6,7 +6,6 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const take = searchParams.get('take');
   const skip = searchParams.get('skip');
-  console.log(take, skip);
 
   try {
     const items = await db.thread.findMany({
