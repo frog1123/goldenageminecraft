@@ -23,12 +23,16 @@ const Navbar: FC = () => {
       <div className='grid grid-flow-col place-items-center'>
         <div className='grid grid-flow-col gap-2 place-items-center'>
           <Link href='/'>
-            <Hexagon className='w-5 h-5' />
+            <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
+              <Hexagon className='w-5 h-5' />
+            </div>
           </Link>
           <ChevronRight className='w-4 h-4 text-gray-500' />
         </div>
         {pathnames.map((path, index) => {
-          const routeTo = `${pathnames.slice(0, index + 1).join('/')}`;
+          let routeTo = `${pathnames.slice(0, index + 1).join('/')}`;
+
+          if (routeTo === '') return null;
 
           return (
             <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
