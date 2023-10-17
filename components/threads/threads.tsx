@@ -4,6 +4,8 @@ import { FC, useEffect, useState, useRef } from 'react';
 import Thread from '@/components/threads/thread';
 import { ThreadWithAuthor } from '@/types';
 import axios from 'axios';
+import dark_spinner from '@/public/assets/dark_spinner.svg';
+import light_spinner from '@/public/assets/light_spinner.svg';
 
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadWithAuthor[]>([]);
@@ -52,8 +54,6 @@ const Threads: FC = () => {
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          console.log(entries);
-          console.log('loading more ...');
           fetchMoreThreads();
         }
       },
@@ -77,7 +77,7 @@ const Threads: FC = () => {
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
       {threads.length > 0 && threads.map(thread => <Thread thread={thread} />)}
-      <div ref={lastElementRef}></div>
+      <div ref={lastElementRef} className='text-center'></div>
     </div>
   );
 };
