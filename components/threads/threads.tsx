@@ -4,8 +4,7 @@ import { FC, useEffect, useState, useRef } from 'react';
 import Thread from '@/components/threads/thread';
 import { ThreadWithAuthor } from '@/types';
 import axios from 'axios';
-import dark_spinner from '@/public/assets/dark_spinner.svg';
-import light_spinner from '@/public/assets/light_spinner.svg';
+import LoadingIcon from '@/components/loading-icon';
 
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadWithAuthor[]>([]);
@@ -69,8 +68,8 @@ const Threads: FC = () => {
 
   if (isLoading)
     return (
-      <div className='text-center'>
-        <p>Loading...</p>
+      <div className='w-max mx-auto'>
+        <LoadingIcon />
       </div>
     );
 

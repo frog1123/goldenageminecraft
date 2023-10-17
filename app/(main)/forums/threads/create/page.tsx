@@ -5,7 +5,6 @@ import { redirect } from 'next/navigation';
 
 const ThreadsCreatePage: NextPage = async () => {
   const currentUser = await getCurrentUser();
-  console.log('user', currentUser);
 
   if (!currentUser) return redirect('/sign-in');
 

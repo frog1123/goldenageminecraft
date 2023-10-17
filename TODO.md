@@ -1,1 +1,0 @@
-auth /forums/threads/create
