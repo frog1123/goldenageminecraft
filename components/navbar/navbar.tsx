@@ -32,7 +32,7 @@ const Navbar: FC = () => {
         {pathnames.map((path, index) => {
           let routeTo = `${pathnames.slice(0, index + 1).join('/')}`;
 
-          if (routeTo === '') return null;
+          if (routeTo === '' || routeTo === '/') return null;
 
           return (
             <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
@@ -44,7 +44,7 @@ const Navbar: FC = () => {
       </div>
       <div className='ml-auto w-max'>
         <SignedIn>
-          <UserButton afterSignOutUrl='/' />
+          <UserButton afterSignOutUrl='/' userProfileMode='modal' />
         </SignedIn>
         <SignedOut>
           <button onClick={() => router.push('/sign-in')} className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
