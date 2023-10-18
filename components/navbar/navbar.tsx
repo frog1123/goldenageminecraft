@@ -27,7 +27,7 @@ const Navbar: FC = () => {
               <Hexagon className='w-5 h-5' />
             </div>
           </Link>
-          <ChevronRight className='w-4 h-4 text-gray-500' />
+          {pathname !== '/' && <ChevronRight className='w-4 h-4 text-gray-500' />}
         </div>
         {pathnames.map((path, index) => {
           let routeTo = `${pathnames.slice(0, index + 1).join('/')}`;

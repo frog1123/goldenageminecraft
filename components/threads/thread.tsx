@@ -13,7 +13,9 @@ const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
           </Link>
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <p className='ml-auto'>{thread.author.name}</p>
+        <Link href={`/users/${thread.author.id}`} className='ml-auto'>
+          <p>{thread.author.name}</p>
+        </Link>
       </div>
       <p className='break-words'>{thread?.content}</p>
     </div>
