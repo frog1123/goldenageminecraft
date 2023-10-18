@@ -1,5 +1,5 @@
-import dark_spinner from '@/public/assets/dark_spinner.svg';
-import light_spinner from '@/public/assets/light_spinner.svg';
+import dark_spinner from '@/public/assets/spinners/dark_spinner.svg';
+import light_spinner from '@/public/assets/spinners/light_spinner.svg';
 import { FC } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
