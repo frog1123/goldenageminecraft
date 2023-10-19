@@ -10,7 +10,15 @@ export async function GET(req: Request) {
   try {
     const items = await db.thread.findMany({
       include: {
-        author: true
+        author: {
+          select: {
+            id: true,
+            userId: true,
+            name: true,
+            imageUrl: true,
+            rank: true
+          }
+        }
       },
       orderBy: {
         createdAt: 'desc'

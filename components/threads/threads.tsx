@@ -2,12 +2,12 @@
 
 import { FC, useEffect, useState, useRef } from 'react';
 import Thread from '@/components/threads/thread';
-import { ThreadWithAuthor } from '@/types';
+import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
 
 const Threads: FC = () => {
-  const [threads, setThreads] = useState<ThreadWithAuthor[]>([]);
+  const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
@@ -24,7 +24,7 @@ const Threads: FC = () => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      // console.log(skip, data, threads);
+      console.log(threads);
       setDontFetch(false);
     } catch (error) {
       console.error('Error fetching threads:', error);

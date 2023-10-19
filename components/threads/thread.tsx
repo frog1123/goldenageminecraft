@@ -1,11 +1,11 @@
-import { ThreadWithAuthor } from '@/types';
+import { ThreadType } from '@/types';
 import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from 'next/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
 import { Edit } from 'lucide-react';
 
-const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
+const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
 
   const canEdit = userId === thread.author.userId;
