@@ -75,7 +75,7 @@ const Threads: FC = () => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {threads.length > 0 && threads.map(thread => <Thread thread={thread} />)}
+      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}
       <div ref={lastElementRef} className='text-center absolute top-0 left-0 invisible z-[-1] w-full h-[300px]'></div>
     </div>
   );

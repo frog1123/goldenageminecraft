@@ -2,8 +2,15 @@ import { ThreadWithAuthor } from '@/types';
 import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from 'next/link';
+import { useAuth as useClerkAuth } from '@clerk/nextjs';
 
 const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
+  const { userId } = useClerkAuth();
+
+  console.log(userId);
+
+  const canEdit = userId === thread.author.userId;
+
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto'>
       <div className='grid grid-flow-col'>
@@ -13,9 +20,12 @@ const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
           </Link>
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <Link href={`/users/${thread.author.id}`} className='ml-auto'>
-          <p>{thread.author.name}</p>
-        </Link>
+        <div className='ml-auto'>
+          <Link href={`/users/${thread.author.id}`}>
+            <p>{thread.author.name}</p>
+          </Link>
+          {canEdit && <p className='w-max'>can edit</p>}
+        </div>
       </div>
       <p className='break-words'>{thread?.content}</p>
     </div>
