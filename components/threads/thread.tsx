@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from 'next/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
+import { Edit } from 'lucide-react';
 
 const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -20,11 +21,11 @@ const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
           </Link>
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <div className='ml-auto'>
+        <div className='ml-auto grid grid-cols-[max-content_max-content] gap-2 place-items-center'>
           <Link href={`/users/${thread.author.id}`}>
             <p>{thread.author.name}</p>
           </Link>
-          {canEdit && <p className='w-max'>can edit</p>}
+          {canEdit && <Edit className='w-4 h-4' />}
         </div>
       </div>
       <p className='break-words'>{thread?.content}</p>
