@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { useParams } from 'next/navigation';
 
 interface ThreadIdPageProps {
   params: {

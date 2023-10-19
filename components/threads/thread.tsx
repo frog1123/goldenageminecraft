@@ -23,7 +23,11 @@ const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
           <Link href={`/users/${thread.author.id}`}>
             <p>{thread.author.name}</p>
           </Link>
-          {canEdit && <Edit className='w-4 h-4' />}
+          {canEdit && (
+            <Link href={`/forums/threads/${thread.id}/edit`}>
+              <Edit className='w-4 h-4' />
+            </Link>
+          )}
         </div>
       </div>
       <p className='break-words'>{thread?.content}</p>
