@@ -8,8 +8,6 @@ import { Edit } from 'lucide-react';
 const Thread: FC<{ thread: ThreadWithAuthor }> = ({ thread }) => {
   const { userId } = useClerkAuth();
 
-  console.log(userId);
-
   const canEdit = userId === thread.author.userId;
 
   return (
