@@ -55,8 +55,6 @@ export async function POST(req: Request) {
 
   const parsedBody = JSON.parse(body);
 
-  console.log(parsedBody, parsedBody.data.email_addresses);
-
   if (evt.type === 'user.created') {
     const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
 

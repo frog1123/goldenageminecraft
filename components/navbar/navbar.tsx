@@ -1,7 +1,6 @@
 'use client';
 
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { ModeToggle } from '@/components/theme/mode-toggle';
 import { usePathname } from 'next/navigation';
@@ -11,7 +10,6 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 const Navbar: FC = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const pathnames = pathname.split('/');
 
@@ -47,9 +45,18 @@ const Navbar: FC = () => {
           <UserButton afterSignOutUrl='/' userProfileMode='modal' />
         </SignedIn>
         <SignedOut>
-          <button onClick={() => router.push('/sign-in')} className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
-            <p className='text-white'>Sign in</p>
-          </button>
+          <div className='grid grid-cols-[max-content_max-content] gap-2'>
+            <Link href='/sign-up'>
+              <button className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
+                <p className='text-white'>Sign up</p>
+              </button>
+            </Link>
+            <Link href='/sign-in'>
+              <button className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
+                <p className='text-white'>Sign in</p>
+              </button>
+            </Link>
+          </div>
         </SignedOut>
       </div>
     </div>
