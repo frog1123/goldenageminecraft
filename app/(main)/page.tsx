@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
+import Link from '@/components/link';
 
 const Home: NextPage = async () => {
   return (

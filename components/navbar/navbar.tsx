@@ -6,7 +6,7 @@ import { ModeToggle } from '@/components/theme/mode-toggle';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Hexagon } from 'lucide-react';
 import Path from '@/components/navbar/path';
-import Link from 'next/link';
+import Link from '@/components/link';
 import { cn } from '@/lib/utils';
 
 const Navbar: FC = () => {

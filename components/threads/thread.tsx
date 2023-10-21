@@ -1,7 +1,7 @@
 import { ThreadType } from '@/types';
 import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
-import Link from 'next/link';
+import Link from '@/components/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
 import { Crown, Dot, Edit, Gavel, Sailboat, Shield } from 'lucide-react';
 import Image from 'next/image';
