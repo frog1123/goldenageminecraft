@@ -18,6 +18,8 @@ model User {
   email    String   @db.Text
   imageUrl String   @db.Text
   rank     UserRank @default(COAL)
+  role     UserRole @default(USER)
+  plan     UserPlan @default(NONE)
 
   Thread      Thread[]
   ThreadReply ThreadReply[]
@@ -33,6 +35,18 @@ enum UserRank {
   REDSTONE
   LAPIS
   DIAMOND
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+  OWNER
+}
+
+enum UserPlan {
+  NONE
+  PREMIUM
 }
 
 model Thread {

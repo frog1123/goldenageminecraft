@@ -16,7 +16,9 @@ export async function GET(req: Request) {
             userId: true,
             name: true,
             imageUrl: true,
-            rank: true
+            rank: true,
+            role: true,
+            plan: true
           }
         }
       },
