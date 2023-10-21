@@ -52,15 +52,23 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log(JSON.parse(body));
 
-  // if (evt.type === "user.created") {
-  //   await db.user.create({
-  //     data: {
+  const parsedBody = JSON.parse(body);
 
-  //     }
-  //   })
-  // }
+  console.log(parsedBody, parsedBody.data.email_addresses);
+
+  if (evt.type === 'user.created') {
+    const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
+
+    await db.user.create({
+      data: {
+        userId: parsedBody.data.id,
+        name: parsedBody.data.username ? parsedBody.data.username : parsedBody.data.id,
+        email: primaryEmailAddress.email_address,
+        imageUrl: parsedBody.data.image_url
+      }
+    });
+  }
 
   return new Response('', { status: 201 });
 }
