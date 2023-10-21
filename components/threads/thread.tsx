@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from 'next/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
-import { Crown, Dot, Edit } from 'lucide-react';
+import { Crown, Dot, Edit, Gavel, Sailboat, Shield } from 'lucide-react';
 import Image from 'next/image';
-import { $Enums, UserRank } from '@prisma/client';
+import { UserRank, UserRole, UserPlan } from '@prisma/client';
 
 import coal from '@/public/assets/ranks/coal.png';
 import iron from '@/public/assets/ranks/iron.png';
@@ -28,6 +28,13 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
     [UserRank.DIAMOND]: <Image src={diamond} alt='rank' fill />
   };
 
+  const roleMap = {
+    [UserRole.USER]: null,
+    [UserRole.MODERATOR]: <Shield className='w-5 h-5 text-blue-500' />,
+    [UserRole.ADMIN]: <Gavel className='w-5 h-5 text-rose-500' />,
+    [UserRole.OWNER]: <Sailboat className='w-5 h-5 text-indigo-700' />
+  };
+
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto'>
       <div className='grid grid-flow-col'>
@@ -42,7 +49,8 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           <div className='ml-auto w-max grid grid-flow-col place-items-center bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md'>
             <div className='grid grid-flow-col place-items-center gap-1'>
               <div className='grid grid-flow-col place-items-center'>
-                {thread.author.plan === $Enums.UserPlan.PREMIUM && <Crown className='w-5 h-5 text-pink-500' />}
+                {thread.author.plan === UserPlan.PREMIUM && <Crown className='w-5 h-5 text-pink-500 mr-1' />}
+                {roleMap[thread.author.role]}
                 <div className='relative w-6 h-6'>{rankMap[thread.author.rank]}</div>
               </div>
               <div className='relative w-6 h-6 rounded-[50%] overflow-hidden'>

@@ -9,6 +9,7 @@ import LoadingIcon from '@/components/loading-icon';
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
+  const [dontFetchPerm, setDontFetchPerm] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
@@ -17,14 +18,18 @@ const Threads: FC = () => {
   const fetchMoreAmount = 3;
 
   const fetchMoreThreads = async () => {
-    if (dontFetch) return;
+    if (dontFetch || dontFetchPerm) return;
     try {
       setDontFetch(true);
       const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      console.log(threads);
+      console.log(data);
+      if (data.length === 0) {
+        setDontFetch(true);
+        return;
+      }
       setDontFetch(false);
     } catch (error) {
       console.error('Error fetching threads:', error);
