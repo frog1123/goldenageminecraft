@@ -8,7 +8,7 @@ const Control: FC = () => {
   const router = useRouter();
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2'>
       <div>
         <input placeholder='Search' className='w-full h-full rounded-md px-2' />
       </div>
