@@ -14,7 +14,7 @@ const Navbar: FC = () => {
   const pathnames = pathname.split('/');
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed z-50'>
       <div className='max-h-[32px] grid place-items-center'>
         <ModeToggle />
       </div>

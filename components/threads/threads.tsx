@@ -25,7 +25,7 @@ const Threads: FC = () => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      console.log(data);
+      console.log(threads);
       if (data.length === 0) {
         setDontFetch(true);
         return;
@@ -61,7 +61,7 @@ const Threads: FC = () => {
           fetchMoreThreads();
         }
       },
-      { threshold: 0.01 } // Adjust the threshold as needed
+      { threshold: 0.1 } // Adjust the threshold as needed
     );
 
     observer.observe(container);
@@ -81,7 +81,7 @@ const Threads: FC = () => {
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
       {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}
-      <div ref={lastElementRef} className='text-center absolute top-0 left-0 invisible z-[-1] w-full h-[300px]'></div>
+      <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
     </div>
   );
 };
