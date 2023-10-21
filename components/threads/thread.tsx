@@ -3,34 +3,56 @@ import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from 'next/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
-import { Dot, Edit } from 'lucide-react';
+import { Crown, Dot, Edit } from 'lucide-react';
 import Image from 'next/image';
+import { UserRank } from '@prisma/client';
+
+import coal from '@/public/assets/ranks/coal.png';
+import iron from '@/public/assets/ranks/iron.png';
+import gold from '@/public/assets/ranks/gold.png';
+import redstone from '@/public/assets/ranks/redstone.png';
+import lapis from '@/public/assets/ranks/lapis.png';
+import diamond from '@/public/assets/ranks/diamond.png';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
 
   const canEdit = userId === thread.author.userId;
 
+  const rankMap = {
+    [UserRank.COAL]: <Image src={coal} alt='rank' fill />,
+    [UserRank.IRON]: <Image src={iron} alt='rank' fill />,
+    [UserRank.GOLD]: <Image src={gold} alt='rank' fill />,
+    [UserRank.REDSTONE]: <Image src={redstone} alt='rank' fill />,
+    [UserRank.LAPIS]: <Image src={lapis} alt='rank' fill />,
+    [UserRank.DIAMOND]: <Image src={diamond} alt='rank' fill />
+  };
+
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto'>
       <div className='grid grid-flow-col'>
-        <div className='grid grid-cols-[max-content_max-content] gap-2 place-items-center'>
+        <div className='grid grid-cols-[max-content_max-content_max-content] place-items-center'>
           <Link href={`/forums/threads/${thread.id}`}>
             <p className='font-semibold text-lg'>{thread.title}</p>
           </Link>
+          <Dot className='w-4 h-4 text-gray-500' />
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
         <Link href={`/users/${thread.author.id}`}>
           <div className='ml-auto w-max grid grid-flow-col place-items-center bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md'>
-            <div className='grid grid-flow-col place-items-center gap-2'>
+            <div className='grid grid-flow-col place-items-center gap-1'>
+              <div className='grid grid-flow-col place-items-center'>
+                <Crown className='w-5 h-5 text-pink-500' />
+                <div className='relative w-6 h-6'>{rankMap[thread.author.rank]}</div>
+              </div>
               <div className='relative w-6 h-6 rounded-[50%] overflow-hidden'>
                 <Image src={thread.author.imageUrl} alt='author' fill />
               </div>
-              <p>{thread.author.name}</p>
+              <p className='items-center'>{thread.author.name}</p>
             </div>
             {canEdit && (
               <div className='grid grid-cols-[max-content_max-content] place-items-center'>
-                <Dot className='w-4 h-4 text-neutral-400 dark:text-neutral-500' />
+                <Dot className='w-4 h-4 text-gray-500' />
                 <Link href={`/forums/threads/${thread.id}/edit`}>
                   <Edit className='w-4 h-4 hover:text-blue-500 transition' />
                 </Link>
