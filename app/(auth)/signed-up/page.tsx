@@ -1,11 +1,11 @@
-import { getInitalUser } from '@/lib/initial-user';
+import { getCurrentUser } from '@/lib/current-user';
 import { NextPage } from 'next';
 import { redirect } from 'next/navigation';
 
 const SignedUpPage: NextPage = async () => {
-  const initalUser = await getInitalUser();
+  const currentUser = await getCurrentUser();
 
-  if (initalUser) return redirect('/');
+  if (currentUser) return redirect('/');
 
   return (
     <div>
