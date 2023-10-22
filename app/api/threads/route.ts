@@ -20,6 +20,12 @@ export async function GET(req: Request) {
             role: true,
             plan: true
           }
+        },
+        tags: {
+          select: {
+            id: true,
+            name: true
+          }
         }
       },
       orderBy: {

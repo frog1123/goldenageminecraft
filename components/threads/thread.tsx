@@ -35,6 +35,8 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
     [UserRole.OWNER]: <Sailboat className='w-5 h-5 text-indigo-700' />
   };
 
+  console.log(thread);
+
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto'>
       <div className='grid grid-flow-col'>
@@ -65,9 +67,7 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           <Dot className='w-4 h-4 text-gray-500' />
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <div className='ml-auto'>
-          <p>tags</p>
-        </div>
+        <div className='ml-auto'>{thread.tags && thread.tags.map(tag => <p>{tag.name}</p>)}</div>
       </div>
       <Link href={`/forums/threads/${thread.id}`}>
         <p className='font-semibold text-lg break-words'>{thread.title}</p>
