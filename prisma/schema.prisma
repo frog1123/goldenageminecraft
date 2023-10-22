@@ -12,14 +12,17 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  userId   String   @unique
-  name     String
-  email    String   @db.Text
-  imageUrl String   @db.Text
-  rank     UserRank @default(COAL)
-  role     UserRole @default(USER)
-  plan     UserPlan @default(NONE)
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  name      String
+  firstName String?
+  lastName  String?
+  email     String   @db.Text
+  imageUrl  String   @db.Text
+  bio       String   @db.Text
+  rank      UserRank @default(COAL)
+  role      UserRole @default(USER)
+  plan      UserPlan @default(NONE)
 
   Thread      Thread[]
   ThreadReply ThreadReply[]
