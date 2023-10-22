@@ -48,47 +48,59 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
-  const eventType = evt.type;
-
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  // const { id } = evt.data;
 
   const parsedBody = JSON.parse(body);
 
   if (evt.type === 'user.created') {
     const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
 
-    await db.user.create({
-      data: {
-        userId: parsedBody.data.id,
-        name: parsedBody.data.username ? parsedBody.data.username : parsedBody.data.id,
-        email: primaryEmailAddress.email_address,
-        imageUrl: parsedBody.data.image_url
-      }
-    });
+    try {
+      await db.user.create({
+        data: {
+          userId: parsedBody.data.id,
+          name: parsedBody.data.username ? parsedBody.data.username : parsedBody.data.id,
+          email: primaryEmailAddress.email_address,
+          imageUrl: parsedBody.data.image_url
+        }
+      });
+    } catch (err) {
+      console.error('[USER_CREATED] error');
+      return new Response('Internal Server Error', { status: 500 });
+    }
   }
 
   if (evt.type === 'user.updated') {
     const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
 
-    await db.user.update({
-      where: {
-        userId: parsedBody.data.id
-      },
-      data: {
-        name: parsedBody.data.username,
-        email: primaryEmailAddress.email_address,
-        imageUrl: parsedBody.data.image_url
-      }
-    });
+    try {
+      await db.user.update({
+        where: {
+          userId: parsedBody.data.id
+        },
+        data: {
+          name: parsedBody.data.username,
+          email: primaryEmailAddress.email_address,
+          imageUrl: parsedBody.data.image_url
+        }
+      });
+    } catch (err) {
+      console.error('[USER_UPDATED] error');
+      return new Response('Internal Server Error', { status: 500 });
+    }
   }
 
   if (evt.type === 'user.deleted') {
-    await db.user.delete({
-      where: {
-        userId: parsedBody.data.id
-      }
-    });
+    try {
+      await db.user.delete({
+        where: {
+          userId: parsedBody.data.id
+        }
+      });
+    } catch (err) {
+      console.error('[USER_DELETED] error');
+      return new Response('Internal Server Error', { status: 500 });
+    }
   }
 
   return new Response('', { status: 201 });
