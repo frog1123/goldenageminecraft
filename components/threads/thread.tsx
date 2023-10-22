@@ -66,7 +66,7 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           <Dot className='w-4 h-4 text-gray-500' />
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <div className='ml-auto'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} />)}</div>
+        <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
       </div>
       <Link href={`/forums/threads/${thread.id}`}>
         <p className='font-semibold text-lg break-words'>{thread.title}</p>

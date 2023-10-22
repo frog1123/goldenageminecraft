@@ -12,23 +12,18 @@ import TextareaAutosize from 'react-textarea-autosize';
 import spinner from '@/public/assets/spinners/3dots-spinner.svg';
 import Image from 'next/image';
 
+// prettier-ignore
 const formSchema = z.object({
   title: z
     .string()
-    .min(1, {
-      message: 'Title is required'
-    })
-    .max(100, {
-      message: 'Title needs to be under 100 characters'
-    }),
-  content: z.string().max(1000, {
-    message: 'Content needs to be under 1000 characters'
-  }),
+    .min(1, { message: 'Title is required' })
+    .max(100, { message: 'Title needs to be under 100 characters' }),
+  content: z.string().max(1000, { message: 'Content needs to be under 1000 characters' }),
   tags: z
     .array(
-      z.string().max(20, {
-        message: 'Tag needs to be under 20 characters'
-      })
+      z.string()
+      .min(1, { message: 'Tag needs to be at least 1 character' })
+      .max(20, { message: 'Tag needs to be under 20 characters' })
     )
     .max(5, {
       message: 'You can only add up to 5 tags'
@@ -37,14 +32,14 @@ const formSchema = z.object({
 
 const CreateThreadForm: FC = () => {
   const router = useRouter();
-  const [tags, setTags] = useState<string[]>([]);
+  const [tagMessage, setTagMessage] = useState('');
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
       content: '',
-      tags: ['']
+      tags: []
     }
   });
 
@@ -111,19 +106,22 @@ const CreateThreadForm: FC = () => {
                     disabled={isLoading}
                     className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md'
                     placeholder='Add tags (max 5)'
-                    value={tags.join(',')}
+                    {...field}
                     onChange={e => {
-                      const newTags = e.target.value
-                        .split(',')
-                        .map(tag => tag.trim())
-                        .filter(Boolean)
-                        .slice(0, 5);
-                      setTags(newTags);
-                      form.setValue('tags', tags);
+                      const value = e.target.value;
+                      let tagsArray = value.split(',').map(tag => tag.trim());
+                      if (tagsArray.length === 1 && tagsArray[0] === '') tagsArray = [];
+                      if (tagsArray.includes('')) {
+                        setTagMessage('Empty tags are not allowed');
+                      } else {
+                        setTagMessage(''); // Reset the message if tags are valid
+                      }
+                      console.log(tagsArray);
+                      field.onChange(tagsArray);
                     }}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{tagMessage}</FormMessage>
               </FormItem>
             )}
           />
