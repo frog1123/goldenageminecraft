@@ -24,8 +24,11 @@ model User {
   role      UserRole @default(USER)
   plan      UserPlan @default(NONE)
 
-  Thread      Thread[]
-  ThreadReply ThreadReply[]
+  threads       Thread[]
+  threadReplies ThreadReply[]
+
+  threadVotes      ThreadVote[]
+  threadReplyVotes ThreadReplyVote[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -60,7 +63,9 @@ model Thread {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
+  tags    Tag[]
   replies ThreadReply[]
+  votes   ThreadVote[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -68,9 +73,43 @@ model Thread {
   @@index([authorId])
 }
 
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  threads Thread[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ThreadVote {
+  id   String         @id @default(uuid())
+  type ThreadVoteType
+
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([threadId])
+  @@index([authorId])
+}
+
+enum ThreadVoteType {
+  UPVOTE
+  DOWNVOTE
+}
+
 model ThreadReply {
   id      String @id @default(uuid())
   content String
+
+  votes ThreadReplyVote[]
 
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -79,5 +118,22 @@ model ThreadReply {
   thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
 
   @@index([threadId])
+  @@index([authorId])
+}
+
+model ThreadReplyVote {
+  id   String         @id @default(uuid())
+  type ThreadVoteType
+
+  threadReplyId String
+  threadReply   ThreadReply @relation(fields: [threadReplyId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([threadReplyId])
   @@index([authorId])
 }

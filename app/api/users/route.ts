@@ -77,6 +77,7 @@ export async function POST(req: Request) {
       },
       data: {
         name: parsedBody.data.username,
+        email: primaryEmailAddress,
         imageUrl: parsedBody.data.image_url
       }
     });
