@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const formSchema = z.object({
   title: z
@@ -55,13 +56,13 @@ const CreateThreadForm: FC = () => {
             control={form.control}
             name='title'
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>Title</FormLabel>
+              <FormItem className='grid grid-flow-row'>
+                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Title</FormLabel>
                 <FormControl>
-                  <Input
+                  <TextareaAutosize
                     disabled={isLoading}
-                    className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
-                    placeholder='Enter thread title'
+                    className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none'
+                    placeholder='Enter thread content'
                     {...field}
                   />
                 </FormControl>
@@ -73,12 +74,12 @@ const CreateThreadForm: FC = () => {
             control={form.control}
             name='content'
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>Content</FormLabel>
+              <FormItem className='grid grid-flow-row'>
+                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Content</FormLabel>
                 <FormControl>
-                  <Input
+                  <TextareaAutosize
                     disabled={isLoading}
-                    className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
+                    className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none'
                     placeholder='Enter thread content'
                     {...field}
                   />
