@@ -71,8 +71,6 @@ export async function POST(req: Request) {
   if (evt.type === 'user.updated') {
     const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
 
-    console.log(parsedBody);
-
     await db.user.update({
       where: {
         userId: parsedBody.data.id
@@ -80,6 +78,14 @@ export async function POST(req: Request) {
       data: {
         name: parsedBody.data.username,
         imageUrl: parsedBody.data.image_url
+      }
+    });
+  }
+
+  if (evt.type === 'user.deleted') {
+    await db.user.delete({
+      where: {
+        userId: parsedBody.data.id
       }
     });
   }
