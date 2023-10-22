@@ -38,22 +38,39 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { title, content } = await req.json();
+    const { title, content, tags } = await req.json();
     const currentUser = await getCurrentUser();
 
     if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
     if (title.length >= 100) return new NextResponse('Title too long', { status: 400 });
     if (content.length >= 1000) return new NextResponse('Content too long', { status: 400 });
 
-    const server = await db.thread.create({
+    console.log(tags);
+
+    const createdTags = await Promise.all(
+      tags.map(async (tagName: string) => {
+        return await db.tag.upsert({
+          where: { name: tagName },
+          update: {},
+          create: { name: tagName }
+        });
+      })
+    );
+
+    const resolvedTags = await Promise.all(createdTags);
+
+    const thread = await db.thread.create({
       data: {
         title,
         content,
+        tags: {
+          connect: resolvedTags.map(tag => ({ id: tag.id }))
+        },
         authorId: currentUser.id
       }
     });
 
-    return NextResponse.json(server);
+    return NextResponse.json(thread);
   } catch (err) {
     console.log('[THREADS_POST]', err);
     return new NextResponse('Internal Error', { status: 500 });

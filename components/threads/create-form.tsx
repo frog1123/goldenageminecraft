@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -23,17 +23,28 @@ const formSchema = z.object({
     }),
   content: z.string().max(1000, {
     message: 'Content needs to be under 1000 characters'
-  })
+  }),
+  tags: z
+    .array(
+      z.string().max(20, {
+        message: 'Tag needs to be under 20 characters'
+      })
+    )
+    .max(5, {
+      message: 'You can only add up to 5 tags'
+    })
 });
 
 const CreateThreadForm: FC = () => {
   const router = useRouter();
+  const [tags, setTags] = useState<string[]>([]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
-      content: ''
+      content: '',
+      tags: ['']
     }
   });
 
@@ -83,6 +94,33 @@ const CreateThreadForm: FC = () => {
                     className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none'
                     placeholder='Enter thread content'
                     {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='tags'
+            render={({ field }) => (
+              <FormItem className='grid grid-flow-row'>
+                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Tags</FormLabel>
+                <FormControl>
+                  <input
+                    disabled={isLoading}
+                    className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md'
+                    placeholder='Add tags (max 5)'
+                    value={tags.join(',')}
+                    onChange={e => {
+                      const newTags = e.target.value
+                        .split(',')
+                        .map(tag => tag.trim())
+                        .filter(Boolean)
+                        .slice(0, 5);
+                      setTags(newTags);
+                      form.setValue('tags', tags);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
