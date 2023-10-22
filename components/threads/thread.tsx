@@ -13,6 +13,7 @@ import gold from '@/public/assets/ranks/gold.png';
 import redstone from '@/public/assets/ranks/redstone.png';
 import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
+import Tag from '@/components/threads/tag';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -34,8 +35,6 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
     [UserRole.ADMIN]: <Gavel className='w-5 h-5 text-rose-500' />,
     [UserRole.OWNER]: <Sailboat className='w-5 h-5 text-indigo-700' />
   };
-
-  console.log(thread);
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto'>
@@ -67,7 +66,7 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           <Dot className='w-4 h-4 text-gray-500' />
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <div className='ml-auto'>{thread.tags && thread.tags.map(tag => <p>{tag.name}</p>)}</div>
+        <div className='ml-auto'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} />)}</div>
       </div>
       <Link href={`/forums/threads/${thread.id}`}>
         <p className='font-semibold text-lg break-words'>{thread.title}</p>
