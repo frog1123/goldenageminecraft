@@ -68,5 +68,21 @@ export async function POST(req: Request) {
     });
   }
 
+  if (evt.type === 'user.updated') {
+    const primaryEmailAddress = parsedBody.data.email_addresses.find((email: any) => email.id === parsedBody.data.primary_email_address_id);
+
+    console.log(parsedBody);
+
+    await db.user.update({
+      where: {
+        userId: parsedBody.data.id
+      },
+      data: {
+        name: parsedBody.data.username,
+        imageUrl: parsedBody.data.image_url
+      }
+    });
+  }
+
   return new Response('', { status: 201 });
 }
