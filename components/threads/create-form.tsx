@@ -3,13 +3,14 @@
 import { FC } from 'react';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import TextareaAutosize from 'react-textarea-autosize';
+import spinner from '@/public/assets/spinners/3dots-spinner.svg';
+import Image from 'next/image';
 
 const formSchema = z.object({
   title: z
@@ -89,7 +90,9 @@ const CreateThreadForm: FC = () => {
             )}
           />
           <div>
-            <Button disabled={isLoading}>Create</Button>
+            <Button disabled={isLoading} className='bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]'>
+              {isLoading ? <Image src={spinner} alt='loading' className='h-[100%]' /> : <p>Create</p>}
+            </Button>
           </div>
         </form>
       </Form>
