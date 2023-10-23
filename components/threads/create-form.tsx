@@ -11,28 +11,22 @@ import { useRouter } from 'next/navigation';
 import TextareaAutosize from 'react-textarea-autosize';
 import spinner from '@/public/assets/spinners/3dots-spinner.svg';
 import Image from 'next/image';
+import { containsSpecialCharacters } from '@/utils/contains-special-characters';
+import { hasDuplicates } from '@/utils/has-duplicates';
 
-// prettier-ignore
 const formSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: 'Title is required' })
-    .max(100, { message: 'Title needs to be under 100 characters' }),
-  content: z.string().max(1000, { message: 'Content needs to be under 1000 characters' }),
-  tags: z
-    .array(
-      z.string()
-      .min(1, { message: 'Tag needs to be at least 1 character' })
-      .max(20, { message: 'Tag needs to be under 20 characters' })
-    )
-    .max(5, {
-      message: 'You can only add up to 5 tags'
-    })
+  title: z.string(),
+  content: z.string(),
+  tags: z.array(z.string())
 });
 
 const CreateThreadForm: FC = () => {
   const router = useRouter();
   const [tagMessage, setTagMessage] = useState('');
+  const [contentMessage, setContentMessage] = useState('');
+  const [titleMessage, setTitleMessage] = useState('');
+
+  const [formValid, setFormValid] = useState({ title: false, content: true, tags: true });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -71,9 +65,25 @@ const CreateThreadForm: FC = () => {
                     className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none'
                     placeholder='Enter thread content'
                     {...field}
+                    onChange={e => {
+                      const value = e.target.value;
+
+                      if (value.length === 0) {
+                        setTitleMessage('Title is required');
+                        setFormValid({ ...formValid, title: false });
+                      } else if (value.length >= 100) {
+                        setTitleMessage(`Content must be under 100 characters (${99 - value.length})`);
+                        setFormValid({ ...formValid, title: false });
+                      } else {
+                        setTitleMessage('');
+                        setFormValid({ ...formValid, title: true });
+                      }
+
+                      field.onChange(e);
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{titleMessage}</FormMessage>
               </FormItem>
             )}
           />
@@ -89,9 +99,22 @@ const CreateThreadForm: FC = () => {
                     className='bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none'
                     placeholder='Enter thread content'
                     {...field}
+                    onChange={e => {
+                      const value = e.target.value;
+
+                      if (value.length >= 1000) {
+                        setContentMessage(`Content must be under 1000 characters (${999 - value.length})`);
+                        setFormValid({ ...formValid, content: false });
+                      } else {
+                        setContentMessage('');
+                        setFormValid({ ...formValid, content: true });
+                      }
+
+                      field.onChange(e);
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{contentMessage}</FormMessage>
               </FormItem>
             )}
           />
@@ -110,13 +133,35 @@ const CreateThreadForm: FC = () => {
                     onChange={e => {
                       const value = e.target.value;
                       let tagsArray = value.split(',').map(tag => tag.trim());
+                      let specialCharacters = false;
+                      let brokeMax = false;
                       if (tagsArray.length === 1 && tagsArray[0] === '') tagsArray = [];
-                      if (tagsArray.includes('')) {
-                        setTagMessage('Empty tags are not allowed');
-                      } else {
-                        setTagMessage(''); // Reset the message if tags are valid
+
+                      for (const element of tagsArray) {
+                        if (containsSpecialCharacters(element)) specialCharacters = true;
+                        if (element.length >= 20) brokeMax = true;
                       }
-                      console.log(tagsArray);
+
+                      if (tagsArray.length > 5) {
+                        setTagMessage('You can only add up to 5 tags');
+                        setFormValid({ ...formValid, tags: false });
+                      } else if (brokeMax) {
+                        setTagMessage('Tag needs to be under 20 characters');
+                        setFormValid({ ...formValid, tags: false });
+                      } else if (hasDuplicates(tagsArray)) {
+                        setTagMessage('You can not have duplicate tags');
+                        setFormValid({ ...formValid, tags: false });
+                      } else if (tagsArray.includes('')) {
+                        setTagMessage('Empty tags are not allowed');
+                        setFormValid({ ...formValid, tags: false });
+                      } else if (specialCharacters) {
+                        setTagMessage('Special characters are not allowed');
+                        setFormValid({ ...formValid, tags: false });
+                      } else {
+                        setTagMessage('');
+                        setFormValid({ ...formValid, tags: true });
+                      }
+
                       field.onChange(tagsArray);
                     }}
                   />
@@ -126,7 +171,10 @@ const CreateThreadForm: FC = () => {
             )}
           />
           <div>
-            <Button disabled={isLoading} className='bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]'>
+            <Button
+              disabled={isLoading || !(formValid.title && formValid.content && formValid.tags)}
+              className='bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]'
+            >
               {isLoading ? <Image src={spinner} alt='loading' className='h-[100%]' /> : <p>Create</p>}
             </Button>
           </div>
