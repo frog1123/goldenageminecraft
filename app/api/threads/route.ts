@@ -1,5 +1,7 @@
 import { getCurrentUser } from '@/lib/current-user';
 import { db } from '@/lib/db';
+import { containsSpecialCharacters } from '@/utils/contains-special-characters';
+import { hasDuplicates } from '@/utils/has-duplicates';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
@@ -47,11 +49,24 @@ export async function POST(req: Request) {
     const { title, content, tags } = await req.json();
     const currentUser = await getCurrentUser();
 
+    let specialCharacters = false;
+    let brokeMax = false;
+
+    for (const element of tags) {
+      if (containsSpecialCharacters(element)) specialCharacters = true;
+      if (element.length >= 20) brokeMax = true;
+    }
+
     if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+    if (title.length === 0) return new NextResponse('Title required', { status: 400 });
     if (title.length >= 100) return new NextResponse('Title too long', { status: 400 });
     if (content.length >= 1000) return new NextResponse('Content too long', { status: 400 });
 
-    console.log(tags);
+    if (tags.length > 5) return new NextResponse('You can only add up to 5 tags', { status: 400 });
+    else if (brokeMax) return new NextResponse('Tag needs to be under 20 characters', { status: 400 });
+    else if (hasDuplicates(tags)) return new NextResponse('You can not have duplicate tags', { status: 400 });
+    else if (tags.includes('')) return new NextResponse('Empty tags are not allowed', { status: 400 });
+    else if (specialCharacters) return new NextResponse('Special characters are not allowed', { status: 400 });
 
     const createdTags = await Promise.all(
       tags.map(async (tagName: string) => {
