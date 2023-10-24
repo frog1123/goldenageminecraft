@@ -24,7 +24,7 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}${authorId && `&author=${authorId}`}`);
+      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}${authorId ? `&author=${authorId}` : ''}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -42,7 +42,7 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}${authorId && `&author=${authorId}`}`);
+        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}${authorId ? `&author=${authorId}` : ''}`);
         const data = response.data;
         setThreads(data);
         setIsLoading(false);
@@ -83,7 +83,6 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {`/api/threads?take=${initalThreadCount}&skip=${0}${authorId && `&author=${authorId}`}`}
       {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}
       <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
     </div>
