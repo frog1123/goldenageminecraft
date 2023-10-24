@@ -34,8 +34,8 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
         return;
       }
       setDontFetch(false);
-    } catch (error) {
-      console.error('Error fetching threads:', error);
+    } catch (err) {
+      console.error('Error fetching threads [INCREMENTAL]:', err);
     }
   };
 
@@ -46,8 +46,8 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
         const data = response.data;
         setThreads(data);
         setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching threads:', error);
+      } catch (err) {
+        console.error('Error fetching threads [INITIAL]:', err);
       }
     };
 
