@@ -28,7 +28,7 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      console.log(threads);
+      // console.log(threads);
       if (data.length === 0) {
         setDontFetch(true);
         return;
