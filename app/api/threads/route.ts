@@ -8,9 +8,10 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const take = searchParams.get('take');
   const skip = searchParams.get('skip');
+  const authorId = searchParams.get('author');
 
   try {
-    const items = await db.thread.findMany({
+    let query: any = {
       include: {
         author: {
           select: {
@@ -35,7 +36,15 @@ export async function GET(req: Request) {
       },
       take: take ? parseInt(take) : 0,
       skip: skip ? parseInt(skip) : 0
-    });
+    };
+
+    if (authorId) {
+      query.where = {
+        authorId: authorId
+      };
+    }
+
+    const items = await db.thread.findMany(query);
 
     return NextResponse.json(items);
   } catch (err) {

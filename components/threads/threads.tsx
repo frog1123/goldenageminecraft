@@ -6,10 +6,13 @@ import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
 
-const Threads: FC = () => {
+interface ThreadsProps {
+  authorId?: string;
+}
+
+const Threads: FC<ThreadsProps> = ({ authorId }) => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
-  const [dontFetchPerm, setDontFetchPerm] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
@@ -18,10 +21,10 @@ const Threads: FC = () => {
   const fetchMoreAmount = 3;
 
   const fetchMoreThreads = async () => {
-    if (dontFetch || dontFetchPerm) return;
+    if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}`);
+      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}${authorId && `&author=${authorId}`}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -39,7 +42,7 @@ const Threads: FC = () => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}`);
+        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}${authorId && `&author=${authorId}`}`);
         const data = response.data;
         setThreads(data);
         setIsLoading(false);
@@ -80,6 +83,7 @@ const Threads: FC = () => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
+      {`/api/threads?take=${initalThreadCount}&skip=${0}${authorId && `&author=${authorId}`}`}
       {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}
       <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
     </div>
