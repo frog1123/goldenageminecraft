@@ -1,4 +1,4 @@
-import Threads from '@/components/threads/threads';
+import { UserThreads } from '@/components/threads/user-threads';
 import UserInfo from '@/components/users/user-info';
 import { db } from '@/lib/db';
 import { NextPage } from 'next';
@@ -40,7 +40,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
   return (
     <div className='grid grid-flow-row gap-2 w-full sm:w-[60%] lg:w-[50%] xl:w-[40%] mx-auto'>
       <UserInfo user={user} />
-      <Threads authorId={params.userId} />
+      <UserThreads authorId={params.userId} />
     </div>
   );
 };
