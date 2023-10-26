@@ -17,7 +17,7 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
 
-  const initalThreadCount = 10;
+  const initalThreadCount = 1;
   const fetchMoreAmount = 3;
 
   const fetchMoreThreads = async () => {
@@ -28,7 +28,6 @@ const Threads: FC<ThreadsProps> = ({ authorId }) => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      // console.log(threads);
       if (data.length === 0) {
         setDontFetch(true);
         return;

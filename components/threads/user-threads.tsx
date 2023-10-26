@@ -21,7 +21,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
 
   const { userId } = useClerkAuth();
 
-  const initalThreadCount = 10;
+  const initalThreadCount = 1;
   const fetchMoreAmount = 3;
 
   const fetchMoreThreads = async () => {
@@ -90,6 +90,8 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
+      {`/api/threads?take=${fetchMoreAmount}&skip=${0}&author=${authorId}`}
+      <br></br>
       {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
       {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={thread.id} canEdit={canEdit} />)}
       <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
