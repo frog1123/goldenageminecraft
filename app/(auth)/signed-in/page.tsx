@@ -7,6 +7,13 @@ const SignedInPage: NextPage = async () => {
 
   if (currentUser) return redirect('/');
 
+  if (!currentUser)
+    return (
+      <div>
+        <p>Something went wrong :/</p>
+      </div>
+    );
+
   return (
     <div>
       <p>Please wait...</p>
