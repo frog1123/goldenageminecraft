@@ -4,7 +4,8 @@ import { FC, useEffect, useState, useRef } from 'react';
 import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
-import { UserThread } from './user-thread';
+import { UserThread } from '@/components/threads/user-thread';
+import { useAuth as useClerkAuth } from '@clerk/nextjs';
 
 interface UserThreadsProps {
   authorId: string;
@@ -16,6 +17,9 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
+  const [canEdit, setCanEdit] = useState(false);
+
+  const { userId } = useClerkAuth();
 
   const initalThreadCount = 10;
   const fetchMoreAmount = 3;
@@ -41,9 +45,13 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${0}&author=${authorId}`);
-        const data = response.data;
-        setThreads(data);
+        const threadsResponse = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${0}&author=${authorId}`);
+        const threadsData = threadsResponse.data;
+        setThreads(threadsData);
+
+        const userIdResponse = await axios.get(`/api/users/userId?id=${authorId}`);
+        setCanEdit(userId === userIdResponse.data.userId);
+
         setIsLoading(false);
       } catch (err) {
         console.error('Error fetching threads [INITIAL]:', err);
@@ -83,7 +91,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
       {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
-      {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={thread.id} />)}
+      {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={thread.id} canEdit={canEdit} />)}
       <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
     </div>
   );
