@@ -6,7 +6,7 @@ import { authMiddleware } from '@clerk/nextjs';
 
 export default authMiddleware({
   publicRoutes: ['/api/threads', '/', '/forums', '/forums/threads', '/forums/threads/:threadId', '/users/:userId'],
-  ignoredRoutes: ['/api/users'] // temp
+  ignoredRoutes: ['/api/users', '/api/users/userId'] // temp
 });
 
 export const config = {

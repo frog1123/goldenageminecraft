@@ -2,16 +2,15 @@ import { UserThreadType } from '@/types';
 import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from '@/components/link';
-import { useAuth as useClerkAuth } from '@clerk/nextjs';
 
 import Tag from '@/components/threads/tag';
 
-export const UserThread: FC<{ thread: UserThreadType }> = ({ thread }) => {
-  const { userId } = useClerkAuth();
+interface UserThreadProps {
+  thread: UserThreadType;
+  canEdit: boolean;
+}
 
-  // const canEdit = userId === thread.author.userId;
-  const canEdit = true;
-
+export const UserThread: FC<UserThreadProps> = ({ thread, canEdit }) => {
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto'>
       <div className='grid grid-flow-col'>
