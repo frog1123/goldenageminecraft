@@ -1,5 +1,5 @@
 import './globals.scss';
-import type { Metadata } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme/theme-provider';
@@ -12,7 +12,11 @@ export const metadata: Metadata = {
   description: 'The forum for the golden age of Minecraft.'
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <ClerkProvider>
       <html lang='en' suppressHydrationWarning>
