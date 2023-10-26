@@ -13,17 +13,6 @@ export async function GET(req: Request) {
   try {
     let query: any = {
       include: {
-        author: {
-          select: {
-            id: true,
-            userId: true,
-            name: true,
-            imageUrl: true,
-            rank: true,
-            role: true,
-            plan: true
-          }
-        },
         tags: {
           select: {
             id: true,
@@ -41,6 +30,18 @@ export async function GET(req: Request) {
     if (authorId) {
       query.where = {
         authorId: authorId
+      };
+    } else {
+      query.include.author = {
+        select: {
+          id: true,
+          userId: true,
+          name: true,
+          imageUrl: true,
+          rank: true,
+          role: true,
+          plan: true
+        }
       };
     }
 
