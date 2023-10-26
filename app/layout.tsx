@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'The forum for the golden age of Minecraft.'
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClerkProvider>
       <html lang='en' suppressHydrationWarning>
@@ -25,4 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </html>
     </ClerkProvider>
   );
-}
+};
+
+export default RootLayout;
