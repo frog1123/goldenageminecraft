@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useEffect, useState, useRef } from 'react';
-import Thread from '@/components/threads/thread';
 import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
+import { UserThread } from './user-thread';
 
 interface UserThreadsProps {
   authorId: string;
@@ -83,7 +83,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
       {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
-      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={thread.id} />)}
+      {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={thread.id} />)}
       <div ref={lastElementRef} className='text-center bg-red-500 w-full'></div>
     </div>
   );
