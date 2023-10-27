@@ -80,7 +80,7 @@ const Navbar: FC = () => {
                     <span>{user.fullName ? user.fullName : user.username}</span>
                   </div>
                 </DropdownMenuItem>
-                <Separator />
+                <Separator className='my-1' />
                 <DropdownMenuItem onClick={() => signOut()}>
                   <div className='flex place-items-center w-full gap-2'>
                     <span>Sign out</span>
