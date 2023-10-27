@@ -59,7 +59,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
     };
 
     fetchThreads();
-  }, []);
+  });
 
   useEffect(() => {
     const container = lastElementRef.current;
@@ -79,7 +79,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
     return () => {
       observer.disconnect();
     };
-  }, [threads, skip]);
+  });
 
   if (isLoading)
     return (

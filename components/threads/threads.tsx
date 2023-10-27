@@ -47,7 +47,7 @@ const Threads: FC = () => {
     };
 
     fetchThreads();
-  }, []);
+  }, [threads]);
 
   useEffect(() => {
     const container = lastElementRef.current;
@@ -67,7 +67,7 @@ const Threads: FC = () => {
     return () => {
       observer.disconnect();
     };
-  }, [threads, skip]);
+  }, [threads]);
 
   if (isLoading)
     return (

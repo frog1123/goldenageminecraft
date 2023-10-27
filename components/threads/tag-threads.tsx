@@ -51,7 +51,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     };
 
     fetchThreads();
-  }, []);
+  }, [tagId]);
 
   useEffect(() => {
     const container = lastElementRef.current;
@@ -71,7 +71,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     return () => {
       observer.disconnect();
     };
-  }, [threads, skip]);
+  });
 
   if (isLoading)
     return (

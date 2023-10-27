@@ -8,7 +8,7 @@ export default function Page() {
 
   useEffect(() => {
     setIsMounted(true);
-  });
+  }, []);
 
   if (!isMounted) return null;
 
