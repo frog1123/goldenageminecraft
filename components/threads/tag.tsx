@@ -10,7 +10,7 @@ interface TagProps {
 const Tag: FC<TagProps> = ({ id, name }) => {
   return (
     <Link href={`/forums/tags/${id}`}>
-      <div className='bg-blue-500/25 p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center'>
+      <div className='bg-blue-500/25 hover:bg-blue-800/25 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center'>
         <Hash className='w-4 h-4' />
         <span className='items-center'>{name}</span>
       </div>
