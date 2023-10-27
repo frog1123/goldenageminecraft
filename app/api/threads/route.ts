@@ -18,7 +18,18 @@ export async function GET(req: Request) {
         select: {
           threads: {
             include: {
-              tags: true
+              tags: true,
+              author: {
+                select: {
+                  id: true,
+                  userId: true,
+                  name: true,
+                  imageUrl: true,
+                  rank: true,
+                  role: true,
+                  plan: true
+                }
+              }
             },
             orderBy: {
               createdAt: 'desc'

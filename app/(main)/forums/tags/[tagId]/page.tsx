@@ -1,3 +1,4 @@
+import TagThreads from '@/components/threads/tag-threads';
 import { Hash } from 'lucide-react';
 import { NextPage } from 'next';
 
@@ -14,6 +15,7 @@ const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
         <Hash className='w-6 h-6' />
         <span className='text-2xl'>{params.tagId}</span>
       </div>
+      <TagThreads tagId={params.tagId} />
     </div>
   );
 };

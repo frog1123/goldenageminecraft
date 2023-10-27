@@ -6,7 +6,11 @@ import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
 
-const Threads: FC = () => {
+interface TagThreadsProps {
+  tagId: string;
+}
+
+const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +24,7 @@ const Threads: FC = () => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}`);
+      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&tag=${tagId}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -37,7 +41,7 @@ const Threads: FC = () => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}`);
+        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}&tag=${tagId}`);
         const data = response.data;
         setThreads(data);
         setIsLoading(false);
@@ -84,4 +88,4 @@ const Threads: FC = () => {
   );
 };
 
-export default Threads;
+export default TagThreads;
