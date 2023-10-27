@@ -9,8 +9,29 @@ export async function GET(req: Request) {
   const take = searchParams.get('take');
   const skip = searchParams.get('skip');
   const authorId = searchParams.get('author');
+  const tagId = searchParams.get('tag');
 
   try {
+    if (tagId) {
+      const threadsWithTag = await db.tag.findUnique({
+        where: { id: tagId },
+        select: {
+          threads: {
+            include: {
+              tags: true
+            },
+            orderBy: {
+              createdAt: 'desc'
+            },
+            take: take ? parseInt(take) : 0,
+            skip: skip ? parseInt(skip) : 0
+          }
+        }
+      });
+
+      return NextResponse.json(threadsWithTag?.threads);
+    }
+
     let query: any = {
       include: {
         tags: {
@@ -29,7 +50,8 @@ export async function GET(req: Request) {
 
     if (authorId) {
       query.where = {
-        authorId: authorId
+        ...query.where,
+        authorId
       };
     } else {
       query.include.author = {
