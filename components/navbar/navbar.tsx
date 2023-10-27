@@ -8,14 +8,10 @@ import { ChevronRight, Hexagon } from 'lucide-react';
 import Path from '@/components/navbar/path';
 import Link from '@/components/link';
 import { cn } from '@/lib/utils';
-import { dark } from '@clerk/themes';
-import { useTheme } from 'next-themes';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split('/');
-
-  const { theme } = useTheme();
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed z-50'>
@@ -46,7 +42,7 @@ const Navbar: FC = () => {
       </div>
       <div className='ml-auto w-max'>
         <SignedIn>
-          <UserButton afterSignOutUrl='/' userProfileMode='modal' appearance={{ baseTheme: theme === 'dark' ? dark : undefined }} />
+          <UserButton afterSignOutUrl='/' userProfileMode='modal' />
         </SignedIn>
         <SignedOut>
           <div className='grid grid-cols-[max-content_max-content] gap-2'>
