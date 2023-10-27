@@ -54,7 +54,7 @@ const CreateThreadForm: FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2'>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
