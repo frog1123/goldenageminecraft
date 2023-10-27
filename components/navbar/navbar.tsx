@@ -17,6 +17,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
 import { useTheme } from 'next-themes';
 
@@ -74,6 +75,12 @@ const Navbar: FC = () => {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
+                <DropdownMenuItem className='pointer-events-none'>
+                  <div>
+                    <span>{user.fullName ? user.fullName : user.username}</span>
+                  </div>
+                </DropdownMenuItem>
+                <Separator />
                 <DropdownMenuItem onClick={() => signOut()}>
                   <div className='flex place-items-center w-full gap-2'>
                     <span>Sign out</span>
