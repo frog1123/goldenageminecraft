@@ -2,14 +2,23 @@
 
 import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
 import { FC, useEffect, useState } from 'react';
-import { ModeToggle } from '@/components/theme/mode-toggle';
 import { usePathname } from 'next/navigation';
-import { ChevronRight, Hexagon, LogOut, User, Wrench } from 'lucide-react';
+import { ChevronRight, Hexagon, LogOut, Moon, Settings, Sun, User, Wrench } from 'lucide-react';
 import Path from '@/components/navbar/path';
 import Link from '@/components/link';
 import { cn } from '@/lib/utils';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 import axios from 'axios';
+import { useTheme } from 'next-themes';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -17,6 +26,8 @@ const Navbar: FC = () => {
 
   const { user, signOut, openUserProfile } = useClerk();
   const [id, setId] = useState('');
+
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     if (!user?.id) return;
@@ -31,9 +42,6 @@ const Navbar: FC = () => {
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed z-50'>
-      <div className='max-h-[32px] grid place-items-center'>
-        <ModeToggle />
-      </div>
       <div className='grid grid-flow-col place-items-center'>
         <div className='grid grid-flow-col gap-2 place-items-center'>
           <Link href='/'>
@@ -86,6 +94,33 @@ const Navbar: FC = () => {
                     </div>
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className='flex items-center'>
+                    <span>Set theme</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuItem onClick={() => setTheme('light')}>
+                        <div className='flex place-items-center w-full gap-2'>
+                          <span>Light</span>
+                          <Sun className='w-4 h-4 ml-auto' />
+                        </div>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme('dark')}>
+                        <div className='flex place-items-center w-full gap-2'>
+                          <span>Dark</span>
+                          <Moon className='w-4 h-4 ml-auto' />
+                        </div>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme('system')}>
+                        <div className='flex place-items-center w-full gap-2'>
+                          <span>System</span>
+                          <Settings className='w-4 h-4 ml-auto' />
+                        </div>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
