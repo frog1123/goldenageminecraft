@@ -1,20 +1,33 @@
 'use client';
 
 import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ModeToggle } from '@/components/theme/mode-toggle';
 import { usePathname } from 'next/navigation';
-import { ChevronRight, Hexagon, LogOut, Wrench } from 'lucide-react';
+import { ChevronRight, Hexagon, LogOut, User, Wrench } from 'lucide-react';
 import Path from '@/components/navbar/path';
 import Link from '@/components/link';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import axios from 'axios';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split('/');
 
   const { user, signOut, openUserProfile } = useClerk();
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const fetch = async () => {
+      const idResponse = await axios.get(`/api/users/id?id=${user.id}`);
+      setId(idResponse.data.id);
+    };
+
+    fetch();
+  });
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed z-50'>
@@ -65,14 +78,16 @@ const Navbar: FC = () => {
                     <Wrench className='w-4 h-4 ml-auto' />
                   </div>
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/users/${id}`} className='w-full'>
+                    <div className='flex place-items-center w-full gap-2'>
+                      <span>View profile</span>
+                      <User className='w-4 h-4 ml-auto' />
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            // <button onClick={() => signOut()}>
-            //   <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border'>
-            //     <img src={user.imageUrl} alt='author' />
-            //   </div>
-            // </button>
           )}
         </SignedIn>
         <SignedOut>
