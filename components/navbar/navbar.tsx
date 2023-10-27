@@ -1,17 +1,20 @@
 'use client';
 
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { FC } from 'react';
+import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import { FC, useEffect } from 'react';
 import { ModeToggle } from '@/components/theme/mode-toggle';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Hexagon } from 'lucide-react';
 import Path from '@/components/navbar/path';
 import Link from '@/components/link';
 import { cn } from '@/lib/utils';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split('/');
+
+  const { user, signOut } = useClerk();
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 fixed z-50'>
@@ -40,9 +43,26 @@ const Navbar: FC = () => {
           );
         })}
       </div>
-      <div className='ml-auto w-max'>
+      <div className='ml-auto w-max grid place-items-center grid-flow-col'>
         <SignedIn>
-          <UserButton afterSignOutUrl='/' userProfileMode='modal' />
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer'>
+                  <img src={user.imageUrl} alt='author' />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                <DropdownMenuItem onClick={() => {}}>Light</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            // <button onClick={() => signOut()}>
+            //   <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border'>
+            //     <img src={user.imageUrl} alt='author' />
+            //   </div>
+            // </button>
+          )}
         </SignedIn>
         <SignedOut>
           <div className='grid grid-cols-[max-content_max-content] gap-2'>
