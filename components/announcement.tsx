@@ -20,9 +20,9 @@ export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls 
       <p className='font-semibold text-lg break-words w-max'>{title}</p>
       <p className='break-words'>{content}</p>
       {imageUrls &&
-        imageUrls.map(img => (
+        imageUrls.map((img, index) => (
           <div className='rounded-md overflow-hidden'>
-            <Image src={img} alt='d' />
+            <Image src={img} alt='image' key={index} />
           </div>
         ))}
     </div>
