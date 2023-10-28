@@ -95,8 +95,8 @@ const Navbar: FC = () => {
               // modal needs to be false
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer'>
-                    <img src={user.imageUrl} alt='author' />
+                  <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative'>
+                    <Image src={user.imageUrl} alt='author' fill />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>

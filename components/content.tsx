@@ -8,8 +8,6 @@ export const Content: FC<ContentProps> = ({ text }) => {
   const makeLinks = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
-    console.log(text);
-
     return text.split(urlRegex).map((word, index) => {
       if (word.match(urlRegex)) {
         return (
