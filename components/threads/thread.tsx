@@ -68,8 +68,8 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
         </div>
         <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
       </div>
-      <Link href={`/forums/threads/${thread.id}`}>
-        <p className='font-semibold text-lg break-words'>{thread.title}</p>
+      <Link href={`/forums/threads/${thread.id}`} className='w-max'>
+        <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
       </Link>
       <p className='break-words'>{thread?.content}</p>
     </div>
