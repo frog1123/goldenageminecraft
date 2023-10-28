@@ -1,10 +1,13 @@
+'use client';
+
 import { Pin } from 'lucide-react';
 import { FC } from 'react';
+import Image from 'next/image';
 
 interface AnnouncementProps {
   title: string;
   content?: string;
-  imageUrls?: string[];
+  imageUrls?: any[];
 }
 
 export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls }) => {
@@ -16,7 +19,12 @@ export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls 
       </div>
       <p className='font-semibold text-lg break-words w-max'>{title}</p>
       <p className='break-words'>{content}</p>
-      {imageUrls && imageUrls.map(img => <img src={img} />)}
+      {imageUrls &&
+        imageUrls.map(img => (
+          <div className='rounded-md overflow-hidden'>
+            <Image src={img} alt='d' />
+          </div>
+        ))}
     </div>
   );
 };

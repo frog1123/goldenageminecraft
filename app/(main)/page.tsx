@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Link from '@/components/link';
 import { Announcement } from '@/components/announcement';
+import img1 from '@/public/assets/announcements/img1.png';
 
 const Home: NextPage = async () => {
   return (
@@ -12,7 +13,7 @@ const Home: NextPage = async () => {
           </button>
         </Link>
       </div>
-
+      <Announcement title='Welcome to goldenageminecraft!' content='This is a forum website for discussing all things related to old minecraft!' imageUrls={[img1]} />
       <Announcement
         title='NOTICE'
         content='THIS SITE IS IN NO WAY OFFICIALLY AFFILIATED WITH THE /r/GoldenAgeMinecraft/ SUBREDDIT, MOJANG AB, OR THE MICROSOFT CORPORATION.'
