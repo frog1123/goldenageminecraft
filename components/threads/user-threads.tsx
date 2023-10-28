@@ -36,6 +36,8 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
         setDontFetch(true);
         return;
       }
+
+      console.log(threads, skip);
       setDontFetch(false);
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
@@ -43,14 +45,16 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
   };
 
   useEffect(() => {
-    const fetchThreads = async () => {
+    const fetch = async () => {
       try {
-        const threadsResponse = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${0}&author=${authorId}`);
+        const threadsResponse = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}&author=${authorId}`);
         const threadsData = threadsResponse.data;
         setThreads(threadsData);
 
-        const userIdResponse = await axios.get(`/api/users/userId?id=${authorId}`);
-        setCanEdit(userId === userIdResponse.data.userId);
+        if (userId) {
+          const userIdResponse = await axios.get(`/api/users/userId?id=${authorId}`);
+          setCanEdit(userId === userIdResponse.data.userId);
+        }
 
         setIsLoading(false);
       } catch (err) {
@@ -58,7 +62,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
       }
     };
 
-    fetchThreads();
+    fetch();
   }, []);
 
   useEffect(() => {
