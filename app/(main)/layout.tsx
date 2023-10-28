@@ -14,6 +14,8 @@ const MainLayout: NextPage<{ children: React.ReactNode }> = async ({ children })
         <div className='grid place-items-center h-full'>
           <div className='grid grid-flow-row place-items-center gap-2'>
             <p className='w-max'>Couldn't authenticate your connection</p>
+            <p className='w-max'>Try refreshing</p>
+            <p>or</p>
             <SignOutButton text='Sign out and return home' afterSignOutUrl='/' />
           </div>
         </div>
