@@ -92,6 +92,7 @@ const Navbar: FC = () => {
         <div className='ml-auto w-max grid place-items-center grid-flow-col'>
           <SignedIn>
             {user && (
+              // modal needs to be false
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer'>

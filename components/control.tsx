@@ -1,7 +1,4 @@
-'use client';
-
 import Link from '@/components/link';
-import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 const Control: FC = () => {
