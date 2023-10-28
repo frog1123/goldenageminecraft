@@ -171,7 +171,7 @@ const Navbar: FC = () => {
           </SignedOut>
         </div>
       </div>
-      <Separator className={cn('transition-all duration-500 mx-auto', scrolled ? 'w-full visible' : 'w-0 invisible')} />
+      <Separator className={cn('transition-all duration-500 mx-auto bg-gray-300 dark:bg-border', scrolled ? 'w-full visible' : 'w-0 invisible')} />
     </div>
   );
 };
