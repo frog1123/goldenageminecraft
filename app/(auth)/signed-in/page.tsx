@@ -9,8 +9,9 @@ const SignedInPage: NextPage = async () => {
 
   if (!currentUser)
     return (
-      <div>
+      <div className='text-center'>
         <p>Something went wrong :/</p>
+        <p>Try refreshing the page</p>
       </div>
     );
 
