@@ -8,7 +8,7 @@ export async function GET(req: Request) {
 
   const a = auth();
 
-  if (!a.sessionId || !a.userId) return new NextResponse('Unauthorized', { status: 400 });
+  if (!a.sessionId || !a.userId) return new NextResponse('Unauthorized', { status: 401 });
   if (!userId) return new NextResponse('Bad request', { status: 400 });
 
   const userWithId = await db.user.findUnique({
