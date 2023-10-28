@@ -14,6 +14,7 @@ import redstone from '@/public/assets/ranks/redstone.png';
 import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
 import Tag from '@/components/threads/tag';
+import { Content } from '@/components/content';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -71,7 +72,8 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
       <Link href={`/forums/threads/${thread.id}`} className='w-max'>
         <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
       </Link>
-      <p className='break-words'>{thread?.content}</p>
+      {/* <p className='break-words whitespace-pre-wrap'>{thread?.content}</p> */}
+      <Content text={thread?.content} />
     </div>
   );
 };

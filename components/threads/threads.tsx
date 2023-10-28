@@ -28,6 +28,8 @@ const Threads: FC = () => {
         setDontFetch(true);
         return;
       }
+
+      console.log(threads);
       setDontFetch(false);
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);

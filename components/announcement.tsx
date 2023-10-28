@@ -3,6 +3,7 @@
 import { Pin } from 'lucide-react';
 import { FC } from 'react';
 import Image from 'next/image';
+import { Content } from '@/components/content';
 
 interface AnnouncementProps {
   title: string;
@@ -18,7 +19,7 @@ export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls 
         <span className='uppercase text-xs font-bold text-zinc-500'>ANNOUNCEMENT</span>
       </div>
       <p className='font-semibold text-lg break-words w-max'>{title}</p>
-      <p className='break-words'>{content}</p>
+      <Content text={content} />
       {imageUrls &&
         imageUrls.map((img, index) => (
           <div className='rounded-md overflow-hidden' key={index}>

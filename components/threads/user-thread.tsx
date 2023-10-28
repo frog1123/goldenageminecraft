@@ -5,6 +5,7 @@ import Link from '@/components/link';
 
 import Tag from '@/components/threads/tag';
 import { Edit } from 'lucide-react';
+import { Content } from '@/components/content';
 
 interface UserThreadProps {
   thread: UserThreadType;
@@ -28,7 +29,7 @@ export const UserThread: FC<UserThreadProps> = ({ thread, canEdit }) => {
       <Link href={`/forums/threads/${thread.id}`}>
         <p className='font-semibold text-lg break-words'>{thread.title}</p>
       </Link>
-      <p className='break-words'>{thread?.content}</p>
+      <Content text={thread?.content} />
     </div>
   );
 };
