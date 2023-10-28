@@ -3,8 +3,8 @@ import Link from '@/components/link';
 
 const Home: NextPage = async () => {
   return (
-    <div className='grid grid-flow-row gap-2 w-[60%] mx-auto'>
-      <div className='bg-neutral-200 dark:bg-neutral-900 p-2 rounded-md'>
+    <div className='grid grid-flow-row gap-2 w-full sm:w-[60%] lg:w-[50%] xl:w-[40%] mx-auto'>
+      <div className='bg-neutral-200 dark:bg-neutral-900 p-2 sm:rounded-md'>
         <Link href='/forums'>
           <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-max'>forums</div>
         </Link>

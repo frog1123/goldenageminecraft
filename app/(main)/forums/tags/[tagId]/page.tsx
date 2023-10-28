@@ -21,7 +21,7 @@ const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
   });
 
   return (
-    <div className='grid grid-flow-row gap-2 w-[40%] mx-auto'>
+    <div className='grid grid-flow-row gap-2 w-full sm:w-[60%] lg:w-[50%] xl:w-[40%] mx-auto'>
       <div className='grid grid-flow-col w-max gap-2 place-items-center'>
         <span className='text-lg font-semibold'>Threads containing</span>
         <div className='bg-blue-500/25 p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center w-max mx-auto'>
