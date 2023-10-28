@@ -57,6 +57,14 @@ const Navbar: FC = () => {
 
           if (routeTo === '' || routeTo === '/') return null;
 
+          if (path.length > 14)
+            return (
+              <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
+                <Path path='...' route={routeTo} />
+                {index !== 0 && index !== pathnames.length - 1 && <ChevronRight className='w-4 h-4 text-gray-500' />}
+              </div>
+            );
+
           return (
             <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
               <Path path={path} route={routeTo} />
