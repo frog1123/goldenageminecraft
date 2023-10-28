@@ -36,8 +36,6 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
         setDontFetch(true);
         return;
       }
-
-      console.log(threads, skip);
       setDontFetch(false);
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
