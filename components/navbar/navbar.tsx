@@ -22,6 +22,7 @@ import axios from 'axios';
 import { useTheme } from 'next-themes';
 import grass_block_old from '@/public/assets/grass_block_old.png';
 import Image from 'next/image';
+import { dark } from '@clerk/themes';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ const Navbar: FC = () => {
   const { user, signOut, openUserProfile } = useClerk();
   const [id, setId] = useState('');
 
-  const { setTheme } = useTheme();
+  const { theme, systemTheme, setTheme } = useTheme();
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -110,7 +111,9 @@ const Navbar: FC = () => {
                       <LogOut className='w-4 h-4 ml-auto' />
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => openUserProfile()}>
+                  <DropdownMenuItem
+                    onClick={() => openUserProfile({ appearance: { baseTheme: theme === 'dark' || (theme === 'system' && systemTheme === 'dark') ? dark : undefined } })}
+                  >
                     <div className='flex place-items-center w-full gap-2'>
                       <span>Manage account</span>
                       <Wrench className='w-4 h-4 ml-auto' />
