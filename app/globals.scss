@@ -101,3 +101,9 @@
 .float-animation {
   animation: floatAnimation 3s infinite;
 }
+
+.navbar-routes {
+  @media (max-width: 700px) {
+    display: none;
+  }
+}

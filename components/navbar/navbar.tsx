@@ -20,6 +20,8 @@ import {
 import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
 import { useTheme } from 'next-themes';
+import grass_block_old from '@/public/assets/grass_block_old.png';
+import Image from 'next/image';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -47,26 +49,20 @@ const Navbar: FC = () => {
         <div className='grid grid-flow-col gap-2 place-items-center'>
           <Link href='/'>
             <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
-              <Hexagon className='w-5 h-5' />
+              <div className='w-5 h-5'>
+                <Image src={grass_block_old} alt='logo' />
+              </div>
             </div>
           </Link>
-          {pathname !== '/' && <ChevronRight className='w-4 h-4 text-gray-500' />}
+          {pathname !== '/' && <ChevronRight className='navbar-routes w-4 h-4 text-gray-500' />}
         </div>
         {pathnames.map((path, index) => {
           let routeTo = `${pathnames.slice(0, index + 1).join('/')}`;
 
           if (routeTo === '' || routeTo === '/') return null;
 
-          if (path.length > 14)
-            return (
-              <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
-                <Path path='...' route={routeTo} />
-                {index !== 0 && index !== pathnames.length - 1 && <ChevronRight className='w-4 h-4 text-gray-500' />}
-              </div>
-            );
-
           return (
-            <div className={cn('grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
+            <div className={cn('navbar-routes grid grid-flow-col place-items-center gap-2', index !== 0 && 'ml-2')} key={path}>
               <Path path={path} route={routeTo} />
               {index !== 0 && index !== pathnames.length - 1 && <ChevronRight className='w-4 h-4 text-gray-500' />}
             </div>
