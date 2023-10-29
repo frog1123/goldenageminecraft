@@ -96,12 +96,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             <div className='w-full rounded-md overflow-hidden'>
               <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[thread.author.rank])}>
                 <div className='w-6 h-6 overflow-hidden relative'>{rankMap[thread.author.rank]}</div>
-                <span className='mr-auto font-semibold'>{thread.author.rank}</span>
+                <span className='mr-auto font-semibold text-white'>{thread.author.rank}</span>
               </div>
               {thread.author.role !== 'USER' && (
                 <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', roleColorMap[thread.author.role])}>
                   <div className='w-6 h-6 overflow-hidden relative'>{roleIconMap[thread.author.role]}</div>
-                  <span className='mr-auto font-semibold'>{thread.author.role}</span>
+                  <span className='mr-auto font-semibold text-white'>{thread.author.role}</span>
                 </div>
               )}
               {thread.author.plan === 'PREMIUM' && (
@@ -109,7 +109,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
                   <div className='w-6 h-6 overflow-hidden relative'>
                     <Crown />
                   </div>
-                  <span className='mr-auto font-semibold'>{thread.author.plan}</span>
+                  <span className='mr-auto font-semibold text-white'>{thread.author.plan}</span>
                 </div>
               )}
             </div>
