@@ -67,12 +67,9 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
     const container = lastElementRef.current;
     if (!container) return;
 
-    console.log('test-1');
-
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          console.log('test-2');
           fetchMoreThreads();
         }
       },
@@ -95,9 +92,6 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {`/api/threads?take=${initalThreadCount}&skip=${0}&author=${authorId}`}
-      <br />
-      {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
       {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={`user-thread-${thread.id}`} canEdit={canEdit} />)}
       <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
     </div>
