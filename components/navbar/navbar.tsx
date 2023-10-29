@@ -131,7 +131,7 @@ const Navbar: FC = () => {
                       <span>Set theme</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
+                      <DropdownMenuSubContent className='mr-1'>
                         <DropdownMenuItem onClick={() => setTheme('light')}>
                           <div className='flex place-items-center w-full gap-2'>
                             <span>Light</span>
@@ -175,13 +175,13 @@ const Navbar: FC = () => {
                     <Settings className='w-5 h-5 text-white' />
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className='mr-2'>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger className='flex items-center'>
                       <span>Set theme</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
+                      <DropdownMenuSubContent className='mr-1'>
                         <DropdownMenuItem onClick={() => setTheme('light')}>
                           <div className='flex place-items-center w-full gap-2'>
                             <span>Light</span>
