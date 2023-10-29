@@ -81,8 +81,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2'>
         <div className='grid grid-cols-[max-content_max-content_auto] gap-2'>
           <div className='grid grid-flow-row gap-2 place-items-center'>
-            <div className='w-28 h-28 rounded-md overflow-hidden'>
-              <img src={thread.author.imageUrl} alt='author' />
+            <div className='w-28 h-28 rounded-md overflow-hidden relative'>
+              <Image src={thread.author.imageUrl} fill alt='author' />
             </div>
             <p>{thread.author.name}</p>
             <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(thread.author.createdAt.toString())}</p>
