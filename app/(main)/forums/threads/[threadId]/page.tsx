@@ -115,7 +115,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             </div>
           </div>
           <Separator orientation='vertical' />
-          <div className=''>
+          <div className='overflow-hidden'>
             <p className='font-semibold text-lg'>{thread.title}</p>
             <Content text={thread?.content} />
           </div>

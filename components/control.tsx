@@ -13,7 +13,7 @@ const Control: FC = () => {
       <div className='ml-auto'>
         <Link href='/forums/threads/create'>
           <button className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full'>
-            <p>Create thread</p>
+            <p className='text-white'>Create thread</p>
           </button>
         </Link>
       </div>
