@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from '@/components/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
-import { Crown, Dot, Edit, Gavel, Sailboat, Shield } from 'lucide-react';
+import { Crown, Dot, Edit, Gavel, MoreHorizontal, Sailboat, Shield } from 'lucide-react';
 import Image from 'next/image';
 import { UserRank, UserRole, UserPlan } from '@prisma/client';
 
@@ -42,32 +42,25 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
       <div className='grid grid-flow-col'>
         <div className='grid grid-flow-col w-max place-items-center'>
           <Link href={`/users/${thread.author.id}`}>
-            <div className='w-max grid grid-flow-col place-items-center bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md'>
-              <div className='grid grid-flow-col place-items-center gap-1'>
-                <div className='grid grid-flow-col place-items-center'>
-                  {thread.author.plan === UserPlan.PREMIUM && <Crown className='w-5 h-5 text-pink-500 mr-1' />}
-                  {roleMap[thread.author.role]}
-                  <div className='relative w-6 h-6'>{rankMap[thread.author.rank]}</div>
-                </div>
-                <div className='relative w-6 h-6 rounded-[50%] overflow-hidden'>
-                  <Image src={thread.author.imageUrl} alt='author' fill />
-                </div>
-                <p className='items-center'>{thread.author.name}</p>
+            <div className='grid grid-flow-col place-items-center gap-1 bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md'>
+              <div className='grid grid-flow-col place-items-center'>
+                {thread.author.plan === UserPlan.PREMIUM && <Crown className='w-5 h-5 text-pink-500 mr-1' />}
+                {roleMap[thread.author.role]}
+                <div className='relative w-6 h-6'>{rankMap[thread.author.rank]}</div>
               </div>
-              {canEdit && (
-                <div className='grid grid-cols-[max-content_max-content] place-items-center'>
-                  <Dot className='w-4 h-4 text-gray-500' />
-                  <Link href={`/forums/threads/${thread.id}/edit`}>
-                    <Edit className='w-4 h-4 hover:text-blue-500 transition' />
-                  </Link>
-                </div>
-              )}
+              <div className='relative w-6 h-6 rounded-[50%] overflow-hidden'>
+                <Image src={thread.author.imageUrl} alt='author' fill />
+              </div>
+              <p className='items-center'>{thread.author.name}</p>
             </div>
           </Link>
           <Dot className='w-4 h-4 text-gray-500' />
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
         </div>
-        <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+        <div className='grid grid-cols-[auto_max-content] gap-2 w-max place-items-center ml-auto'>
+          <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+          <MoreHorizontal className='w-4 h-4' />
+        </div>
       </div>
       <Link href={`/forums/threads/${thread.id}`} className='w-max'>
         <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
