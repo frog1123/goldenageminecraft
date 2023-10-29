@@ -107,7 +107,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
               {thread.author.plan === 'PREMIUM' && (
                 <div className='grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center bg-pink-500 p-1'>
                   <div className='w-6 h-6 overflow-hidden relative'>
-                    <Crown />
+                    <Crown className='text-white' />
                   </div>
                   <span className='mr-auto font-semibold text-white'>{thread.author.plan}</span>
                 </div>
