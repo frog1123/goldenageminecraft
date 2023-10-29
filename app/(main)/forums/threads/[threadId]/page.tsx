@@ -14,6 +14,7 @@ import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
 import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Content } from '@/components/content';
 
 interface ThreadIdPageProps {
   params: {
@@ -110,7 +111,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           <Separator orientation='vertical' />
           <div className=''>
             <p className='font-semibold text-lg'>{thread.title}</p>
-            <p>{thread.content}</p>
+            <Content text={thread?.content} />
           </div>
         </div>
       </div>
