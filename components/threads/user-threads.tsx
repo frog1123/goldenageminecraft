@@ -37,6 +37,8 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
         return;
       }
       setDontFetch(false);
+
+      console.log(threads);
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
     }
@@ -92,8 +94,9 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
       {`/api/threads?take=${initalThreadCount}&skip=${0}&author=${authorId}`}
+      <br />
+      {`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`}
       {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={`user-thread-${thread.id}`} canEdit={canEdit} />)}
       <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
     </div>
