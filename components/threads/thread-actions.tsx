@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Edit, Eye, MoreHorizontal } from 'lucide-react';
+import { Edit, Eye, MoreHorizontal, Share } from 'lucide-react';
 import Link from '@/components/link';
+import { useModal } from '@/hooks/use-modal-store';
 
 interface ThreadActionsProps {
   canEdit: boolean;
@@ -9,6 +10,8 @@ interface ThreadActionsProps {
 }
 
 export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
+  const modal = useModal();
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -32,6 +35,12 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
               <Eye className='w-4 h-4 ml-auto' />
             </div>
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => modal.onOpen('share-thread')}>
+          <div className='flex place-items-center w-full gap-2'>
+            <span>Share thread</span>
+            <Share className='w-4 h-4 ml-auto' />
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

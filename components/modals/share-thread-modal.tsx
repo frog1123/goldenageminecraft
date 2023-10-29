@@ -1,3 +1,5 @@
+'use client';
+
 import { useModal } from '@/hooks/use-modal-store';
 import { FC } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -8,11 +10,10 @@ import { Input } from '@/components/ui/input';
 export const ShareThreadModal: FC = () => {
   const modal = useModal();
 
+  const isModalOpen = modal.isOpen && modal.type === 'share-thread';
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant='outline'>Edit Profile</Button>
-      </DialogTrigger>
+    <Dialog open={isModalOpen} onOpenChange={modal.onClose}>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
