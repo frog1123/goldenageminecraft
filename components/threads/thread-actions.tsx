@@ -12,7 +12,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <MoreHorizontal className='w-4 h-4' />
+        <MoreHorizontal className='w-4 h-4 cursor-pointer' />
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         {canEdit && (
