@@ -16,6 +16,7 @@ import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Content } from '@/components/content';
 import Link from '@/components/link';
+import { Subnav } from '@/components/navbar/subnav';
 
 interface ThreadIdPageProps {
   params: {
@@ -80,6 +81,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full sm:w-[60%] lg:w-[50%] xl:w-[40%] mx-auto'>
+      <Subnav />
       <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2'>
         <div className='grid grid-cols-[max-content_max-content_auto] gap-2'>
           <div className='grid grid-flow-row gap-2 place-items-center'>
