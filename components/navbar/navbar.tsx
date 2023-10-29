@@ -66,15 +66,13 @@ const Navbar: FC = () => {
     <div className='fixed z-50 w-full'>
       <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2'>
         <div className='grid grid-flow-col place-items-center'>
-          <div className='grid grid-flow-col gap-2 place-items-center'>
-            <Link href='/'>
-              <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
-                <div className='w-5 h-5'>
-                  <Image src={grass_block_old} alt='logo' />
-                </div>
+          <div className='grid grid-flow-col gap-2 place-items-center h-full'>
+            <Link href='/' className='h-full'>
+              <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 h-full aspect-square grid place-items-center transition rounded-md'>
+                <Image src={grass_block_old} className='w-5 h-5' alt='logo' />
               </div>
             </Link>
-            {pathname !== '/' && <ChevronRight className='navbar-routes w-4 h-4 text-gray-500' />}
+            {pathname !== '/' && <ChevronRight className='ml-2 navbar-routes w-4 h-4 text-gray-500' />}
           </div>
           {pathnames.map((path, index) => {
             let routeTo = `${pathnames.slice(0, index + 1).join('/')}`;
@@ -96,7 +94,7 @@ const Navbar: FC = () => {
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className='h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative'>
-                    <Image src={user.imageUrl} alt='author' fill />
+                    <Image src={user.imageUrl} alt='author' fill objectPosition='relative' />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
@@ -160,7 +158,7 @@ const Navbar: FC = () => {
             )}
           </SignedIn>
           <SignedOut>
-            <div className='grid grid-cols-[max-content_max-content] gap-2'>
+            <div className='grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center'>
               <Link href='/sign-up'>
                 <button className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
                   <p className='text-white'>Sign up</p>
@@ -171,6 +169,42 @@ const Navbar: FC = () => {
                   <p className='text-white'>Sign in</p>
                 </button>
               </Link>
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <div className='ml-2 bg-gray-400 dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-800 h-full aspect-square grid place-items-center transition rounded-md'>
+                    <Settings className='w-5 h-5 text-white' />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger className='flex items-center'>
+                      <span>Set theme</span>
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent>
+                        <DropdownMenuItem onClick={() => setTheme('light')}>
+                          <div className='flex place-items-center w-full gap-2'>
+                            <span>Light</span>
+                            <Sun className='w-4 h-4 ml-auto' />
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme('dark')}>
+                          <div className='flex place-items-center w-full gap-2'>
+                            <span>Dark</span>
+                            <Moon className='w-4 h-4 ml-auto' />
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme('system')}>
+                          <div className='flex place-items-center w-full gap-2'>
+                            <span>System</span>
+                            <Settings className='w-4 h-4 ml-auto' />
+                          </div>
+                        </DropdownMenuItem>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </SignedOut>
         </div>
