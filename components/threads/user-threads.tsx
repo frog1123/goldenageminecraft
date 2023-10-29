@@ -32,10 +32,10 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      if (data.length === 0) {
-        setDontFetch(true);
-        return;
-      }
+      // if (data.length === 0) {
+      //   setDontFetch(true);
+      //   return;
+      // }
       setDontFetch(false);
 
       console.log(threads);
