@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
 import Link from '@/components/link';
 import { useAuth as useClerkAuth } from '@clerk/nextjs';
-import { Crown, Dot, Edit, Gavel, MoreHorizontal, Sailboat, Shield } from 'lucide-react';
+import { Crown, Dot, Gavel, Sailboat, Shield } from 'lucide-react';
 import Image from 'next/image';
 import { UserRank, UserRole, UserPlan } from '@prisma/client';
 
@@ -15,6 +15,7 @@ import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
 import Tag from '@/components/threads/tag';
 import { Content } from '@/components/content';
+import { ThreadActions } from '@/components/threads/thread-actions';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -59,13 +60,12 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
         </div>
         <div className='grid grid-cols-[auto_max-content] gap-2 w-max place-items-center ml-auto'>
           <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
-          <MoreHorizontal className='w-4 h-4' />
+          <ThreadActions canEdit={canEdit} thread={thread} />
         </div>
       </div>
       <Link href={`/forums/threads/${thread.id}`} className='w-max'>
         <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
       </Link>
-      {/* <p className='break-words whitespace-pre-wrap'>{thread?.content}</p> */}
       <Content text={thread?.content} />
     </div>
   );

@@ -6,6 +6,7 @@ import Link from '@/components/link';
 import Tag from '@/components/threads/tag';
 import { Edit } from 'lucide-react';
 import { Content } from '@/components/content';
+import { ThreadActions } from '@/components/threads/thread-actions';
 
 interface UserThreadProps {
   thread: UserThreadType;
@@ -18,13 +19,11 @@ export const UserThread: FC<UserThreadProps> = ({ thread, canEdit }) => {
       <div className='grid grid-flow-col'>
         <div className='grid grid-flow-col w-max place-items-center gap-2'>
           <p className='text-gray-500 text-sm'>{formatDate(thread.createdAt.toString())}</p>
-          {canEdit && (
-            <Link href={`/forums/threads/${thread.id}/edit`}>
-              <Edit className='w-4 h-4 hover:text-blue-500 transition' />
-            </Link>
-          )}
         </div>
-        <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+        <div className='grid grid-cols-[auto_max-content] gap-2 w-max place-items-center ml-auto'>
+          <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+          <ThreadActions canEdit={canEdit} thread={thread} />
+        </div>
       </div>
       <Link href={`/forums/threads/${thread.id}`}>
         <p className='font-semibold text-lg break-words'>{thread.title}</p>
