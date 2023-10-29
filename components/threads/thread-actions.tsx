@@ -36,7 +36,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
             </div>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => modal.onOpen('share-thread')}>
+        <DropdownMenuItem onClick={() => modal.onOpen('share-thread', { thread })}>
           <div className='flex place-items-center w-full gap-2'>
             <span>Share thread</span>
             <Share className='w-4 h-4 ml-auto' />
