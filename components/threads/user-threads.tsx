@@ -32,13 +32,11 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      // if (data.length === 0) {
-      //   setDontFetch(true);
-      //   return;
-      // }
+      if (data.length === 0) {
+        setDontFetch(true);
+        return;
+      }
       setDontFetch(false);
-
-      console.log(threads);
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
     }
@@ -69,9 +67,12 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
     const container = lastElementRef.current;
     if (!container) return;
 
+    console.log('test-1');
+
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
+          console.log('test-2');
           fetchMoreThreads();
         }
       },
