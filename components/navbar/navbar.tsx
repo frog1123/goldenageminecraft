@@ -31,7 +31,7 @@ const Navbar: FC = () => {
 
   const modal = useModal();
 
-  const { user, signOut, openUserProfile } = useClerk();
+  const { user, openUserProfile } = useClerk();
   const [id, setId] = useState('');
 
   const { theme, systemTheme, setTheme } = useTheme();
