@@ -16,7 +16,7 @@ export const ShareThreadModal: FC = () => {
 
   const [copied, setCopied] = useState(false);
 
-  const threadLink = `${origin}/threads/${modal.data.shareThread?.threadId}`;
+  const threadLink = `${origin}/forums/threads/${modal.data.shareThread?.threadId}`;
 
   const onCopy = () => {
     navigator.clipboard.writeText(threadLink);
