@@ -10,7 +10,7 @@
 
 forum website for old minecraft
 
-launching - soon!
+launching soon!
 
 link to [dev site](https://goldenageminecraft-app.vercel.app)
 
