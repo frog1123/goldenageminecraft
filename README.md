@@ -6,11 +6,15 @@
 
 </div>
 
+## INFO
+
 forum website for old minecraft
 
 launching - soon!
 
 link to [dev site](https://goldenageminecraft-app.vercel.app)
+
+## CONTRIBUTING
 
 not accepting contributions yet
 
