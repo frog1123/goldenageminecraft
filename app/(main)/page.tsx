@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 
 import { Announcement } from '@/components/announcement';
 import img1 from '@/public/assets/announcements/img1.png';
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 
 const Home: NextPage = async () => {
   return (

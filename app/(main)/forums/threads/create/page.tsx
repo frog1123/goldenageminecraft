@@ -1,4 +1,4 @@
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 import CreateThreadForm from '@/components/threads/create-form';
 import { getCurrentUser } from '@/lib/current-user';
 import { NextPage } from 'next';

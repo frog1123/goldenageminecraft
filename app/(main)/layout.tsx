@@ -1,4 +1,4 @@
-import Navbar from '@/components/navbar/navbar';
+import Navbar from '@/components/navigation/navbar';
 import { SignOutButton } from '@/components/sign-out-button';
 import { getCurrentUser } from '@/lib/current-user';
 import { auth } from '@clerk/nextjs';

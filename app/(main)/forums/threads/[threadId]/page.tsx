@@ -16,7 +16,7 @@ import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Content } from '@/components/content';
 import Link from '@/components/link';
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 
 interface ThreadIdPageProps {
   params: {

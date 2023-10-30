@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
 import { FC, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, LogOut, Moon, Settings, Sun, User, Wrench } from 'lucide-react';
-import Path from '@/components/navbar/path';
+import Path from '@/components/navigation/path';
 import Link from '@/components/link';
 import { cn } from '@/lib/utils';
 import {

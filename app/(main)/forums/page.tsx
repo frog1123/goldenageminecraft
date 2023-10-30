@@ -1,5 +1,5 @@
 import Control from '@/components/control';
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 import Threads from '@/components/threads/threads';
 import { NextPage } from 'next';
 

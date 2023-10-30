@@ -49,6 +49,8 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
         const threadsData = threadsResponse.data;
         setThreads(threadsData);
 
+        console.log(userId);
+
         if (userId) {
           const userIdResponse = await axios.get(`/api/users/userId?id=${authorId}`);
           setCanEdit(userId === userIdResponse.data.userId);
