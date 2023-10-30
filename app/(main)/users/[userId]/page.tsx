@@ -1,4 +1,4 @@
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 import { UserThreads } from '@/components/threads/user-threads';
 import UserInfo from '@/components/users/user-info';
 import { db } from '@/lib/db';
