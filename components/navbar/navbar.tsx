@@ -23,10 +23,13 @@ import { useTheme } from 'next-themes';
 import grass_block_old from '@/public/assets/grass_block_old.png';
 import Image from 'next/image';
 import { dark } from '@clerk/themes';
+import { useModal } from '@/hooks/use-modal-store';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split('/');
+
+  const modal = useModal();
 
   const { user, signOut, openUserProfile } = useClerk();
   const [id, setId] = useState('');
@@ -104,7 +107,7 @@ const Navbar: FC = () => {
                     </div>
                   </DropdownMenuItem>
                   <Separator className='my-1' />
-                  <DropdownMenuItem onClick={() => signOut()}>
+                  <DropdownMenuItem onClick={() => modal.onOpen('sign-out-conf')}>
                     <div className='flex place-items-center w-full gap-2'>
                       <span>Sign out</span>
                       <LogOut className='w-4 h-4 ml-auto' />

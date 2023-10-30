@@ -1,7 +1,7 @@
 import { Thread } from '@prisma/client';
 import { create } from 'zustand';
 
-export type ModalType = 'share-thread';
+export type ModalType = 'share-thread' | 'sign-out-conf';
 
 interface ModalData {
   thread?: Thread;
