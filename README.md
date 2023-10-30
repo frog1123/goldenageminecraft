@@ -1,18 +1,17 @@
-# goldenageminecraft
+<div align="center">
+
+<img src="https://github.com/frog1123/goldenageminecraft/blob/master/goldenageminecraft.png" width="80" height="80">
+
+<h1>golden age minecraft</h1>
+
+</div>
 
 forum website for old minecraft
 
 launching - soon!
 
-.env setup
+link to [dev site](https://goldenageminecraft-app.vercel.app)
 
-```
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
-WEBHOOK_SECRET=
-DATABASE_URL=
-```
+not accepting contributions yet
+
+contributing - [CONTRIBUTING.md](https://github.com/frog1123/goldenageminecraft/blob/master/CONTRIBUTING.md)
