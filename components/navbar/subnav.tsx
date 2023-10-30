@@ -97,7 +97,7 @@ export const Subnav: FC = () => {
   const [currentPath, setCurrentPath] = useState(pathname);
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2 rounded-md'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 p-2 w-full flex gap-2 rounded-md'>
       <nav className='flex gap-2 relative justify-start w-full z-[20]'>
         {navItems.map((item, index) => {
           const isActive = item.path === pathname;
@@ -105,7 +105,7 @@ export const Subnav: FC = () => {
           return (
             <Link
               key={item.path}
-              className={cn('p-2 rounded-md relative no-underline duration-300 ease-in', !isActive && 'text-gray-500')}
+              className={cn('p-1 rounded-md relative no-underline duration-300 ease-in', !isActive && 'text-gray-500')}
               data-active={isActive}
               href={item.path}
               onClick={() => setCurrentPath(item.path)}
