@@ -1,4 +1,4 @@
-import { Subnav } from '@/components/navbar/subnav';
+import { Subnav } from '@/components/navigation/subnav';
 import { ClipboardList } from 'lucide-react';
 import { NextPage } from 'next';
 

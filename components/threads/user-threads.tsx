@@ -5,21 +5,18 @@ import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
 import { UserThread } from '@/components/threads/user-thread';
-import { useAuth as useClerkAuth } from '@clerk/nextjs';
 
 interface UserThreadsProps {
   authorId: string;
+  canEdit: boolean;
 }
 
-export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
+export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
-  const [canEdit, setCanEdit] = useState(false);
-
-  const { userId } = useClerkAuth();
 
   const initalThreadCount = 1;
   const fetchMoreAmount = 3;
@@ -48,13 +45,6 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId }) => {
         const threadsResponse = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}&author=${authorId}`);
         const threadsData = threadsResponse.data;
         setThreads(threadsData);
-
-        console.log(userId);
-
-        if (userId) {
-          const userIdResponse = await axios.get(`/api/users/userId?id=${authorId}`);
-          setCanEdit(userId === userIdResponse.data.userId);
-        }
 
         setIsLoading(false);
       } catch (err) {

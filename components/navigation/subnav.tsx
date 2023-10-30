@@ -24,7 +24,7 @@ const navItems = [
 export const Subnav: FC = () => {
   let pathname = usePathname() || '/';
 
-  if (pathname.includes('/forums/')) {
+  if (pathname.startsWith('/forums')) {
     pathname = '/forums';
   }
 
