@@ -161,7 +161,7 @@ const Navbar: FC = () => {
             )}
           </SignedIn>
           <SignedOut>
-            <div className='grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center'>
+            <div className='grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center mr-1'>
               <Link href='/sign-up'>
                 <button className='bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]'>
                   <p className='text-white'>Sign up</p>
@@ -172,42 +172,44 @@ const Navbar: FC = () => {
                   <p className='text-white'>Sign in</p>
                 </button>
               </Link>
-              <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <div className='ml-2 bg-gray-400 dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-800 h-full aspect-square grid place-items-center transition rounded-md'>
-                    <Settings className='w-5 h-5 text-white' />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='mr-2'>
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger className='flex items-center'>
-                      <span>Set theme</span>
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent className='mr-1'>
-                        <DropdownMenuItem onClick={() => setTheme('light')}>
-                          <div className='flex place-items-center w-full gap-2'>
-                            <span>Light</span>
-                            <Sun className='w-4 h-4 ml-auto' />
-                          </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme('dark')}>
-                          <div className='flex place-items-center w-full gap-2'>
-                            <span>Dark</span>
-                            <Moon className='w-4 h-4 ml-auto' />
-                          </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme('system')}>
-                          <div className='flex place-items-center w-full gap-2'>
-                            <span>System</span>
-                            <Settings className='w-4 h-4 ml-auto' />
-                          </div>
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className='h-full'>
+                <DropdownMenu modal={false}>
+                  <DropdownMenuTrigger asChild>
+                    <div className='bg-gray-400 dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-800 h-full aspect-square grid place-items-center transition rounded-md'>
+                      <Settings className='w-5 h-5 text-white' />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className='mr-2'>
+                    <DropdownMenuSub>
+                      <DropdownMenuSubTrigger className='flex items-center'>
+                        <span>Set theme</span>
+                      </DropdownMenuSubTrigger>
+                      <DropdownMenuPortal>
+                        <DropdownMenuSubContent className='mr-1'>
+                          <DropdownMenuItem onClick={() => setTheme('light')}>
+                            <div className='flex place-items-center w-full gap-2'>
+                              <span>Light</span>
+                              <Sun className='w-4 h-4 ml-auto' />
+                            </div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setTheme('dark')}>
+                            <div className='flex place-items-center w-full gap-2'>
+                              <span>Dark</span>
+                              <Moon className='w-4 h-4 ml-auto' />
+                            </div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setTheme('system')}>
+                            <div className='flex place-items-center w-full gap-2'>
+                              <span>System</span>
+                              <Settings className='w-4 h-4 ml-auto' />
+                            </div>
+                          </DropdownMenuItem>
+                        </DropdownMenuSubContent>
+                      </DropdownMenuPortal>
+                    </DropdownMenuSub>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
           </SignedOut>
         </div>
