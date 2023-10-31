@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Next13NProgress } from 'nextjs13-progress';
 import { ModalProvider } from '@/components/providers/modal-provider';
+import ContextProvider from '@/components/providers/context-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,17 +20,19 @@ interface RootLayoutProps {
 
 const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
-    <ClerkProvider>
-      <html lang='en' suppressHydrationWarning>
-        <body className={inter.className} dir='ltr'>
-          <ThemeProvider attribute='class' defaultTheme='dark' enableSystem storageKey='golden-age-minecraft-theme'>
-            <Next13NProgress color='#10B981' startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <ContextProvider>
+      <ClerkProvider>
+        <html lang='en' suppressHydrationWarning>
+          <body className={inter.className} dir='ltr'>
+            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem storageKey='golden-age-minecraft-theme'>
+              <Next13NProgress color='#10B981' startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+    </ContextProvider>
   );
 };
 
