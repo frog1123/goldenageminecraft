@@ -28,7 +28,12 @@ export async function GET(req: Request) {
                 id: true,
                 title: true,
                 content: true,
-                tags: true,
+                tags: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                },
                 author: {
                   select: {
                     id: true,
@@ -75,7 +80,12 @@ export async function GET(req: Request) {
             id: true,
             title: true,
             content: true,
-            tags: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
             author: {
               select: {
                 id: true,
@@ -119,7 +129,12 @@ export async function GET(req: Request) {
             id: true,
             title: true,
             content: true,
-            tags: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
             author: {
               select: {
                 id: true,
@@ -175,7 +190,12 @@ export async function GET(req: Request) {
               id: true,
               title: true,
               content: true,
-              tags: true,
+              tags: {
+                select: {
+                  id: true,
+                  name: true
+                }
+              },
               author: {
                 select: {
                   id: true,
@@ -214,7 +234,12 @@ export async function GET(req: Request) {
           id: true,
           title: true,
           content: true,
-          tags: true,
+          tags: {
+            select: {
+              id: true,
+              name: true
+            }
+          },
           author: {
             select: {
               id: true,
@@ -248,7 +273,12 @@ export async function GET(req: Request) {
           id: true,
           title: true,
           content: true,
-          tags: true,
+          tags: {
+            select: {
+              id: true,
+              name: true
+            }
+          },
           author: {
             select: {
               id: true,
