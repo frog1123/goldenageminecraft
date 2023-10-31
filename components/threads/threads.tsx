@@ -1,10 +1,11 @@
 'use client';
 
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState, useRef, useContext } from 'react';
 import Thread from '@/components/threads/thread';
 import { ThreadType } from '@/types';
 import axios from 'axios';
 import LoadingIcon from '@/components/loading-icon';
+import { Context } from '@/context';
 
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
@@ -13,6 +14,8 @@ const Threads: FC = () => {
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
 
+  const context = useContext(Context);
+
   const initalThreadCount = 1;
   const fetchMoreAmount = 3;
 
@@ -20,7 +23,14 @@ const Threads: FC = () => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`);
+
+      const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`;
+      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&u=${context.value.currentUser.id}`;
+
+      let fetchLink = withoutUserLink;
+      if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+      const response = await axios.get(fetchLink);
+
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -32,12 +42,20 @@ const Threads: FC = () => {
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
     }
+
+    console.log(threads);
   };
 
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?tk=${initalThreadCount}&sk=${0}`);
+        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`;
+        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser.id}`;
+
+        let fetchLink = withoutUserLink;
+        if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+        const response = await axios.get(fetchLink);
+
         const data = response.data;
         setThreads(data);
         setIsLoading(false);

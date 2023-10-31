@@ -1,7 +1,7 @@
 'use client';
 
 import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, LogOut, Moon, Settings, Sun, User, Wrench } from 'lucide-react';
 import Path from '@/components/navigation/path';
@@ -23,19 +23,17 @@ import grass_block_old from '@/public/assets/grass_block_old.png';
 import Image from 'next/image';
 import { dark } from '@clerk/themes';
 import { useModal } from '@/hooks/use-modal-store';
+import { Context } from '@/context';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split('/');
-
   const modal = useModal();
-
   const { user, openUserProfile } = useClerk();
-  const [id, setId] = useState('');
-
   const { theme, systemTheme, setTheme } = useTheme();
-
   const [scrolled, setScrolled] = useState(false);
+
+  const context = useContext(Context);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,7 +108,7 @@ const Navbar: FC = () => {
                     </div>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href={`/users/${id}`} className='w-full'>
+                    <Link href={`/users/${context.value.currentUser.id}`} className='w-full'>
                       <div className='flex place-items-center w-full gap-2'>
                         <span>View profile</span>
                         <User className='w-4 h-4 ml-auto' />

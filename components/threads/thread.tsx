@@ -76,11 +76,19 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
       <div className='grid grid-flow-col gap-1 w-max place-items-center'>
         <button
           onClick={handleLikePost}
-          className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}
+          className={cn(
+            'w-max border-[1px] rounded-md px-1 font-semibold',
+            thread.upvotes.length > 0 ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800'
+          )}
         >
           <span>{thread._count.upvotes}</span>👍
         </button>
-        <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>
+        <button
+          className={cn(
+            'w-max border-[1px] rounded-md px-1 font-semibold',
+            thread.downvotes.length > 0 ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800'
+          )}
+        >
           <span>{thread._count.downvotes}</span>👎
         </button>
       </div>

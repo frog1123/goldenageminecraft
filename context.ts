@@ -8,8 +8,16 @@ export interface ContextData {
 }
 
 type ContextType = {
-  data: ContextData;
-  setData: Dispatch<SetStateAction<ContextData>>;
+  value: ContextData;
+  setValue: Dispatch<SetStateAction<ContextData>>;
 };
 
-export const Context = createContext<ContextType | undefined>(undefined);
+export const Context = createContext<ContextType>({
+  value: {
+    currentUser: {
+      clerkId: null,
+      id: null
+    }
+  },
+  setValue: () => {}
+});
