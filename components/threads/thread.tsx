@@ -41,7 +41,11 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   };
 
   const handleLikePost = async () => {
-    await axios.post('/api/threads/votes', { threadId: thread.id, authorId: thread.author.id, type: 'u' });
+    await axios.post('/api/threads/votes', { threadId: thread.id, type: 'u' });
+  };
+
+  const handleDislikePost = async () => {
+    await axios.post('/api/threads/votes', { threadId: thread.id, type: 'd' });
   };
 
   return (
@@ -84,6 +88,7 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           <span>{thread._count.upvotes}</span>👍
         </button>
         <button
+          onClick={handleDislikePost}
           className={cn(
             'w-max border-[1px] rounded-md px-1 font-semibold',
             thread.downvotes.length > 0 ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800'

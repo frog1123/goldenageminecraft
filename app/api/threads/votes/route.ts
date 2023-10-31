@@ -24,8 +24,6 @@ export async function POST(req: Request) {
     }
   });
 
-  if (existingThreadUpvote) return new NextResponse('Thread already upvoted', { status: 400 });
-
   const existingThreadDownvote = await db.threadDownVote.findUnique({
     where: {
       threadId_authorId: {
@@ -35,9 +33,19 @@ export async function POST(req: Request) {
     }
   });
 
-  if (existingThreadDownvote) return new NextResponse('Thread already downvoted', { status: 400 });
-
   if (type === 'u') {
+    if (existingThreadUpvote) return new NextResponse('Thread already upvoted', { status: 400 });
+
+    if (existingThreadDownvote)
+      await db.threadDownVote.delete({
+        where: {
+          threadId_authorId: {
+            threadId,
+            authorId: currentUser.id
+          }
+        }
+      });
+
     await db.threadUpvote.create({
       data: {
         threadId,
@@ -45,6 +53,18 @@ export async function POST(req: Request) {
       }
     });
   } else if (type === 'd') {
+    if (existingThreadDownvote) return new NextResponse('Thread already downvoted', { status: 400 });
+
+    if (existingThreadUpvote)
+      await db.threadUpvote.delete({
+        where: {
+          threadId_authorId: {
+            threadId,
+            authorId: currentUser.id
+          }
+        }
+      });
+
     await db.threadDownVote.create({
       data: {
         threadId,
