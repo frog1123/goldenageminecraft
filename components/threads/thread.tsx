@@ -16,6 +16,7 @@ import diamond from '@/public/assets/ranks/diamond.png';
 import Tag from '@/components/threads/tag';
 import { Content } from '@/components/content';
 import { ThreadActions } from '@/components/threads/thread-actions';
+import { cn } from '@/lib/utils';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -67,6 +68,14 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
         <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
       </Link>
       <Content text={thread?.content} />
+      <div className='grid grid-flow-col gap-1 w-max place-items-center'>
+        <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>
+          <span>0</span>👍
+        </button>
+        <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>
+          <span>0</span>👎
+        </button>
+      </div>
     </div>
   );
 };
