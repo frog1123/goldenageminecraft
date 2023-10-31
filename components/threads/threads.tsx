@@ -15,6 +15,7 @@ const Threads: FC = () => {
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
+  const signedIn = !!context.value.currentUser.id;
 
   const initalThreadCount = 1;
   const fetchMoreAmount = 3;
@@ -28,7 +29,7 @@ const Threads: FC = () => {
       const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&u=${context.value.currentUser.id}`;
 
       let fetchLink = withoutUserLink;
-      if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+      if (signedIn) fetchLink = withUserLink;
       const response = await axios.get(fetchLink);
 
       const data = response.data;
@@ -53,7 +54,7 @@ const Threads: FC = () => {
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;
-        if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+        if (signedIn) fetchLink = withUserLink;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -96,7 +97,7 @@ const Threads: FC = () => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={`thread-${thread.id}`} />)}
+      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={`thread-${thread.id}`} signedIn={signedIn} />)}
       <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
     </div>
   );

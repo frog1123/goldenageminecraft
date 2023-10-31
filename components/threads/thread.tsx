@@ -19,7 +19,12 @@ import { ThreadActions } from '@/components/threads/thread-actions';
 import { cn } from '@/lib/utils';
 import axios from 'axios';
 
-const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
+interface ThreadProps {
+  thread: ThreadType;
+  signedIn: boolean;
+}
+
+const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
   const { userId } = useClerkAuth();
 
   const canEdit = userId === thread.author.userId;
@@ -43,8 +48,8 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const [upvoteCount, setUpvoteCount] = useState(thread._count.upvotes);
   const [downvoteCount, setDownvoteCount] = useState(thread._count.downvotes);
 
-  const [hasUpvoted, setHasUpvoted] = useState(thread.upvotes.length > 0);
-  const [hasDownvoted, setHasDownvoted] = useState(thread.downvotes.length > 0);
+  const [hasUpvoted, setHasUpvoted] = useState(signedIn ? thread.upvotes.length > 0 : false);
+  const [hasDownvoted, setHasDownvoted] = useState(signedIn ? thread.downvotes.length > 0 : false);
 
   const handleLikePost = async () => {
     await axios.post('/api/threads/votes', { threadId: thread.id, type: 'u' });

@@ -15,6 +15,7 @@ export async function GET(req: Request) {
 
   if (userId) {
     const currentUser = await getCurrentUser();
+
     if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
 
     try {

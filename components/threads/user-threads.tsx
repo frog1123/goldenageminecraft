@@ -20,6 +20,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
+  const signedIn = !!context.value.currentUser.id;
 
   const initalThreadCount = 1;
   const fetchMoreAmount = 3;
@@ -33,7 +34,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
       const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}&u=${context.value.currentUser.id}`;
 
       let fetchLink = withoutUserLink;
-      if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+      if (signedIn) fetchLink = withUserLink;
       const response = await axios.get(fetchLink);
 
       const data = response.data;
@@ -56,7 +57,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;
-        if (context.value.currentUser.id !== null) fetchLink = withUserLink;
+        if (signedIn) fetchLink = withUserLink;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -99,7 +100,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
 
   return (
     <div className='grid grid-flow-row gap-2 w-full'>
-      {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={`user-thread-${thread.id}`} canEdit={canEdit} />)}
+      {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={`user-thread-${thread.id}`} canEdit={canEdit} signedIn={signedIn} />)}
       <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
     </div>
   );
