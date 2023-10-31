@@ -33,6 +33,12 @@ export async function GET(req: Request) {
                   plan: true
                 }
               },
+              _count: {
+                select: {
+                  downvotes: true,
+                  upvotes: true
+                }
+              },
               createdAt: true
             },
             orderBy: {
@@ -64,6 +70,12 @@ export async function GET(req: Request) {
               plan: true
             }
           },
+          _count: {
+            select: {
+              downvotes: true,
+              upvotes: true
+            }
+          },
           createdAt: true
         },
         orderBy: {
@@ -92,8 +104,15 @@ export async function GET(req: Request) {
               plan: true
             }
           },
+          _count: {
+            select: {
+              downvotes: true,
+              upvotes: true
+            }
+          },
           createdAt: true
         },
+
         orderBy: {
           createdAt: 'desc'
         },
