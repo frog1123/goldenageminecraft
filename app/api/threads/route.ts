@@ -50,7 +50,9 @@ export async function GET(req: Request) {
             id: true,
             name: true
           }
-        }
+        },
+        upvotes: true,
+        downvotes: true
       },
       orderBy: {
         createdAt: 'desc'
