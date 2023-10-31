@@ -12,8 +12,8 @@ export async function POST(req: Request) {
   const currentUser = await getCurrentUser();
 
   if (!a.sessionId || !a.userId) return new NextResponse('Unauthorized', { status: 401 });
+  if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
   if (!threadId) return new NextResponse('Bad request', { status: 400 });
-  if (!currentUser) return new NextResponse('Bad request', { status: 400 });
 
   const existingThreadUpvote = await db.threadUpvote.findUnique({
     where: {
