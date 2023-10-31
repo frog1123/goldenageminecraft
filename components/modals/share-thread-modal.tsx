@@ -18,7 +18,7 @@ export const ShareThreadModal: FC = () => {
 
   const threadLink = `${origin}/forums/threads/${modal.data.shareThread?.threadId}`;
 
-  const onCopy = () => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(threadLink);
     setCopied(true);
 
@@ -31,12 +31,12 @@ export const ShareThreadModal: FC = () => {
     <Dialog open={isModalOpen} onOpenChange={modal.onClose}>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Share thread</DialogTitle>
-          <DialogDescription>Copy thread link</DialogDescription>
+          <DialogTitle className='text-center'>Share thread</DialogTitle>
+          <DialogDescription className='text-center'>Copy thread link</DialogDescription>
         </DialogHeader>
         <div className='grid gap-2 grid-cols-[auto_max-content] w-full'>
           <Input className='focus-visible:ring-0 focus-visible:ring-offset-0 w-full' value={threadLink} readOnly />
-          <Button onClick={onCopy} size='icon' className='border bg-white hover:bg-neutral-200 transition'>
+          <Button onClick={handleCopy} size='icon' className='border bg-white hover:bg-neutral-200 transition w-max'>
             {copied ? <Check className='w-4 h-4 text-black' /> : <Copy className='w-4 h-4 text-black' />}
           </Button>
         </div>
