@@ -78,10 +78,10 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
           onClick={handleLikePost}
           className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}
         >
-          <span>0</span>👍
+          <span>{thread._count.upvotes}</span>👍
         </button>
         <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>
-          <span>0</span>👎
+          <span>{thread._count.downvotes}</span>👎
         </button>
       </div>
     </div>

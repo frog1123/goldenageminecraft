@@ -20,7 +20,7 @@ const Threads: FC = () => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}`);
+      const response = await axios.get(`/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -37,7 +37,7 @@ const Threads: FC = () => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}`);
+        const response = await axios.get(`/api/threads?tk=${initalThreadCount}&sk=${0}`);
         const data = response.data;
         setThreads(data);
         setIsLoading(false);

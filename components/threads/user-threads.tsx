@@ -25,7 +25,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&author=${authorId}`);
+      const response = await axios.get(`/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -42,7 +42,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const threadsResponse = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}&author=${authorId}`);
+        const threadsResponse = await axios.get(`/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}`);
         const threadsData = threadsResponse.data;
         setThreads(threadsData);
 

@@ -1,8 +1,11 @@
 import { Thread, User } from '@prisma/client';
 
+// prettier-ignore
 export type ThreadType = Thread & {
   author: UserWithoutEmail;
-} & { tags: { id: string; name: string }[] };
+} 
+& { tags: { id: string; name: string }[] }
+& { _count: { downvotes: number; upvotes: number } };
 
 export type UserWithoutEmail = Omit<User, 'email'>;
 

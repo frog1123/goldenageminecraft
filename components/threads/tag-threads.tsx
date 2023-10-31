@@ -24,7 +24,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     if (dontFetch) return;
     try {
       setDontFetch(true);
-      const response = await axios.get(`/api/threads?take=${fetchMoreAmount}&skip=${skip + initalThreadCount}&tag=${tagId}`);
+      const response = await axios.get(`/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`);
       const data = response.data;
       setThreads(prevThreads => [...prevThreads, ...data]);
       setSkip(prevSkip => prevSkip + fetchMoreAmount);
@@ -41,7 +41,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads?take=${initalThreadCount}&skip=${0}&tag=${tagId}`);
+        const response = await axios.get(`/api/threads?tk=${initalThreadCount}&sk=${0}&y=${tagId}`);
         const data = response.data;
         setThreads(data);
         setIsLoading(false);

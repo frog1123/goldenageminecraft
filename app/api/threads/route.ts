@@ -7,10 +7,10 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const take = searchParams.get('take');
-  const skip = searchParams.get('skip');
-  const authorId = searchParams.get('author');
-  const tagId = searchParams.get('tag');
+  const take = searchParams.get('tk');
+  const skip = searchParams.get('sk');
+  const authorId = searchParams.get('a');
+  const tagId = searchParams.get('t');
 
   try {
     if (tagId) {
