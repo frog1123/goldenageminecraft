@@ -26,7 +26,7 @@ export const Subnav: FC = () => {
 
   if (pathname.startsWith('/forums')) {
     pathname = '/forums';
-  } else pathname = usePathname() || '/';
+  }
 
   const [currentPath, setCurrentPath] = useState(pathname);
 
