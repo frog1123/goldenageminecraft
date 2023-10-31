@@ -11,13 +11,18 @@ export async function GET(req: Request) {
   const authorId = searchParams.get('author');
   const tagId = searchParams.get('tag');
 
+  console.log('author');
+
   try {
     if (tagId) {
       const threadsWithTag = await db.tag.findUnique({
         where: { id: tagId },
         select: {
           threads: {
-            include: {
+            select: {
+              id: true,
+              title: true,
+              content: true,
               tags: true,
               author: {
                 select: {
@@ -41,48 +46,64 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.json(threadsWithTag?.threads);
-    }
-
-    let query: any = {
-      include: {
-        tags: {
-          select: {
-            id: true,
-            name: true
-          }
-        },
-        upvotes: true,
-        downvotes: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      },
-      take: take ? parseInt(take) : 0,
-      skip: skip ? parseInt(skip) : 0
-    };
-
-    if (authorId) {
-      query.where = {
-        ...query.where,
-        authorId
-      };
-    } else {
-      query.include.author = {
+    } else if (authorId) {
+      const threadsFromAuthor = await db.thread.findMany({
+        where: { authorId },
         select: {
           id: true,
-          userId: true,
-          name: true,
-          imageUrl: true,
-          rank: true,
-          role: true,
-          plan: true
-        }
-      };
+          title: true,
+          content: true,
+          tags: true,
+          author: {
+            select: {
+              id: true,
+              userId: true,
+              name: true,
+              imageUrl: true,
+              rank: true,
+              role: true,
+              plan: true
+            }
+          },
+          createdAt: true
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        take: take ? parseInt(take) : 0,
+        skip: skip ? parseInt(skip) : 0
+      });
+
+      return NextResponse.json(threadsFromAuthor);
+    } else {
+      const threads = await db.thread.findMany({
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          tags: true,
+          author: {
+            select: {
+              id: true,
+              userId: true,
+              name: true,
+              imageUrl: true,
+              rank: true,
+              role: true,
+              plan: true
+            }
+          },
+          createdAt: true
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        take: take ? parseInt(take) : 0,
+        skip: skip ? parseInt(skip) : 0
+      });
+
+      return NextResponse.json(threads);
     }
-
-    const items = await db.thread.findMany(query);
-
-    return NextResponse.json(items);
   } catch (err) {
     console.log('[THREADS_GET]', err);
     return new NextResponse('Internal Error', { status: 500 });
