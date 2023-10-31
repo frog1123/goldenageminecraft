@@ -1,7 +1,8 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 export interface ContextData {
-  user: {
+  currentUser: {
+    clerkId: string | null;
     id: string | null;
   };
 }

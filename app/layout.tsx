@@ -1,11 +1,13 @@
 import './globals.scss';
 import type { Metadata, NextPage } from 'next';
 import { Inter } from 'next/font/google';
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider, currentUser } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Next13NProgress } from 'nextjs13-progress';
 import { ModalProvider } from '@/components/providers/modal-provider';
 import ContextProvider from '@/components/providers/context-provider';
+import axios from 'axios';
+import { db } from '@/lib/db';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,9 +20,23 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
+const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
+  const clerkUser = await currentUser();
+
+  let user;
+  if (clerkUser) {
+    user = await db.user.findUnique({
+      where: {
+        userId: clerkUser.id
+      },
+      select: {
+        id: true
+      }
+    });
+  }
+
   return (
-    <ContextProvider>
+    <ContextProvider initalData={{ currentUser: { clerkId: clerkUser?.id ? clerkUser.id : null, id: user ? user.id : null } }}>
       <ClerkProvider>
         <html lang='en' suppressHydrationWarning>
           <body className={inter.className} dir='ltr'>

@@ -18,7 +18,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
-import axios from 'axios';
 import { useTheme } from 'next-themes';
 import grass_block_old from '@/public/assets/grass_block_old.png';
 import Image from 'next/image';
@@ -53,17 +52,6 @@ const Navbar: FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    if (!user?.id) return;
-
-    const fetch = async () => {
-      const idResponse = await axios.get(`/api/users/id?id=${user.id}`);
-      setId(idResponse.data.id);
-    };
-
-    fetch();
-  });
 
   return (
     <div className='fixed z-50 w-full'>
