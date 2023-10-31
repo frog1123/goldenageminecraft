@@ -17,6 +17,7 @@ import Tag from '@/components/threads/tag';
 import { Content } from '@/components/content';
 import { ThreadActions } from '@/components/threads/thread-actions';
 import { cn } from '@/lib/utils';
+import axios from 'axios';
 
 const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
   const { userId } = useClerkAuth();
@@ -37,6 +38,10 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
     [UserRole.MODERATOR]: <Shield className='w-5 h-5 text-blue-500' />,
     [UserRole.ADMIN]: <Gavel className='w-5 h-5 text-rose-500' />,
     [UserRole.OWNER]: <Sailboat className='w-5 h-5 text-indigo-700' />
+  };
+
+  const handleLikePost = async () => {
+    await axios.post('/api/threads/votes', { threadId: thread.id, authorId: thread.author.id, type: 'u' });
   };
 
   return (
@@ -69,7 +74,10 @@ const Thread: FC<{ thread: ThreadType }> = ({ thread }) => {
       </Link>
       <Content text={thread?.content} />
       <div className='grid grid-flow-col gap-1 w-max place-items-center'>
-        <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>
+        <button
+          onClick={handleLikePost}
+          className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}
+        >
           <span>0</span>👍
         </button>
         <button className={cn('w-max border-[1px] rounded-md px-1 font-semibold', true ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}>

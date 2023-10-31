@@ -90,13 +90,16 @@ model ThreadUpvote {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
   ThreadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
   threadReplyId String?
 
-  @@index([threadId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([threadId, authorId])
   @@index([authorId])
+  @@index([threadId])
+  @@index([threadReplyId])
 }
 
 model ThreadDownVote {
@@ -108,13 +111,15 @@ model ThreadDownVote {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
   ThreadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
   threadReplyId String?
 
-  @@index([threadId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([threadId, authorId])
   @@index([authorId])
+  @@index([threadId])
   @@index([threadReplyId])
 }
 
