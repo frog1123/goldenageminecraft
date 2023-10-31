@@ -11,14 +11,22 @@ interface TagIdPageProps {
 }
 
 const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
-  const tag = await db.tag.findUnique({
-    where: { id: params.tagId },
-    select: {
-      name: true,
-      _count: true,
-      createdAt: true
-    }
-  });
+  try {
+    const tag = await db.tag.findUnique({
+      where: { id: params.tagId },
+      select: {
+        name: true,
+        _count: true,
+        createdAt: true
+      }
+    });
+  } catch (err) {
+    return (
+      <div>
+        <p>tag not found</p>
+      </div>
+    );
+  }
 
   return (
     <>
