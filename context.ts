@@ -11,6 +11,4 @@ type ContextType = {
   setData: Dispatch<SetStateAction<ContextData>>;
 };
 
-const MyContext = createContext<ContextType | undefined>(undefined);
-
-export default MyContext;
+export const Context = createContext<ContextType | undefined>(undefined);

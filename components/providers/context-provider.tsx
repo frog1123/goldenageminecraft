@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, ReactNode, FC } from 'react';
-import MyContext, { ContextData } from '@/context';
+import { Context, ContextData } from '@/context';
 
 type ContextProviderProps = {
   children: ReactNode;
@@ -10,7 +10,7 @@ type ContextProviderProps = {
 const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
   const [data, setData] = useState<ContextData>({ user: { id: null } });
 
-  return <MyContext.Provider value={{ data, setData }}>{children}</MyContext.Provider>;
+  return <Context.Provider value={{ data, setData }}>{children}</Context.Provider>;
 };
 
 export default ContextProvider;
