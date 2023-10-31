@@ -11,8 +11,6 @@ export async function GET(req: Request) {
   const authorId = searchParams.get('author');
   const tagId = searchParams.get('tag');
 
-  console.log('author');
-
   try {
     if (tagId) {
       const threadsWithTag = await db.tag.findUnique({
@@ -34,7 +32,8 @@ export async function GET(req: Request) {
                   role: true,
                   plan: true
                 }
-              }
+              },
+              createdAt: true
             },
             orderBy: {
               createdAt: 'desc'
