@@ -69,7 +69,7 @@ export async function POST(req: Request) {
     });
   }
 
-  return new NextResponse('success');
+  return new NextResponse('Success', { status: 200 });
 }
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -112,4 +112,6 @@ export async function DELETE(req: Request) {
       return new NextResponse('Internal Error', { status: 500 });
     }
   }
+
+  return new NextResponse('Success', { status: 200 });
 }

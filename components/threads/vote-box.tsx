@@ -24,15 +24,20 @@ export const VoteBox: FC<VoteBoxProps> = ({ thread, signedIn }) => {
       return;
     }
 
+    if (hasUpvoted) {
+      await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${'u'}`);
+      setHasUpvoted(false);
+      setUpvoteCount(upvoteCount - 1);
+      return;
+    }
+
     await axios.post('/api/threads/votes', { threadId: thread.id, type: 'u' });
 
-    if (!hasUpvoted) {
-      if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
+    if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
 
-      setHasUpvoted(true);
-      setHasDownvoted(false);
-      setUpvoteCount(upvoteCount + 1);
-    }
+    setHasUpvoted(true);
+    setHasDownvoted(false);
+    setUpvoteCount(upvoteCount + 1);
   };
 
   const handleDislikePost = async () => {
@@ -41,15 +46,20 @@ export const VoteBox: FC<VoteBoxProps> = ({ thread, signedIn }) => {
       return;
     }
 
+    if (hasDownvoted) {
+      await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${'d'}`);
+      setHasDownvoted(false);
+      setDownvoteCount(downvoteCount - 1);
+      return;
+    }
+
     await axios.post('/api/threads/votes', { threadId: thread.id, type: 'd' });
 
-    if (!hasDownvoted) {
-      if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
+    if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
 
-      setHasUpvoted(false);
-      setHasDownvoted(true);
-      setDownvoteCount(downvoteCount + 1);
-    }
+    setHasUpvoted(false);
+    setHasDownvoted(true);
+    setDownvoteCount(downvoteCount + 1);
   };
 
   return (
