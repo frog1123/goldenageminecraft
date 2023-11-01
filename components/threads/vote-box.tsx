@@ -2,6 +2,7 @@ import { useModal } from '@/hooks/use-modal-store';
 import { cn } from '@/lib/utils';
 import { ThreadType, UserThreadType } from '@/types';
 import axios from 'axios';
+import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { FC, useState } from 'react';
 
 interface VoteBoxProps {
@@ -55,15 +56,23 @@ export const VoteBox: FC<VoteBoxProps> = ({ thread, signedIn }) => {
     <div className='grid grid-flow-col gap-1 w-max place-items-center'>
       <button
         onClick={handleLikePost}
-        className={cn('w-max border-[1px] rounded-md px-1 font-semibold', hasUpvoted ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}
+        className={cn(
+          'w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center',
+          hasUpvoted ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800'
+        )}
       >
-        <span>{upvoteCount}</span>👍
+        <span>{upvoteCount}</span>
+        <ThumbsUp className='w-4 h-4' />
       </button>
       <button
         onClick={handleDislikePost}
-        className={cn('w-max border-[1px] rounded-md px-1 font-semibold', hasDownvoted ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800')}
+        className={cn(
+          'w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center',
+          hasDownvoted ? 'bg-blue-500/30 border-blue-500/60' : 'bg-white-500/40 border-neutral-800'
+        )}
       >
-        <span>{downvoteCount}</span>👎
+        <span>{downvoteCount}</span>
+        <ThumbsDown className='w-4 h-4' />
       </button>
     </div>
   );
