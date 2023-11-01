@@ -38,7 +38,7 @@ const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
       </div>
       <div className='grid grid-cols-2 gap-2 place-items-center'>
         <p className='mr-auto uppercase text-xs font-bold text-zinc-500'>Tag created {formatDateLong(tag!.createdAt.toString())}</p>
-        <p className='ml-auto uppercase text-xs font-bold text-zinc-500 '>{tag?._count.threads} Threads</p>
+        <p className='ml-auto uppercase text-xs font-bold text-zinc-500 '>{tag._count.threads} Threads</p>
       </div>
       <TagThreads tagId={params.tagId} />
     </>
