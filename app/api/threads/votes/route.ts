@@ -11,36 +11,17 @@ export async function POST(req: Request) {
   if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
   if (!threadId) return new NextResponse('Bad request', { status: 400 });
 
-  const existingThreadUpvote = await db.threadUpvote.findUnique({
-    where: {
-      threadId_authorId: {
-        threadId,
-        authorId: currentUser.id
-      }
-    }
-  });
-
-  const existingThreadDownvote = await db.threadDownVote.findUnique({
-    where: {
-      threadId_authorId: {
-        threadId,
-        authorId: currentUser.id
-      }
-    }
-  });
-
   if (type === 'u') {
-    if (existingThreadUpvote) return new NextResponse('Thread already upvoted', { status: 400 });
-
-    if (existingThreadDownvote)
-      await db.threadDownVote.delete({
-        where: {
-          threadId_authorId: {
-            threadId,
-            authorId: currentUser.id
-          }
+    const existingThreadUpvote = await db.threadUpvote.findUnique({
+      where: {
+        threadId_authorId: {
+          threadId,
+          authorId: currentUser.id
         }
-      });
+      }
+    });
+
+    if (existingThreadUpvote) return new NextResponse('Thread already upvoted', { status: 400 });
 
     await db.threadUpvote.create({
       data: {
@@ -49,17 +30,16 @@ export async function POST(req: Request) {
       }
     });
   } else if (type === 'd') {
-    if (existingThreadDownvote) return new NextResponse('Thread already downvoted', { status: 400 });
-
-    if (existingThreadUpvote)
-      await db.threadUpvote.delete({
-        where: {
-          threadId_authorId: {
-            threadId,
-            authorId: currentUser.id
-          }
+    const existingThreadDownvote = await db.threadDownVote.findUnique({
+      where: {
+        threadId_authorId: {
+          threadId,
+          authorId: currentUser.id
         }
-      });
+      }
+    });
+
+    if (existingThreadDownvote) return new NextResponse('Thread already downvoted', { status: 400 });
 
     await db.threadDownVote.create({
       data: {
