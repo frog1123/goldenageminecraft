@@ -15,6 +15,7 @@ const Threads: FC = () => {
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
+
   const signedIn = !!context.value.currentUser.id;
 
   const initalThreadCount = 1;
