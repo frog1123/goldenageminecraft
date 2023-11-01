@@ -53,7 +53,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`;
+        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${0}&a=${authorId}`;
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;

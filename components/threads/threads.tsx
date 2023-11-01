@@ -44,14 +44,12 @@ const Threads: FC = () => {
     } catch (err) {
       console.error('Error fetching threads [INCREMENTAL]:', err);
     }
-
-    console.log(threads);
   };
 
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`;
+        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${0}`;
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;

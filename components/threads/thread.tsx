@@ -18,6 +18,7 @@ import { Content } from '@/components/content';
 import { ThreadActions } from '@/components/threads/thread-actions';
 import { cn } from '@/lib/utils';
 import axios from 'axios';
+import { useModal } from '@/hooks/use-modal-store';
 
 interface ThreadProps {
   thread: ThreadType;
@@ -50,8 +51,14 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
 
   const [hasUpvoted, setHasUpvoted] = useState(signedIn ? thread.upvotes.length > 0 : false);
   const [hasDownvoted, setHasDownvoted] = useState(signedIn ? thread.downvotes.length > 0 : false);
+  const modal = useModal();
 
   const handleLikePost = async () => {
+    if (!signedIn) {
+      modal.onOpen('sign-in-req');
+      return;
+    }
+
     await axios.post('/api/threads/votes', { threadId: thread.id, type: 'u' });
 
     if (!hasUpvoted) {
@@ -64,6 +71,11 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
   };
 
   const handleDislikePost = async () => {
+    if (!signedIn) {
+      modal.onOpen('sign-in-req');
+      return;
+    }
+
     await axios.post('/api/threads/votes', { threadId: thread.id, type: 'd' });
 
     if (!hasDownvoted) {
