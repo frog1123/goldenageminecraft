@@ -33,8 +33,8 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
 
   if (!user)
     return (
-      <div>
-        <p>user not found</p>
+      <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2'>
+        <p className='text-center'>:( User does not exist or cannot be found</p>
       </div>
     );
 

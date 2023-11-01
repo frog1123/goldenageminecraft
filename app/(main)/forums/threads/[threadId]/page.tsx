@@ -76,7 +76,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     [UserRole.OWNER]: 'bg-indigo-700'
   };
 
-  if (!thread) return <PageNotFound message='Thread not found :/' />;
+  if (!thread)
+    return (
+      <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2'>
+        <p className='text-center'>:( Thread does not exist or cannot be found</p>
+      </div>
+    );
 
   return (
     <>
