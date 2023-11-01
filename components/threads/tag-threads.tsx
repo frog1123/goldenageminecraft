@@ -52,7 +52,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
+        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${0}&t=${tagId}`;
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&t=${tagId}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;
