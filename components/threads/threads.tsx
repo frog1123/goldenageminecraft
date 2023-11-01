@@ -49,7 +49,7 @@ const Threads: FC = () => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${0}`;
+        const withoutUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}`;
         const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser.id}`;
 
         let fetchLink = withoutUserLink;
