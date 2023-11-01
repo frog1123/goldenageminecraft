@@ -316,8 +316,6 @@ export async function POST(req: Request) {
   try {
     const { title, content, tags } = await req.json();
 
-    const a = auth();
-
     const currentUser = await getCurrentUser();
 
     let specialCharacters = false;
@@ -328,7 +326,6 @@ export async function POST(req: Request) {
       if (element.length >= 20) brokeMax = true;
     }
 
-    if (!a.sessionId || !a.userId) return new NextResponse('Unauthorized', { status: 401 });
     if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
     if (title.length === 0) return new NextResponse('Title required', { status: 400 });
     if (title.length >= 100) return new NextResponse('Title too long', { status: 400 });

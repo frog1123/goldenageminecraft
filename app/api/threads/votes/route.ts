@@ -7,11 +7,8 @@ export async function POST(req: Request) {
   const res = await req.json();
   const { threadId, type } = res;
 
-  const a = auth();
-
   const currentUser = await getCurrentUser();
 
-  if (!a.sessionId || !a.userId) return new NextResponse('Unauthorized', { status: 401 });
   if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
   if (!threadId) return new NextResponse('Bad request', { status: 400 });
 
