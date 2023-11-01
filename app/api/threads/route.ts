@@ -224,8 +224,6 @@ export async function GET(req: Request) {
         }
       });
 
-      console.log(tagId, threadsWithTag);
-
       return NextResponse.json(threadsWithTag?.threads);
     } else if (authorId) {
       const threadsFromAuthor = await db.thread.findMany({
