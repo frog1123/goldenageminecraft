@@ -2,7 +2,6 @@ import { getCurrentUser } from '@/lib/current-user';
 import { db } from '@/lib/db';
 import { containsSpecialCharacters } from '@/utils/contains-special-characters';
 import { hasDuplicates } from '@/utils/has-duplicates';
-import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
@@ -15,7 +14,6 @@ export async function GET(req: Request) {
 
   if (userId) {
     const currentUser = await getCurrentUser();
-
     if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
 
     try {

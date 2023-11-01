@@ -1,6 +1,5 @@
 import { getCurrentUser } from '@/lib/current-user';
 import { db } from '@/lib/db';
-import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -71,4 +70,46 @@ export async function POST(req: Request) {
   }
 
   return new NextResponse('success');
+}
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const threadId = searchParams.get('t');
+  const type = searchParams.get('ty');
+
+  const currentUser = await getCurrentUser();
+  if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+
+  if (!threadId) return new NextResponse('Bad request', { status: 400 });
+
+  if (type === 'u') {
+    try {
+      await db.threadUpvote.delete({
+        where: {
+          threadId_authorId: {
+            threadId,
+            authorId: currentUser.id
+          }
+        }
+      });
+    } catch (err) {
+      console.log('[VOTES_DELETE]', err);
+      return new NextResponse('Internal Error', { status: 500 });
+    }
+  }
+
+  if (type === 'd') {
+    try {
+      await db.threadDownVote.delete({
+        where: {
+          threadId_authorId: {
+            threadId,
+            authorId: currentUser.id
+          }
+        }
+      });
+    } catch (err) {
+      console.log('[VOTES_DELETE]', err);
+      return new NextResponse('Internal Error', { status: 500 });
+    }
+  }
 }
