@@ -73,7 +73,9 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
         <p className='font-semibold text-lg break-words w-max'>{thread.title}</p>
       </Link>
       <Content text={thread?.content} />
-      <VoteBox thread={thread} signedIn={signedIn} />
+      <div className='mt-1'>
+        <VoteBox thread={thread} signedIn={signedIn} />
+      </div>
     </div>
   );
 };

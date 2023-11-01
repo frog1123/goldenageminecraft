@@ -30,7 +30,9 @@ export const UserThread: FC<UserThreadProps> = ({ thread, canEdit, signedIn }) =
         <p className='font-semibold text-lg break-words'>{thread.title}</p>
       </Link>
       <Content text={thread?.content} />
-      <VoteBox thread={thread} signedIn={signedIn} />
+      <div className='mt-1'>
+        <VoteBox thread={thread} signedIn={signedIn} />
+      </div>
     </div>
   );
 };
