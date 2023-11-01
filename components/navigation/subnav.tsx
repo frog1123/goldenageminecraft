@@ -45,7 +45,7 @@ export const Subnav: FC = () => {
               onClick={() => setCurrentPath(item.path)}
             >
               <span>{item.name}</span>
-              {item.path === currentPath && (
+              {item.path === pathname && (
                 <motion.div
                   className='absolute bottom-0 left-0 h-full bg-gray-500/20 dark:bg-white/20 rounded-md -z-10'
                   layoutId='navbar'
