@@ -6,11 +6,13 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button';
 import { useClerk } from '@clerk/nextjs';
 import { Context } from '@/context';
+import { useRouter } from 'next/navigation';
 
 export const SignOutConfModal: FC = () => {
   const modal = useModal();
   const { signOut } = useClerk();
   const context = useContext(Context);
+  const router = useRouter();
 
   const isModalOpen = modal.isOpen && modal.type === 'sign-out-conf';
 
@@ -23,6 +25,7 @@ export const SignOutConfModal: FC = () => {
         id: null
       }
     });
+    router.push('/'); // home
 
     modal.onClose();
   };
