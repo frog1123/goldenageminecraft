@@ -1,4 +1,3 @@
-import PageNotFound from '@/components/page-not-found';
 import { Separator } from '@/components/ui/separator';
 import { db } from '@/lib/db';
 import { formatDateLong } from '@/utils/format-date-long';
@@ -16,6 +15,9 @@ import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Content } from '@/components/content';
 import Link from '@/components/link';
+import { VoteBox } from '@/components/threads/vote-box';
+import { getCurrentUser } from '@/lib/current-user';
+import Tag from '@/components/threads/tag';
 
 interface ThreadIdPageProps {
   params: {
@@ -24,25 +26,94 @@ interface ThreadIdPageProps {
 }
 
 const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
-  const thread = await db.thread.findUnique({
-    where: {
-      id: params.threadId
-    },
-    include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          imageUrl: true,
-          createdAt: true,
-          rank: true,
-          role: true,
-          plan: true,
-          _count: true
+  const currentUser = await getCurrentUser();
+  const signedIn = !!currentUser;
+
+  let thread;
+
+  if (signedIn) {
+    thread = await db.thread.findUnique({
+      where: {
+        id: params.threadId
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            imageUrl: true,
+            createdAt: true,
+            rank: true,
+            role: true,
+            plan: true,
+            _count: {
+              select: {
+                threads: true
+              }
+            }
+          }
+        },
+        tags: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
+        upvotes: {
+          where: {
+            authorId: currentUser.id
+          }
+        },
+        downvotes: {
+          where: {
+            authorId: currentUser.id
+          }
+        },
+        _count: {
+          select: {
+            upvotes: true,
+            downvotes: true
+          }
         }
       }
-    }
-  });
+    });
+  } else {
+    thread = await db.thread.findUnique({
+      where: {
+        id: params.threadId
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            imageUrl: true,
+            createdAt: true,
+            rank: true,
+            role: true,
+            plan: true,
+            _count: {
+              select: {
+                threads: true
+              }
+            }
+          }
+        },
+        tags: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
+        _count: {
+          select: {
+            upvotes: true,
+            downvotes: true
+          }
+        }
+      }
+    });
+  }
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt='rank' fill />,
@@ -84,8 +155,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     );
 
   return (
-    <>
-      <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2'>
+      <div className='grid grid-cols-[auto_max-content] gap-2'>
         <div className='grid grid-cols-[max-content_max-content_auto] gap-2'>
           <div className='grid grid-flow-row gap-2 place-items-center'>
             <div className='w-28 h-28 rounded-md overflow-hidden relative'>
@@ -124,7 +195,15 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           </div>
         </div>
       </div>
-    </>
+      <Separator />
+      <div className='grid grid-flow-col'>
+        <VoteBox thread={thread} signedIn={signedIn} />
+        <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+      </div>
+      <div>
+        <p className='uppercase text-xs font-bold text-zinc-500'>POSTED {formatDateLong(thread.createdAt.toString())}</p>
+      </div>
+    </div>
   );
 };
 

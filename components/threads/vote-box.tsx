@@ -1,12 +1,13 @@
+'use client';
+
 import { useModal } from '@/hooks/use-modal-store';
 import { cn } from '@/lib/utils';
-import { ThreadType, UserThreadType } from '@/types';
 import axios from 'axios';
 import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { FC, useState } from 'react';
 
 interface VoteBoxProps {
-  thread: ThreadType | UserThreadType;
+  thread: any;
   signedIn: boolean;
 }
 

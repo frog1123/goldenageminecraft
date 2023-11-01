@@ -31,7 +31,7 @@ export const Subnav: FC = () => {
   const [currentPath, setCurrentPath] = useState(pathname);
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900 p-2 w-full flex gap-2 rounded-md'>
+    <div className='bg-neutral-200 dark:bg-neutral-900 p-2 w-full flex gap-2 sm:rounded-md'>
       <div className='flex gap-2 relative justify-start w-full z-[20]'>
         {navItems.map(item => {
           const isActive = item.path === pathname;
