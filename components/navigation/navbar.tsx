@@ -52,7 +52,7 @@ const Navbar: FC = () => {
   }, []);
 
   return (
-    <div className='fixed z-50 w-full'>
+    <nav className='fixed z-50 w-full'>
       <div className='bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2'>
         <div className='grid grid-flow-col place-items-center'>
           <div className='grid grid-flow-col gap-2 place-items-center h-full'>
@@ -201,7 +201,7 @@ const Navbar: FC = () => {
         </div>
       </div>
       <Separator className={cn('transition-all duration-500 mx-auto bg-gray-300 dark:bg-border', scrolled ? 'w-full visible' : 'w-0 invisible')} />
-    </div>
+    </nav>
   );
 };
 

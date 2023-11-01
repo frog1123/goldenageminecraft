@@ -32,7 +32,7 @@ export const Subnav: FC = () => {
 
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 p-2 w-full flex gap-2 rounded-md'>
-      <nav className='flex gap-2 relative justify-start w-full z-[20]'>
+      <div className='flex gap-2 relative justify-start w-full z-[20]'>
         {navItems.map(item => {
           const isActive = item.path === pathname;
 
@@ -61,7 +61,7 @@ export const Subnav: FC = () => {
             </Link>
           );
         })}
-      </nav>
+      </div>
     </div>
   );
 };
