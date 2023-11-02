@@ -107,7 +107,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
                 <div>
                   <Edit className='w-4 h-4 text-zinc-500' />
                 </div>
-                <p className='uppercase text-xs font-bold text-zinc-500 mt-[2px]'>Bio</p>
+                <p className='uppercase font-bold text-zinc-500'>Bio</p>
               </div>
             </Link>
           ) : (
@@ -115,7 +115,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
               <div>
                 <Palmtree className='w-4 h-4 text-zinc-500' />
               </div>
-              <p className='uppercase text-xs font-bold text-zinc-500 mt-[2px]'>Bio</p>
+              <p className='uppercase font-bold text-zinc-500'>Bio</p>
             </div>
           )}
           {user.bio && <Content text={user.bio} />}
