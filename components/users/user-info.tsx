@@ -13,6 +13,7 @@ import diamond from '@/public/assets/ranks/diamond.png';
 import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+import { VotesRatio } from '../votes-ratio';
 
 interface UserInfoProps {
   user: UserWithoutEmail;
@@ -22,7 +23,7 @@ interface UserInfoProps {
   };
 }
 
-const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
+export const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt='rank' fill />,
     [UserRank.IRON]: <Image src={iron} alt='rank' fill />,
@@ -71,9 +72,8 @@ const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
             )}
           </div>
           <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
-          <div>
-            <p>{voteStats.receivedUpvotes}</p>
-            <p>{voteStats.receivedDownvotes}</p>
+          <div className='w-full my-1 rounded-md overflow-hidden'>
+            <VotesRatio votesStats={voteStats} />
           </div>
           <div className='w-full rounded-md overflow-hidden'>
             <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[user.rank])}>
@@ -107,5 +107,3 @@ const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
     </div>
   );
 };
-
-export default UserInfo;

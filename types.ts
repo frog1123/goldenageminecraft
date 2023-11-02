@@ -11,3 +11,8 @@ export type ThreadType = Thread
 export type UserWithoutEmail = Omit<User, 'email'>;
 
 export type UserThreadType = Omit<ThreadType, 'author'>;
+
+export interface VoteStats {
+  receivedUpvotes: number;
+  receivedDownvotes: number;
+}
