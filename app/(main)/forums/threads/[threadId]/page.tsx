@@ -19,6 +19,8 @@ import { VoteBox } from '@/components/threads/vote-box';
 import { getCurrentUser } from '@/lib/current-user';
 import Tag from '@/components/threads/tag';
 import { ThreadActions } from '@/components/threads/thread-actions';
+import { VoteStats } from '@/types';
+import { VotesRatio } from '@/components/votes-ratio';
 interface ThreadIdPageProps {
   params: {
     threadId: string;
@@ -45,7 +47,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             firstName: true,
             lastName: true,
             imageUrl: true,
-            createdAt: true,
+
             rank: true,
             role: true,
             plan: true,
@@ -53,7 +55,18 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
               select: {
                 threads: true
               }
-            }
+            },
+            threads: {
+              select: {
+                _count: {
+                  select: {
+                    upvotes: true,
+                    downvotes: true
+                  }
+                }
+              }
+            },
+            createdAt: true
           }
         },
         tags: {
@@ -94,7 +107,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             firstName: true,
             lastName: true,
             imageUrl: true,
-            createdAt: true,
+
             rank: true,
             role: true,
             plan: true,
@@ -102,7 +115,18 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
               select: {
                 threads: true
               }
-            }
+            },
+            threads: {
+              select: {
+                _count: {
+                  select: {
+                    upvotes: true,
+                    downvotes: true
+                  }
+                }
+              }
+            },
+            createdAt: true
           }
         },
         tags: {
@@ -120,6 +144,16 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       }
     });
   }
+
+  let voteStats: VoteStats = {
+    receivedUpvotes: 0,
+    receivedDownvotes: 0
+  };
+
+  thread?.author?.threads.forEach(thread => {
+    voteStats.receivedUpvotes += thread._count.upvotes;
+    voteStats.receivedDownvotes += thread._count.downvotes;
+  });
 
   const canEdit = thread?.author.userId === currentUser?.userId;
 
@@ -182,6 +216,9 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
               )}
             </div>
             <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(thread.author.createdAt.toString())}</p>
+            <div className='w-full my-1'>
+              <VotesRatio votesStats={voteStats} expanded />
+            </div>
             <p className='uppercase text-xs font-bold text-zinc-500'>{thread.author._count.threads} Threads</p>
             <div className='w-full rounded-md overflow-hidden'>
               <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[thread.author.rank])}>
