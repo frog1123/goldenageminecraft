@@ -72,8 +72,8 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
             )}
           </div>
           <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
-          <div className='w-full my-1 rounded-md overflow-hidden'>
-            <VotesRatio votesStats={voteStats} />
+          <div className='w-full my-1'>
+            <VotesRatio votesStats={voteStats} expanded />
           </div>
           <div className='w-full rounded-md overflow-hidden'>
             <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[user.rank])}>
