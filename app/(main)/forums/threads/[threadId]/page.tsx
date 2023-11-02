@@ -42,6 +42,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             id: true,
             userId: true,
             name: true,
+            firstName: true,
+            lastName: true,
             imageUrl: true,
             createdAt: true,
             rank: true,
@@ -89,6 +91,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             id: true,
             userId: true,
             name: true,
+            firstName: true,
+            lastName: true,
             imageUrl: true,
             createdAt: true,
             rank: true,
@@ -169,6 +173,11 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             <Link href={`/users/${thread.author.id}`} className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
               {thread.author.name}
             </Link>
+            {(thread.author.firstName || thread.author.lastName) && (
+              <p className='font-semibold'>
+                {thread.author.firstName && <span>{thread.author.firstName}</span>} {thread.author.lastName && <span>{thread.author.lastName}</span>}
+              </p>
+            )}
             <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(thread.author.createdAt.toString())}</p>
             <p className='uppercase text-xs font-bold text-zinc-500'>{thread.author._count.threads} Threads</p>
             <div className='w-full rounded-md overflow-hidden'>

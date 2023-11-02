@@ -59,6 +59,8 @@ export async function POST(req: Request) {
       await db.user.create({
         data: {
           userId: parsedBody.data.id,
+          firstName: parsedBody.data.first_name,
+          lastName: parsedBody.data.last_name,
           name: parsedBody.data.username ? parsedBody.data.username : parsedBody.data.id,
           email: primaryEmailAddress.email_address,
           imageUrl: parsedBody.data.image_url
@@ -80,6 +82,8 @@ export async function POST(req: Request) {
         },
         data: {
           name: parsedBody.data.username,
+          firstName: parsedBody.data.first_name,
+          lastName: parsedBody.data.last_name,
           email: primaryEmailAddress.email_address,
           imageUrl: parsedBody.data.image_url
         }

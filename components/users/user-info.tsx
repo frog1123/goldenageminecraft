@@ -58,10 +58,12 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
           <div className='w-28 h-28 rounded-md overflow-hidden relative'>
             <Image src={user.imageUrl} fill alt='author' />
           </div>
-          <p>{user.name}</p>
-          <p>
-            {user.firstName && <span>{user.firstName}</span>} {user.lastName && <span>{user.lastName}</span>}
-          </p>
+          <p className='font-semibold'>{user.name}</p>
+          {(user.firstName || user.lastName) && (
+            <p className='font-semibold'>
+              {user.firstName && <span>{user.firstName}</span>} {user.lastName && <span>{user.lastName}</span>}
+            </p>
+          )}
           <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
           <div className='w-full rounded-md overflow-hidden'>
             <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[user.rank])}>
