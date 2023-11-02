@@ -70,7 +70,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
 
   return (
     <>
-      <UserInfo user={user} voteStats={voteStats} />
+      <UserInfo user={user} voteStats={voteStats} canEdit={canEdit} />
       <div className='grid grid-cols-2 gap-2 place-items-center'>
         <p className='mr-auto uppercase text-xs font-bold text-zinc-500'>Activity</p>
         <p className='ml-auto uppercase text-xs font-bold text-zinc-500 '>{user._count.threads} Threads</p>
