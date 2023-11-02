@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Next13NProgress } from 'nextjs13-progress';
 import { ModalProvider } from '@/components/providers/modal-provider';
 import ContextProvider from '@/components/providers/context-provider';
-import axios from 'axios';
 import { db } from '@/lib/db';
 
 const inter = Inter({ subsets: ['latin'] });

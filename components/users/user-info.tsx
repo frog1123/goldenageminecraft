@@ -2,21 +2,96 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { UserWithoutEmail } from '@/types';
 import { formatDateLong } from '@/utils/format-date-long';
+import { UserRank, UserRole } from '@prisma/client';
+
+import coal from '@/public/assets/ranks/coal.png';
+import iron from '@/public/assets/ranks/iron.png';
+import gold from '@/public/assets/ranks/gold.png';
+import redstone from '@/public/assets/ranks/redstone.png';
+import lapis from '@/public/assets/ranks/lapis.png';
+import diamond from '@/public/assets/ranks/diamond.png';
+import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 
 interface UserInfoProps {
   user: UserWithoutEmail;
 }
 
 const UserInfo: FC<UserInfoProps> = ({ user }) => {
+  const rankMap = {
+    [UserRank.COAL]: <Image src={coal} alt='rank' fill />,
+    [UserRank.IRON]: <Image src={iron} alt='rank' fill />,
+    [UserRank.GOLD]: <Image src={gold} alt='rank' fill />,
+    [UserRank.REDSTONE]: <Image src={redstone} alt='rank' fill />,
+    [UserRank.LAPIS]: <Image src={lapis} alt='rank' fill />,
+    [UserRank.DIAMOND]: <Image src={diamond} alt='rank' fill />
+  };
+
+  const rankColorMap = {
+    [UserRank.COAL]: 'bg-neutral-950',
+    [UserRank.IRON]: 'bg-neutral-400',
+    [UserRank.GOLD]: 'bg-yellow-500',
+    [UserRank.REDSTONE]: 'bg-red-800',
+    [UserRank.LAPIS]: 'bg-blue-600',
+    [UserRank.DIAMOND]: 'bg-cyan-500'
+  };
+
+  const roleIconMap = {
+    [UserRole.USER]: null,
+    [UserRole.MODERATOR]: <Shield className='w-5 h-5 text-white' />,
+    [UserRole.ADMIN]: <Gavel className='w-5 h-5 text-white' />,
+    [UserRole.OWNER]: <Sailboat className='w-5 h-5 text-white' />
+  };
+
+  const roleColorMap = {
+    [UserRole.USER]: null,
+    [UserRole.MODERATOR]: 'bg-blue-500',
+    [UserRole.ADMIN]: 'bg-rose-500',
+    [UserRole.OWNER]: 'bg-indigo-700'
+  };
+
   return (
     <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2'>
-      <div className='grid place-items-center'>
-        <div className='relative w-40 h-40 rounded-md overflow-hidden'>
-          <Image src={user.imageUrl} alt='author' fill />
+      <div className='grid grid-cols-[max-content_max-content_auto] gap-2'>
+        <div className='grid grid-flow-row place-items-center gap-2'>
+          <div className='w-28 h-28 rounded-md overflow-hidden relative'>
+            <Image src={user.imageUrl} fill alt='author' />
+          </div>
+          <p>{user.name}</p>
+          <p>
+            {user.firstName && <span>{user.firstName}</span>} {user.lastName && <span>{user.lastName}</span>}
+          </p>
+          <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
+          <div className='w-full rounded-md overflow-hidden'>
+            <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', rankColorMap[user.rank])}>
+              <div className='w-6 h-6 overflow-hidden relative'>{rankMap[user.rank]}</div>
+              <span className='mr-auto font-semibold text-white'>{user.rank}</span>
+            </div>
+            {user.role !== 'USER' && (
+              <div className={cn('grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1', roleColorMap[user.role])}>
+                <div className='w-6 h-6 overflow-hidden relative'>{roleIconMap[user.role]}</div>
+                <span className='mr-auto font-semibold text-white'>{user.role}</span>
+              </div>
+            )}
+            {user.plan === 'PREMIUM' && (
+              <div className='grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center bg-pink-500 p-1'>
+                <div className='w-6 h-6 overflow-hidden relative'>
+                  <Crown className='text-white' />
+                </div>
+                <span className='mr-auto font-semibold text-white'>{user.plan}</span>
+              </div>
+            )}
+          </div>
+          <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
         </div>
-        <p className='text-xl'>{user.name}</p>
-        {user.bio && <p>{user.bio}</p>}
-        <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(user.createdAt.toString())}</p>
+        <Separator orientation='vertical' />
+        <div>
+          <div>
+            <p className='uppercase text-xs font-bold text-zinc-500'>Bio</p>
+          </div>
+          {user.bio && <p>{user.bio}</p>}
+        </div>
       </div>
     </div>
   );

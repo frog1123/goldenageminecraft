@@ -117,7 +117,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     });
   }
 
-  const canEdit = thread?.author?.userId === currentUser?.id;
+  const canEdit = thread?.author.userId === currentUser?.userId;
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt='rank' fill />,

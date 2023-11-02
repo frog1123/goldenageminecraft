@@ -90,8 +90,8 @@ model ThreadUpvote {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  ThreadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
   threadReplyId String?
+  threadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -111,8 +111,8 @@ model ThreadDownVote {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  ThreadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
   threadReplyId String?
+  threadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

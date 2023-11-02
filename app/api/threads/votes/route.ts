@@ -71,6 +71,7 @@ export async function POST(req: Request) {
 
   return new NextResponse('Success', { status: 200 });
 }
+
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const threadId = searchParams.get('t');

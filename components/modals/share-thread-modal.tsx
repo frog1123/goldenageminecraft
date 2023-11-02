@@ -36,7 +36,7 @@ export const ShareThreadModal: FC = () => {
         </DialogHeader>
         <div className='grid gap-2 grid-cols-[auto_max-content] w-full'>
           <Input className='focus-visible:ring-0 focus-visible:ring-offset-0 w-full' value={threadLink} readOnly />
-          <Button onClick={handleCopy} size='icon' className='border bg-white hover:bg-neutral-200 transition w-max'>
+          <Button onClick={handleCopy} size='icon' className='border bg-white hover:bg-neutral-200 transition'>
             {copied ? <Check className='w-4 h-4 text-black' /> : <Copy className='w-4 h-4 text-black' />}
           </Button>
         </div>
