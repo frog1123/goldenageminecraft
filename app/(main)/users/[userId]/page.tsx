@@ -31,9 +31,29 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
           threads: true
         }
       },
+      threads: {
+        select: {
+          _count: {
+            select: {
+              upvotes: true,
+              downvotes: true
+            }
+          }
+        }
+      },
       createdAt: true,
       updatedAt: true
     }
+  });
+
+  let voteStats = {
+    receivedUpvotes: 0,
+    receivedDownvotes: 0
+  };
+
+  user?.threads.forEach(thread => {
+    voteStats.receivedUpvotes += thread._count.upvotes;
+    voteStats.receivedDownvotes += thread._count.downvotes;
   });
 
   if (!user)
@@ -49,7 +69,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
 
   return (
     <>
-      <UserInfo user={user} />
+      <UserInfo user={user} voteStats={voteStats} />
       <div className='grid grid-cols-2 gap-2 place-items-center'>
         <p className='mr-auto uppercase text-xs font-bold text-zinc-500'>Activity</p>
         <p className='ml-auto uppercase text-xs font-bold text-zinc-500 '>{user._count.threads} Threads</p>
