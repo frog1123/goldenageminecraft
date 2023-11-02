@@ -10,10 +10,11 @@ import gold from '@/public/assets/ranks/gold.png';
 import redstone from '@/public/assets/ranks/redstone.png';
 import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
-import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
+import { Crown, Edit, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { VotesRatio } from '../votes-ratio';
+import Link from '@/components/link';
 
 interface UserInfoProps {
   user: UserWithoutEmail;
@@ -98,8 +99,13 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats }) => {
         </div>
         <Separator orientation='vertical' />
         <div>
-          <div>
-            <p className='uppercase text-xs font-bold text-zinc-500'>Bio</p>
+          <div className='grid grid-flow-col place-items-center'>
+            <p className='uppercase text-xs font-bold text-zinc-500 mr-auto'>Bio</p>
+            <Link href={`/users/${user.id}/edit`} className='ml-auto'>
+              <div className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
+                <Edit className='w-4 h-4 text-zinc-500' />
+              </div>
+            </Link>
           </div>
           {user.bio && <p>{user.bio}</p>}
         </div>
