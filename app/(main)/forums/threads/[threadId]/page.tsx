@@ -170,14 +170,17 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             <div className='w-28 h-28 rounded-md overflow-hidden relative'>
               <Image src={thread.author.imageUrl} fill alt='author' />
             </div>
-            <Link href={`/users/${thread.author.id}`} className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
-              {thread.author.name}
-            </Link>
-            {(thread.author.firstName || thread.author.lastName) && (
-              <p className='font-semibold'>
-                {thread.author.firstName && <span>{thread.author.firstName}</span>} {thread.author.lastName && <span>{thread.author.lastName}</span>}
-              </p>
-            )}
+
+            <div className='grid grid-flow-row gap-0 place-items-center'>
+              <Link href={`/users/${thread.author.id}`} className='hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
+                <p className='font-semibold'>{thread.author.name}</p>
+              </Link>
+              {(thread.author.firstName || thread.author.lastName) && (
+                <p className='font-semibold'>
+                  {thread.author.firstName && <span>{thread.author.firstName}</span>} {thread.author.lastName && <span>{thread.author.lastName}</span>}
+                </p>
+              )}
+            </div>
             <p className='uppercase text-xs font-bold text-zinc-500'>Joined {formatDateLong(thread.author.createdAt.toString())}</p>
             <p className='uppercase text-xs font-bold text-zinc-500'>{thread.author._count.threads} Threads</p>
             <div className='w-full rounded-md overflow-hidden'>
