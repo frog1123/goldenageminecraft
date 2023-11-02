@@ -18,7 +18,7 @@ import Link from '@/components/link';
 import { VoteBox } from '@/components/threads/vote-box';
 import { getCurrentUser } from '@/lib/current-user';
 import Tag from '@/components/threads/tag';
-
+import { ThreadActions } from '@/components/threads/thread-actions';
 interface ThreadIdPageProps {
   params: {
     threadId: string;
@@ -40,6 +40,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         author: {
           select: {
             id: true,
+            userId: true,
             name: true,
             imageUrl: true,
             createdAt: true,
@@ -86,6 +87,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         author: {
           select: {
             id: true,
+            userId: true,
             name: true,
             imageUrl: true,
             createdAt: true,
@@ -114,6 +116,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       }
     });
   }
+
+  const canEdit = thread?.author?.userId === currentUser?.id;
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt='rank' fill />,
@@ -189,7 +193,15 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             </div>
           </div>
           <Separator orientation='vertical' />
-          <div className='overflow-hidden'>
+          <div className='overflow-hidden grid grid-rows-[max-content_max-content_auto]'>
+            <div className='grid grid-flow-col place-items-center'>
+              <div className='mr-auto'>
+                <p className='uppercase text-xs font-bold text-zinc-500'>POSTED {formatDateLong(thread.createdAt.toString())}</p>
+              </div>
+              <div className='ml-auto'>
+                <ThreadActions thread={thread} canEdit={canEdit} />
+              </div>
+            </div>
             <p className='font-semibold text-lg'>{thread.title}</p>
             <Content text={thread?.content} />
           </div>
@@ -199,9 +211,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       <div className='grid grid-flow-col'>
         <VoteBox thread={thread} signedIn={signedIn} />
         <div className='ml-auto grid grid-flow-col gap-2'>{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
-      </div>
-      <div>
-        <p className='uppercase text-xs font-bold text-zinc-500'>POSTED {formatDateLong(thread.createdAt.toString())}</p>
       </div>
     </div>
   );
