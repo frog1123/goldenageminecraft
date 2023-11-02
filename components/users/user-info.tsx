@@ -10,7 +10,7 @@ import gold from '@/public/assets/ranks/gold.png';
 import redstone from '@/public/assets/ranks/redstone.png';
 import lapis from '@/public/assets/ranks/lapis.png';
 import diamond from '@/public/assets/ranks/diamond.png';
-import { Crown, Edit, Gavel, LeafyGreen, Sailboat, Shield } from 'lucide-react';
+import { Anchor, CaseSensitive, Crown, Cuboid, Edit, Gavel, Palmtree, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { VotesRatio } from '../votes-ratio';
@@ -105,7 +105,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
             <Link href={`/users/${user.id}/edit`}>
               <div className='grid grid-flow-col place-items-center w-max gap-1 mr-auto hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md'>
                 <div>
-                  <Edit className='w-[0.8rem] h-[0.8rem] text-zinc-500' />
+                  <Edit className='w-4 h-4 text-zinc-500' />
                 </div>
                 <p className='uppercase text-xs font-bold text-zinc-500 mt-[2px]'>Bio</p>
               </div>
@@ -113,7 +113,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
           ) : (
             <div className='grid grid-flow-col place-items-center w-max gap-1 mr-auto p-1 rounded-md'>
               <div>
-                <LeafyGreen className='w-[0.8rem] h-[0.8rem] text-zinc-500' />
+                <Palmtree className='w-4 h-4 text-zinc-500' />
               </div>
               <p className='uppercase text-xs font-bold text-zinc-500 mt-[2px]'>Bio</p>
             </div>
