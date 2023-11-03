@@ -364,3 +364,44 @@ export async function POST(req: Request) {
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+
+    const { searchParams } = new URL(req.url);
+    const threadId = searchParams.get('id');
+
+    if (!threadId) return new NextResponse('Bad request', { status: 400 });
+
+    const existingThread = await db.thread.findUnique({
+      where: {
+        id: threadId
+      },
+      select: {
+        author: {
+          select: {
+            id: true
+          }
+        }
+      }
+    });
+
+    if (!existingThread) return new NextResponse('Bad request', { status: 400 });
+    console.log(existingThread.author.id);
+
+    if (currentUser.id !== existingThread.author.id) return new NextResponse('Unauthorized', { status: 401 });
+
+    await db.thread.delete({
+      where: {
+        id: threadId
+      }
+    });
+
+    return new NextResponse('Success', { status: 200 });
+  } catch (err) {
+    console.log('[THREADS_DELETE]', err);
+    return new NextResponse('Internal Error', { status: 500 });
+  }
+}
