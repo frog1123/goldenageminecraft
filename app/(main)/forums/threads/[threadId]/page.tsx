@@ -14,7 +14,7 @@ import diamond from '@/public/assets/ranks/diamond.png';
 import { Crown, Gavel, Sailboat, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Content } from '@/components/content';
-import Link from '@/components/link';
+import { Link } from '@/components/link';
 import { VoteBox } from '@/components/threads/vote-box';
 import { getCurrentUser } from '@/lib/current-user';
 import Tag from '@/components/threads/tag';

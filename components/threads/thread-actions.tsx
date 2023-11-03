@@ -45,12 +45,14 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
                 </div>
               </Link>
             </DropdownMenuItem>
-            <Separator />
+            <Separator className='my-1' />
             <DropdownMenuItem>
-              <div className='flex place-items-center w-full gap-2 text-red-500'>
-                <span>Delete thread</span>
-                <Trash2 className='w-4 h-4 ml-auto' />
-              </div>
+              <button onClick={() => modal.onOpen('delete-thread-conf', { deleteThreadConf: { threadId: thread.id } })}>
+                <div className='flex place-items-center w-full gap-2 text-red-500'>
+                  <span>Delete thread</span>
+                  <Trash2 className='w-4 h-4 ml-auto' />
+                </div>
+              </button>
             </DropdownMenuItem>
           </>
         )}
