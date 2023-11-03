@@ -39,7 +39,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   }
 
   return (
-    <ContextProvider initalValue={{ currentUser: { clerkId: clerkUser?.id ? clerkUser.id : null, id: user ? user.id : null } }}>
+    <ContextProvider initalValue={{ currentUser: { clerkId: clerkUser?.id ? clerkUser.id : null, id: user ? user.id : null }, deletedThread: { id: null } }}>
       <ClerkProvider>
         <html lang='en' suppressHydrationWarning>
           <body className={inter.className} dir='ltr'>

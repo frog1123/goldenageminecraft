@@ -1,21 +1,25 @@
 'use client';
 
 import { useModal } from '@/hooks/use-modal-store';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { Context } from '@/context';
 
 export const DeleteThreadConfModal: FC = () => {
   const modal = useModal();
-  const router = useRouter();
+
   const isModalOpen = modal.isOpen && modal.type === 'delete-thread-conf';
 
-  const handleDeleteThread = async () => {
-    await axios.delete(`/api/threads/?id=${modal.data.deleteThreadConf?.threadId}`);
+  const context = useContext(Context);
 
-    router.refresh();
+  const handleDeleteThread = async () => {
+    if (!modal.data.deleteThreadConf?.threadId) return;
+
+    await axios.delete(`/api/threads/?id=${modal.data.deleteThreadConf.threadId}`);
+
+    context.setValue({ ...context.value, deletedThread: { id: modal.data.deleteThreadConf.threadId } });
 
     modal.onClose();
   };

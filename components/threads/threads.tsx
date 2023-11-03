@@ -21,6 +21,14 @@ const Threads: FC = () => {
   const initalThreadCount = 1;
   const fetchMoreAmount = 3;
 
+  useEffect(() => {
+    if (context.value.deletedThread.id !== null) {
+      const updatedThreads = threads.filter(thread => thread.id !== context.value.deletedThread.id);
+      setThreads(updatedThreads);
+      context.setValue({ ...context.value, deletedThread: { id: null } });
+    }
+  }, [context.value.deletedThread.id, context]);
+
   const fetchMoreThreads = async () => {
     if (dontFetch) return;
     try {

@@ -389,7 +389,6 @@ export async function DELETE(req: Request) {
     });
 
     if (!existingThread) return new NextResponse('Bad request', { status: 400 });
-    console.log(existingThread.author.id);
 
     if (currentUser.id !== existingThread.author.id) return new NextResponse('Unauthorized', { status: 401 });
 

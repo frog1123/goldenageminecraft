@@ -5,6 +5,9 @@ export interface ContextData {
     clerkId: string | null;
     id: string | null;
   };
+  deletedThread: {
+    id: string | null;
+  };
 }
 
 type ContextType = {
@@ -16,6 +19,9 @@ export const Context = createContext<ContextType>({
   value: {
     currentUser: {
       clerkId: null,
+      id: null
+    },
+    deletedThread: {
       id: null
     }
   },

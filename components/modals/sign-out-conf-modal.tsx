@@ -20,6 +20,7 @@ export const SignOutConfModal: FC = () => {
     signOut();
 
     context.setValue({
+      ...context.value,
       currentUser: {
         clerkId: null,
         id: null
