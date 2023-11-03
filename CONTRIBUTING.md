@@ -19,7 +19,8 @@ To run:
 "lint": "next lint",
 "prisma": "prisma generate --schema prisma/schema.prisma && prisma db push",
 "studio": "prisma studio",
-"migrate-reset": "prisma migrate reset"
+"migrate-reset": "prisma migrate reset",
+"prettier": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
 ```
 
 # env
