@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from '@/components/link';
+import { Link } from '@/components/link';
 import grass_block_old from '@/public/assets/grass_block_old.png';
 import { FC } from 'react';
 

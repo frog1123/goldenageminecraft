@@ -2,9 +2,10 @@
 
 import { FC } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Edit, Eye, MoreHorizontal, Share } from 'lucide-react';
-import Link from '@/components/link';
+import { Edit, Eye, MoreHorizontal, Share, Trash, Trash2 } from 'lucide-react';
+import { Link } from '@/components/link';
 import { useModal } from '@/hooks/use-modal-store';
+import { Separator } from '@/components/ui/separator';
 
 interface ThreadActionsProps {
   canEdit: boolean;
@@ -20,16 +21,6 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
         <MoreHorizontal className='w-4 h-4 cursor-pointer' />
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        {canEdit && (
-          <DropdownMenuItem>
-            <Link href={`/forums/threads/${thread.id}/edit`} className='w-full'>
-              <div className='flex place-items-center w-full gap-2'>
-                <span>Edit thread</span>
-                <Edit className='w-4 h-4 ml-auto' />
-              </div>
-            </Link>
-          </DropdownMenuItem>
-        )}
         <DropdownMenuItem>
           <Link href={`/forums/threads/${thread.id}`} className='w-full'>
             <div className='flex place-items-center w-full gap-2'>
@@ -44,6 +35,25 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
             <Share className='w-4 h-4 ml-auto' />
           </div>
         </DropdownMenuItem>
+        {canEdit && (
+          <>
+            <DropdownMenuItem>
+              <Link href={`/forums/threads/${thread.id}/edit`} className='w-full'>
+                <div className='flex place-items-center w-full gap-2'>
+                  <span>Edit thread</span>
+                  <Edit className='w-4 h-4 ml-auto' />
+                </div>
+              </Link>
+            </DropdownMenuItem>
+            <Separator />
+            <DropdownMenuItem>
+              <div className='flex place-items-center w-full gap-2 text-red-500'>
+                <span>Delete thread</span>
+                <Trash2 className='w-4 h-4 ml-auto' />
+              </div>
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

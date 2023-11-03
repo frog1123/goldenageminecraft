@@ -14,5 +14,3 @@ export const Link: FC<LinkProps> = ({ href, className, children }) => {
     </ProgressLink>
   );
 };
-
-export default Link;

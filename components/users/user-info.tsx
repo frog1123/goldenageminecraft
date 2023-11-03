@@ -14,7 +14,7 @@ import { Anchor, CaseSensitive, Crown, Cuboid, Edit, Gavel, Palmtree, Sailboat, 
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { VotesRatio } from '../votes-ratio';
-import Link from '@/components/link';
+import { Link } from '@/components/link';
 import { Content } from '@/components/content';
 
 interface UserInfoProps {

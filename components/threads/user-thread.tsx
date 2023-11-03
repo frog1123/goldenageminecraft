@@ -1,7 +1,7 @@
 import { UserThreadType } from '@/types';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { formatDate } from '@/utils/format-date';
-import Link from '@/components/link';
+import { Link } from '@/components/link';
 
 import Tag from '@/components/threads/tag';
 import { Content } from '@/components/content';
