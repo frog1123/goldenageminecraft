@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 
 interface ContentProps {
   text: string | null | undefined;
@@ -11,7 +11,7 @@ export const Content: FC<ContentProps> = ({ text }) => {
     return text.split(urlRegex).map((word, index) => {
       if (word.match(urlRegex)) {
         return (
-          <a className='text-blue-500 underline' key={index} href={word}>
+          <a className="text-blue-500 underline" key={index} href={word}>
             {word}
           </a>
         );
@@ -23,5 +23,5 @@ export const Content: FC<ContentProps> = ({ text }) => {
 
   const textWithLinks = text ? makeLinks(text) : null;
 
-  return <p className='break-words whitespace-pre-wrap'>{textWithLinks}</p>;
+  return <p className="break-words whitespace-pre-wrap">{textWithLinks}</p>;
 };

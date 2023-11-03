@@ -1,20 +1,20 @@
-import { getCurrentUser } from '@/lib/current-user';
-import { db } from '@/lib/db';
-import { containsSpecialCharacters } from '@/utils/contains-special-characters';
-import { hasDuplicates } from '@/utils/has-duplicates';
-import { NextResponse } from 'next/server';
+import { getCurrentUser } from "@/lib/current-user";
+import { db } from "@/lib/db";
+import { containsSpecialCharacters } from "@/utils/contains-special-characters";
+import { hasDuplicates } from "@/utils/has-duplicates";
+import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const take = searchParams.get('tk');
-  const skip = searchParams.get('sk');
-  const authorId = searchParams.get('a');
-  const tagId = searchParams.get('t');
-  const userId = searchParams.get('u');
+  const take = searchParams.get("tk");
+  const skip = searchParams.get("sk");
+  const authorId = searchParams.get("a");
+  const tagId = searchParams.get("t");
+  const userId = searchParams.get("u");
 
   if (userId) {
     const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     try {
       if (tagId) {
@@ -62,7 +62,7 @@ export async function GET(req: Request) {
                 createdAt: true
               },
               orderBy: {
-                createdAt: 'desc'
+                createdAt: "desc"
               },
               take: take ? parseInt(take) : 0,
               skip: skip ? parseInt(skip) : 0
@@ -114,7 +114,7 @@ export async function GET(req: Request) {
             createdAt: true
           },
           orderBy: {
-            createdAt: 'desc'
+            createdAt: "desc"
           },
           take: take ? parseInt(take) : 0,
           skip: skip ? parseInt(skip) : 0
@@ -164,7 +164,7 @@ export async function GET(req: Request) {
           },
 
           orderBy: {
-            createdAt: 'desc'
+            createdAt: "desc"
           },
           take: take ? parseInt(take) : 0,
           skip: skip ? parseInt(skip) : 0
@@ -173,8 +173,8 @@ export async function GET(req: Request) {
         return NextResponse.json(threads);
       }
     } catch (err) {
-      console.log('[THREADS_GET_USER]', err);
-      return new NextResponse('Internal Error', { status: 500 });
+      console.log("[THREADS_GET_USER]", err);
+      return new NextResponse("Internal Error", { status: 500 });
     }
   }
 
@@ -214,7 +214,7 @@ export async function GET(req: Request) {
               createdAt: true
             },
             orderBy: {
-              createdAt: 'desc'
+              createdAt: "desc"
             },
             take: take ? parseInt(take) : 0,
             skip: skip ? parseInt(skip) : 0
@@ -256,7 +256,7 @@ export async function GET(req: Request) {
           createdAt: true
         },
         orderBy: {
-          createdAt: 'desc'
+          createdAt: "desc"
         },
         take: take ? parseInt(take) : 0,
         skip: skip ? parseInt(skip) : 0
@@ -296,7 +296,7 @@ export async function GET(req: Request) {
         },
 
         orderBy: {
-          createdAt: 'desc'
+          createdAt: "desc"
         },
         take: take ? parseInt(take) : 0,
         skip: skip ? parseInt(skip) : 0
@@ -305,15 +305,15 @@ export async function GET(req: Request) {
       return NextResponse.json(threads);
     }
   } catch (err) {
-    console.log('[THREADS_GET]', err);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.log("[THREADS_GET]", err);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { title, content, tags } = await req.json();
 
@@ -325,15 +325,15 @@ export async function POST(req: Request) {
       if (element.length >= 20) brokeMax = true;
     }
 
-    if (title.length === 0) return new NextResponse('Title required', { status: 400 });
-    if (title.length >= 100) return new NextResponse('Title too long', { status: 400 });
-    if (content.length >= 1000) return new NextResponse('Content too long', { status: 400 });
+    if (title.length === 0) return new NextResponse("Title required", { status: 400 });
+    if (title.length >= 100) return new NextResponse("Title too long", { status: 400 });
+    if (content.length >= 1000) return new NextResponse("Content too long", { status: 400 });
 
-    if (tags.length > 5) return new NextResponse('You can only add up to 5 tags', { status: 400 });
-    else if (brokeMax) return new NextResponse('Tag needs to be under 20 characters', { status: 400 });
-    else if (hasDuplicates(tags)) return new NextResponse('You can not have duplicate tags', { status: 400 });
-    else if (tags.includes('')) return new NextResponse('Empty tags are not allowed', { status: 400 });
-    else if (specialCharacters) return new NextResponse('Special characters are not allowed', { status: 400 });
+    if (tags.length > 5) return new NextResponse("You can only add up to 5 tags", { status: 400 });
+    else if (brokeMax) return new NextResponse("Tag needs to be under 20 characters", { status: 400 });
+    else if (hasDuplicates(tags)) return new NextResponse("You can not have duplicate tags", { status: 400 });
+    else if (tags.includes("")) return new NextResponse("Empty tags are not allowed", { status: 400 });
+    else if (specialCharacters) return new NextResponse("Special characters are not allowed", { status: 400 });
 
     const createdTags = await Promise.all(
       tags.map(async (tagName: string) => {
@@ -360,20 +360,20 @@ export async function POST(req: Request) {
 
     return NextResponse.json(thread);
   } catch (err) {
-    console.log('[THREADS_POST]', err);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.log("[THREADS_POST]", err);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
-    const threadId = searchParams.get('id');
+    const threadId = searchParams.get("id");
 
-    if (!threadId) return new NextResponse('Bad request', { status: 400 });
+    if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
     const existingThread = await db.thread.findUnique({
       where: {
@@ -388,9 +388,9 @@ export async function DELETE(req: Request) {
       }
     });
 
-    if (!existingThread) return new NextResponse('Bad request', { status: 400 });
+    if (!existingThread) return new NextResponse("Bad request", { status: 400 });
 
-    if (currentUser.id !== existingThread.author.id) return new NextResponse('Unauthorized', { status: 401 });
+    if (currentUser.id !== existingThread.author.id) return new NextResponse("Unauthorized", { status: 401 });
 
     await db.thread.delete({
       where: {
@@ -398,9 +398,9 @@ export async function DELETE(req: Request) {
       }
     });
 
-    return new NextResponse('Success', { status: 200 });
+    return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log('[THREADS_DELETE]', err);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.log("[THREADS_DELETE]", err);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

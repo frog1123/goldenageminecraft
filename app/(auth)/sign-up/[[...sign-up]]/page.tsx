@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { SignUp } from '@clerk/nextjs';
-import { useEffect, useState } from 'react';
+import { SignUp } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const [isMounted, setIsMounted] = useState(false);
@@ -12,5 +12,5 @@ export default function Page() {
 
   if (!isMounted) return null;
 
-  return <SignUp afterSignUpUrl='/signed-up' />;
+  return <SignUp afterSignUpUrl="/signed-up" />;
 }

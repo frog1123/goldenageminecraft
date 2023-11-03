@@ -1,6 +1,6 @@
-import { getCurrentUser } from '@/lib/current-user';
-import { db } from '@/lib/db';
-import { NextResponse } from 'next/server';
+import { getCurrentUser } from "@/lib/current-user";
+import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -9,8 +9,8 @@ export async function POST(req: Request) {
 
     const currentUser = await getCurrentUser();
 
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
-    if (!threadId) return new NextResponse('Bad request', { status: 400 });
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
     const existingThreadUpvote = await db.threadUpvote.findUnique({
       where: {
@@ -30,8 +30,8 @@ export async function POST(req: Request) {
       }
     });
 
-    if (type === 'u') {
-      if (existingThreadUpvote) return new NextResponse('Thread already upvoted', { status: 400 });
+    if (type === "u") {
+      if (existingThreadUpvote) return new NextResponse("Thread already upvoted", { status: 400 });
 
       if (existingThreadDownvote)
         await db.threadDownVote.delete({
@@ -49,8 +49,8 @@ export async function POST(req: Request) {
           authorId: currentUser.id
         }
       });
-    } else if (type === 'd') {
-      if (existingThreadDownvote) return new NextResponse('Thread already downvoted', { status: 400 });
+    } else if (type === "d") {
+      if (existingThreadDownvote) return new NextResponse("Thread already downvoted", { status: 400 });
 
       if (existingThreadUpvote)
         await db.threadUpvote.delete({
@@ -70,25 +70,25 @@ export async function POST(req: Request) {
       });
     }
 
-    return new NextResponse('Success', { status: 200 });
+    return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log('[VOTES_POST]', err);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.log("[VOTES_POST]", err);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const threadId = searchParams.get('t');
-    const type = searchParams.get('ty');
+    const threadId = searchParams.get("t");
+    const type = searchParams.get("ty");
 
     const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
-    if (!threadId) return new NextResponse('Bad request', { status: 400 });
+    if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
-    if (type === 'u') {
+    if (type === "u") {
       try {
         await db.threadUpvote.delete({
           where: {
@@ -99,12 +99,12 @@ export async function DELETE(req: Request) {
           }
         });
       } catch (err) {
-        console.log('[VOTES_DELETE]', err);
-        return new NextResponse('Internal Error', { status: 500 });
+        console.log("[VOTES_DELETE]", err);
+        return new NextResponse("Internal Error", { status: 500 });
       }
     }
 
-    if (type === 'd') {
+    if (type === "d") {
       try {
         await db.threadDownVote.delete({
           where: {
@@ -115,14 +115,14 @@ export async function DELETE(req: Request) {
           }
         });
       } catch (err) {
-        console.log('[VOTES_DELETE]', err);
-        return new NextResponse('Internal Error', { status: 500 });
+        console.log("[VOTES_DELETE]", err);
+        return new NextResponse("Internal Error", { status: 500 });
       }
     }
 
-    return new NextResponse('Success', { status: 200 });
+    return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log('[VOTES_DELETE]', err);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.log("[VOTES_DELETE]", err);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

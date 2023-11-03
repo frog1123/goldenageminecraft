@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import dark_spinner from '@/public/assets/spinners/dark_spinner.svg';
-import light_spinner from '@/public/assets/spinners/light_spinner.svg';
-import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import dark_spinner from "@/public/assets/spinners/dark_spinner.svg";
+import light_spinner from "@/public/assets/spinners/light_spinner.svg";
+import { FC, useEffect, useState } from "react";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const LoadingIcon: FC = () => {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
   const themeMap = {
-    dark: <Image src={dark_spinner} alt='loading' />,
-    light: <Image src={light_spinner} alt='loading' />
+    dark: <Image src={dark_spinner} alt="loading" />,
+    light: <Image src={light_spinner} alt="loading" />
   };
 
   useEffect(() => {

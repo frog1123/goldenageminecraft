@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export type ModalType = 'share-thread' | 'sign-out-conf' | 'sign-in-req' | 'delete-thread-conf';
+export type ModalType = "share-thread" | "sign-out-conf" | "sign-in-req" | "delete-thread-conf";
 
 interface ModalData {
   shareThread?: { threadId: string };

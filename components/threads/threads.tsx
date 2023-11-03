@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { FC, useEffect, useState, useRef, useContext } from 'react';
-import Thread from '@/components/threads/thread';
-import { ThreadType } from '@/types';
-import axios from 'axios';
-import LoadingIcon from '@/components/loading-icon';
-import { Context } from '@/context';
+import { FC, useEffect, useState, useRef, useContext } from "react";
+import Thread from "@/components/threads/thread";
+import { ThreadType } from "@/types";
+import axios from "axios";
+import LoadingIcon from "@/components/loading-icon";
+import { Context } from "@/context";
 
 const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
@@ -50,7 +50,7 @@ const Threads: FC = () => {
       }
       setDontFetch(false);
     } catch (err) {
-      console.error('Error fetching threads [INCREMENTAL]:', err);
+      console.error("Error fetching threads [INCREMENTAL]:", err);
     }
   };
 
@@ -68,7 +68,7 @@ const Threads: FC = () => {
         setThreads(data);
         setIsLoading(false);
       } catch (err) {
-        console.error('Error fetching threads [INITIAL]:', err);
+        console.error("Error fetching threads [INITIAL]:", err);
       }
     };
 
@@ -97,15 +97,15 @@ const Threads: FC = () => {
 
   if (isLoading)
     return (
-      <div className='w-max mx-auto'>
+      <div className="w-max mx-auto">
         <LoadingIcon />
       </div>
     );
 
   return (
-    <div className='grid grid-flow-row gap-2 w-full'>
+    <div className="grid grid-flow-row gap-2 w-full">
       {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={`thread-${thread.id}`} signedIn={signedIn} />)}
-      <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
+      <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
     </div>
   );
 };

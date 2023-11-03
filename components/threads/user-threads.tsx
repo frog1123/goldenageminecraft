@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { FC, useEffect, useState, useRef, useContext } from 'react';
-import { ThreadType } from '@/types';
-import axios from 'axios';
-import LoadingIcon from '@/components/loading-icon';
-import { UserThread } from '@/components/threads/user-thread';
-import { Context } from '@/context';
+import { FC, useEffect, useState, useRef, useContext } from "react";
+import { ThreadType } from "@/types";
+import axios from "axios";
+import LoadingIcon from "@/components/loading-icon";
+import { UserThread } from "@/components/threads/user-thread";
+import { Context } from "@/context";
 
 interface UserThreadsProps {
   authorId: string;
@@ -54,7 +54,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
       }
       setDontFetch(false);
     } catch (err) {
-      console.error('Error fetching threads [INCREMENTAL]:', err);
+      console.error("Error fetching threads [INCREMENTAL]:", err);
     }
   };
 
@@ -72,7 +72,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
         setThreads(data);
         setIsLoading(false);
       } catch (err) {
-        console.error('Error fetching threads [INITIAL]:', err);
+        console.error("Error fetching threads [INITIAL]:", err);
       }
     };
 
@@ -101,15 +101,15 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
 
   if (isLoading)
     return (
-      <div className='w-max mx-auto'>
+      <div className="w-max mx-auto">
         <LoadingIcon />
       </div>
     );
 
   return (
-    <div className='grid grid-flow-row gap-2 w-full'>
+    <div className="grid grid-flow-row gap-2 w-full">
       {threads.length > 0 && threads.map(thread => <UserThread thread={thread} key={`user-thread-${thread.id}`} canEdit={canEdit} signedIn={signedIn} />)}
-      <div ref={lastElementRef} className='z-[-1] text-center w-full h-[400px] mt-[-400px]'></div>
+      <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
     </div>
   );
 };

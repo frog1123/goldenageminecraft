@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Link as ProgressLink } from 'nextjs13-progress';
+import { FC } from "react";
+import { Link as ProgressLink } from "nextjs13-progress";
 
 interface LinkProps {
   href: string;

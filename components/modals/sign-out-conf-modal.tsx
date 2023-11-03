@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useModal } from '@/hooks/use-modal-store';
-import { FC, useContext } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useClerk } from '@clerk/nextjs';
-import { Context } from '@/context';
-import { useRouter } from 'next/navigation';
+import { useModal } from "@/hooks/use-modal-store";
+import { FC, useContext } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useClerk } from "@clerk/nextjs";
+import { Context } from "@/context";
+import { useRouter } from "next/navigation";
 
 export const SignOutConfModal: FC = () => {
   const modal = useModal();
@@ -14,7 +14,7 @@ export const SignOutConfModal: FC = () => {
   const context = useContext(Context);
   const router = useRouter();
 
-  const isModalOpen = modal.isOpen && modal.type === 'sign-out-conf';
+  const isModalOpen = modal.isOpen && modal.type === "sign-out-conf";
 
   const handleSignOut = () => {
     signOut();
@@ -26,20 +26,20 @@ export const SignOutConfModal: FC = () => {
         id: null
       }
     });
-    router.push('/'); // home
+    router.push("/"); // home
 
     modal.onClose();
   };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={modal.onClose}>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className='text-center'>Sign out confirmation</DialogTitle>
-          <DialogDescription className='text-center'>Are sure you want to sign out?</DialogDescription>
+          <DialogTitle className="text-center">Sign out confirmation</DialogTitle>
+          <DialogDescription className="text-center">Are sure you want to sign out?</DialogDescription>
         </DialogHeader>
-        <div className='grid place-items-center'>
-          <Button onClick={handleSignOut} size='icon' className='border bg-white hover:bg-neutral-200 transition px-10 w-max'>
+        <div className="grid place-items-center">
+          <Button onClick={handleSignOut} size="icon" className="border bg-white hover:bg-neutral-200 transition px-10 w-max">
             Yes
           </Button>
         </div>

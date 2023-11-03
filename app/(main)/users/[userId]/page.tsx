@@ -1,9 +1,9 @@
-import { UserThreads } from '@/components/threads/user-threads';
-import { UserInfo } from '@/components/users/user-info';
-import { db } from '@/lib/db';
-import { NextPage } from 'next';
-import { currentUser as clerkCurrentUser } from '@clerk/nextjs';
-import { VoteStats } from '@/types';
+import { UserThreads } from "@/components/threads/user-threads";
+import { UserInfo } from "@/components/users/user-info";
+import { db } from "@/lib/db";
+import { NextPage } from "next";
+import { currentUser as clerkCurrentUser } from "@clerk/nextjs";
+import { VoteStats } from "@/types";
 
 interface UserIdPageProps {
   params: {
@@ -59,8 +59,8 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
 
   if (!user)
     return (
-      <div className='bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2'>
-        <p className='text-center'>:( User does not exist or cannot be found</p>
+      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
+        <p className="text-center">:( User does not exist or cannot be found</p>
       </div>
     );
 
@@ -72,9 +72,9 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     <>
       <UserInfo user={user} voteStats={voteStats} canEdit={canEdit} />
       {user._count.threads > 0 && (
-        <div className='grid grid-cols-2 gap-2 place-items-center'>
-          <p className='mr-auto uppercase text-xs font-bold text-zinc-500'>Activity</p>
-          <p className='ml-auto uppercase text-xs font-bold text-zinc-500 '>{user._count.threads} Threads</p>
+        <div className="grid grid-cols-2 gap-2 place-items-center">
+          <p className="mr-auto uppercase text-xs font-bold text-zinc-500">Activity</p>
+          <p className="ml-auto uppercase text-xs font-bold text-zinc-500 ">{user._count.threads} Threads</p>
         </div>
       )}
       <UserThreads authorId={params.userId} canEdit={canEdit} />

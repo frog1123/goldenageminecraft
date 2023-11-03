@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useModal } from '@/hooks/use-modal-store';
-import { FC, useContext } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import axios from 'axios';
-import { Context } from '@/context';
+import { useModal } from "@/hooks/use-modal-store";
+import { FC, useContext } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { Context } from "@/context";
 
 export const DeleteThreadConfModal: FC = () => {
   const modal = useModal();
 
-  const isModalOpen = modal.isOpen && modal.type === 'delete-thread-conf';
+  const isModalOpen = modal.isOpen && modal.type === "delete-thread-conf";
 
   const context = useContext(Context);
 
@@ -26,13 +26,13 @@ export const DeleteThreadConfModal: FC = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={modal.onClose}>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className='text-center'>Delete thread confirmation</DialogTitle>
-          <DialogDescription className='text-center'>Are sure you want to delete this thread?</DialogDescription>
+          <DialogTitle className="text-center">Delete thread confirmation</DialogTitle>
+          <DialogDescription className="text-center">Are sure you want to delete this thread?</DialogDescription>
         </DialogHeader>
-        <div className='grid place-items-center'>
-          <Button onClick={handleDeleteThread} size='icon' className='border bg-white hover:bg-neutral-200 transition px-10 w-max'>
+        <div className="grid place-items-center">
+          <Button onClick={handleDeleteThread} size="icon" className="border bg-white hover:bg-neutral-200 transition px-10 w-max">
             Delete
           </Button>
         </div>

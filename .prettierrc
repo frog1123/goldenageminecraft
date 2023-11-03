@@ -3,6 +3,6 @@
   "proseWrap": "never",
   "printWidth": 175,
   "trailingComma": "none",
-  "singleQuote": true,
-  "jsxSingleQuote": true
+  "singleQuote": false,
+  "jsxSingleQuote": false
 }

@@ -1,4 +1,4 @@
-import { Thread, User } from '@prisma/client';
+import { Thread, User } from "@prisma/client";
 
 // prettier-ignore
 export type ThreadType = Thread 
@@ -8,9 +8,9 @@ export type ThreadType = Thread
 & { upvotes: any }
 & { downvotes: any };
 
-export type UserWithoutEmail = Omit<User, 'email'>;
+export type UserWithoutEmail = Omit<User, "email">;
 
-export type UserThreadType = Omit<ThreadType, 'author'>;
+export type UserThreadType = Omit<ThreadType, "author">;
 
 export interface VoteStats {
   receivedUpvotes: number;
