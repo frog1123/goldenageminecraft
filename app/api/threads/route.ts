@@ -312,9 +312,10 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { title, content, tags } = await req.json();
-
     const currentUser = await getCurrentUser();
+    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
+
+    const { title, content, tags } = await req.json();
 
     let specialCharacters = false;
     let brokeMax = false;
@@ -324,7 +325,6 @@ export async function POST(req: Request) {
       if (element.length >= 20) brokeMax = true;
     }
 
-    if (!currentUser) return new NextResponse('Unauthorized', { status: 401 });
     if (title.length === 0) return new NextResponse('Title required', { status: 400 });
     if (title.length >= 100) return new NextResponse('Title too long', { status: 400 });
     if (content.length >= 1000) return new NextResponse('Content too long', { status: 400 });

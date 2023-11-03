@@ -63,7 +63,8 @@ export async function POST(req: Request) {
           lastName: parsedBody.data.last_name,
           name: parsedBody.data.username ? parsedBody.data.username : parsedBody.data.id,
           email: primaryEmailAddress.email_address,
-          imageUrl: parsedBody.data.image_url
+          imageUrl: parsedBody.data.image_url,
+          bio: ''
         }
       });
     } catch (err) {

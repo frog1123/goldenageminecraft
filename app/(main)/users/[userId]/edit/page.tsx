@@ -18,7 +18,7 @@ const UserIdEditPage: NextPage<UserIdEditPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <EditUserForm />
+      <EditUserForm user={currentUser} />
     </div>
   );
 };

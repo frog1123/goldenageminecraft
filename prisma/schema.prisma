@@ -16,7 +16,7 @@ model User {
   lastName  String?
   email     String   @db.Text
   imageUrl  String   @db.Text
-  bio       String?  @db.Text
+  bio       String   @db.Text
   rank      UserRank @default(COAL)
   role      UserRole @default(USER)
   plan      UserPlan @default(NONE)

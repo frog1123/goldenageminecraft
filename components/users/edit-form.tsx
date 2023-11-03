@@ -10,19 +10,26 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import TextareaAutosize from 'react-textarea-autosize';
 import Image from 'next/image';
 import spinner from '@/public/assets/spinners/3dots-spinner.svg';
+import { UserWithoutEmail } from '@/types';
+
+interface EditUserFormProps {
+  user: UserWithoutEmail;
+}
 
 const formSchema = z.object({
+  id: z.string(),
   bio: z.string()
 });
 
-export const EditUserForm: FC = () => {
+export const EditUserForm: FC<EditUserFormProps> = ({ user }) => {
   const [bioMessage, setBioMessage] = useState('');
   const [formValid, setFormValid] = useState({ bio: true });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bio: ''
+      id: user.id,
+      bio: user.bio
     }
   });
 
