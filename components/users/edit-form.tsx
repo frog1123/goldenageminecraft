@@ -11,6 +11,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import Image from 'next/image';
 import spinner from '@/public/assets/spinners/3dots-spinner.svg';
 import { UserWithoutEmail } from '@/types';
+import { useRouter } from 'next/navigation';
 
 interface EditUserFormProps {
   user: UserWithoutEmail;
@@ -22,6 +23,7 @@ const formSchema = z.object({
 });
 
 export const EditUserForm: FC<EditUserFormProps> = ({ user }) => {
+  const router = useRouter();
   const [bioMessage, setBioMessage] = useState('');
   const [formValid, setFormValid] = useState({ bio: true });
 
@@ -38,6 +40,7 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch('/api/users', values);
+      router.push(`/users/${user.id}`);
     } catch (err) {
       console.log(err);
     }
