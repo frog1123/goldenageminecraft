@@ -38,7 +38,6 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch('/api/users', values);
-      form.reset();
     } catch (err) {
       console.log(err);
     }

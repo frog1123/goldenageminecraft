@@ -23,15 +23,19 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   const clerkUser = await currentUser();
 
   let user;
-  if (clerkUser) {
-    user = await db.user.findUnique({
-      where: {
-        userId: clerkUser.id
-      },
-      select: {
-        id: true
-      }
-    });
+  try {
+    if (clerkUser) {
+      user = await db.user.findUnique({
+        where: {
+          userId: clerkUser.id
+        },
+        select: {
+          id: true
+        }
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 
   return (
