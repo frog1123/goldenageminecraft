@@ -41,9 +41,8 @@ const CreateThreadForm: FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/threads", values);
-      form.reset();
-      router.push("/forums");
+      const response = await axios.post("/api/threads", values);
+      router.push(`/forums/threads/${response.data}`);
     } catch (err) {
       console.log(err);
     }
