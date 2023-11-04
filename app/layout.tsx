@@ -12,7 +12,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Golden Age Minecraft",
-  description: "The forum for the golden age of Minecraft."
+  description: "The forum for the golden age of Minecraft.",
+  openGraph: {
+    title: "Golden Age Minecraft",
+    description: "The forum for the golden age of Minecraft."
+  }
 };
 
 interface RootLayoutProps {

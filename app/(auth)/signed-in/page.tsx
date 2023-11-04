@@ -1,7 +1,14 @@
 import { SignOutButton } from "@/components/sign-out-button";
 import { getCurrentUser } from "@/lib/current-user";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Signed in",
+  openGraph: {
+    title: "Signed in"
+  }
+};
 
 const SignedInPage: NextPage = async () => {
   const currentUser = await getCurrentUser();
