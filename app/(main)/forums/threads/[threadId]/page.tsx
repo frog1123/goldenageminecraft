@@ -279,12 +279,20 @@ export async function generateMetadata({ params }: ThreadIdPageProps, parent: Re
   if (!thread)
     return {
       title: "Thread",
-      description: "Thread does not exist or cannot be found"
+      description: "Thread does not exist or cannot be found",
+      openGraph: {
+        title: "Thread",
+        description: "Thread does not exist or cannot be found"
+      }
     };
 
   return {
     title: thread.title,
-    description: thread.content
+    description: thread.content,
+    openGraph: {
+      title: thread.title,
+      description: thread.content ? thread.content : ""
+    }
   };
 }
 

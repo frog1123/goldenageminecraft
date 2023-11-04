@@ -5,7 +5,11 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create thread",
-  description: "This is the thread create page"
+  description: "This is the thread create page",
+  openGraph: {
+    title: "Create thread",
+    description: "This is the thread create page"
+  }
 };
 
 const ThreadsCreatePage: NextPage = async () => {

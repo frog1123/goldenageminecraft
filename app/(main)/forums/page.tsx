@@ -6,7 +6,12 @@ import { Metadata, NextPage } from "next";
 
 export const metadata: Metadata = {
   title: "Forums",
-  description: "This is the forum page"
+  description: "This is the forum page",
+  openGraph: {
+    title: "Forums",
+    description: "This is the forum page",
+    images: ["/logo.png"]
+  }
 };
 
 const ForumsPage: NextPage = async () => {

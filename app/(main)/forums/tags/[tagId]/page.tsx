@@ -63,12 +63,20 @@ export async function generateMetadata({ params }: TagIdPageProps, parent: Resol
   if (!tag)
     return {
       title: "Tag",
-      description: "Tag does not exist or cannot be found"
+      description: "Tag does not exist or cannot be found",
+      openGraph: {
+        title: "Tag",
+        description: "Tag does not exist or cannot be found"
+      }
     };
 
   return {
     title: `#${tag.name}`,
-    description: `${tag._count.threads} threads have this tag`
+    description: `${tag._count.threads} threads have this tag`,
+    openGraph: {
+      title: `#${tag.name}`,
+      description: `${tag._count.threads} threads have this tag`
+    }
   };
 }
 

@@ -97,13 +97,19 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
   if (!user)
     return {
       title: "User profile",
-      description: "User does not exist or cannot be found"
+      description: "User does not exist or cannot be found",
+      openGraph: {
+        title: "User profile",
+        description: "User does not exist or cannot be found"
+      }
     };
 
   return {
     title: user.name,
     description: user.bio,
     openGraph: {
+      title: user.name,
+      description: user.bio,
       images: [user.imageUrl]
     }
   };

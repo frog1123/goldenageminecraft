@@ -3,7 +3,11 @@ import { Metadata, NextPage } from "next";
 
 export const metadata: Metadata = {
   title: "Rules",
-  description: "This is the rules page"
+  description: "This is the rules page",
+  openGraph: {
+    title: "Rules",
+    description: "This is the rules page"
+  }
 };
 
 const RulesPage: NextPage = () => {

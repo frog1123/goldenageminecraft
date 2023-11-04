@@ -3,7 +3,10 @@ import { Announcement } from "@/components/announcement";
 import img1 from "@/public/assets/announcements/img1.png";
 
 export const metadata: Metadata = {
-  description: "This is the home page"
+  description: "This is the home page",
+  openGraph: {
+    description: "This is the home page"
+  }
 };
 
 const Home: NextPage = async () => {

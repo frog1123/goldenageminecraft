@@ -5,8 +5,13 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Profile edit",
-  description: "This is the profile edit page"
+  description: "This is the profile edit page",
+  openGraph: {
+    title: "Profile edit",
+    description: "This is the profile edit page"
+  }
 };
+
 interface UserIdEditPageProps {
   params: {
     userId: string;
