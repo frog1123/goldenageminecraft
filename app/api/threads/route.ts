@@ -350,7 +350,7 @@ export async function POST(req: Request) {
     const thread = await db.thread.create({
       data: {
         title,
-        content,
+        content: content.length === 0 ? null : content,
         tags: {
           connect: resolvedTags.map(tag => ({ id: tag.id }))
         },

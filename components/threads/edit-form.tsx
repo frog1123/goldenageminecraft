@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -22,9 +22,10 @@ const formSchema = z.object({
 
 interface EditThreadFormProps {
   thread: {
+    id: string;
     authorId: string;
     title: string;
-    content: string | null;
+    content: string;
     tags: {
       name: string;
     }[];
@@ -42,9 +43,10 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      tags: []
+      id: thread.id,
+      title: thread.title,
+      content: thread.content,
+      tags: thread.tags.map(tag => tag.name)
     }
   });
 
@@ -52,17 +54,13 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/threads", values);
+      await axios.patch("/api/threads", values);
       form.reset();
       router.push("/forums");
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    setTitleMessage("Title is required");
-  }, []);
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
@@ -188,9 +186,9 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
           <div>
             <Button
               disabled={isLoading || !(formValid.title && formValid.content && formValid.tags)}
-              className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]"
+              className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[120px] px-0"
             >
-              {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Create</p>}
+              {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Save changes</p>}
             </Button>
           </div>
         </form>

@@ -27,6 +27,7 @@ const ThreadIdEditPage: NextPage<ThreadIdEditPageProps> = async ({ params }) => 
       id: params.threadId
     },
     select: {
+      id: true,
       authorId: true,
       title: true,
       content: true,
@@ -41,14 +42,17 @@ const ThreadIdEditPage: NextPage<ThreadIdEditPageProps> = async ({ params }) => 
   console.log(thread);
 
   if (!currentUser || thread?.authorId !== currentUser.id) return redirect("/");
-
   if (!thread) return redirect("/");
+
+  const formattedThread = {
+    ...thread,
+    content: thread.content || ""
+  };
 
   return (
     <div>
-      <p>edit thread</p>
       <div>
-        <EditThreadForm thread={thread} />
+        <EditThreadForm thread={formattedThread} />
       </div>
     </div>
   );
