@@ -11,7 +11,7 @@ import { db } from "@/lib/db";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://87bd-2600-1700-fdb0-f2d0-c00c-be47-c1a1-c341.ngrok-free.app"),
+  metadataBase: new URL("https://goldenageminecraft-app.vercel.app"),
   title: "Golden Age Minecraft",
   description: "The forum for the golden age of Minecraft.",
   openGraph: {
