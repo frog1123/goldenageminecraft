@@ -1,0 +1,75 @@
+{
+  "editor.fontFamily": "Fira Code Regular",
+  "editor.fontLigatures": true,
+  "diffEditor.codeLens": true,
+  "files.exclude": {
+    "**/*.meta": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "svg.preview.mode": "svg",
+  "prettier.arrowParens": "avoid",
+  "prettier.proseWrap": "never",
+  "prettier.printWidth": 175,
+  "prettier.trailingComma": "none",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.bracketSameLine": true,
+  "explorer.compactFolders": false,
+  "terminal.integrated.gpuAcceleration": "off",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    },
+    "Ubuntu (WSL)": {
+      "path": "C:\\WINDOWS\\System32\\wsl.exe",
+      "args": ["-d", "Ubuntu"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "prettier.useEditorConfig": false,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "editor.formatOnSave": true,
+  "html.format.contentUnformatted": "",
+  "settingsSync.ignoredSettings": [],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {},
+  "tailwindCSS.includeLanguages": { "javascript": "javascript", "html": "html", "css": "css" },
+  "editor.quickSuggestions": { "strings": true },
+  "editor.minimap.enabled": false,
+  "go.toolsManagement.autoUpdate": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "terminal.integrated.smoothScrolling": true,
+  "workbench.list.smoothScrolling": true,
+  "editor.smoothScrolling": true,
+  "editor.cursorBlinking": "expand",
+  "terminal.integrated.fontFamily": "'Fira Code', monospace",
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "vscode_vibrancy.opacity": 0.1,
+  "npm.keybindingsChangedWarningShown": true,
+  "window.titleBarStyle": "custom"
+}
