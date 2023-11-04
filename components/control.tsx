@@ -59,17 +59,17 @@ const Control: FC = () => {
         </div>
       </div>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search" />
+        <CommandInput placeholder="Search (wip)" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Threads">
+          <CommandGroup heading="Threads" className="p-2">
             <CommandItem>
               <Newspaper className="mr-2 h-4 w-4" />
               <span>Thread</span>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Users">
+          <CommandGroup heading="Users" className="p-2">
             <CommandItem>
               <User className="mr-2 h-4 w-4" />
               <span>User</span>
