@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     description: "The forum for the golden age of Minecraft."
   },
   robots: {
-    index: true,
+    index: false,
     follow: true,
     nocache: true,
     googleBot: {
-      index: true,
+      index: false,
       follow: false,
       noimageindex: true,
       "max-video-preview": -1,
