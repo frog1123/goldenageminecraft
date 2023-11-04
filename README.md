@@ -12,7 +12,7 @@ forum website for old minecraft
 
 launching soon!
 
-link to [dev site](https://goldenageminecraft-app.vercel.app)
+link to [dev site](https://goldenageminecraft.vercel.app)
 
 ## CONTRIBUTING
 
