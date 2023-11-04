@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Golden Age Minecraft",
     description: "The forum for the golden age of Minecraft."
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
   }
 };
 
