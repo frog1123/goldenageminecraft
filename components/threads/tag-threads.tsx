@@ -6,6 +6,7 @@ import { ThreadType } from "@/types";
 import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { Context } from "@/context";
+import { SkeleThread } from "@/components/threads/skele-thread";
 
 interface TagThreadsProps {
   tagId: string;
@@ -100,9 +101,19 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
 
   if (isLoading)
     return (
-      <div className="w-max mx-auto">
-        <LoadingIcon />
-      </div>
+      <>
+        <div className="grid grid-flow-row gap-2 w-full">
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+        </div>
+        <div className="w-max mx-auto">
+          <LoadingIcon />
+        </div>
+      </>
     );
 
   return (

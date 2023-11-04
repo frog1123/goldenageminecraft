@@ -6,6 +6,7 @@ import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { UserThread } from "@/components/threads/user-thread";
 import { Context } from "@/context";
+import { SkeleThread } from "@/components/threads/skele-thread";
 
 interface UserThreadsProps {
   authorId: string;
@@ -101,9 +102,19 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
 
   if (isLoading)
     return (
-      <div className="w-max mx-auto">
-        <LoadingIcon />
-      </div>
+      <>
+        <div className="grid grid-flow-row gap-2 w-full">
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+          <SkeleThread />
+        </div>
+        <div className="w-max mx-auto">
+          <LoadingIcon />
+        </div>
+      </>
     );
 
   return (
