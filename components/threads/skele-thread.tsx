@@ -1,8 +1,18 @@
+"use client";
+
 import { Dot } from "lucide-react";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const SkeleThread: FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  });
+
+  if (!isMounted) return null;
+
   const w = Math.floor(Math.random() * (80 - 30 + 1)) + 30;
 
   return (
