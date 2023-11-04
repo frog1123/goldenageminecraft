@@ -9,9 +9,10 @@ interface AnnouncementProps {
   title: string;
   content?: string;
   imageUrls?: any[];
+  children?: React.ReactNode;
 }
 
-export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls }) => {
+export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls, children }) => {
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto">
       <div className="grid grid-cols-[max-content_auto] gap-1 place-items-center w-max">
@@ -26,6 +27,7 @@ export const Announcement: FC<AnnouncementProps> = ({ title, content, imageUrls 
             <Image src={img} alt="image" />
           </div>
         ))}
+      {children && children}
     </div>
   );
 };
