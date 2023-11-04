@@ -1,0 +1,1 @@
+pnpm prisma && pnpm build && pnpm start
