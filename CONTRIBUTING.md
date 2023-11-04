@@ -27,6 +27,8 @@ To run:
 
 .env setup
 
+use clerk dev keys noy prod keys
+
 ```
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
