@@ -18,7 +18,12 @@ forum website for old minecraft
 
 launching soon!
 
-link to [dev site](https://goldenageminecraft.vercel.app)
+| branch  | site                                                                     |
+| ------- | ------------------------------------------------------------------------ |
+| master  | [goldenageminecraft.net](https://goldenageminecraft.net)                 |
+| master  | [www.goldenageminecraft.net](https://www.goldenageminecraft.net)         |
+| master  | [goldenageminecraft.vercel.app](https://goldenageminecraft.vercel.app)   |
+| staging | [staging.goldenageminecraft.net](https://staging.goldenageminecraft.net) |
 
 ## CONTRIBUTING
 
