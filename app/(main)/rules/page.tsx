@@ -1,5 +1,10 @@
 import { ClipboardList } from "lucide-react";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
+
+export const metadata: Metadata = {
+  title: "Rules",
+  description: "This is the rules page"
+};
 
 const RulesPage: NextPage = () => {
   return (

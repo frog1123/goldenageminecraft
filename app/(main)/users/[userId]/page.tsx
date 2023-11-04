@@ -1,7 +1,7 @@
 import { UserThreads } from "@/components/threads/user-threads";
 import { UserInfo } from "@/components/users/user-info";
 import { db } from "@/lib/db";
-import { NextPage } from "next";
+import { Metadata, NextPage, ResolvingMetadata } from "next";
 import { currentUser as clerkCurrentUser } from "@clerk/nextjs";
 import { VoteStats } from "@/types";
 
@@ -81,5 +81,32 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     </>
   );
 };
+
+export async function generateMetadata({ params }: UserIdPageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const user = await db.user.findUnique({
+    where: {
+      id: params.userId
+    },
+    select: {
+      name: true,
+      bio: true,
+      imageUrl: true
+    }
+  });
+
+  if (!user)
+    return {
+      title: "User profile",
+      description: "User does not exist or cannot be found"
+    };
+
+  return {
+    title: user.name,
+    description: user.bio,
+    openGraph: {
+      images: [user.imageUrl]
+    }
+  };
+}
 
 export default UserIdPage;
