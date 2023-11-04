@@ -2,7 +2,7 @@ import TagThreads from "@/components/threads/tag-threads";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
 import { Hash } from "lucide-react";
-import { NextPage } from "next";
+import { Metadata, NextPage, ResolvingMetadata } from "next";
 
 interface TagIdPageProps {
   params: {
@@ -44,5 +44,32 @@ const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
     </>
   );
 };
+
+export async function generateMetadata({ params }: TagIdPageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const tag = await db.tag.findUnique({
+    where: {
+      id: params.tagId
+    },
+    select: {
+      name: true,
+      _count: {
+        select: {
+          threads: true
+        }
+      }
+    }
+  });
+
+  if (!tag)
+    return {
+      title: "Tag",
+      description: "Tag does not exist or cannot be found"
+    };
+
+  return {
+    title: `#${tag.name}`,
+    description: `${tag._count.threads} threads have this tag`
+  };
+}
 
 export default TagIdPage;

@@ -1,8 +1,12 @@
 import { EditUserForm } from "@/components/users/edit-form";
 import { getCurrentUser } from "@/lib/current-user";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";
 
+export const metadata: Metadata = {
+  title: "Profile edit",
+  description: "This is the profile edit page"
+};
 interface UserIdEditPageProps {
   params: {
     userId: string;

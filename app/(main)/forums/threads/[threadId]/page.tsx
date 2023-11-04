@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
-import { NextPage } from "next";
+import { Metadata, NextPage, ResolvingMetadata } from "next";
 import Image from "next/image";
 import { UserRank, UserRole } from "@prisma/client";
 
@@ -264,5 +264,28 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     </div>
   );
 };
+
+export async function generateMetadata({ params }: ThreadIdPageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const thread = await db.thread.findUnique({
+    where: {
+      id: params.threadId
+    },
+    select: {
+      title: true,
+      content: true
+    }
+  });
+
+  if (!thread)
+    return {
+      title: "Thread",
+      description: "Thread does not exist or cannot be found"
+    };
+
+  return {
+    title: thread.title,
+    description: thread.content
+  };
+}
 
 export default ThreadIdPage;
