@@ -19,7 +19,7 @@ const Threads: FC = () => {
 
   const signedIn = !!context.value.currentUser.id;
 
-  const initalThreadCount = 1;
+  const initalThreadCount = 5;
   const fetchMoreAmount = 3;
 
   useEffect(() => {
