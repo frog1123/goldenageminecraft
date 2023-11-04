@@ -42,10 +42,16 @@ export const VotesRatio: FC<VotesRatioProps> = ({ votesStats, expanded }) => {
           </div>
         </div>
       )}
-      <div className="flex items-center w-full h-[4px] rounded-md overflow-hidden">
-        <div style={{ width: `${upvoteRatio}%` }} className="h-full bg-green-500"></div>
-        <div style={{ width: `${downvoteRatio}%` }} className="h-full bg-red-500"></div>
-      </div>
+      {Number.isNaN(upvoteRatio) || Number.isNaN(downvoteRatio) ? (
+        <div className="flex items-center w-full h-[4px] rounded-md overflow-hidden">
+          <div style={{ width: `100%` }} className="h-full bg-gray-500"></div>
+        </div>
+      ) : (
+        <div className="flex items-center w-full h-[4px] rounded-md overflow-hidden">
+          <div style={{ width: `${upvoteRatio}%` }} className="h-full bg-green-500"></div>
+          <div style={{ width: `${downvoteRatio}%` }} className="h-full bg-red-500"></div>
+        </div>
+      )}
     </div>
   );
 };
