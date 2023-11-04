@@ -33,16 +33,18 @@ const Control: FC = () => {
       <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2">
         <div
           onClick={() => setOpen(true)}
-          className="group py-1 px-2 rounded-md flex items-center gap-x-2 w-full hover:bg-neutral-700/10 dark:hover:bg-neutral-700/50 transition"
+          className="cursor-pointer group py-1 px-2 rounded-md flex items-center gap-x-2 w-full bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-700/10 dark:hover:bg-neutral-700/50 transition"
         >
-          <Search className="w-4 h-4 text-gray-500 group-hover:text-white transition" />
-          <p className="text-gray-500 group-hover:text-white transition">Search</p>
-          <kbd className="text-xs pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto">
-            <span className="text-xs">
-              <Command className="w-[10px] h-[10px]" />
-            </span>
-            K
-          </kbd>
+          <Search className="w-4 h-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition" />
+          <p className="pointer-events-none text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition">Search (wip)</p>
+          <div className="hidden md:block ml-auto">
+            <kbd className="pointer-events-none">
+              <div className="grid grid-flow-col place-items-center gap-[2px]">
+                <Command className="w-4 h-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition" />
+                <span className="font-semibold text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition">K</span>
+              </div>
+            </kbd>
+          </div>
         </div>
         <div className="ml-auto">
           <button
@@ -58,7 +60,7 @@ const Control: FC = () => {
       </div>
       <div className="rounded-lg border shadow-md">
         <CommandDialog open={open} onOpenChange={setOpen}>
-          <CommandInput placeholder="Type a command or search..." />
+          <CommandInput placeholder="Search" />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
