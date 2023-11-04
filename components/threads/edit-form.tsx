@@ -15,6 +15,7 @@ import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
 
 const formSchema = z.object({
+  id: z.string(),
   title: z.string(),
   content: z.string(),
   tags: z.array(z.string())
@@ -38,7 +39,7 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
   const [contentMessage, setContentMessage] = useState("");
   const [titleMessage, setTitleMessage] = useState("");
 
-  const [formValid, setFormValid] = useState({ title: false, content: true, tags: true });
+  const [formValid, setFormValid] = useState({ title: true, content: true, tags: true });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -54,9 +55,8 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch("/api/threads", values);
-      form.reset();
-      router.push("/forums");
+      const response = await axios.patch("/api/threads", values);
+      router.push(`/forums/threads/${response.data}`);
     } catch (err) {
       console.log(err);
     }
