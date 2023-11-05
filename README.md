@@ -4,6 +4,8 @@
 
   <h1>golden age minecraft</h1>
 
+  <p>⛏️ forum website for old minecraft</p>
+
 </div>
 
 <div align="center">
@@ -13,8 +15,6 @@
 </div>
 
 ## INFO
-
-forum website for old minecraft
 
 launching soon!
 
