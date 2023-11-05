@@ -6,6 +6,30 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import grass_block_old from "@/public/assets/grass_block_old.png";
 import { Link } from "@/components/link";
+import { cn } from "@/lib/utils";
+
+const sites = [
+  {
+    name: "goldenageminecraft.net",
+    href: "https://goldenageminecraft.net",
+    branch: "master"
+  },
+  {
+    name: "www.goldenageminecraft.net",
+    href: "https://www.goldenageminecraft.net",
+    branch: "master"
+  },
+  {
+    name: "goldenageminecraft.vercel.app",
+    href: "https://goldenageminecraft.net",
+    branch: "master"
+  },
+  {
+    name: "staging.goldenageminecraft.net",
+    href: "https://staging.goldenageminecraft.net",
+    branch: "staging"
+  }
+];
 
 export const DeployInfo: FC = () => {
   const [domain, setDomain] = useState("");
@@ -36,23 +60,41 @@ export const DeployInfo: FC = () => {
       <br />
       <p>Here are the prod and dev versions of this site: </p>
 
-      <div className="grid grid-cols-[max-content_max-content_max-content] gap-1 p-1">
+      <div className="grid grid-cols-[max-content_max-content_max-content] gap-2 p-1">
         <div className="grid grid-flow-row gap-1">
-          <div className="text-zinc-500 grid grid-cols-[max-content_auto] place-items-center w-max gap-1">
-            <GitBranch className="w-4 h-4" />
-            <p className="font-semibold">master</p>
-          </div>
+          {sites.map(s => (
+            <div className={cn("grid grid-cols-[max-content_auto] place-items-center w-max gap-1", domain === s.name ? "text-white" : "text-zinc-500 ")}>
+              <GitBranch className="w-4 h-4" />
+              <p className="font-semibold">{s.branch}</p>
+            </div>
+          ))}
         </div>
         <Separator orientation="vertical" />
         <div className="grid grid-flow-row gap-1">
-          <Link href={""}>
-            <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 hover:bg-neutral-300 dark:hover:bg-neutral-800 transition p-1 rounded-md">
-              <div className="w-4 h-4">
-                <Image src={grass_block_old} alt="logo" />
-              </div>
-              <span>goldenageminecraft.net</span>
-            </div>
-          </Link>
+          {sites.map(s => {
+            if (domain === s.name)
+              return (
+                <div>
+                  <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md">
+                    <div className="w-4 h-4">
+                      <Image src={grass_block_old} alt="logo" />
+                    </div>
+                    <span>{s.name}</span>
+                  </div>
+                </div>
+              );
+            else
+              return (
+                <a href={s.href} target="_blank" rel="noopener noreferrer">
+                  <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 hover:bg-neutral-300 dark:hover:bg-neutral-800 transition p-1 rounded-md">
+                    <div className="w-4 h-4">
+                      <Image src={grass_block_old} alt="logo" />
+                    </div>
+                    <span>{s.name}</span>
+                  </div>
+                </a>
+              );
+          })}
         </div>
       </div>
     </div>
