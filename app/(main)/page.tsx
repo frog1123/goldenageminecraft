@@ -27,9 +27,9 @@ export const metadata: Metadata = {
 const Home: NextPage = async () => {
   return (
     <>
-      <DeployInfo />
       <Announcement title="Welcome to goldenageminecraft!" content="This is a forum website for discussing all things related to old minecraft!" imageUrls={[img1]} />
       <Announcement title="NOTICE" content="THIS SITE IS IN NO WAY OFFICIALLY AFFILIATED WITH THE /r/GoldenAgeMinecraft SUBREDDIT, MOJANG AB, OR THE MICROSOFT CORPORATION." />
+      <DeployInfo />
       <Announcement title="NOTICE" content="This website is still in development and the database may be cleared without notice.">
         <a href="https://github.com/frog1123/goldenageminecraft" target="_blank" rel="noreferrer">
           <button className="bg-indigo-500 hover:bg-indigo-700 p-1 rounded-md transition mt-1">
