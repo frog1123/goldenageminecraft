@@ -1,4 +1,3 @@
 TODO
 
-- get domain
-- add search index
+- fix dev prod diff
