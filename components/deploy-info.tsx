@@ -74,7 +74,7 @@ export const DeployInfo: FC = () => {
           {sites.map(s => {
             if (domain === s.name)
               return (
-                <div>
+                <div key={`b-${s.branch}`}>
                   <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md">
                     <div className="w-4 h-4">
                       <Image src={grass_block_old} alt="logo" />
@@ -85,7 +85,7 @@ export const DeployInfo: FC = () => {
               );
             else
               return (
-                <a href={s.href} target="_blank" rel="noopener noreferrer">
+                <a href={s.href} target="_blank" rel="noopener noreferrer" key={`s-${s.name}`}>
                   <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 hover:bg-neutral-300 dark:hover:bg-neutral-800 transition p-1 rounded-md">
                     <div className="w-4 h-4">
                       <Image src={grass_block_old} alt="logo" />
