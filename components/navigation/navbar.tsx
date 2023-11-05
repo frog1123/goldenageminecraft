@@ -148,24 +148,16 @@ const Navbar: FC = () => {
           </SignedIn>
           <SignedOut>
             <div className="grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center mr-1">
-              {process.env.NODE_ENV === "production" ? (
-                <button className="bg-rose-500 rounded-md px-2 transition h-[32px]">
-                  <p className="text-white">Sign in disabled</p>
+              <Link href="/sign-up">
+                <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
+                  <p className="text-white">Sign up</p>
                 </button>
-              ) : (
-                <>
-                  <Link href="/sign-up">
-                    <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
-                      <p className="text-white">Sign up</p>
-                    </button>
-                  </Link>
-                  <Link href="/sign-in">
-                    <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
-                      <p className="text-white">Sign in</p>
-                    </button>
-                  </Link>
-                </>
-              )}
+              </Link>
+              <Link href="/sign-in">
+                <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
+                  <p className="text-white">Sign in</p>
+                </button>
+              </Link>
               <div className="h-full">
                 <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
