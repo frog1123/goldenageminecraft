@@ -29,7 +29,7 @@ To run:
 
 use clerk dev keys not prod keys
 
-```
+```python
 
 # these have different values for prod and dev
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
