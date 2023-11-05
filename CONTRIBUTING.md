@@ -25,11 +25,10 @@ To run:
 
 # env
 
-.env setup
-
-use clerk dev keys not prod keys
+use dev values not prod values
 
 ```python
+# .env
 
 # these have different values for prod and dev
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
