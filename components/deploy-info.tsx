@@ -48,13 +48,13 @@ export const DeployInfo: FC = () => {
       <p className="font-semibold text-lg break-words w-max">{domain}</p>
       {process.env.NODE_ENV === "production" ? (
         <p className="break-words whitespace-pre-wrap">
-          This site is being deployed from the <span className="text-zinc-500 font-semibold">master</span> branch, meaning this is the production version of the website. Keep
-          in mind that the prod and dev version of the site have different databases so data like users and threads are not shared between them.
+          This site is deployed from the <span className="text-zinc-500 font-semibold">master</span> branch, representing the production version. The production and
+          development versions have separate databases, so user and thread data are not shared between them.
         </p>
       ) : (
         <p className="break-words whitespace-pre-wrap">
-          This site is being deployed from the <span className="text-zinc-500 font-semibold">staging</span> branch, meaning this is the development version of the website.
-          Keep in mind that the prod and dev version of the site have different databases so data like users and threads are not shared between them.
+          This site is deployed from the <span className="text-zinc-500 font-semibold">staging</span> branch, representing the development version. The production and
+          development versions have separate databases, so user and thread data are not shared between them.
         </p>
       )}
       <br />
