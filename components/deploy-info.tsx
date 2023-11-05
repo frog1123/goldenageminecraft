@@ -5,7 +5,6 @@ import { GitBranch, Globe } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import grass_block_old from "@/public/assets/grass_block_old.png";
-import { Link } from "@/components/link";
 import { cn } from "@/lib/utils";
 
 const sites = [
