@@ -2,6 +2,10 @@
 
 import { FC, useEffect, useState } from "react";
 import { GitBranch, Globe } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import grass_block_old from "@/public/assets/grass_block_old.png";
+import { Link } from "@/components/link";
 
 export const DeployInfo: FC = () => {
   const [domain, setDomain] = useState("");
@@ -20,15 +24,37 @@ export const DeployInfo: FC = () => {
       <p className="font-semibold text-lg break-words w-max">{domain}</p>
       {process.env.NODE_ENV === "production" ? (
         <p className="break-words whitespace-pre-wrap">
-          This site is being deployed from the `master` branch, meaning this is the production version of the website. Keep in mind that the prod and dev version of the site
-          have different databases so data like users and threads are not shared between them.
+          This site is being deployed from the <span className="text-zinc-500 font-semibold">master</span> branch, meaning this is the production version of the website. Keep
+          in mind that the prod and dev version of the site have different databases so data like users and threads are not shared between them.
         </p>
       ) : (
         <p className="break-words whitespace-pre-wrap">
-          This site is being deployed from the <span>staging</span> branch, meaning this is the development version of the website. Keep in mind that the prod and dev version
-          of the site have different databases so data like users and threads are not shared between them.
+          This site is being deployed from the <span className="text-zinc-500 font-semibold">staging</span> branch, meaning this is the development version of the website.
+          Keep in mind that the prod and dev version of the site have different databases so data like users and threads are not shared between them.
         </p>
       )}
+      <br />
+      <p>Here are the prod and dev versions of this site: </p>
+
+      <div className="grid grid-cols-[max-content_max-content_max-content] gap-1 p-1">
+        <div className="grid grid-flow-row gap-1">
+          <div className="text-zinc-500 grid grid-cols-[max-content_auto] place-items-center w-max gap-1">
+            <GitBranch className="w-4 h-4" />
+            <p className="font-semibold">master</p>
+          </div>
+        </div>
+        <Separator orientation="vertical" />
+        <div className="grid grid-flow-row gap-1">
+          <Link href={""}>
+            <div className="grid grid-cols-[max-content_auto] place-items-center w-max gap-1 hover:bg-neutral-300 dark:hover:bg-neutral-800 transition p-1 rounded-md">
+              <div className="w-4 h-4">
+                <Image src={grass_block_old} alt="logo" />
+              </div>
+              <span>goldenageminecraft.net</span>
+            </div>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
