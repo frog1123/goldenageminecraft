@@ -9,7 +9,7 @@ export const SkeleThread: FC = () => {
 
   useEffect(() => {
     setIsMounted(true);
-  });
+  }, []);
 
   if (!isMounted) return null;
 
