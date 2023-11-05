@@ -14,16 +14,6 @@ const sites = [
     branch: "master"
   },
   {
-    name: "www.goldenageminecraft.net",
-    href: "https://www.goldenageminecraft.net",
-    branch: "master"
-  },
-  {
-    name: "goldenageminecraft.vercel.app",
-    href: "https://goldenageminecraft.net",
-    branch: "master"
-  },
-  {
     name: "staging.goldenageminecraft.net",
     href: "https://staging.goldenageminecraft.net",
     branch: "staging"
