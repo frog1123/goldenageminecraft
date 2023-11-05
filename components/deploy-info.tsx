@@ -20,12 +20,12 @@ export const DeployInfo: FC = () => {
       </div>
       <p className="font-semibold text-lg break-words w-max">{domain}</p>
       {process.env.NODE_ENV === "production" ? (
-        <Markdown>
+        <Markdown className="markdown">
           This site is being deployed from the `master` branch, meaning this is the production version of the website. Keep in mind that the prod and dev version of the site
           have different databases so data like users and threads are not shared between them.
         </Markdown>
       ) : (
-        <Markdown>
+        <Markdown className="markdown">
           This site is being deployed from the `staging` branch, meaning this is the development version of the website. Keep in mind that the prod and dev version of the site
           have different databases so data like users and threads are not shared between them.
         </Markdown>
