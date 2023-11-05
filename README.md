@@ -30,3 +30,7 @@ launching soon!
 not accepting contributions yet
 
 contributing - [CONTRIBUTING.md](https://github.com/frog1123/goldenageminecraft/blob/master/CONTRIBUTING.md)
+
+## SUPPORT
+
+contact support@goldenageminecraft.net
