@@ -26,8 +26,6 @@ export const DeployInfo: FC = () => {
   useEffect(() => {
     const currentDomain = window.location.host;
     setDomain(currentDomain);
-
-    console.log(currentDomain);
   }, []);
 
   return (
