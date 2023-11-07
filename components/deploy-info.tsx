@@ -35,7 +35,7 @@ export const DeployInfo: FC = () => {
         <span className="uppercase text-xs font-bold text-zinc-500">SITE INFO</span>
       </div>
       <p className="font-semibold text-lg break-words w-max">{domain}</p>
-      {process.env.NODE_ENV === "production" ? (
+      {domain === "goldenageminecraft.net" ? (
         <p className="break-words whitespace-pre-wrap">
           This site is deployed from the <span className="text-zinc-500 font-semibold">master</span> branch, representing the production version. The production and
           development versions have separate databases, so user and thread data are not shared between them.
