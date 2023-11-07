@@ -424,7 +424,8 @@ export async function PATCH(req: Request) {
         tags: {
           connect: resolvedTags.map(tag => ({ id: tag.id }))
         },
-        authorId: currentUser.id
+        authorId: currentUser.id,
+        editedAt: new Date().toISOString()
       }
     });
 

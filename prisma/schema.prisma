@@ -65,8 +65,9 @@ model Thread {
   upvotes   ThreadUpvote[]
   downvotes ThreadDownVote[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([authorId])
 }
@@ -135,6 +136,10 @@ model ThreadReply {
 
   threadId String
   thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([threadId])
   @@index([authorId])
