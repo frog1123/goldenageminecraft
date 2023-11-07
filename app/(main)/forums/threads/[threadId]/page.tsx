@@ -244,9 +244,9 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           <Separator orientation="vertical" />
           <div className="overflow-hidden grid grid-rows-[max-content_max-content_auto]">
             <div className="grid grid-flow-col place-items-center">
-              <div className="mr-auto grid grid-flow-col place-items-center">
-                <p className="uppercase text-xs font-bold text-zinc-500">POSTED {formatDateLong(thread.createdAt.toString())}</p>
-                {thread.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">POSTED {formatDateLong(thread.editedAt.toString())}</p>}
+              <div className="mr-auto grid grid-flow-col place-items-center gap-2">
+                <p className="uppercase text-xs font-bold text-zinc-500">Posted {formatDateLong(thread.createdAt.toString())}</p>
+                {thread.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">Edited {formatDateLong(thread.editedAt.toString())}</p>}
               </div>
               <div className="ml-auto">
                 <ThreadActions thread={thread} canEdit={canEdit} />
