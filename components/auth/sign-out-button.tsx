@@ -19,7 +19,7 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ text, afterSignOutUrl })
 
   return (
     <button onClick={handleClick} className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
-      <p className="text-white">{text ? text : "Sign out"}</p>
+      <p className="text-white">{text ? text : "sign out"}</p>
     </button>
   );
 };

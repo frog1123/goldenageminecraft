@@ -24,6 +24,8 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Context } from "@/context";
 import { useSession } from "next-auth/react";
 import { SignUpButton } from "../auth/sign-up-button";
+import { SignInButton } from "../auth/sign-in-button";
+import { SignOutButton } from "../auth/sign-out-button";
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -83,11 +85,7 @@ const Navbar: FC = () => {
           {session.status === "unauthenticated" && (
             <div className="grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center mr-1">
               <SignUpButton />
-              <Link href="/sign-in">
-                <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px]">
-                  <p className="text-white">Sign in</p>
-                </button>
-              </Link>
+              <SignInButton />
               <div className="h-full">
                 <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
