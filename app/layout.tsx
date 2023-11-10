@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Next13NProgress } from "nextjs13-progress";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import ContextProvider from "@/components/providers/context-provider";
-import { db } from "@/lib/db";
 import { NextAuthSessionProvider } from "@/components/providers/next-auth-session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
