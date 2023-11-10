@@ -2,7 +2,6 @@ import { ThreadType } from "@/types";
 import { FC } from "react";
 import { formatDate } from "@/utils/format-date";
 import { Link } from "@/components/link";
-import { useAuth as useClerkAuth } from "@clerk/nextjs";
 import { Crown, Dot, Gavel, Sailboat, Shield } from "lucide-react";
 import Image from "next/image";
 import { UserRank, UserRole, UserPlan } from "@prisma/client";
@@ -24,9 +23,7 @@ interface ThreadProps {
 }
 
 const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
-  const { userId } = useClerkAuth();
-
-  const canEdit = userId === thread.author.userId;
+  const canEdit = true;
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
