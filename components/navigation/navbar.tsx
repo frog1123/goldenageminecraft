@@ -22,6 +22,7 @@ import grass_block_old from "@/public/assets/grass_block_old.png";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal-store";
 import { Context } from "@/context";
+import { useSession } from "next-auth/react";
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -29,6 +30,10 @@ const Navbar: FC = () => {
   const modal = useModal();
   const { theme, systemTheme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
+
+  const session = useSession();
+
+  console.log(session);
 
   const context = useContext(Context);
 
