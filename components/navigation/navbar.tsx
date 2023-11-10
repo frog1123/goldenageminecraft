@@ -1,6 +1,5 @@
 "use client";
 
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import { FC, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronRight, LogOut, Moon, Settings, Sun, User, Wrench } from "lucide-react";
@@ -21,7 +20,6 @@ import { Separator } from "@/components/ui/separator";
 import { useTheme } from "next-themes";
 import grass_block_old from "@/public/assets/grass_block_old.png";
 import Image from "next/image";
-import { dark } from "@clerk/themes";
 import { useModal } from "@/hooks/use-modal-store";
 import { Context } from "@/context";
 
@@ -29,7 +27,6 @@ const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split("/");
   const modal = useModal();
-  const { user, openUserProfile } = useClerk();
   const { theme, systemTheme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
 
@@ -77,7 +74,7 @@ const Navbar: FC = () => {
           })}
         </div>
         <div className="ml-auto w-max grid place-items-center grid-flow-col">
-          <SignedIn>
+          {/* <SignedIn>
             {user && (
               // modal needs to be false
               <DropdownMenu modal={false}>
@@ -197,7 +194,7 @@ const Navbar: FC = () => {
                 </DropdownMenu>
               </div>
             </div>
-          </SignedOut>
+          </SignedOut> */}
         </div>
       </div>
       <Separator className={cn("transition-all duration-500 mx-auto bg-gray-300 dark:bg-border", scrolled ? "w-full visible" : "w-0 invisible")} />
