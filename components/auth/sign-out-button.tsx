@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 
@@ -12,7 +13,7 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ text, afterSignOutUrl })
   const router = useRouter();
 
   const handleClick = async () => {
-    // await signOut();
+    await signOut();
     router.push(afterSignOutUrl);
   };
 

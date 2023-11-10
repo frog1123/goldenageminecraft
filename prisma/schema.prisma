@@ -15,7 +15,7 @@ model User {
   password  String   @db.Text
   firstName String?
   lastName  String?
-  imageUrl  String   @db.Text
+  imageUrl  String?  @db.Text
   bio       String   @db.Text
   rank      UserRank @default(COAL)
   role      UserRole @default(USER)

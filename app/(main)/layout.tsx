@@ -1,6 +1,6 @@
 import Navbar from "@/components/navigation/navbar";
 import { Subnav } from "@/components/navigation/subnav";
-import { SignOutButton } from "@/components/sign-out-button";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { NextPage } from "next";
 
 const MainLayout: NextPage<{ children: React.ReactNode }> = async ({ children }) => {
