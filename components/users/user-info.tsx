@@ -10,15 +10,15 @@ import gold from "@/public/assets/ranks/gold.png";
 import redstone from "@/public/assets/ranks/redstone.png";
 import lapis from "@/public/assets/ranks/lapis.png";
 import diamond from "@/public/assets/ranks/diamond.png";
-import { Anchor, CaseSensitive, Crown, Cuboid, Edit, Gavel, Palmtree, Sailboat, Shield } from "lucide-react";
+import { Crown, Edit, Gavel, Palmtree, Sailboat, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { VotesRatio } from "../votes-ratio";
 import { Link } from "@/components/link";
 import { Content } from "@/components/content";
-
+import grass_block_old from "@/public/assets/grass_block_old.png";
 interface UserInfoProps {
-  user: UserWithoutEmail;
+  user: Omit<UserWithoutEmail, "password">;
   voteStats: {
     receivedUpvotes: number;
     receivedDownvotes: number;
@@ -64,7 +64,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
         <div className="grid grid-flow-row place-items-center gap-2">
           <div className="w-28 h-28 rounded-md overflow-hidden relative">
-            <Image src={user.imageUrl} fill alt="author" />
+            {user.imageUrl ? <Image src={user.imageUrl} fill alt="author" /> : <Image src={grass_block_old} fill alt="author" />}
           </div>
           <div className="grid grid-flow-row gap-0 place-items-center">
             <p className="font-semibold p-1">{user.name}</p>

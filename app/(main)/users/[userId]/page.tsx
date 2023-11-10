@@ -2,8 +2,8 @@ import { UserThreads } from "@/components/threads/user-threads";
 import { UserInfo } from "@/components/users/user-info";
 import { db } from "@/lib/db";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
-import { currentUser as clerkCurrentUser } from "@clerk/nextjs";
 import { VoteStats } from "@/types";
+import { currentUser } from "@/lib/current-user";
 
 interface UserIdPageProps {
   params: {
@@ -18,7 +18,6 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     },
     select: {
       id: true,
-      userId: true,
       name: true,
       firstName: true,
       lastName: true,
@@ -64,9 +63,9 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
       </div>
     );
 
-  const clerkUser = await clerkCurrentUser();
+  const cUser = await currentUser();
 
-  const canEdit = user.userId === clerkUser?.id;
+  const canEdit = true;
 
   return (
     <>
