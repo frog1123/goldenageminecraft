@@ -1,4 +1,3 @@
-import { getCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
@@ -13,169 +12,163 @@ export async function GET(req: Request) {
   const userId = searchParams.get("u");
 
   if (userId) {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
-
-    try {
-      if (tagId) {
-        const threadsWithTag = await db.tag.findUnique({
-          where: { id: tagId },
-          select: {
-            threads: {
-              select: {
-                id: true,
-                title: true,
-                content: true,
-                tags: {
-                  select: {
-                    id: true,
-                    name: true
-                  }
-                },
-                author: {
-                  select: {
-                    id: true,
-                    userId: true,
-                    name: true,
-                    imageUrl: true,
-                    rank: true,
-                    role: true,
-                    plan: true
-                  }
-                },
-                _count: {
-                  select: {
-                    downvotes: true,
-                    upvotes: true
-                  }
-                },
-                upvotes: {
-                  where: {
-                    authorId: currentUser.id
-                  }
-                },
-                downvotes: {
-                  where: {
-                    authorId: currentUser.id
-                  }
-                },
-                createdAt: true
-              },
-              orderBy: {
-                createdAt: "desc"
-              },
-              take: take ? parseInt(take) : 0,
-              skip: skip ? parseInt(skip) : 0
-            }
-          }
-        });
-
-        return NextResponse.json(threadsWithTag?.threads);
-      } else if (authorId) {
-        const threadsFromAuthor = await db.thread.findMany({
-          where: { authorId },
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            tags: {
-              select: {
-                id: true,
-                name: true
-              }
-            },
-            author: {
-              select: {
-                id: true,
-                userId: true,
-                name: true,
-                imageUrl: true,
-                rank: true,
-                role: true,
-                plan: true
-              }
-            },
-            _count: {
-              select: {
-                downvotes: true,
-                upvotes: true
-              }
-            },
-            upvotes: {
-              where: {
-                authorId: currentUser.id
-              }
-            },
-            downvotes: {
-              where: {
-                authorId: currentUser.id
-              }
-            },
-            createdAt: true
-          },
-          orderBy: {
-            createdAt: "desc"
-          },
-          take: take ? parseInt(take) : 0,
-          skip: skip ? parseInt(skip) : 0
-        });
-
-        return NextResponse.json(threadsFromAuthor);
-      } else {
-        const threads = await db.thread.findMany({
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            tags: {
-              select: {
-                id: true,
-                name: true
-              }
-            },
-            author: {
-              select: {
-                id: true,
-                userId: true,
-                name: true,
-                imageUrl: true,
-                rank: true,
-                role: true,
-                plan: true
-              }
-            },
-            _count: {
-              select: {
-                downvotes: true,
-                upvotes: true
-              }
-            },
-            upvotes: {
-              where: {
-                authorId: currentUser.id
-              }
-            },
-            downvotes: {
-              where: {
-                authorId: currentUser.id
-              }
-            },
-            createdAt: true
-          },
-
-          orderBy: {
-            createdAt: "desc"
-          },
-          take: take ? parseInt(take) : 0,
-          skip: skip ? parseInt(skip) : 0
-        });
-
-        return NextResponse.json(threads);
-      }
-    } catch (err) {
-      console.log("[THREADS_GET_USER]", err);
-      return new NextResponse("Internal Error", { status: 500 });
-    }
+    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    // try {
+    //   if (tagId) {
+    //     const threadsWithTag = await db.tag.findUnique({
+    //       where: { id: tagId },
+    //       select: {
+    //         threads: {
+    //           select: {
+    //             id: true,
+    //             title: true,
+    //             content: true,
+    //             tags: {
+    //               select: {
+    //                 id: true,
+    //                 name: true
+    //               }
+    //             },
+    //             author: {
+    //               select: {
+    //                 id: true,
+    //                 userId: true,
+    //                 name: true,
+    //                 imageUrl: true,
+    //                 rank: true,
+    //                 role: true,
+    //                 plan: true
+    //               }
+    //             },
+    //             _count: {
+    //               select: {
+    //                 downvotes: true,
+    //                 upvotes: true
+    //               }
+    //             },
+    //             upvotes: {
+    //               where: {
+    //                 authorId: currentUser.id
+    //               }
+    //             },
+    //             downvotes: {
+    //               where: {
+    //                 authorId: currentUser.id
+    //               }
+    //             },
+    //             createdAt: true
+    //           },
+    //           orderBy: {
+    //             createdAt: "desc"
+    //           },
+    //           take: take ? parseInt(take) : 0,
+    //           skip: skip ? parseInt(skip) : 0
+    //         }
+    //       }
+    //     });
+    //     return NextResponse.json(threadsWithTag?.threads);
+    //   } else if (authorId) {
+    //     const threadsFromAuthor = await db.thread.findMany({
+    //       where: { authorId },
+    //       select: {
+    //         id: true,
+    //         title: true,
+    //         content: true,
+    //         tags: {
+    //           select: {
+    //             id: true,
+    //             name: true
+    //           }
+    //         },
+    //         author: {
+    //           select: {
+    //             id: true,
+    //             userId: true,
+    //             name: true,
+    //             imageUrl: true,
+    //             rank: true,
+    //             role: true,
+    //             plan: true
+    //           }
+    //         },
+    //         _count: {
+    //           select: {
+    //             downvotes: true,
+    //             upvotes: true
+    //           }
+    //         },
+    //         upvotes: {
+    //           where: {
+    //             authorId: currentUser.id
+    //           }
+    //         },
+    //         downvotes: {
+    //           where: {
+    //             authorId: currentUser.id
+    //           }
+    //         },
+    //         createdAt: true
+    //       },
+    //       orderBy: {
+    //         createdAt: "desc"
+    //       },
+    //       take: take ? parseInt(take) : 0,
+    //       skip: skip ? parseInt(skip) : 0
+    //     });
+    //     return NextResponse.json(threadsFromAuthor);
+    //   } else {
+    //     const threads = await db.thread.findMany({
+    //       select: {
+    //         id: true,
+    //         title: true,
+    //         content: true,
+    //         tags: {
+    //           select: {
+    //             id: true,
+    //             name: true
+    //           }
+    //         },
+    //         author: {
+    //           select: {
+    //             id: true,
+    //             userId: true,
+    //             name: true,
+    //             imageUrl: true,
+    //             rank: true,
+    //             role: true,
+    //             plan: true
+    //           }
+    //         },
+    //         _count: {
+    //           select: {
+    //             downvotes: true,
+    //             upvotes: true
+    //           }
+    //         },
+    //         upvotes: {
+    //           where: {
+    //             authorId: currentUser.id
+    //           }
+    //         },
+    //         downvotes: {
+    //           where: {
+    //             authorId: currentUser.id
+    //           }
+    //         },
+    //         createdAt: true
+    //       },
+    //       orderBy: {
+    //         createdAt: "desc"
+    //       },
+    //       take: take ? parseInt(take) : 0,
+    //       skip: skip ? parseInt(skip) : 0
+    //     });
+    //     return NextResponse.json(threads);
+    //   }
+    // } catch (err) {
+    //   console.log("[THREADS_GET_USER]", err);
+    //   return new NextResponse("Internal Error", { status: 500 });
+    // }
   }
 
   try {
@@ -197,7 +190,6 @@ export async function GET(req: Request) {
               author: {
                 select: {
                   id: true,
-                  userId: true,
                   name: true,
                   imageUrl: true,
                   rank: true,
@@ -239,7 +231,6 @@ export async function GET(req: Request) {
           author: {
             select: {
               id: true,
-              userId: true,
               name: true,
               imageUrl: true,
               rank: true,
@@ -278,7 +269,6 @@ export async function GET(req: Request) {
           author: {
             select: {
               id: true,
-              userId: true,
               name: true,
               imageUrl: true,
               rank: true,
@@ -312,8 +302,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { title, content, tags } = await req.json();
 
@@ -347,18 +336,18 @@ export async function POST(req: Request) {
 
     const resolvedTags = await Promise.all(createdTags);
 
-    const thread = await db.thread.create({
-      data: {
-        title,
-        content: content.length === 0 ? null : content,
-        tags: {
-          connect: resolvedTags.map(tag => ({ id: tag.id }))
-        },
-        authorId: currentUser.id
-      }
-    });
+    // const thread = await db.thread.create({
+    //   data: {
+    //     title,
+    //     content: content.length === 0 ? null : content,
+    //     tags: {
+    //       connect: resolvedTags.map(tag => ({ id: tag.id }))
+    //     },
+    //     authorId: currentUser.id
+    //   }
+    // });
 
-    return NextResponse.json(thread.id);
+    // return NextResponse.json(thread.id);
   } catch (err) {
     console.log("[THREADS_POST]", err);
     return new NextResponse("Internal Error", { status: 500 });
@@ -367,8 +356,7 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, title, content, tags } = await req.json();
     if (!id) return new NextResponse("Bad request", { status: 400 });
@@ -391,7 +379,7 @@ export async function PATCH(req: Request) {
     });
 
     if (!existingThread) return new NextResponse("Bad request", { status: 400 });
-    if (currentUser.id !== existingThread.authorId) return new NextResponse("Unauthorized", { status: 401 });
+    // if (currentUser.id !== existingThread.authorId) return new NextResponse("Unauthorized", { status: 401 });
     if (title.length === 0) return new NextResponse("Title required", { status: 400 });
     if (title.length >= 100) return new NextResponse("Title too long", { status: 400 });
     if (content.length >= 1000) return new NextResponse("Content too long", { status: 400 });
@@ -414,22 +402,22 @@ export async function PATCH(req: Request) {
 
     const resolvedTags = await Promise.all(createdTags);
 
-    const thread = await db.thread.update({
-      where: {
-        id
-      },
-      data: {
-        title,
-        content: content.length === 0 ? null : content,
-        tags: {
-          connect: resolvedTags.map(tag => ({ id: tag.id }))
-        },
-        authorId: currentUser.id,
-        editedAt: new Date().toISOString()
-      }
-    });
+    // const thread = await db.thread.update({
+    //   where: {
+    //     id
+    //   },
+    //   data: {
+    //     title,
+    //     content: content.length === 0 ? null : content,
+    //     tags: {
+    //       connect: resolvedTags.map(tag => ({ id: tag.id }))
+    //     },
+    //     authorId: currentUser.id,
+    //     editedAt: new Date().toISOString()
+    //   }
+    // });
 
-    return NextResponse.json(thread.id);
+    // return NextResponse.json(thread.id);
   } catch (err) {
     console.log("[THREADS_PATCH]", err);
     return new NextResponse("Internal Error", { status: 500 });
@@ -438,8 +426,7 @@ export async function PATCH(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
     const threadId = searchParams.get("id");
@@ -460,7 +447,7 @@ export async function DELETE(req: Request) {
     });
 
     if (!existingThread) return new NextResponse("Bad request", { status: 400 });
-    if (currentUser.id !== existingThread.author.id) return new NextResponse("Unauthorized", { status: 401 });
+    // if (currentUser.id !== existingThread.author.id) return new NextResponse("Unauthorized", { status: 401 });
 
     await db.thread.delete({
       where: {
