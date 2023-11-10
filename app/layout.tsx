@@ -6,6 +6,7 @@ import { Next13NProgress } from "nextjs13-progress";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import ContextProvider from "@/components/providers/context-provider";
 import { NextAuthSessionProvider } from "@/components/providers/next-auth-session-provider";
+import { currentUser } from "@/lib/current-user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,8 @@ interface RootLayoutProps {
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
+  const cUser = currentUser();
+
   return (
     <ContextProvider initalValue={{ currentUser: { clerkId: null, id: null }, deletedThread: { id: null } }}>
       <html lang="en" suppressHydrationWarning>
