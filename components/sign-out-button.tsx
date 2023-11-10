@@ -1,6 +1,5 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 
@@ -10,11 +9,10 @@ interface SignOutButtonProps {
 }
 
 export const SignOutButton: FC<SignOutButtonProps> = ({ text, afterSignOutUrl }) => {
-  const { signOut } = useClerk();
   const router = useRouter();
 
   const handleClick = async () => {
-    await signOut();
+    // await signOut();
     router.push(afterSignOutUrl);
   };
 
