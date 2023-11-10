@@ -38,7 +38,7 @@ export const SignUpForm: FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/auth/create-user", values);
+      await axios.post("/api/users", values);
       router.push(`/`);
     } catch (err) {
       console.log("register error", err);
