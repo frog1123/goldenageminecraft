@@ -126,69 +126,73 @@ const Navbar: FC = () => {
               </div>
             </div>
           )}
-          {session.status === "authenticated" && ( // modal needs to be false
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <div className="h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative">
-                  <Image src={""} alt="author" fill objectPosition="relative" />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem className="pointer-events-none">
-                  <div>
-                    <span>{"user"}</span>
+          {session.status === "authenticated" && (
+            <div className="grid grid-flow-col place-items-center gap-2">
+              <SignOutButton afterSignOutUrl="/" />
+              {/* modal needs to be false */}
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <div className="h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative">
+                    <Image src={""} alt="author" fill objectPosition="relative" />
                   </div>
-                </DropdownMenuItem>
-                <Separator className="my-1" />
-                <DropdownMenuItem onClick={() => modal.onOpen("sign-out-conf")}>
-                  <div className="flex place-items-center w-full gap-2">
-                    <span>Sign out</span>
-                    <LogOut className="w-4 h-4 ml-auto" />
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => {}}>
-                  <div className="flex place-items-center w-full gap-2">
-                    <span>Manage account</span>
-                    <Wrench className="w-4 h-4 ml-auto" />
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href={`/users/${context.value.currentUser.id}`} className="w-full">
-                    <div className="flex place-items-center w-full gap-2">
-                      <span>View profile</span>
-                      <User className="w-4 h-4 ml-auto" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem className="pointer-events-none">
+                    <div>
+                      <span>{"user"}</span>
                     </div>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="flex items-center">
-                    <span>Set theme</span>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="mr-1">
-                      <DropdownMenuItem onClick={() => setTheme("light")}>
-                        <div className="flex place-items-center w-full gap-2">
-                          <span>Light</span>
-                          <Sun className="w-4 h-4 ml-auto" />
-                        </div>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        <div className="flex place-items-center w-full gap-2">
-                          <span>Dark</span>
-                          <Moon className="w-4 h-4 ml-auto" />
-                        </div>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("system")}>
-                        <div className="flex place-items-center w-full gap-2">
-                          <span>System</span>
-                          <Settings className="w-4 h-4 ml-auto" />
-                        </div>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  </DropdownMenuItem>
+                  <Separator className="my-1" />
+                  <DropdownMenuItem onClick={() => modal.onOpen("sign-out-conf")}>
+                    <div className="flex place-items-center w-full gap-2">
+                      <span>Sign out</span>
+                      <LogOut className="w-4 h-4 ml-auto" />
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => {}}>
+                    <div className="flex place-items-center w-full gap-2">
+                      <span>Manage account</span>
+                      <Wrench className="w-4 h-4 ml-auto" />
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={`/users/${context.value.currentUser.id}`} className="w-full">
+                      <div className="flex place-items-center w-full gap-2">
+                        <span>View profile</span>
+                        <User className="w-4 h-4 ml-auto" />
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger className="flex items-center">
+                      <span>Set theme</span>
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent className="mr-1">
+                        <DropdownMenuItem onClick={() => setTheme("light")}>
+                          <div className="flex place-items-center w-full gap-2">
+                            <span>Light</span>
+                            <Sun className="w-4 h-4 ml-auto" />
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme("dark")}>
+                          <div className="flex place-items-center w-full gap-2">
+                            <span>Dark</span>
+                            <Moon className="w-4 h-4 ml-auto" />
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme("system")}>
+                          <div className="flex place-items-center w-full gap-2">
+                            <span>System</span>
+                            <Settings className="w-4 h-4 ml-auto" />
+                          </div>
+                        </DropdownMenuItem>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           )}
         </div>
       </div>
