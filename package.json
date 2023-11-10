@@ -13,8 +13,6 @@
     "prettier": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.26.1",
-    "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "5.4.2",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -23,7 +21,9 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@types/bcrypt": "^5.0.2",
     "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
@@ -31,6 +31,7 @@
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.287.0",
     "next": "13.5.4",
+    "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "nextjs13-progress": "^1.1.45",
     "react": "^18.2.0",

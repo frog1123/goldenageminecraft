@@ -1,8 +1,8 @@
 import "./globals.scss";
 import type { Metadata, NextPage } from "next";
 import { Inter } from "next/font/google";
-import { ClerkProvider, currentUser } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Next13NProgress } from "nextjs13-progress";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import ContextProvider from "@/components/providers/context-provider";
@@ -38,26 +38,8 @@ interface RootLayoutProps {
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
-  const clerkUser = await currentUser();
-
-  let user;
-  try {
-    if (clerkUser) {
-      user = await db.user.findUnique({
-        where: {
-          userId: clerkUser.id
-        },
-        select: {
-          id: true
-        }
-      });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
   return (
-    <ContextProvider initalValue={{ currentUser: { clerkId: clerkUser?.id ? clerkUser.id : null, id: user ? user.id : null }, deletedThread: { id: null } }}>
+    <ContextProvider initalValue={{ currentUser: { clerkId: null, id: null }, deletedThread: { id: null } }}>
       <ClerkProvider>
         <html lang="en" suppressHydrationWarning>
           <body className={inter.className} dir="ltr">
