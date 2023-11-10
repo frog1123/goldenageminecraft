@@ -1,10 +1,8 @@
 import { createContext, Dispatch, SetStateAction } from "react";
+import { CurrentUserType } from "./types";
 
 export interface ContextData {
-  currentUser: {
-    clerkId: string | null;
-    id: string | null;
-  };
+  currentUser: CurrentUserType | null;
   deletedThread: {
     id: string | null;
   };
@@ -17,10 +15,7 @@ type ContextType = {
 
 export const Context = createContext<ContextType>({
   value: {
-    currentUser: {
-      clerkId: null,
-      id: null
-    },
+    currentUser: null,
     deletedThread: {
       id: null
     }

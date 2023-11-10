@@ -38,10 +38,10 @@ interface RootLayoutProps {
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
-  const cUser = currentUser();
+  const cUser = await currentUser();
 
   return (
-    <ContextProvider initalValue={{ currentUser: { clerkId: null, id: null }, deletedThread: { id: null } }}>
+    <ContextProvider initalValue={{ currentUser: cUser, deletedThread: { id: null } }}>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className} dir="ltr">
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="golden-age-minecraft-theme">

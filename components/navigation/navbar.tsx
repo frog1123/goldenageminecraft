@@ -133,13 +133,17 @@ const Navbar: FC = () => {
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className="h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative">
-                    <Image src={""} alt="author" fill objectPosition="relative" />
+                    {context.value.currentUser?.imageUrl ? (
+                      <Image src={context.value.currentUser?.imageUrl} alt="user" fill objectPosition="relative" />
+                    ) : (
+                      <Image src={grass_block_old} alt="user" fill objectPosition="relative" />
+                    )}
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem className="pointer-events-none">
                     <div>
-                      <span>{"user"}</span>
+                      <span>{context.value.currentUser?.name}</span>
                     </div>
                   </DropdownMenuItem>
                   <Separator className="my-1" />
@@ -156,7 +160,7 @@ const Navbar: FC = () => {
                     </div>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href={`/users/${context.value.currentUser.id}`} className="w-full">
+                    <Link href={`/users/${context.value.currentUser?.id}`} className="w-full">
                       <div className="flex place-items-center w-full gap-2">
                         <span>View profile</span>
                         <User className="w-4 h-4 ml-auto" />

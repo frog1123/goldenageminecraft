@@ -1,5 +1,17 @@
 import { Thread, User } from "@prisma/client";
 
+export interface CurrentUserType {
+  id: string;
+  name: string;
+  firstName: string | null;
+  lastName: string | null;
+  imageUrl: string | null;
+  bio: string;
+  rank: string;
+  role: string;
+  plan: string;
+}
+
 // prettier-ignore
 export type ThreadType = Thread 
 & { author: UserWithoutEmail } 
