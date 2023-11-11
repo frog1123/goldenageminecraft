@@ -1,3 +1,4 @@
+import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
@@ -23,11 +24,12 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
-    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    const currentUser = await getServerCurrentUser();
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, bio } = await req.json();
 
-    // if (id !== currentUser.id) return new NextResponse("Unauthorized", { status: 401 });
+    if (id !== currentUser.id) return new NextResponse("Unauthorized", { status: 401 });
 
     if (bio.length >= 500) return new NextResponse("Bio too long", { status: 400 });
 

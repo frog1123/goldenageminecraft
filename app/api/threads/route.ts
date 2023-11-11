@@ -431,7 +431,8 @@ export async function PATCH(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
-    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    const currentUser = await getServerCurrentUser();
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
     const threadId = searchParams.get("id");
@@ -452,7 +453,7 @@ export async function DELETE(req: Request) {
     });
 
     if (!existingThread) return new NextResponse("Bad request", { status: 400 });
-    // if (currentUser.id !== existingThread.author.id) return new NextResponse("Unauthorized", { status: 401 });
+    if (currentUser.id !== existingThread.author.id) return new NextResponse("Unauthorized", { status: 401 });
 
     await db.thread.delete({
       where: {
