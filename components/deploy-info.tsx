@@ -40,11 +40,13 @@ export const DeployInfo: FC = () => {
           This site is deployed from the <span className="text-zinc-500 font-semibold">master</span> branch, representing the production version. The production and
           development versions have separate databases, so user and thread data are not shared between them.
         </p>
-      ) : (
+      ) : domain === "staging.goldenageminecraft.net" ? (
         <p className="break-words whitespace-pre-wrap">
           This site is deployed from the <span className="text-zinc-500 font-semibold">staging</span> branch, representing the development version. The production and
           development versions have separate databases, so user and thread data are not shared between them.
         </p>
+      ) : (
+        <p className="break-words whitespace-pre-wrap">This site is being run locally</p>
       )}
       <br />
       <p>Here are the prod and dev versions of this site: </p>
