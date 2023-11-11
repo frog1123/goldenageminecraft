@@ -91,6 +91,8 @@ export const SignUpForm: FC = () => {
                     onChange={e => {
                       const value = e.target.value;
 
+                      setError("");
+
                       if (value.length === 0) {
                         setNameMessage("Name is required");
                         setFormValid({ ...formValid, name: false });
@@ -122,6 +124,8 @@ export const SignUpForm: FC = () => {
                     onChange={e => {
                       const value = e.target.value;
 
+                      setError("");
+
                       if (value.length === 0) {
                         setEmailMessage("Email is required");
                         setFormValid({ ...formValid, email: false });
@@ -152,6 +156,8 @@ export const SignUpForm: FC = () => {
                     {...field}
                     onChange={e => {
                       const value = e.target.value;
+
+                      setError("");
 
                       if (value.length === 0) {
                         setPasswordMessage("Password is required");
