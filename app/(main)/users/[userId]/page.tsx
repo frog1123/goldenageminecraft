@@ -103,6 +103,16 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
       }
     };
 
+  if (!user.imageUrl)
+    return {
+      title: user.name,
+      description: user.bio,
+      openGraph: {
+        title: user.name,
+        description: user.bio
+      }
+    };
+
   return {
     title: user.name,
     description: user.bio,

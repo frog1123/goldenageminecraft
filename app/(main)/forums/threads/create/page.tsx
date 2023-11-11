@@ -1,5 +1,5 @@
 import CreateThreadForm from "@/components/threads/create-form";
-import { getCurrentUser } from "@/lib/current-user";
+import { currentUser } from "@/lib/current-user";
 import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";
 
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 };
 
 const ThreadsCreatePage: NextPage = async () => {
-  const currentUser = await getCurrentUser();
+  const cUser = await currentUser();
 
-  if (!currentUser) return redirect("/sign-in");
+  if (!cUser) return redirect("/sign-in");
 
   return (
     <>
