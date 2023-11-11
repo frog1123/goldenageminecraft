@@ -1,5 +1,5 @@
 import EditThreadForm from "@/components/threads/edit-form";
-import { getCurrentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";
@@ -20,7 +20,7 @@ interface ThreadIdEditPageProps {
 }
 
 const ThreadIdEditPage: NextPage<ThreadIdEditPageProps> = async ({ params }) => {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getServerCurrentUser();
 
   const thread = await db.thread.findUnique({
     where: {
