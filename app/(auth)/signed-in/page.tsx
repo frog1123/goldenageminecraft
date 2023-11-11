@@ -12,12 +12,12 @@ const SignUpPage: NextPage = async () => {
       </div>
     );
 
-  // if (!currentUser.active)
-  //   return (
-  //     <div className="w-max">
-  //       <p>Your account hasn't been activated</p>
-  //     </div>
-  //   );
+  if (!currentUser.active)
+    return (
+      <div className="w-max">
+        <p>Your account hasn't been activated</p>
+      </div>
+    );
 
   return redirect("/");
 };

@@ -29,7 +29,8 @@ export async function POST(req: Request) {
         name: data.name,
         email: data.email,
         password,
-        bio: ""
+        bio: "",
+        active: true // temp
       }
     });
 
