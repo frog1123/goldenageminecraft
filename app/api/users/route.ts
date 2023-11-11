@@ -10,6 +10,20 @@ export async function POST(req: Request) {
   try {
     const password = await hash(data.password, 12);
 
+    const existingUserEmail = await db.user.findUnique({
+      where: {
+        email: data.email
+      }
+    });
+    if (existingUserEmail) return new NextResponse("Email is already in use", { status: 400 });
+
+    const existingUserName = await db.user.findUnique({
+      where: {
+        name: data.name
+      }
+    });
+    if (existingUserName) return new NextResponse("Username is already in use", { status: 400 });
+
     const newUser = await db.user.create({
       data: {
         name: data.name,
@@ -26,7 +40,7 @@ export async function POST(req: Request) {
       }
     });
 
-    await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: data.email, subject: "verify test", text: "text" });
+    // await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: data.email, subject: "verify test", text: "text" });
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
