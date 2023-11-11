@@ -116,11 +116,9 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
       </>
     );
 
-  console.log(threads);
-
   return (
     <div className="grid grid-flow-row gap-2 w-full">
-      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={`tag-thread-${thread.id}`} signedIn={signedIn} />)}
+      {threads.length > 0 && threads.map(thread => <Thread thread={thread} key={`tag-thread-${thread.id}`} signedIn={signedIn} currentUser={context.value.currentUser} />)}
       <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
     </div>
   );

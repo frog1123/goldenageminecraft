@@ -1,4 +1,4 @@
-import { ThreadType } from "@/types";
+import { CurrentUserType, ThreadType } from "@/types";
 import { FC } from "react";
 import { formatDate } from "@/utils/format-date";
 import { Link } from "@/components/link";
@@ -21,10 +21,11 @@ import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 interface ThreadProps {
   thread: ThreadType;
   signedIn: boolean;
+  currentUser: CurrentUserType | null;
 }
 
-const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
-  const canEdit = true;
+const Thread: FC<ThreadProps> = ({ thread, signedIn, currentUser }) => {
+  const canEdit = currentUser?.id === thread.author.id;
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
