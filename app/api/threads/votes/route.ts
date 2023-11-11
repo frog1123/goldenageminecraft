@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const res = await req.json();
     const { threadId, type } = res;
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getServerCurrentUser();
 
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
@@ -83,7 +83,7 @@ export async function DELETE(req: Request) {
     const threadId = searchParams.get("t");
     const type = searchParams.get("ty");
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getServerCurrentUser();
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
