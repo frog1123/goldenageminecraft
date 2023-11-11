@@ -24,6 +24,7 @@ export const SignUpForm: FC = () => {
   const [nameMessage, setNameMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [error, setError] = useState("");
 
   const [formValid, setFormValid] = useState({ name: false, email: false, password: false });
 
@@ -40,10 +41,21 @@ export const SignUpForm: FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/users", values);
-      router.push("/sign-in");
-    } catch (err) {
-      console.log("register error", err);
+      const res = await axios.post("/api/users", values);
+
+      console.log("Res", res);
+
+      if (res.status === 200) {
+        router.push("/sign-in");
+      } else {
+        setError(res.data);
+      }
+    } catch (err: any) {
+      if (err.response.status === 409) {
+        setError(err.response.data);
+      } else {
+        console.log("register error", err);
+      }
     }
   };
 
@@ -63,6 +75,7 @@ export const SignUpForm: FC = () => {
             </div>
             <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
           </div>
+          <FormMessage>{error}</FormMessage>
           <FormField
             control={form.control}
             name="name"
@@ -113,7 +126,7 @@ export const SignUpForm: FC = () => {
                         setEmailMessage("Email is required");
                         setFormValid({ ...formValid, email: false });
                       } else {
-                        setNameMessage("");
+                        setEmailMessage("");
                         setFormValid({ ...formValid, email: true });
                       }
 
@@ -144,7 +157,7 @@ export const SignUpForm: FC = () => {
                         setPasswordMessage("Password is required");
                         setFormValid({ ...formValid, password: false });
                       } else {
-                        setNameMessage("");
+                        setPasswordMessage("");
                         setFormValid({ ...formValid, password: true });
                       }
 

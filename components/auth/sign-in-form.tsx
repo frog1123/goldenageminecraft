@@ -45,7 +45,7 @@ export const SignInForm: FC = () => {
         setError("Authentication failed");
       }
     } catch (err) {
-      console.log("register error", err);
+      console.log("login error", err);
     }
   };
 
