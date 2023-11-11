@@ -43,12 +43,8 @@ export const SignUpForm: FC = () => {
     try {
       const res = await axios.post("/api/users", values);
 
-      console.log("Res", res);
-
       if (res.status === 200) {
         router.push("/sign-in");
-      } else {
-        setError(res.data);
       }
     } catch (err: any) {
       if (err.response.status === 409) {

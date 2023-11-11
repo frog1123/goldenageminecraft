@@ -23,9 +23,8 @@ import Image from "next/image";
 import { useModal } from "@/hooks/use-modal-store";
 import { Context } from "@/context";
 import { useSession } from "next-auth/react";
-import { SignUpButton } from "../auth/sign-up-button";
-import { SignInButton } from "../auth/sign-in-button";
-import { SignOutButton } from "../auth/sign-out-button";
+import { SignUpButton } from "@/components/auth/sign-up-button";
+import { SignInButton } from "@/components/auth/sign-in-button";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 
 const Navbar: FC = () => {

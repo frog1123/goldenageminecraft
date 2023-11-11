@@ -23,7 +23,7 @@ export const SignInForm: FC = () => {
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [error, setError] = useState("");
 
-  const [formValid, setFormValid] = useState({ name: false, email: false, password: false });
+  const [formValid, setFormValid] = useState({ email: false, password: false });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -73,7 +73,16 @@ export const SignInForm: FC = () => {
                     placeholder="Enter email"
                     {...field}
                     onChange={e => {
+                      const value = e.target.value;
+
                       setError("");
+
+                      if (value.length === 0) {
+                        setFormValid({ ...formValid, email: false });
+                      } else {
+                        setFormValid({ ...formValid, email: true });
+                      }
+
                       field.onChange(e);
                     }}
                   />
@@ -94,7 +103,16 @@ export const SignInForm: FC = () => {
                     placeholder="Enter password"
                     {...field}
                     onChange={e => {
+                      const value = e.target.value;
+
                       setError("");
+
+                      if (value.length === 0) {
+                        setFormValid({ ...formValid, password: false });
+                      } else {
+                        setFormValid({ ...formValid, password: true });
+                      }
+
                       field.onChange(e);
                     }}
                   />
@@ -103,7 +121,7 @@ export const SignInForm: FC = () => {
             )}
           />
           <div>
-            <Button className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">
+            <Button disabled={isLoading || !(formValid.email && formValid.password)} className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">
               {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Sign in</p>}
             </Button>
           </div>
