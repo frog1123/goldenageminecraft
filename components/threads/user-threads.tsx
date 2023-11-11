@@ -21,7 +21,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
-  const signedIn = !!context.value.currentUser.id;
+  const signedIn = !!context.value.currentUser?.id;
 
   const initalThreadCount = 5;
   const fetchMoreAmount = 3;
@@ -40,7 +40,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
       setDontFetch(true);
 
       const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`;
-      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}&u=${context.value.currentUser.id}`;
+      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}&u=${context.value.currentUser?.id}`;
 
       let fetchLink = withoutUserLink;
       if (signedIn) fetchLink = withUserLink;
@@ -63,7 +63,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
     const fetch = async () => {
       try {
         const withoutUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}`;
-        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}&u=${context.value.currentUser.id}`;
+        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}&u=${context.value.currentUser?.id}`;
 
         let fetchLink = withoutUserLink;
         if (signedIn) fetchLink = withUserLink;
