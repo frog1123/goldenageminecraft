@@ -10,11 +10,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import TextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
-import { UserWithoutEmail } from "@/types";
 import { useRouter } from "next/navigation";
+import { CurrentUserType } from "@/types";
 
 interface EditUserFormProps {
-  user: UserWithoutEmail;
+  user: CurrentUserType;
 }
 
 const formSchema = z.object({

@@ -1,5 +1,5 @@
 import { EditUserForm } from "@/components/users/edit-form";
-import { getCurrentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";
 
@@ -19,7 +19,7 @@ interface UserIdEditPageProps {
 }
 
 const UserIdEditPage: NextPage<UserIdEditPageProps> = async ({ params }) => {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getServerCurrentUser();
 
   if (!currentUser || params.userId !== currentUser.id) {
     return redirect("/");
