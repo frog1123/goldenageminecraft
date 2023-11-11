@@ -1,11 +1,11 @@
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
-export const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "verify@goldenageminecraft.net",
-    pass: "goldeageminecraft"
-  }
-});
+// export const transporter = nodemailer.createTransport({
+//   host: "smtp.cloudflare.com",
+//   port: 465,
+//   secure: true,
+//   auth: {
+//     user: process.env.CLOUDFLARE_EMAIL,
+//     pass: process.env.CLOUDFLARE_PASSWORD
+//   }
+// });

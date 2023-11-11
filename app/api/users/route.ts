@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       }
     });
 
-    await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: "recipient_email@example.com", subject: "verify test", text: "text" });
+    // await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: data.email, subject: "verify test", text: "text" });
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
