@@ -27,8 +27,25 @@ model User {
   upvotes   ThreadUpvote[]
   downvotes ThreadDownVote[]
 
+  active        Boolean         @default(false)
+  activateToken ActivateToken[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ActivateToken {
+  id          String    @id @default(uuid())
+  token       String    @unique
+  activatedAt DateTime?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 enum UserRank {
