@@ -12,164 +12,166 @@ export async function GET(req: Request) {
   const tagId = searchParams.get("t");
   const userId = searchParams.get("u");
 
+  const currentUser = await getServerCurrentUser();
+
   if (userId) {
-    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
-    // try {
-    //   if (tagId) {
-    //     const threadsWithTag = await db.tag.findUnique({
-    //       where: { id: tagId },
-    //       select: {
-    //         threads: {
-    //           select: {
-    //             id: true,
-    //             title: true,
-    //             content: true,
-    //             tags: {
-    //               select: {
-    //                 id: true,
-    //                 name: true
-    //               }
-    //             },
-    //             author: {
-    //               select: {
-    //                 id: true,
-    //                 userId: true,
-    //                 name: true,
-    //                 imageUrl: true,
-    //                 rank: true,
-    //                 role: true,
-    //                 plan: true
-    //               }
-    //             },
-    //             _count: {
-    //               select: {
-    //                 downvotes: true,
-    //                 upvotes: true
-    //               }
-    //             },
-    //             upvotes: {
-    //               where: {
-    //                 authorId: currentUser.id
-    //               }
-    //             },
-    //             downvotes: {
-    //               where: {
-    //                 authorId: currentUser.id
-    //               }
-    //             },
-    //             createdAt: true
-    //           },
-    //           orderBy: {
-    //             createdAt: "desc"
-    //           },
-    //           take: take ? parseInt(take) : 0,
-    //           skip: skip ? parseInt(skip) : 0
-    //         }
-    //       }
-    //     });
-    //     return NextResponse.json(threadsWithTag?.threads);
-    //   } else if (authorId) {
-    //     const threadsFromAuthor = await db.thread.findMany({
-    //       where: { authorId },
-    //       select: {
-    //         id: true,
-    //         title: true,
-    //         content: true,
-    //         tags: {
-    //           select: {
-    //             id: true,
-    //             name: true
-    //           }
-    //         },
-    //         author: {
-    //           select: {
-    //             id: true,
-    //             userId: true,
-    //             name: true,
-    //             imageUrl: true,
-    //             rank: true,
-    //             role: true,
-    //             plan: true
-    //           }
-    //         },
-    //         _count: {
-    //           select: {
-    //             downvotes: true,
-    //             upvotes: true
-    //           }
-    //         },
-    //         upvotes: {
-    //           where: {
-    //             authorId: currentUser.id
-    //           }
-    //         },
-    //         downvotes: {
-    //           where: {
-    //             authorId: currentUser.id
-    //           }
-    //         },
-    //         createdAt: true
-    //       },
-    //       orderBy: {
-    //         createdAt: "desc"
-    //       },
-    //       take: take ? parseInt(take) : 0,
-    //       skip: skip ? parseInt(skip) : 0
-    //     });
-    //     return NextResponse.json(threadsFromAuthor);
-    //   } else {
-    //     const threads = await db.thread.findMany({
-    //       select: {
-    //         id: true,
-    //         title: true,
-    //         content: true,
-    //         tags: {
-    //           select: {
-    //             id: true,
-    //             name: true
-    //           }
-    //         },
-    //         author: {
-    //           select: {
-    //             id: true,
-    //             userId: true,
-    //             name: true,
-    //             imageUrl: true,
-    //             rank: true,
-    //             role: true,
-    //             plan: true
-    //           }
-    //         },
-    //         _count: {
-    //           select: {
-    //             downvotes: true,
-    //             upvotes: true
-    //           }
-    //         },
-    //         upvotes: {
-    //           where: {
-    //             authorId: currentUser.id
-    //           }
-    //         },
-    //         downvotes: {
-    //           where: {
-    //             authorId: currentUser.id
-    //           }
-    //         },
-    //         createdAt: true
-    //       },
-    //       orderBy: {
-    //         createdAt: "desc"
-    //       },
-    //       take: take ? parseInt(take) : 0,
-    //       skip: skip ? parseInt(skip) : 0
-    //     });
-    //     return NextResponse.json(threads);
-    //   }
-    // } catch (err) {
-    //   console.log("[THREADS_GET_USER]", err);
-    //   return new NextResponse("Internal Error", { status: 500 });
-    // }
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    try {
+      if (tagId) {
+        const threadsWithTag = await db.tag.findUnique({
+          where: { id: tagId },
+          select: {
+            threads: {
+              select: {
+                id: true,
+                title: true,
+                content: true,
+                tags: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                },
+                author: {
+                  select: {
+                    id: true,
+
+                    name: true,
+                    imageUrl: true,
+                    rank: true,
+                    role: true,
+                    plan: true
+                  }
+                },
+                _count: {
+                  select: {
+                    downvotes: true,
+                    upvotes: true
+                  }
+                },
+                upvotes: {
+                  where: {
+                    authorId: currentUser.id
+                  }
+                },
+                downvotes: {
+                  where: {
+                    authorId: currentUser.id
+                  }
+                },
+                createdAt: true
+              },
+              orderBy: {
+                createdAt: "desc"
+              },
+              take: take ? parseInt(take) : 0,
+              skip: skip ? parseInt(skip) : 0
+            }
+          }
+        });
+        return NextResponse.json(threadsWithTag?.threads);
+      } else if (authorId) {
+        const threadsFromAuthor = await db.thread.findMany({
+          where: { authorId },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
+            author: {
+              select: {
+                id: true,
+
+                name: true,
+                imageUrl: true,
+                rank: true,
+                role: true,
+                plan: true
+              }
+            },
+            _count: {
+              select: {
+                downvotes: true,
+                upvotes: true
+              }
+            },
+            upvotes: {
+              where: {
+                authorId: currentUser.id
+              }
+            },
+            downvotes: {
+              where: {
+                authorId: currentUser.id
+              }
+            },
+            createdAt: true
+          },
+          orderBy: {
+            createdAt: "desc"
+          },
+          take: take ? parseInt(take) : 0,
+          skip: skip ? parseInt(skip) : 0
+        });
+        return NextResponse.json(threadsFromAuthor);
+      } else {
+        const threads = await db.thread.findMany({
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
+            author: {
+              select: {
+                id: true,
+
+                name: true,
+                imageUrl: true,
+                rank: true,
+                role: true,
+                plan: true
+              }
+            },
+            _count: {
+              select: {
+                downvotes: true,
+                upvotes: true
+              }
+            },
+            upvotes: {
+              where: {
+                authorId: currentUser.id
+              }
+            },
+            downvotes: {
+              where: {
+                authorId: currentUser.id
+              }
+            },
+            createdAt: true
+          },
+          orderBy: {
+            createdAt: "desc"
+          },
+          take: take ? parseInt(take) : 0,
+          skip: skip ? parseInt(skip) : 0
+        });
+        return NextResponse.json(threads);
+      }
+    } catch (err) {
+      console.log("[THREADS_GET_USER]", err);
+      return new NextResponse("Internal Error", { status: 500 });
+    }
   }
 
   try {

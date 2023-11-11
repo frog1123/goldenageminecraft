@@ -53,7 +53,7 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
                 <div className="relative w-6 h-6">{rankMap[thread.author.rank]}</div>
               </div>
               <div className="relative w-6 h-6 rounded-[50%] overflow-hidden">
-                <Image src={thread.author.imageUrl} alt="author" fill />
+                {thread.author.imageUrl ? <Image src={thread.author.imageUrl} alt="author" fill /> : <p></p>}
               </div>
               <p className="items-center">{thread.author.name}</p>
             </div>
