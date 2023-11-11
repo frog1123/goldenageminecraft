@@ -26,6 +26,7 @@ import { useSession } from "next-auth/react";
 import { SignUpButton } from "../auth/sign-up-button";
 import { SignInButton } from "../auth/sign-in-button";
 import { SignOutButton } from "../auth/sign-out-button";
+import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -136,7 +137,7 @@ const Navbar: FC = () => {
                     {context.value.currentUser?.imageUrl ? (
                       <Image src={context.value.currentUser?.imageUrl} alt="user" fill objectPosition="relative" />
                     ) : (
-                      <Image src={grass_block_old} alt="user" fill objectPosition="relative" />
+                      <Image src={defaultUserProfilePicture()} alt="user" fill objectPosition="relative" />
                     )}
                   </div>
                 </DropdownMenuTrigger>
