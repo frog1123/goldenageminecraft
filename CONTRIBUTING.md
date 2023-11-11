@@ -31,14 +31,9 @@ use dev values not prod values
 # .env
 
 # these have different values for prod and dev
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-WEBHOOK_SECRET=
+NEXTAUTH_SECRET=
 DATABASE_URL=
 
 # these are the same on prod and dev
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
+#
 ```
