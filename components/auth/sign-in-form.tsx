@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LucideLoader } from "lucide-react";
+import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { logo } from "@/lib/logo";
@@ -57,7 +57,7 @@ export const SignInForm: FC = () => {
             <div className="w-5 h-5 relative">
               <Image src={logo()} alt="logo" fill />
             </div>
-            <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
+            <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Login</span>
           </div>
           <FormMessage>{error}</FormMessage>
           <FormField
@@ -103,7 +103,9 @@ export const SignInForm: FC = () => {
             )}
           />
           <div>
-            <Button className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">{isLoading ? <LucideLoader /> : <p>Sign in</p>}</Button>
+            <Button className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">
+              {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Sign in</p>}
+            </Button>
           </div>
         </form>
       </Form>

@@ -34,6 +34,7 @@
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "nextjs13-progress": "^1.1.45",
+    "nodemailer": "^6.9.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.9",
+    "@types/nodemailer": "^6.4.14",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",

@@ -1,6 +1,8 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
+import { transporter } from "@/lib/transporter";
 import { hash } from "bcrypt";
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -8,7 +10,7 @@ export async function POST(req: Request) {
   try {
     const password = await hash(data.password, 12);
 
-    await db.user.create({
+    const newUser = await db.user.create({
       data: {
         name: data.name,
         email: data.email,
@@ -16,6 +18,15 @@ export async function POST(req: Request) {
         bio: ""
       }
     });
+
+    const newToken = await db.activateToken.create({
+      data: {
+        token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ""),
+        userId: newUser.id
+      }
+    });
+
+    await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: "recipient_email@example.com", subject: "verify test", text: "text" });
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { LucideLoader } from "lucide-react";
+import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/lib/logo";
@@ -161,7 +161,7 @@ export const SignUpForm: FC = () => {
               disabled={isLoading || !(formValid.name && formValid.email && formValid.password)}
               className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]"
             >
-              {isLoading ? <LucideLoader /> : <p>Register</p>}
+              {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Register</p>}
             </Button>
           </div>
           <p className="uppercase text-xs font-bold text-zinc-500 dark:text-white text-center">

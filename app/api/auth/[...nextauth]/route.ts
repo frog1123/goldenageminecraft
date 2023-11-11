@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
           }
         });
         if (!user) return null;
+        if (!user.active) throw new Error("User os not active");
 
         const isPasswordValid = await compare(credentials.password, user.password);
         if (!isPasswordValid) return null;
