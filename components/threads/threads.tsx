@@ -17,7 +17,7 @@ const Threads: FC = () => {
 
   const context = useContext(Context);
 
-  const signedIn = !!context.value.currentUser.id;
+  const signedIn = !!context.value.currentUser?.id;
 
   const initalThreadCount = 5;
   const fetchMoreAmount = 3;
@@ -36,7 +36,7 @@ const Threads: FC = () => {
       setDontFetch(true);
 
       const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`;
-      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&u=${context.value.currentUser.id}`;
+      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&u=${context.value.currentUser?.id}`;
 
       let fetchLink = withoutUserLink;
       if (signedIn) fetchLink = withUserLink;
@@ -59,7 +59,7 @@ const Threads: FC = () => {
     const fetchThreads = async () => {
       try {
         const withoutUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}`;
-        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser.id}`;
+        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&u=${context.value.currentUser?.id}`;
 
         let fetchLink = withoutUserLink;
         if (signedIn) fetchLink = withUserLink;
