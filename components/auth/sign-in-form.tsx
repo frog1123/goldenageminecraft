@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { logo } from "@/lib/logo";
 import Image from "next/image";
+import { Context } from "@/context";
 
 const formSchema = z.object({
   email: z.string(),
@@ -22,6 +23,7 @@ export const SignInForm: FC = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [error, setError] = useState("");
+  const context = useContext(Context);
 
   const [formValid, setFormValid] = useState({ email: false, password: false });
 
@@ -40,7 +42,8 @@ export const SignInForm: FC = () => {
       const res = await signIn("credentials", { email: values.email, password: values.password, redirect: false, callbackUrl });
 
       if (res?.ok) {
-        router.push(callbackUrl);
+        // router.push(callbackUrl);
+        router.push("/signed-in");
       } else {
         setError("Authentication failed");
       }

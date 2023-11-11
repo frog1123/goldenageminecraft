@@ -21,7 +21,8 @@ export const getServerCurrentUser = async () => {
       bio: true,
       rank: true,
       role: true,
-      plan: true
+      plan: true,
+      active: true
     }
   });
 

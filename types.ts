@@ -10,6 +10,7 @@ export interface CurrentUserType {
   rank: string;
   role: string;
   plan: string;
+  active: boolean;
 }
 
 // prettier-ignore
