@@ -3,7 +3,7 @@ import { UserInfo } from "@/components/users/user-info";
 import { db } from "@/lib/db";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
 import { VoteStats } from "@/types";
-import { currentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 
 interface UserIdPageProps {
   params: {
@@ -63,9 +63,9 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
       </div>
     );
 
-  const cUser = await currentUser();
+  const currentUser = await getServerCurrentUser();
 
-  const canEdit = true;
+  const canEdit = currentUser?.id === user.id;
 
   return (
     <>

@@ -6,7 +6,7 @@ import { Next13NProgress } from "nextjs13-progress";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import ContextProvider from "@/components/providers/context-provider";
 import { NextAuthSessionProvider } from "@/components/providers/next-auth-session-provider";
-import { currentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +38,7 @@ interface RootLayoutProps {
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
-  const cUser = await currentUser();
+  const cUser = await getServerCurrentUser();
 
   return (
     <ContextProvider initalValue={{ currentUser: cUser, deletedThread: { id: null } }}>

@@ -1,3 +1,4 @@
+import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
@@ -302,7 +303,8 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    const currentUser = await getServerCurrentUser();
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { title, content, tags } = await req.json();
 
@@ -336,18 +338,18 @@ export async function POST(req: Request) {
 
     const resolvedTags = await Promise.all(createdTags);
 
-    // const thread = await db.thread.create({
-    //   data: {
-    //     title,
-    //     content: content.length === 0 ? null : content,
-    //     tags: {
-    //       connect: resolvedTags.map(tag => ({ id: tag.id }))
-    //     },
-    //     authorId: currentUser.id
-    //   }
-    // });
+    const thread = await db.thread.create({
+      data: {
+        title,
+        content: content.length === 0 ? null : content,
+        tags: {
+          connect: resolvedTags.map(tag => ({ id: tag.id }))
+        },
+        authorId: currentUser.id
+      }
+    });
 
-    // return NextResponse.json(thread.id);
+    return NextResponse.json(thread.id);
   } catch (err) {
     console.log("[THREADS_POST]", err);
     return new NextResponse("Internal Error", { status: 500 });
@@ -356,7 +358,8 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
-    // if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    const currentUser = await getServerCurrentUser();
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, title, content, tags } = await req.json();
     if (!id) return new NextResponse("Bad request", { status: 400 });
@@ -379,7 +382,7 @@ export async function PATCH(req: Request) {
     });
 
     if (!existingThread) return new NextResponse("Bad request", { status: 400 });
-    // if (currentUser.id !== existingThread.authorId) return new NextResponse("Unauthorized", { status: 401 });
+    if (currentUser.id !== existingThread.authorId) return new NextResponse("Unauthorized", { status: 401 });
     if (title.length === 0) return new NextResponse("Title required", { status: 400 });
     if (title.length >= 100) return new NextResponse("Title too long", { status: 400 });
     if (content.length >= 1000) return new NextResponse("Content too long", { status: 400 });
@@ -402,22 +405,22 @@ export async function PATCH(req: Request) {
 
     const resolvedTags = await Promise.all(createdTags);
 
-    // const thread = await db.thread.update({
-    //   where: {
-    //     id
-    //   },
-    //   data: {
-    //     title,
-    //     content: content.length === 0 ? null : content,
-    //     tags: {
-    //       connect: resolvedTags.map(tag => ({ id: tag.id }))
-    //     },
-    //     authorId: currentUser.id,
-    //     editedAt: new Date().toISOString()
-    //   }
-    // });
+    const thread = await db.thread.update({
+      where: {
+        id
+      },
+      data: {
+        title,
+        content: content.length === 0 ? null : content,
+        tags: {
+          connect: resolvedTags.map(tag => ({ id: tag.id }))
+        },
+        authorId: currentUser.id,
+        editedAt: new Date().toISOString()
+      }
+    });
 
-    // return NextResponse.json(thread.id);
+    return NextResponse.json(thread.id);
   } catch (err) {
     console.log("[THREADS_PATCH]", err);
     return new NextResponse("Internal Error", { status: 500 });

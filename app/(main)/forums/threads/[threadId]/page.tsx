@@ -16,11 +16,12 @@ import { cn } from "@/lib/utils";
 import { Content } from "@/components/content";
 import { Link } from "@/components/link";
 import { VoteBox } from "@/components/threads/vote-box";
-import { getCurrentUser } from "@/lib/current-user";
+import { getServerCurrentUser } from "@/lib/current-user";
 import Tag from "@/components/threads/tag";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteStats } from "@/types";
 import { VotesRatio } from "@/components/votes-ratio";
+import grass_block_old from "@/public/assets/grass_block_old.png";
 interface ThreadIdPageProps {
   params: {
     threadId: string;
@@ -28,7 +29,7 @@ interface ThreadIdPageProps {
 }
 
 const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getServerCurrentUser();
   const signedIn = !!currentUser;
 
   let thread;
@@ -42,7 +43,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         author: {
           select: {
             id: true,
-            userId: true,
             name: true,
             firstName: true,
             lastName: true,
@@ -102,7 +102,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         author: {
           select: {
             id: true,
-            userId: true,
+
             name: true,
             firstName: true,
             lastName: true,
@@ -155,7 +155,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     voteStats.receivedDownvotes += thread._count.downvotes;
   });
 
-  const canEdit = thread?.author.userId === currentUser?.userId;
+  const canEdit = thread?.author.id === currentUser?.id;
 
   const rankMap = {
     [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
@@ -202,7 +202,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
           <div className="grid grid-flow-row gap-2 place-items-center">
             <div className="w-28 h-28 rounded-md overflow-hidden relative">
-              <Image src={thread.author.imageUrl} fill alt="author" />
+              {thread.author.imageUrl ? <Image src={thread.author.imageUrl} fill alt="author" /> : <Image src={grass_block_old} fill alt="author" />}
             </div>
 
             <div className="grid grid-flow-row gap-0 place-items-center">

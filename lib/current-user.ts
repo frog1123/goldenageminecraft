@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { db } from "@/lib/db";
 import { CurrentUserType } from "@/types";
 
-export const currentUser = async () => {
+export const getServerCurrentUser = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) return null;
