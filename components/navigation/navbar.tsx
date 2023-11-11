@@ -36,9 +36,6 @@ const Navbar: FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const session = useSession();
-
-  console.log(session);
-
   const context = useContext(Context);
 
   useEffect(() => {
