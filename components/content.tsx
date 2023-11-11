@@ -11,7 +11,7 @@ export const Content: FC<ContentProps> = ({ text }) => {
     return text.split(urlRegex).map((word, index) => {
       if (word.match(urlRegex)) {
         return (
-          <a className="text-blue-500 underline" key={index} href={word}>
+          <a className="text-blue-500 hover:text-blue-600 transition underline" key={index} href={word}>
             {word}
           </a>
         );

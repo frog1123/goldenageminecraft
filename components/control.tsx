@@ -12,7 +12,7 @@ const Control: FC = () => {
   const context = useContext(Context);
   const router = useRouter();
 
-  const signedIn = !!context.value.currentUser.id;
+  const signedIn = !!context.value.currentUser?.id;
 
   const [open, setOpen] = useState(false);
 

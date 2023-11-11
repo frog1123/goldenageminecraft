@@ -26,6 +26,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
       rank: true,
       role: true,
       plan: true,
+      active: true,
       _count: {
         select: {
           threads: true
@@ -56,7 +57,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     voteStats.receivedDownvotes += thread._count.downvotes;
   });
 
-  if (!user)
+  if (!user || !user.active)
     return (
       <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
         <p className="text-center">:( User does not exist or cannot be found</p>
