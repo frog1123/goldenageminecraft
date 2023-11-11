@@ -16,6 +16,7 @@ import Tag from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";
+import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 
 interface ThreadProps {
   thread: ThreadType;
@@ -53,7 +54,7 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn }) => {
                 <div className="relative w-6 h-6">{rankMap[thread.author.rank]}</div>
               </div>
               <div className="relative w-6 h-6 rounded-[50%] overflow-hidden">
-                {thread.author.imageUrl ? <Image src={thread.author.imageUrl} alt="author" fill /> : <p></p>}
+                {thread.author.imageUrl ? <Image src={thread.author.imageUrl} alt="author" fill /> : <Image src={defaultUserProfilePicture()} alt="author" fill />}
               </div>
               <p className="items-center">{thread.author.name}</p>
             </div>
