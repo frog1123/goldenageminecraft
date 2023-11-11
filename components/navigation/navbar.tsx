@@ -129,7 +129,7 @@ const Navbar: FC = () => {
           )}
           {session.status === "authenticated" && (
             <div className="grid grid-flow-col place-items-center gap-2">
-              <SignOutButton afterSignOutUrl="/" />
+              {/* <SignOutButton afterSignOutUrl="/" /> */}
               {/* modal needs to be false */}
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>

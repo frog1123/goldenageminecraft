@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import { Context } from "@/context";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export const SignOutConfModal: FC = () => {
   const modal = useModal();
@@ -15,14 +16,11 @@ export const SignOutConfModal: FC = () => {
   const isModalOpen = modal.isOpen && modal.type === "sign-out-conf";
 
   const handleSignOut = () => {
-    // signOut();
+    signOut();
 
     context.setValue({
       ...context.value,
-      currentUser: {
-        clerkId: null,
-        id: null
-      }
+      currentUser: null
     });
     router.push("/"); // home
 
