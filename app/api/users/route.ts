@@ -16,6 +16,8 @@ export async function POST(req: Request) {
         bio: ""
       }
     });
+
+    return new NextResponse("Success", { status: 200 });
   } catch (err) {
     console.log("[USERS_POST]", err);
     return new NextResponse("Internal Error", { status: 500 });

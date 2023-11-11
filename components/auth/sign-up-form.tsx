@@ -10,6 +10,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { LucideLoader } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { logo } from "@/lib/logo";
 
 const formSchema = z.object({
   name: z.string(),
@@ -39,7 +41,7 @@ export const SignUpForm: FC = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post("/api/users", values);
-      router.push(`/`);
+      router.push("/sign-in");
     } catch (err) {
       console.log("register error", err);
     }
@@ -55,7 +57,12 @@ export const SignUpForm: FC = () => {
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <p className="uppercase text-lg font-bold text-zinc-500 dark:text-white text-center">Register</p>
+          <div className="grid grid-cols-[max-content_auto] gap-1 mx-auto w-max place-items-center">
+            <div className="w-5 h-5 relative">
+              <Image src={logo()} alt="logo" fill />
+            </div>
+            <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
+          </div>
           <FormField
             control={form.control}
             name="name"

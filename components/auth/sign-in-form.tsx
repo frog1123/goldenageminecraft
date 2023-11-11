@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LucideLoader } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { logo } from "@/lib/logo";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.string(),
@@ -51,6 +53,12 @@ export const SignInForm: FC = () => {
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <div className="grid grid-cols-[max-content_auto] gap-1 mx-auto w-max place-items-center">
+            <div className="w-5 h-5 relative">
+              <Image src={logo()} alt="logo" fill />
+            </div>
+            <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
+          </div>
           <FormMessage>{error}</FormMessage>
           <FormField
             control={form.control}
