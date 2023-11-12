@@ -40,6 +40,8 @@ interface RootLayoutProps {
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   const currentUser = await getServerCurrentUser();
 
+  console.log("layout loaded", currentUser);
+
   return (
     <ContextProvider initalValue={{ currentUser, deletedThread: { id: null } }}>
       <html lang="en" suppressHydrationWarning>

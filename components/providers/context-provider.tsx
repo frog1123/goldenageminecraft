@@ -11,8 +11,6 @@ type ContextProviderProps = {
 const ContextProvider: FC<ContextProviderProps> = ({ initalValue, children }) => {
   const [value, setValue] = useState<ContextData>(initalValue);
 
-  console.log("inital", initalValue);
-
   return <Context.Provider value={{ value, setValue }}>{children}</Context.Provider>;
 };
 

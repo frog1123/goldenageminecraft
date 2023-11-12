@@ -22,7 +22,6 @@ import grass_block_old from "@/public/assets/grass_block_old.png";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal-store";
 import { Context } from "@/context";
-import { useSession } from "next-auth/react";
 import { SignUpButton } from "@/components/auth/sign-up-button";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
@@ -34,7 +33,6 @@ const Navbar: FC = () => {
   const { theme, systemTheme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
 
-  const session = useSession();
   const context = useContext(Context);
 
   useEffect(() => {
@@ -80,7 +78,7 @@ const Navbar: FC = () => {
         </div>
         <div className="h-8 w-8"></div>
         <div className="ml-auto w-max grid place-items-center grid-flow-col">
-          {session.status === "unauthenticated" && (
+          {!context.value.currentUser ? (
             <div className="grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center mr-1">
               <SignUpButton />
               <SignInButton />
@@ -123,8 +121,7 @@ const Navbar: FC = () => {
                 </DropdownMenu>
               </div>
             </div>
-          )}
-          {session.status === "authenticated" && (
+          ) : (
             <div className="grid grid-flow-col place-items-center gap-2">
               {/* <SignOutButton afterSignOutUrl="/" /> */}
               {/* modal needs to be false */}
