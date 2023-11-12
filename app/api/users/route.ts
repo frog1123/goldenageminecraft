@@ -8,6 +8,10 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const data = await req.json();
   try {
+    if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
+    if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });
+    if (data.password.length === 0) return new NextResponse("Bad request", { status: 400 });
+
     const password = await hash(data.password, 12);
 
     const existingUserName = await db.user.findUnique({
@@ -53,7 +57,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, bio } = await req.json();
 
