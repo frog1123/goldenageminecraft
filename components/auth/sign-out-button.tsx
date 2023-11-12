@@ -16,12 +16,14 @@ export const SignOutButton: FC<SignOutButtonProps> = ({ text, afterSignOutUrl })
   const context = useContext(Context);
 
   const handleClick = async () => {
-    await signOut();
     context.setValue({
       ...context.value,
       currentUser: null
     });
-    router.push(afterSignOutUrl);
+
+    await signOut();
+
+    router.push("/");
   };
 
   return (
