@@ -78,6 +78,7 @@ const Navbar: FC = () => {
             );
           })}
         </div>
+        <div className="h-8 w-8"></div>
         <div className="ml-auto w-max grid place-items-center grid-flow-col">
           {session.status === "unauthenticated" && (
             <div className="grid grid-cols-[max-content_max-content_max-content] gap-2 place-items-center mr-1">
