@@ -29,7 +29,5 @@ export const getServerCurrentUser = async () => {
   if (!user) return null;
   const userWithEmail = { ...user, email: session.user.email };
 
-  console.log("server user", userWithEmail);
-
   return userWithEmail;
 };
