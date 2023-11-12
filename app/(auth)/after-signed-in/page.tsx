@@ -43,7 +43,7 @@ const AfterSignedInPage: NextPage = () => {
 
   if (!currentUser.active)
     return (
-      <div className="w-max">
+      <div className="w-max grid grid-flow-row gap-2 place-items-center">
         <p>Your account hasn't been activated</p>
         <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
       </div>
