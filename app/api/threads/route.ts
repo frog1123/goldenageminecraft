@@ -306,7 +306,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { title, content, tags } = await req.json();
 
@@ -361,7 +361,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, title, content, tags } = await req.json();
     if (!id) return new NextResponse("Bad request", { status: 400 });
@@ -379,7 +379,8 @@ export async function PATCH(req: Request) {
         id
       },
       select: {
-        authorId: true
+        authorId: true,
+        tags: true
       }
     });
 
@@ -395,18 +396,6 @@ export async function PATCH(req: Request) {
     else if (tags.includes("")) return new NextResponse("Empty tags are not allowed", { status: 400 });
     else if (specialCharacters) return new NextResponse("Special characters are not allowed", { status: 400 });
 
-    const createdTags = await Promise.all(
-      tags.map(async (tagName: string) => {
-        return await db.tag.upsert({
-          where: { name: tagName },
-          update: {},
-          create: { name: tagName }
-        });
-      })
-    );
-
-    const resolvedTags = await Promise.all(createdTags);
-
     const thread = await db.thread.update({
       where: {
         id
@@ -415,7 +404,18 @@ export async function PATCH(req: Request) {
         title,
         content: content.length === 0 ? null : content,
         tags: {
-          connect: resolvedTags.map(tag => ({ id: tag.id }))
+          disconnect: existingThread.tags.filter(oldTag => !tags.includes(oldTag.name)),
+          connect: (
+            await Promise.all(
+              tags.map(async (tagName: string) => {
+                return await db.tag.upsert({
+                  where: { name: tagName },
+                  update: {},
+                  create: { name: tagName }
+                });
+              })
+            )
+          ).map(tag => ({ id: tag.id }))
         },
         authorId: currentUser.id,
         editedAt: new Date().toISOString()
@@ -432,7 +432,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
     const threadId = searchParams.get("id");

@@ -18,7 +18,9 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <MoreHorizontal className="w-4 h-4 cursor-pointer" />
+        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
+          <MoreHorizontal className="w-4 h-4 cursor-pointer" />
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>

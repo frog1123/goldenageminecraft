@@ -4,7 +4,7 @@ import { Context } from "@/context";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
 import { FC, useContext, useEffect, useState } from "react";
-import { Calculator, Calendar, Command, CreditCard, Newspaper, Search, Settings, Smile, User } from "lucide-react";
+import { Calculator, Calendar, Command, CreditCard, Newspaper, PenSquare, Search, Settings, Smile, User } from "lucide-react";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "@/components/ui/command";
 
 const Control: FC = () => {
@@ -54,7 +54,10 @@ const Control: FC = () => {
             }}
             className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full"
           >
-            <p className="text-white">Create thread</p>
+            <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+              <PenSquare className="w-4 h-4" />
+              <span>Create thread</span>
+            </div>
           </button>
         </div>
       </div>

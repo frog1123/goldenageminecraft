@@ -1,3 +1,4 @@
+import Tag from "@/components/threads/tag";
 import TagThreads from "@/components/threads/tag-threads";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
@@ -31,10 +32,7 @@ const TagIdPage: NextPage<TagIdPageProps> = async ({ params }) => {
     <>
       <div className="grid grid-flow-col w-max gap-2 place-items-center">
         <span className="text-lg font-semibold">Threads containing</span>
-        <div className="bg-blue-500/25 p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center w-max mx-auto">
-          <Hash className="w-5 h-5" />
-          <span className="text-lg">{tag?.name}</span>
-        </div>
+        <Tag id={params.tagId} name={tag.name} />
       </div>
       <div className="grid grid-cols-2 gap-2 place-items-center">
         <p className="mr-auto uppercase text-xs font-bold text-zinc-500">Tag created {formatDateLong(tag!.createdAt.toString())}</p>
