@@ -36,7 +36,7 @@ const AfterSignedInPage: NextPage = () => {
   if (!session.data)
     return (
       <div className="w-max grid grid-flow-row gap-2 place-items-center">
-        <p>Couldn't authenticate your connection</p>
+        <p>Couldn&apos;t authenticate your connection</p>
         <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
       </div>
     );
@@ -44,7 +44,7 @@ const AfterSignedInPage: NextPage = () => {
   if (!currentUser.active)
     return (
       <div className="w-max grid grid-flow-row gap-2 place-items-center">
-        <p>Your account hasn't been activated</p>
+        <p>Your account hasn&apos;t been activated</p>
         <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
       </div>
     );
