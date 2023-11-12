@@ -84,7 +84,7 @@ export async function DELETE(req: Request) {
     const type = searchParams.get("ty");
 
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
 

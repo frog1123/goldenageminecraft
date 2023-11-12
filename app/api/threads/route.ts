@@ -306,7 +306,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { title, content, tags } = await req.json();
 
@@ -361,7 +361,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { id, title, content, tags } = await req.json();
     if (!id) return new NextResponse("Bad request", { status: 400 });
