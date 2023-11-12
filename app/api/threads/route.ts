@@ -396,18 +396,6 @@ export async function PATCH(req: Request) {
     else if (tags.includes("")) return new NextResponse("Empty tags are not allowed", { status: 400 });
     else if (specialCharacters) return new NextResponse("Special characters are not allowed", { status: 400 });
 
-    const createdTags = await Promise.all(
-      tags.map(async (tagName: string) => {
-        return await db.tag.upsert({
-          where: { name: tagName },
-          update: {},
-          create: { name: tagName }
-        });
-      })
-    );
-
-    const resolvedTags = await Promise.all(createdTags);
-
     const thread = await db.thread.update({
       where: {
         id
