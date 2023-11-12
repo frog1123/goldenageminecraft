@@ -19,12 +19,18 @@ const AfterSignedInPage: NextPage = () => {
     if (!session.data) return;
 
     const fetchCurrentUser = async () => {
-      const res = await axios.get("/api/current-user");
-      setCurrentUser(res.data);
+      try {
+        const res = await axios.get("/api/current-user");
+        setCurrentUser(res.data);
+      } catch (err) {
+        console.log("error fetching current user", err);
+      }
     };
 
     fetchCurrentUser();
   }, [session]);
+
+  if (session.status === "unauthenticated" && !currentUser) redirect("/");
 
   if (session.status === "loading" || !currentUser)
     return (
