@@ -31,32 +31,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
       setThreads(updatedThreads);
       context.setValue({ ...context.value, deletedThread: { id: null } });
     }
-  }, [context.value.deletedThread.id, context]);
-
-  const fetchMoreThreads = async () => {
-    if (dontFetch) return;
-    try {
-      setDontFetch(true);
-
-      const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
-      const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}&u=${context.value.currentUser?.id}`;
-
-      let fetchLink = withoutUserLink;
-      if (signedIn) fetchLink = withUserLink;
-      const response = await axios.get(fetchLink);
-
-      const data = response.data;
-      setThreads(prevThreads => [...prevThreads, ...data]);
-      setSkip(prevSkip => prevSkip + fetchMoreAmount);
-      if (data.length === 0) {
-        setDontFetch(true);
-        return;
-      }
-      setDontFetch(false);
-    } catch (err) {
-      console.error("Error fetching threads [INCREMENTAL]:", err);
-    }
-  };
+  }, [context.value.deletedThread.id, context, threads]);
 
   useEffect(() => {
     const fetchThreads = async () => {
@@ -77,9 +52,34 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     };
 
     fetchThreads();
-  }, []);
+  }, [context.value.currentUser?.id, signedIn, tagId]);
 
   useEffect(() => {
+    const fetchMoreThreads = async () => {
+      if (dontFetch) return;
+      try {
+        setDontFetch(true);
+
+        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
+        const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}&u=${context.value.currentUser?.id}`;
+
+        let fetchLink = withoutUserLink;
+        if (signedIn) fetchLink = withUserLink;
+        const response = await axios.get(fetchLink);
+
+        const data = response.data;
+        setThreads(prevThreads => [...prevThreads, ...data]);
+        setSkip(prevSkip => prevSkip + fetchMoreAmount);
+        if (data.length === 0) {
+          setDontFetch(true);
+          return;
+        }
+        setDontFetch(false);
+      } catch (err) {
+        console.error("Error fetching threads [INCREMENTAL]:", err);
+      }
+    };
+
     const container = lastElementRef.current;
     if (!container) return;
 
@@ -97,7 +97,7 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     return () => {
       observer.disconnect();
     };
-  }, [threads, skip]);
+  }, [threads, skip, tagId, context.value.currentUser?.id, signedIn, dontFetch]);
 
   if (isLoading)
     return (
