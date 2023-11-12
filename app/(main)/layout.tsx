@@ -1,23 +1,8 @@
 import Navbar from "@/components/navigation/navbar";
 import { Subnav } from "@/components/navigation/subnav";
-import { SignOutButton } from "@/components/auth/sign-out-button";
 import { NextPage } from "next";
 
 const MainLayout: NextPage<{ children: React.ReactNode }> = async ({ children }) => {
-  // if (userId && currentUser?.userId !== userId)
-  //   return (
-  //     <div className="w-full h-screen">
-  //       <div className="grid place-items-center h-full">
-  //         <div className="grid grid-flow-row place-items-center gap-2">
-  //           <p className="w-max">Couldn&apos;t authenticate your connection</p>
-  //           <p className="w-max">Try refreshing</p>
-  //           <p>or</p>
-  //           <SignOutButton text="Sign out and return home" afterSignOutUrl="/" />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-
   return (
     <div className="w-full h-screen">
       <Navbar />
