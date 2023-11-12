@@ -379,7 +379,8 @@ export async function PATCH(req: Request) {
         id
       },
       select: {
-        authorId: true
+        authorId: true,
+        tags: true
       }
     });
 
@@ -415,7 +416,18 @@ export async function PATCH(req: Request) {
         title,
         content: content.length === 0 ? null : content,
         tags: {
-          connect: resolvedTags.map(tag => ({ id: tag.id }))
+          disconnect: existingThread.tags.filter(oldTag => !tags.includes(oldTag.name)),
+          connect: (
+            await Promise.all(
+              tags.map(async (tagName: string) => {
+                return await db.tag.upsert({
+                  where: { name: tagName },
+                  update: {},
+                  create: { name: tagName }
+                });
+              })
+            )
+          ).map(tag => ({ id: tag.id }))
         },
         authorId: currentUser.id,
         editedAt: new Date().toISOString()
