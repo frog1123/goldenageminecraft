@@ -18,17 +18,13 @@ const AfterSignedInPage: NextPage = () => {
       </div>
     );
 
-  // const currentUser = db.user.findUnique({
-
-  // })
-
-  // if (!session || !currentUser)
-  //   return (
-  //     <div className="w-max grid grid-flow-row gap-2 place-items-center">
-  //       <p>Couldn't authenticate your connection</p>
-  //       <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
-  //     </div>
-  //   );
+  if (!session.data)
+    return (
+      <div className="w-max grid grid-flow-row gap-2 place-items-center">
+        <p>Couldn't authenticate your connection</p>
+        <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
+      </div>
+    );
 
   // if (!currentUser.active)
   //   return (
@@ -40,7 +36,7 @@ const AfterSignedInPage: NextPage = () => {
 
   return (
     <div>
-      <p>After sign in loaded</p>
+      <p>{session.data?.user?.email}</p>
     </div>
   );
 
