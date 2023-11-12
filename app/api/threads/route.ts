@@ -432,7 +432,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const currentUser = await getServerCurrentUser();
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
     const threadId = searchParams.get("id");
