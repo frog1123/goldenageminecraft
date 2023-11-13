@@ -1,6 +1,9 @@
+import { AccessibilityTab } from "@/components/users/settings/accessibility";
+import { AppearanceTab } from "@/components/users/settings/appearance";
 import { CustomizationTab } from "@/components/users/settings/customization";
 import { MyAccountTab } from "@/components/users/settings/my-account";
 import { UserSettingsSidebar } from "@/components/users/settings/sidebar";
+
 import { NextPage } from "next";
 
 const ManageUserPage: NextPage = () => {
@@ -11,6 +14,8 @@ const ManageUserPage: NextPage = () => {
         <div className="bg-red-400 w-full">
           <MyAccountTab />
           <CustomizationTab />
+          <AppearanceTab />
+          <AccessibilityTab />
         </div>
       </div>
     </div>

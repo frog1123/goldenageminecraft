@@ -21,6 +21,7 @@ export const UserSettingsSidebar: FC = () => {
       {userSettingsItems.map(setting => (
         <button
           onClick={() => userSettings.onOpen(setting.tab)}
+          key={setting.tab}
           className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer"
         >
           <span>{setting.name}</span>
