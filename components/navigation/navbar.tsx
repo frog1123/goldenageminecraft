@@ -138,7 +138,7 @@ const Navbar: FC = () => {
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem className="pointer-events-none">
                     <div>
-                      <span>{context.value.currentUser?.name}</span>
+                      <span>{context.value.currentUser?.name}</span>{" "}
                     </div>
                   </DropdownMenuItem>
                   <Separator className="my-1" />
@@ -148,11 +148,13 @@ const Navbar: FC = () => {
                       <LogOut className="w-4 h-4 ml-auto" />
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => {}}>
-                    <div className="flex place-items-center w-full gap-2">
-                      <span>Manage account</span>
-                      <Wrench className="w-4 h-4 ml-auto" />
-                    </div>
+                  <DropdownMenuItem>
+                    <Link href="/account/manage">
+                      <div className="flex place-items-center w-full gap-2">
+                        <span>Manage account</span>
+                        <Wrench className="w-4 h-4 ml-auto" />
+                      </div>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link href={`/users/${context.value.currentUser?.id}`} className="w-full">
