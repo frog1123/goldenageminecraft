@@ -13,9 +13,9 @@ interface UserSettingsStore {
 }
 
 export const useUserSettings = create<UserSettingsStore>(set => ({
-  type: null,
+  type: "my-account", // default
   data: {},
-  isOpen: false,
+  isOpen: true, // default
   onOpen: (type, data = {}) => set({ isOpen: true, type, data }),
   onClose: () => set({ type: null, isOpen: false })
 }));
