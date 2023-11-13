@@ -1,3 +1,4 @@
+import { MyAccountTab } from "@/components/users/settings/my-account";
 import { NextPage } from "next";
 
 const ManageUserPage: NextPage = () => {
@@ -15,7 +16,7 @@ const ManageUserPage: NextPage = () => {
           <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer">Log out</div>
         </div>
         <div className="bg-red-400 w-full">
-          <p>manage user page</p>
+          <MyAccountTab />
         </div>
       </div>
     </div>
