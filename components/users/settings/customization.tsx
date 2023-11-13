@@ -4,14 +4,14 @@ import { useUserSettings } from "@/hooks/use-user-settings-store";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 
-export const MyAccountTab: FC = () => {
+export const CustomizationTab: FC = () => {
   const userSettings = useUserSettings();
 
-  const isUserSettingsOpen = userSettings.isOpen && userSettings.type === "my-account";
+  const isUserSettingsOpen = userSettings.isOpen && userSettings.type === "customization";
 
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
-      <p>my account</p>
+      <p>customization</p>
     </div>
   );
 };
