@@ -7,6 +7,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const data = await req.json();
+  const url = new URL(req.url);
+
   try {
     if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });
@@ -34,7 +36,7 @@ export async function POST(req: Request) {
         email: data.email,
         password,
         bio: "",
-        active: true // temp
+        active: false
       }
     });
 
@@ -45,7 +47,8 @@ export async function POST(req: Request) {
       }
     });
 
-    // await transporter.sendMail({ from: "verify@goldenageminecraft.com", to: data.email, subject: "verify test", text: "text" });
+    console.log(url.origin);
+    await transporter.sendMail({ from: "verify@goldenageminecraft.net", to: data.email, subject: "verify test", text: `${url.origin}/${newToken.token}` });
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
