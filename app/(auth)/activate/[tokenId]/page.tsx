@@ -29,7 +29,7 @@ const ActivateTokenIdPage: NextPage<ActivateTokenIdPageProps> = async ({ params 
   if (!activateToken || !activateToken.user)
     return (
       <div>
-        <p>Couldn't activate this user!</p>
+        <p>Couldn&apos;t activate this user!</p>
       </div>
     );
 
