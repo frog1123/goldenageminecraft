@@ -27,7 +27,7 @@ const ManageUserPage: NextPage = async () => {
         </div>
         <div className="w-full pl-2">
           <Link href="/">
-            <button className="transition rounded-[50%] border-zinc-500 text-zinc-500 dark:border-white border-2 hover:text-zinc-800 hover:border-zinc-800 dark:hover:text-zinc-700 dark:hover:border-zinc-700 p-1 mt-4">
+            <button className="transition rounded-[50%] border-zinc-500 text-zinc-500 dark:border-white dark:text-white border-2 hover:text-zinc-800 hover:border-zinc-800 dark:hover:text-zinc-700 dark:hover:border-zinc-700 p-1 mt-4">
               <X className="w-6 h-6" />
             </button>
           </Link>
