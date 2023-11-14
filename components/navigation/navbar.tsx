@@ -85,7 +85,7 @@ const Navbar: FC = () => {
               <div className="h-full">
                 <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
-                    <div className="bg-gray-400 dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-800 h-full aspect-square grid place-items-center transition rounded-md">
+                    <div className="cursor-pointer bg-gray-400 dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-800 h-full aspect-square grid place-items-center transition rounded-md">
                       <Settings className="w-5 h-5 text-white" />
                     </div>
                   </DropdownMenuTrigger>
