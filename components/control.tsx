@@ -52,7 +52,7 @@ const Control: FC = () => {
               if (!signedIn) modal.onOpen("sign-in-req");
               else router.push("/forums/threads/create");
             }}
-            className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full"
+            className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full text-white"
           >
             <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
               <PenSquare className="w-4 h-4" />

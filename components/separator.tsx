@@ -7,5 +7,5 @@ interface SeparatorProps {
 }
 
 export const Separator: FC<SeparatorProps> = ({ orientation, className }) => {
-  return <div className={cn("bg-zinc-500 dark:bg-border rounded-xl", orientation === "horizontal" ? "w-full h-[1px]" : "h-full w-[1px]", className)}></div>;
+  return <div className={cn("bg-zinc-400 dark:bg-border rounded-xl", orientation === "horizontal" ? "w-full h-[1px]" : "h-full w-[1px]", className)}></div>;
 };

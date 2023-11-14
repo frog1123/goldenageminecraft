@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/separator";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
 import { Metadata, NextPage, ResolvingMetadata } from "next";

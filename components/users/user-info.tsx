@@ -12,7 +12,7 @@ import lapis from "@/public/assets/ranks/lapis.png";
 import diamond from "@/public/assets/ranks/diamond.png";
 import { Crown, Edit, Gavel, Palmtree, Sailboat, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/separator";
 import { VotesRatio } from "../votes-ratio";
 import { Link } from "@/components/link";
 import { Content } from "@/components/content";
