@@ -32,7 +32,7 @@ export const DeleteThreadConfModal: FC = () => {
           <DialogDescription className="text-center">Are sure you want to delete this thread?</DialogDescription>
         </DialogHeader>
         <div className="grid place-items-center">
-          <Button onClick={handleDeleteThread} size="icon" className="border bg-white hover:bg-neutral-200 transition px-10 w-max">
+          <Button onClick={handleDeleteThread} size="icon" className="text-black border bg-white hover:bg-neutral-200 transition px-10 w-max">
             Delete
           </Button>
         </div>

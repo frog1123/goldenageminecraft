@@ -35,7 +35,7 @@ export const SignOutConfModal: FC = () => {
           <DialogDescription className="text-center">Are sure you want to sign out?</DialogDescription>
         </DialogHeader>
         <div className="grid place-items-center">
-          <Button onClick={handleSignOut} size="icon" className="border bg-white hover:bg-neutral-200 transition px-10 w-max">
+          <Button onClick={handleSignOut} size="icon" className="text-black border bg-white hover:bg-neutral-200 transition px-10 w-max">
             Yes
           </Button>
         </div>

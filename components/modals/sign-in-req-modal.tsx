@@ -24,7 +24,7 @@ export const SignInReqModal: FC = () => {
           <DialogTitle className="text-center">You need to sign in to do this</DialogTitle>
         </DialogHeader>
         <div className="grid place-items-center">
-          <Button onClick={handleSignIn} size="icon" className="border bg-white hover:bg-neutral-200 transition px-10 w-max">
+          <Button onClick={handleSignIn} size="icon" className="text-black border bg-white hover:bg-neutral-200 transition px-10 w-max">
             Sign in
           </Button>
         </div>
