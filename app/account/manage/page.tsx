@@ -4,11 +4,17 @@ import { AppearanceTab } from "@/components/users/settings/appearance";
 import { CustomizationTab } from "@/components/users/settings/customization";
 import { MyAccountTab } from "@/components/users/settings/my-account";
 import { UserSettingsSidebar } from "@/components/users/settings/sidebar";
+import { getServerCurrentUser } from "@/lib/current-user";
 import { X } from "lucide-react";
 
 import { NextPage } from "next";
+import { redirect } from "next/navigation";
 
-const ManageUserPage: NextPage = () => {
+const ManageUserPage: NextPage = async () => {
+  const currentUser = await getServerCurrentUser();
+
+  if (!currentUser || !currentUser.active) return redirect("/");
+
   return (
     <div className="w-max mx-auto">
       <div className="grid grid-flow-col sm:grid-cols-[max-content_60vw_max-content] lg:grid-cols-[max-content_50vw_max-content] xl:grid-cols-[max-content_40vw_max-content] ">
@@ -19,9 +25,9 @@ const ManageUserPage: NextPage = () => {
           <AppearanceTab />
           <AccessibilityTab />
         </div>
-        <div className="bg-indigo-500 w-full pl-2">
+        <div className="w-full pl-2 text-zinc-500 dark:text-white">
           <Link href="/">
-            <button className="rounded-[50%] p-1 border-zinc-500 dark:border-white border-2">
+            <button className="rounded-[50%] p-1 border-zinc-500 dark:border-white border-2 mt-4">
               <X className="w-6 h-6" />
             </button>
           </Link>
