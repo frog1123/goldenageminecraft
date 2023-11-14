@@ -16,7 +16,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import { useTheme } from "next-themes";
 import grass_block_old from "@/public/assets/grass_block_old.png";
 import Image from "next/image";
@@ -25,6 +24,7 @@ import { Context } from "@/context";
 import { SignUpButton } from "@/components/auth/sign-up-button";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
+import { Separator } from "@/components/separator";
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -141,7 +141,7 @@ const Navbar: FC = () => {
                       <span>{context.value.currentUser?.name}</span>{" "}
                     </div>
                   </DropdownMenuItem>
-                  <Separator className="my-1" />
+                  <Separator orientation="horizontal" className="my-1" />
                   <DropdownMenuItem onClick={() => modal.onOpen("sign-out-conf")}>
                     <div className="flex place-items-center w-full gap-2">
                       <span>Sign out</span>
@@ -197,7 +197,7 @@ const Navbar: FC = () => {
           )}
         </div>
       </div>
-      <Separator className={cn("transition-all duration-500 mx-auto bg-gray-300 dark:bg-border", scrolled ? "w-full visible" : "w-0 invisible")} />
+      <Separator orientation="horizontal" className={cn("transition-all duration-500 mx-auto bg-gray-300 dark:bg-border", scrolled ? "w-full visible" : "w-0 invisible")} />
     </nav>
   );
 };

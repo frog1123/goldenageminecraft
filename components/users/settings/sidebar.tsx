@@ -1,6 +1,6 @@
 "use client";
 
-import { Seperator } from "@/components/separator";
+import { Separator } from "@/components/separator";
 import { UserSettingsType, useUserSettings } from "@/hooks/use-user-settings-store";
 import { FC } from "react";
 
@@ -29,7 +29,7 @@ export const UserSettingsSidebar: FC = () => {
         </button>
       ))}
       <div className="px-1">
-        <Seperator orientation="horizontal" />
+        <Separator orientation="horizontal" />
       </div>
       <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer">Log out</div>
     </div>
