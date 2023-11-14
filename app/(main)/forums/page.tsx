@@ -17,7 +17,11 @@ export const metadata: Metadata = {
 const ForumsPage: NextPage = async () => {
   const threadCount = await db.thread.count();
   const replyCount = await db.threadReply.count();
-  const userCount = await db.user.count();
+  const userCount = await db.user.count({
+    where: {
+      active: true
+    }
+  });
 
   return (
     <>
