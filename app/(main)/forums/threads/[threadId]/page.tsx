@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/separator";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
@@ -257,7 +257,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           </div>
         </div>
       </div>
-      <Separator />
+      <Separator orientation="horizontal" />
       <div className="grid grid-flow-col">
         <VoteBox thread={thread} signedIn={signedIn} />
         <div className="ml-auto grid grid-flow-col gap-2">{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>

@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from "react";
 import { GitBranch, Globe } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/separator";
 import Image from "next/image";
 import grass_block_old from "@/public/assets/grass_block_old.png";
 import { cn } from "@/lib/utils";
