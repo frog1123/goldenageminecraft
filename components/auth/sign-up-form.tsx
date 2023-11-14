@@ -26,7 +26,7 @@ export const SignUpForm: FC = () => {
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [error, setError] = useState("");
-  const [phase, setPhase] = useState("waiting-email");
+  const [phase, setPhase] = useState("register");
 
   const [formValid, setFormValid] = useState({ name: false, email: false, password: false });
 
@@ -46,7 +46,7 @@ export const SignUpForm: FC = () => {
       const res = await axios.post("/api/users", values);
 
       if (res.status === 200) {
-        router.push("/sign-in");
+        setPhase("waiting-email");
       }
     } catch (err: any) {
       if (err.response.status === 409) {

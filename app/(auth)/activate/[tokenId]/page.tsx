@@ -1,6 +1,5 @@
-import { Link } from "@/components/link";
+import { SignInButton } from "@/components/auth/sign-in-button";
 import { db } from "@/lib/db";
-import { Home } from "lucide-react";
 import { NextPage } from "next";
 
 interface ActivateTokenIdPageProps {
@@ -47,14 +46,7 @@ const ActivateTokenIdPage: NextPage<ActivateTokenIdPageProps> = async ({ params 
       <p>
         Activated user: <span className="font-semibold">{activateToken.user.name}</span>
       </p>
-      <Link href="/">
-        <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white">
-          <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
-            <Home className="w-4 h-4" />
-            <span>Return home</span>
-          </div>
-        </button>
-      </Link>
+      <SignInButton />
     </div>
   );
 };
