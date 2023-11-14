@@ -39,8 +39,6 @@ const ThreadIdEditPage: NextPage<ThreadIdEditPageProps> = async ({ params }) => 
     }
   });
 
-  console.log(thread);
-
   if (!currentUser || thread?.authorId !== currentUser.id) return redirect("/");
   if (!thread) return redirect("/");
 
