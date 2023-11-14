@@ -47,8 +47,14 @@ export async function POST(req: Request) {
       }
     });
 
-    console.log(url.origin);
-    await transporter.sendMail({ from: "verify@goldenageminecraft.net", to: data.email, subject: "verify test", text: `${url.origin}/${newToken.token}` });
+    if (process.env.SEND_EMAILS === "true") {
+      await transporter.sendMail({
+        from: "verify@goldenageminecraft.net",
+        to: data.email,
+        subject: "Verify your account",
+        text: `Click this link to verify your goldenageminecraft account: ${url.origin}/activate/${newToken.token}`
+      });
+    }
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
