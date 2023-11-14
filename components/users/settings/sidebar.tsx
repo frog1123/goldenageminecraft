@@ -19,15 +19,25 @@ export const UserSettingsSidebar: FC = () => {
       <div>
         <p className="uppercase text-xs font-bold text-zinc-500 px-1">User settings</p>
       </div>
-      {userSettingsItems.map(setting => (
-        <button
-          onClick={() => userSettings.onOpen(setting.tab)}
-          key={setting.tab}
-          className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer"
-        >
-          <span>{setting.name}</span>
-        </button>
-      ))}
+
+      {userSettingsItems.map(setting => {
+        if (userSettings.isOpen && userSettings.type === setting.tab)
+          return (
+            <button key={`setting-${setting.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-1 transition rounded-md w-full cursor-default">
+              <span>{setting.name}</span>
+            </button>
+          );
+        else
+          return (
+            <button
+              onClick={() => userSettings.onOpen(setting.tab)}
+              key={`setting-${setting.tab}`}
+              className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer"
+            >
+              <span>{setting.name}</span>
+            </button>
+          );
+      })}
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
