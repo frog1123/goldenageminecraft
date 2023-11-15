@@ -52,6 +52,7 @@ export const MyAccountTab: FC = () => {
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <div className="p-4">
+        <p className="font-semibold text-2xl py-1">My Account</p>
         <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
           <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
             <div className="relative w-20 h-20 rounded-[50%] overflow-hidden">
