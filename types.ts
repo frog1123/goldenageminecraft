@@ -11,6 +11,7 @@ export interface CurrentUserType {
   role: UserRole;
   plan: UserPlan;
   active: boolean;
+  createdAt: Date;
 }
 
 // prettier-ignore

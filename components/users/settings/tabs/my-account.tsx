@@ -18,6 +18,7 @@ import lapis from "@/public/assets/ranks/lapis.png";
 import diamond from "@/public/assets/ranks/diamond.png";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import { formatDateLong } from "@/utils/format-date-long";
 
 const rankMap = {
   [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
@@ -66,13 +67,14 @@ export const MyAccountTab: FC = () => {
             <Separator orientation="vertical" />
             <div className="grid grid-flow-row h-full w-max">
               <p className="font-semibold">{context.value.currentUser.name}</p>
-              <div>
+              <div className="w-max">
                 <div className="grid grid-flow-col place-items-center bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md">
                   {context.value.currentUser.plan === UserPlan.PREMIUM && <Crown className="w-5 h-5 text-pink-500 mr-1" />}
                   {roleMap[context.value.currentUser.role]}
                   <div className="relative w-6 h-6">{rankMap[context.value.currentUser.rank]}</div>
                 </div>
               </div>
+              <p className="uppercase text-xs font-bold text-zinc-500">Joined {formatDateLong(context.value.currentUser.createdAt.toString())}</p>
             </div>
           </div>
           <Separator orientation="horizontal" />

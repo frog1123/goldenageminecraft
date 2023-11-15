@@ -22,7 +22,8 @@ export const getServerCurrentUser = async () => {
       rank: true,
       role: true,
       plan: true,
-      active: true
+      active: true,
+      createdAt: true
     }
   });
 
