@@ -15,11 +15,10 @@ export const UserSettingsSidebar: FC = () => {
   const userSettings = useUserSettings();
 
   return (
-    <div className="grid-flow-row grid gap-1 py-2 px-4">
+    <div className="grid-flow-row grid gap-1 py-2 px-4 h-max">
       <div>
         <p className="uppercase text-xs font-bold text-zinc-500 px-1">User settings</p>
       </div>
-
       {userSettingsItems.map(setting => {
         if (userSettings.isOpen && userSettings.type === setting.tab)
           return (
