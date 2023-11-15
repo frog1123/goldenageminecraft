@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { FC, useContext } from "react";
 import Image from "next/image";
 import { Separator } from "@/components/separator";
-import { Crown, Gavel, Sailboat, Shield } from "lucide-react";
+import { Crown, Edit, Gavel, Sailboat, Shield } from "lucide-react";
 import { UserRank, UserRole, UserPlan } from "@prisma/client";
 
 import coal from "@/public/assets/ranks/coal.png";
@@ -16,6 +16,8 @@ import gold from "@/public/assets/ranks/gold.png";
 import redstone from "@/public/assets/ranks/redstone.png";
 import lapis from "@/public/assets/ranks/lapis.png";
 import diamond from "@/public/assets/ranks/diamond.png";
+import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 
 const rankMap = {
   [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
@@ -37,6 +39,7 @@ export const MyAccountTab: FC = () => {
   const userSettings = useUserSettings();
   const isUserSettingsOpen = userSettings.isOpen && userSettings.type === "my-account";
   const context = useContext(Context);
+  const session = useSession();
 
   if (!context.value.currentUser)
     return (
@@ -49,7 +52,7 @@ export const MyAccountTab: FC = () => {
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <div className="p-4">
-        <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
+        <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
           <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
             <div className="relative w-20 h-20 rounded-[50%] overflow-hidden">
               {context.value.currentUser.imageUrl ? (
@@ -68,6 +71,35 @@ export const MyAccountTab: FC = () => {
                   <div className="relative w-6 h-6">{rankMap[context.value.currentUser.rank]}</div>
                 </div>
               </div>
+            </div>
+          </div>
+          <Separator orientation="horizontal" />
+          <div>
+            <div className="grid grid-flow-col place-items-center">
+              <div className="grid grid-flow-row mr-auto">
+                <span className="uppercase text-xs font-bold text-zinc-500">Username</span>
+                <span>{context.value.currentUser.name}</span>
+              </div>
+              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                  <Edit className="w-4 h-4" />
+                  <span>Edit</span>
+                </div>
+              </Button>
+            </div>
+          </div>
+          <div>
+            <div className="grid grid-flow-col place-items-center">
+              <div className="grid grid-flow-row mr-auto">
+                <span className="uppercase text-xs font-bold text-zinc-500">Email</span>
+                <span>{session.data?.user?.email ? session.data.user.email : "loading..."}</span>
+              </div>
+              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                  <Edit className="w-4 h-4" />
+                  <span>Edit</span>
+                </div>
+              </Button>
             </div>
           </div>
         </div>
