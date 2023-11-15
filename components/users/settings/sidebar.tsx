@@ -22,7 +22,7 @@ export const UserSettingsSidebar: FC = () => {
       {userSettingsItems.map(setting => {
         if (userSettings.isOpen && userSettings.type === setting.tab)
           return (
-            <button key={`setting-${setting.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-1 transition rounded-md w-full cursor-default">
+            <button key={`setting-${setting.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-2 transition rounded-md w-full cursor-default">
               <span>{setting.name}</span>
             </button>
           );
@@ -31,7 +31,7 @@ export const UserSettingsSidebar: FC = () => {
             <button
               onClick={() => userSettings.onOpen(setting.tab)}
               key={`setting-${setting.tab}`}
-              className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer"
+              className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer"
             >
               <span>{setting.name}</span>
             </button>
@@ -40,7 +40,7 @@ export const UserSettingsSidebar: FC = () => {
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
-      <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md w-full cursor-pointer">Log out</div>
+      <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer">Log out</div>
     </div>
   );
 };

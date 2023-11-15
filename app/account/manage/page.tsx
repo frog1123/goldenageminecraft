@@ -19,7 +19,7 @@ const ManageUserPage: NextPage = async () => {
     <div className="w-max mx-auto">
       <div className="grid grid-flow-col sm:grid-cols-[max-content_60vw_max-content] lg:grid-cols-[max-content_50vw_max-content] xl:grid-cols-[max-content_40vw_max-content] ">
         <UserSettingsSidebar />
-        <div className="bg-neutral-500 w-full">
+        <div className="w-full">
           <MyAccountTab />
           <CustomizationTab />
           <AppearanceTab />
