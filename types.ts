@@ -1,4 +1,4 @@
-import { Thread, User } from "@prisma/client";
+import { Thread, User, UserPlan, UserRank, UserRole } from "@prisma/client";
 
 export interface CurrentUserType {
   id: string;
@@ -7,9 +7,9 @@ export interface CurrentUserType {
   lastName: string | null;
   imageUrl: string | null;
   bio: string;
-  rank: string;
-  role: string;
-  plan: string;
+  rank: UserRank;
+  role: UserRole;
+  plan: UserPlan;
   active: boolean;
 }
 
