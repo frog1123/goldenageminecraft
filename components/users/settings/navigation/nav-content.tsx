@@ -48,13 +48,13 @@ export const UserSettingsNavContent: FC<UserSettingsNavContentProps> = ({ mobile
         <p className="uppercase text-xs font-bold text-zinc-500 px-1">User settings</p>
       </div>
       {userSettingsItems.map(item => (
-        <UserSettingsSidebarItem item={item} mobile={mobile} />
+        <UserSettingsSidebarItem item={item} mobile={mobile} key={`user-setting-${item.tab}`} />
       ))}
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
       {specialItems.map(item => (
-        <UserSettingsSidebarItem item={item} mobile={mobile} />
+        <UserSettingsSidebarItem item={item} mobile={mobile} key={`user-setting-${item.tab}`} />
       ))}
       <div className="px-1">
         <Separator orientation="horizontal" />
@@ -63,7 +63,7 @@ export const UserSettingsNavContent: FC<UserSettingsNavContentProps> = ({ mobile
         <p className="uppercase text-xs font-bold text-rose-500/70 px-1">Danger</p>
       </div>
       {dangerItems.map(item => (
-        <UserSettingsSidebarItem item={item} mobile={mobile} />
+        <UserSettingsSidebarItem item={item} mobile={mobile} key={`user-setting-${item.tab}`} />
       ))}
       <div className="px-1">
         <Separator orientation="horizontal" />
