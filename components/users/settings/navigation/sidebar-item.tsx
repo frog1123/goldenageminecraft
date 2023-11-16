@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { UserSettingsItem } from "@/components/users/settings/sidebar";
+import { UserSettingsItem } from "@/components/users/settings/navigation/sidebar";
 import { useUserSettings } from "@/hooks/use-user-settings-store";
 import { cn } from "@/lib/utils";
 

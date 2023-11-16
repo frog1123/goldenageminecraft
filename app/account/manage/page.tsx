@@ -3,7 +3,7 @@ import { AccessibilityTab } from "@/components/users/settings/tabs/accessibility
 import { AppearanceTab } from "@/components/users/settings/tabs/appearance";
 import { CustomizationTab } from "@/components/users/settings/tabs/customization";
 import { MyAccountTab } from "@/components/users/settings/tabs/my-account";
-import { UserSettingsSidebar } from "@/components/users/settings/sidebar";
+import { UserSettingsSidebar } from "@/components/users/settings/navigation/sidebar";
 import { getServerCurrentUser } from "@/lib/current-user";
 import { NextPage } from "next";
 import { redirect } from "next/navigation";
@@ -11,6 +11,7 @@ import { WhatsNewTab } from "@/components/users/settings/tabs/whats-new";
 import { PremiumTab } from "@/components/users/settings/tabs/premium";
 import { DangerTab } from "@/components/users/settings/tabs/danger";
 import { X } from "lucide-react";
+import { UserSettingsMobileNav } from "@/components/users/settings/navigation/mobile-nav";
 
 const ManageUserPage: NextPage = async () => {
   const currentUser = await getServerCurrentUser();
@@ -43,6 +44,7 @@ const ManageUserPage: NextPage = async () => {
         </div>
       </div>
       <div className="block sm:hidden">
+        <UserSettingsMobileNav />
         <div className="w-full">
           <MyAccountTab />
           <CustomizationTab />

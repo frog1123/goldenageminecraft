@@ -7,7 +7,7 @@ import { Album, AlertTriangle, BellRing, Crown, LogOut, Paintbrush, ScanSearch, 
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
-import { UserSettingsSidebarItem } from "@/components/users/settings/sidebar-item";
+import { UserSettingsSidebarItem } from "@/components/users/settings/navigation/sidebar-item";
 
 export type UserSettingsItem = { name: string; tab: UserSettingsType; color?: string; bgColor?: string; icon: React.ReactNode };
 

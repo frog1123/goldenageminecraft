@@ -1,0 +1,34 @@
+"use client";
+
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { FC, useEffect, useState } from "react";
+
+export const UserSettingsMobileNav: FC = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <nav className="fixed z-50 w-full">
+      <div className="bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2">
+        <div className="h-8 w-8"></div>
+      </div>
+      <Separator orientation="horizontal" className={cn("transition-all duration-500 mx-auto bg-gray-300 dark:bg-border", scrolled ? "w-full visible" : "w-0 invisible")} />
+    </nav>
+  );
+};
