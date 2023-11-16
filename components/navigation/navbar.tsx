@@ -37,11 +37,8 @@ const Navbar: FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      if (window.scrollY > 0) setScrolled(true);
+      else setScrolled(false);
     };
 
     window.addEventListener("scroll", handleScroll);

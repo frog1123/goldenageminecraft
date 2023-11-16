@@ -45,7 +45,7 @@ const ManageUserPage: NextPage = async () => {
       </div>
       <div className="block sm:hidden">
         <UserSettingsMobileNav />
-        <div className="w-full">
+        <div className="w-full pt-12">
           <MyAccountTab />
           <CustomizationTab />
           <AppearanceTab />
