@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type UserSettingsType = "my-account" | "customization" | "appearance" | "accessibility";
+export type UserSettingsType = "my-account" | "customization" | "appearance" | "accessibility" | "whats-new" | "premium" | "danger";
 
 interface UserSettingsData {}
 

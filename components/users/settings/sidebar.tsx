@@ -3,15 +3,23 @@
 import { Separator } from "@/components/separator";
 import { Context } from "@/context";
 import { UserSettingsType, useUserSettings } from "@/hooks/use-user-settings-store";
+import { Album, BellRing, Crown, Paintbrush, ScanSearch, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
 
-const userSettingsItems: Array<{ name: string; tab: UserSettingsType }> = [
-  { name: "My Account", tab: "my-account" },
-  { name: "Customization", tab: "customization" },
-  { name: "Appearance", tab: "appearance" },
-  { name: "Accessibility", tab: "accessibility" }
+type ItemArr = { name: string; tab: UserSettingsType; color?: string; icon: React.ReactNode }[];
+
+const userSettingsItems: ItemArr = [
+  { name: "My Account", tab: "my-account", icon: <User className="w-4 h-4" /> },
+  { name: "Customization", tab: "customization", icon: <Paintbrush className="w-4 h-4" /> },
+  { name: "Appearance", tab: "appearance", icon: <Album className="w-4 h-4" /> },
+  { name: "Accessibility", tab: "accessibility", icon: <ScanSearch className="w-4 h-4" /> }
+];
+
+const specialItems: ItemArr = [
+  { name: "What's new", tab: "whats-new", icon: <BellRing className="w-4 h-4" /> },
+  { name: "Premium", tab: "premium", icon: <Crown className="w-4 h-4" /> }
 ];
 
 export const UserSettingsSidebar: FC = () => {
@@ -39,6 +47,7 @@ export const UserSettingsSidebar: FC = () => {
         if (userSettings.isOpen && userSettings.type === setting.tab)
           return (
             <button key={`setting-${setting.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-2 transition rounded-md w-full cursor-default">
+              {setting.icon}
               <span>{setting.name}</span>
             </button>
           );
@@ -49,10 +58,16 @@ export const UserSettingsSidebar: FC = () => {
               key={`setting-${setting.tab}`}
               className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer"
             >
-              <span>{setting.name}</span>
+              <div className="grid grid-cols-[max-content_auto] place-items-center">
+                {setting.icon}
+                <span>{setting.name}</span>
+              </div>
             </button>
           );
       })}
+      <div className="px-1">
+        <Separator orientation="horizontal" />
+      </div>
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
