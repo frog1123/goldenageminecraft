@@ -9,6 +9,9 @@ import { X } from "lucide-react";
 
 import { NextPage } from "next";
 import { redirect } from "next/navigation";
+import { WhatsNewTab } from "@/components/users/settings/tabs/whats-new";
+import { PremiumTab } from "@/components/users/settings/tabs/premium";
+import { DangerTab } from "@/components/users/settings/tabs/danger";
 
 const ManageUserPage: NextPage = async () => {
   const currentUser = await getServerCurrentUser();
@@ -24,6 +27,9 @@ const ManageUserPage: NextPage = async () => {
           <CustomizationTab />
           <AppearanceTab />
           <AccessibilityTab />
+          <WhatsNewTab />
+          <PremiumTab />
+          <DangerTab />
         </div>
         <div className="w-full pl-2">
           <Link href="/">
