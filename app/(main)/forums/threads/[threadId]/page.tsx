@@ -46,8 +46,11 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
             name: true,
             firstName: true,
             lastName: true,
-            imageUrl: true,
-
+            avatar: {
+              select: {
+                url: true
+              }
+            },
             rank: true,
             role: true,
             plan: true,
@@ -102,12 +105,14 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         author: {
           select: {
             id: true,
-
             name: true,
             firstName: true,
             lastName: true,
-            imageUrl: true,
-
+            avatar: {
+              select: {
+                url: true
+              }
+            },
             rank: true,
             role: true,
             plan: true,
@@ -202,9 +207,8 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
         <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
           <div className="grid grid-flow-row gap-2 place-items-center">
             <div className="w-28 h-28 rounded-md overflow-hidden relative">
-              {thread.author.imageUrl ? <Image src={thread.author.imageUrl} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
+              {thread.author.avatar?.url ? <Image src={thread.author.avatar?.url} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
             </div>
-
             <div className="grid grid-flow-row gap-0 place-items-center">
               <Link href={`/users/${thread.author.id}`} className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
                 <p className="font-semibold">{thread.author.name}</p>
