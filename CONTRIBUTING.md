@@ -30,10 +30,13 @@ use dev values not prod values
 ```python
 # .env
 
-# these have different values for prod and dev
+
 NEXTAUTH_SECRET=
 DATABASE_URL=
+EDGE_STORE_ACCESS_KEY=
+EDGE_STORE_SECRET_KEY=
+NODEMAILER_USER=
+NODEMAILER_PASS=
+SEND_EMAILS=
 
-# these are the same on prod and dev
-#
 ```
