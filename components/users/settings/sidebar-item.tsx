@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { UserSettingsItem } from "@/components/users/settings/sidebar";
 import { useUserSettings } from "@/hooks/use-user-settings-store";
+import { cn } from "@/lib/utils";
 
 interface UserSettingsSidebarProps {
   item: UserSettingsItem;
@@ -11,10 +12,13 @@ export const UserSettingsSidebarItem: FC<UserSettingsSidebarProps> = ({ item }) 
 
   if (userSettings.isOpen && userSettings.type === item.tab)
     return (
-      <button key={`setting-${item.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-2 transition rounded-md w-full cursor-default">
-        <div className="grid grid-cols-[max-content_auto] place-items-center">
+      <button
+        key={`setting-${item.tab}`}
+        className={cn("text-left p-2 !pr-6 transition rounded-md w-full cursor-default", item?.bgColor ? item.bgColor : "bg-neutral-300 dark:bg-neutral-800")}
+      >
+        <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
           {item.icon}
-          <span>{item.name}</span>
+          <span className="w-max mr-auto">{item.name}</span>
         </div>
       </button>
     );
@@ -23,11 +27,11 @@ export const UserSettingsSidebarItem: FC<UserSettingsSidebarProps> = ({ item }) 
       <button
         onClick={() => userSettings.onOpen(item.tab)}
         key={`setting-${item.tab}`}
-        className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer"
+        className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 !pr-6 transition rounded-md w-full cursor-pointer"
       >
-        <div className="grid grid-cols-[max-content_auto] place-items-center">
+        <div className={cn("grid grid-cols-[max-content_auto] place-items-center gap-1", item?.color && item.color)}>
           {item.icon}
-          <span>{item.name}</span>
+          <span className="w-max mr-auto">{item.name}</span>
         </div>
       </button>
     );
