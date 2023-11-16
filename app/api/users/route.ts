@@ -13,6 +13,10 @@ export async function POST(req: Request) {
     if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.password.length === 0) return new NextResponse("Bad request", { status: 400 });
+    const allowedUsernames = ["test1", "test2", "test3"];
+    if (!allowedUsernames.includes(data.name)) {
+      return new NextResponse("Invalid", { status: 409 });
+    }
 
     const password = await hash(data.password, 12);
 
@@ -48,12 +52,17 @@ export async function POST(req: Request) {
     });
 
     if (process.env.SEND_EMAILS === "true") {
-      await transporter.sendMail({
-        from: "verify@goldenageminecraft.net",
-        to: data.email,
-        subject: "Verify your account",
-        text: `Click this link to verify your goldenageminecraft account: ${url.origin}/activate/${newToken.token}`
-      });
+      try {
+        await transporter.sendMail({
+          from: "verify@goldenageminecraft.net",
+          to: data.email,
+          subject: "Verify your account",
+          text: `Click this link to verify your goldenageminecraft account: ${url.origin}/activate/${newToken.token}`
+        });
+      } catch (err) {
+        console.log("[USERS_POST_NODEMAILER]", err);
+        return new NextResponse("Internal Error", { status: 500 });
+      }
     }
 
     return new NextResponse("Success", { status: 200 });
