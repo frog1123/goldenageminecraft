@@ -68,7 +68,7 @@ export const UserSettingsNavContent: FC<UserSettingsNavContentProps> = ({ mobile
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
-      <button onClick={handleSignOut} className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer">
+      <button onClick={handleSignOut} className="hover:bg-neutral-300 dark:hover:bg-neutral-800 text-left px-2 py-1 !pr-6 transition rounded-md w-full cursor-pointer">
         <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
           <LogOut className="w-4 h-4" />
           <span className="w-max mr-auto">Log out</span>
