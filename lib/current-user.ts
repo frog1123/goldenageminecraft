@@ -17,7 +17,12 @@ export const getServerCurrentUser = async () => {
       name: true,
       firstName: true,
       lastName: true,
-      imageUrl: true,
+      avatar: {
+        select: {
+          id: true,
+          url: true
+        }
+      },
       bio: true,
       rank: true,
       role: true,

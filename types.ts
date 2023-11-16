@@ -5,7 +5,10 @@ export interface CurrentUserType {
   name: string;
   firstName: string | null;
   lastName: string | null;
-  imageUrl: string | null;
+  avatar: {
+    id: string;
+    url: string;
+  } | null;
   bio: string;
   rank: UserRank;
   role: UserRole;

@@ -58,8 +58,8 @@ export const MyAccountTab: FC = () => {
         <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
           <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
             <div className="relative w-20 h-20 rounded-[50%] overflow-hidden">
-              {context.value.currentUser.imageUrl ? (
-                <Image src={context.value.currentUser.imageUrl} alt="pfp" fill />
+              {context.value.currentUser.avatar?.url ? (
+                <Image src={context.value.currentUser.avatar?.url} alt="pfp" fill />
               ) : (
                 <Image src={defaultUserProfilePicture()} alt="pfp" fill />
               )}
