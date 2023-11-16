@@ -7,6 +7,7 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import ContextProvider from "@/components/providers/context-provider";
 import { NextAuthSessionProvider } from "@/components/providers/next-auth-session-provider";
 import { getServerCurrentUser } from "@/lib/current-user";
+import { EdgeStoreProvider } from "@/components/providers/edgestore-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,9 +49,11 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
         <body className={inter.className} dir="ltr">
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="golden-age-minecraft-theme">
             <NextAuthSessionProvider>
-              <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
-              <ModalProvider />
-              {children}
+              <EdgeStoreProvider>
+                <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
+                <ModalProvider />
+                {children}
+              </EdgeStoreProvider>
             </NextAuthSessionProvider>
           </ThemeProvider>
         </body>
