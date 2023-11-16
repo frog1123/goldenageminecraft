@@ -4,7 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { FC, useEffect, useState } from "react";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { UserSettingsNavContent } from "@/components/users/settings/navigation/nav-content";
 
 export const UserSettingsMobileNav: FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -31,11 +32,8 @@ export const UserSettingsMobileNav: FC = () => {
               <Menu className="w-6 h-6 text-zinc-500" />
             </div>
           </SheetTrigger>
-          <SheetContent side="left" className="w-full">
-            <SheetHeader>
-              <SheetTitle>test</SheetTitle>
-              <SheetDescription>test</SheetDescription>
-            </SheetHeader>
+          <SheetContent side="left" className="w-full block sm:hidden">
+            <UserSettingsNavContent />
           </SheetContent>
         </Sheet>
         <div className="h-8 w-8"></div>
