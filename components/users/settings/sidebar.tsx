@@ -7,17 +7,18 @@ import { Album, BellRing, Crown, Paintbrush, ScanSearch, User } from "lucide-rea
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
+import { UserSettingsSidebarItem } from "@/components/users/settings/sidebar-item";
 
-type ItemArr = { name: string; tab: UserSettingsType; color?: string; icon: React.ReactNode }[];
+export type UserSettingsItem = { name: string; tab: UserSettingsType; color?: string; icon: React.ReactNode };
 
-const userSettingsItems: ItemArr = [
+const userSettingsItems: UserSettingsItem[] = [
   { name: "My Account", tab: "my-account", icon: <User className="w-4 h-4" /> },
   { name: "Customization", tab: "customization", icon: <Paintbrush className="w-4 h-4" /> },
   { name: "Appearance", tab: "appearance", icon: <Album className="w-4 h-4" /> },
   { name: "Accessibility", tab: "accessibility", icon: <ScanSearch className="w-4 h-4" /> }
 ];
 
-const specialItems: ItemArr = [
+const specialItems: UserSettingsItem[] = [
   { name: "What's new", tab: "whats-new", icon: <BellRing className="w-4 h-4" /> },
   { name: "Premium", tab: "premium", icon: <Crown className="w-4 h-4" /> }
 ];
@@ -43,28 +44,9 @@ export const UserSettingsSidebar: FC = () => {
       <div>
         <p className="uppercase text-xs font-bold text-zinc-500 px-1">User settings</p>
       </div>
-      {userSettingsItems.map(setting => {
-        if (userSettings.isOpen && userSettings.type === setting.tab)
-          return (
-            <button key={`setting-${setting.tab}`} className="text-left bg-neutral-300 dark:bg-neutral-800 p-2 transition rounded-md w-full cursor-default">
-              {setting.icon}
-              <span>{setting.name}</span>
-            </button>
-          );
-        else
-          return (
-            <button
-              onClick={() => userSettings.onOpen(setting.tab)}
-              key={`setting-${setting.tab}`}
-              className="text-left hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer"
-            >
-              <div className="grid grid-cols-[max-content_auto] place-items-center">
-                {setting.icon}
-                <span>{setting.name}</span>
-              </div>
-            </button>
-          );
-      })}
+      {userSettingsItems.map(item => (
+        <UserSettingsSidebarItem item={item} />
+      ))}
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
