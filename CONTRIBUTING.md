@@ -30,7 +30,6 @@ use dev values not prod values
 ```python
 # .env
 
-
 NEXTAUTH_SECRET=
 DATABASE_URL=
 EDGE_STORE_ACCESS_KEY=
