@@ -1,5 +1,6 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
+import { ThreadType, ThreadTypeSignedIn } from "@/types";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
 import { NextResponse } from "next/server";
@@ -18,7 +19,7 @@ export async function GET(req: Request) {
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     try {
       if (tagId) {
-        const threadsWithTag = await db.tag.findUnique({
+        const threadsWithTag: { threads: ThreadTypeSignedIn[] } | null = await db.tag.findUnique({
           where: { id: tagId },
           select: {
             threads: {
@@ -35,9 +36,12 @@ export async function GET(req: Request) {
                 author: {
                   select: {
                     id: true,
-
                     name: true,
-                    imageUrl: true,
+                    avatar: {
+                      select: {
+                        url: true
+                      }
+                    },
                     rank: true,
                     role: true,
                     plan: true
@@ -71,7 +75,7 @@ export async function GET(req: Request) {
         });
         return NextResponse.json(threadsWithTag?.threads);
       } else if (authorId) {
-        const threadsFromAuthor = await db.thread.findMany({
+        const threadsFromAuthor: ThreadTypeSignedIn[] = await db.thread.findMany({
           where: { authorId },
           select: {
             id: true,
@@ -86,9 +90,12 @@ export async function GET(req: Request) {
             author: {
               select: {
                 id: true,
-
                 name: true,
-                imageUrl: true,
+                avatar: {
+                  select: {
+                    url: true
+                  }
+                },
                 rank: true,
                 role: true,
                 plan: true
@@ -120,7 +127,7 @@ export async function GET(req: Request) {
         });
         return NextResponse.json(threadsFromAuthor);
       } else {
-        const threads = await db.thread.findMany({
+        const threads: ThreadTypeSignedIn[] = await db.thread.findMany({
           select: {
             id: true,
             title: true,
@@ -134,9 +141,12 @@ export async function GET(req: Request) {
             author: {
               select: {
                 id: true,
-
                 name: true,
-                imageUrl: true,
+                avatar: {
+                  select: {
+                    url: true
+                  }
+                },
                 rank: true,
                 role: true,
                 plan: true
@@ -176,7 +186,7 @@ export async function GET(req: Request) {
 
   try {
     if (tagId) {
-      const threadsWithTag = await db.tag.findUnique({
+      const threadsWithTag: { threads: ThreadType[] } | null = await db.tag.findUnique({
         where: { id: tagId },
         select: {
           threads: {
@@ -194,7 +204,11 @@ export async function GET(req: Request) {
                 select: {
                   id: true,
                   name: true,
-                  imageUrl: true,
+                  avatar: {
+                    select: {
+                      url: true
+                    }
+                  },
                   rank: true,
                   role: true,
                   plan: true
@@ -219,7 +233,7 @@ export async function GET(req: Request) {
 
       return NextResponse.json(threadsWithTag?.threads);
     } else if (authorId) {
-      const threadsFromAuthor = await db.thread.findMany({
+      const threadsFromAuthor: ThreadType[] = await db.thread.findMany({
         where: { authorId },
         select: {
           id: true,
@@ -235,7 +249,11 @@ export async function GET(req: Request) {
             select: {
               id: true,
               name: true,
-              imageUrl: true,
+              avatar: {
+                select: {
+                  url: true
+                }
+              },
               rank: true,
               role: true,
               plan: true
@@ -258,7 +276,7 @@ export async function GET(req: Request) {
 
       return NextResponse.json(threadsFromAuthor);
     } else {
-      const threads = await db.thread.findMany({
+      const threads: ThreadType[] = await db.thread.findMany({
         select: {
           id: true,
           title: true,
@@ -273,7 +291,11 @@ export async function GET(req: Request) {
             select: {
               id: true,
               name: true,
-              imageUrl: true,
+              avatar: {
+                select: {
+                  url: true
+                }
+              },
               rank: true,
               role: true,
               plan: true
