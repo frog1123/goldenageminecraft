@@ -57,6 +57,9 @@ export const UserSettingsSidebar: FC = () => {
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
+      <div>
+        <p className="uppercase text-xs font-bold text-rose-500/70 px-1">Danger</p>
+      </div>
       {dangerItems.map(item => (
         <UserSettingsSidebarItem item={item} />
       ))}

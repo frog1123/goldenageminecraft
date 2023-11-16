@@ -5,13 +5,12 @@ import { CustomizationTab } from "@/components/users/settings/tabs/customization
 import { MyAccountTab } from "@/components/users/settings/tabs/my-account";
 import { UserSettingsSidebar } from "@/components/users/settings/sidebar";
 import { getServerCurrentUser } from "@/lib/current-user";
-import { X } from "lucide-react";
-
 import { NextPage } from "next";
 import { redirect } from "next/navigation";
 import { WhatsNewTab } from "@/components/users/settings/tabs/whats-new";
 import { PremiumTab } from "@/components/users/settings/tabs/premium";
 import { DangerTab } from "@/components/users/settings/tabs/danger";
+import { X } from "lucide-react";
 
 const ManageUserPage: NextPage = async () => {
   const currentUser = await getServerCurrentUser();
