@@ -25,15 +25,15 @@ export const UserSettingsMobileNav: FC = () => {
     };
   }, []);
 
-  const handleSheetOpen = () => {
-    context.setValue({ ...context.value, mobileUserSettingsNavOpen: true });
+  const handleSheetChange = () => {
+    context.setValue({ ...context.value, mobileUserSettingsNavOpen: !context.value.mobileUserSettingsNavOpen });
   };
 
   return (
     <nav className="fixed z-50 w-full">
       <div className="bg-neutral-200 dark:bg-neutral-900 py-2 px-4 w-full flex gap-2">
-        <Sheet open={context.value.mobileUserSettingsNavOpen}>
-          <SheetTrigger onClick={handleSheetOpen}>
+        <Sheet open={context.value.mobileUserSettingsNavOpen} onOpenChange={handleSheetChange}>
+          <SheetTrigger onClick={handleSheetChange}>
             <div className="grid place-items-center">
               <Menu className="w-6 h-6 text-zinc-500" />
             </div>
