@@ -12,6 +12,7 @@ export const AppearanceTab: FC = () => {
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <p>appearance</p>
+      <p>coming soon!</p>
     </div>
   );
 };

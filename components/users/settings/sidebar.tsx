@@ -1,8 +1,11 @@
 "use client";
 
 import { Separator } from "@/components/separator";
+import { Context } from "@/context";
 import { UserSettingsType, useUserSettings } from "@/hooks/use-user-settings-store";
-import { FC } from "react";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { FC, useContext } from "react";
 
 const userSettingsItems: Array<{ name: string; tab: UserSettingsType }> = [
   { name: "My Account", tab: "my-account" },
@@ -13,6 +16,19 @@ const userSettingsItems: Array<{ name: string; tab: UserSettingsType }> = [
 
 export const UserSettingsSidebar: FC = () => {
   const userSettings = useUserSettings();
+  const router = useRouter();
+  const context = useContext(Context);
+
+  const handleSignOut = async () => {
+    await signOut();
+
+    router.push("/");
+
+    context.setValue({
+      ...context.value,
+      currentUser: null
+    });
+  };
 
   return (
     <div className="grid-flow-row grid gap-1 py-2 px-4 h-max">
@@ -40,7 +56,9 @@ export const UserSettingsSidebar: FC = () => {
       <div className="px-1">
         <Separator orientation="horizontal" />
       </div>
-      <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer">Log out</div>
+      <button onClick={handleSignOut} className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-2 transition rounded-md w-full cursor-pointer">
+        <span className="flex w-max mr-auto">Log out</span>
+      </button>
     </div>
   );
 };

@@ -12,6 +12,7 @@ export const AccessibilityTab: FC = () => {
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <p>accessibility</p>
+      <p>coming soon!</p>
     </div>
   );
 };

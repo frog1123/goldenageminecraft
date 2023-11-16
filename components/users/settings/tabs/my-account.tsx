@@ -65,7 +65,7 @@ export const MyAccountTab: FC = () => {
               )}
             </div>
             <Separator orientation="vertical" />
-            <div className="grid grid-flow-row h-full w-max">
+            <div className="grid grid-flow-row h-full w-max gap-1">
               <p className="font-semibold">{context.value.currentUser.name}</p>
               <div className="w-max">
                 <div className="grid grid-flow-col place-items-center bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md">

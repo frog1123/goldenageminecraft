@@ -12,6 +12,7 @@ export const CustomizationTab: FC = () => {
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <p>customization</p>
+      <p>coming soon!</p>
     </div>
   );
 };
