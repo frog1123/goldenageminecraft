@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageDropzone } from "@/components/image-dropzone";
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
 import { useUserSettings } from "@/hooks/use-user-settings-store";
 import { cn } from "@/lib/utils";
@@ -12,36 +13,22 @@ export const CustomizationTab: FC = () => {
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
 
+  const handleProfilePictureUpload = (file: File) => {
+    console.log(file);
+  };
+
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>
       <p>customization</p>
       <p>coming soon!</p>
 
       <div>
-        <input
-          type="file"
-          onChange={e => {
-            setFile(e.target.files?.[0]);
-          }}
-        />
-        <button
-          onClick={async () => {
-            if (file) {
-              const res = await edgestore.publicFiles.upload({
-                file,
-                onProgressChange: progress => {
-                  // you can use this to show a progress bar
-                  console.log(progress);
-                }
-              });
-              // you can run some server action or api here
-              // to add the necessary data to your database
-              console.log(res);
-            }
-          }}
-        >
-          Upload
-        </button>
+        <p>test</p>
+        <div className="w-20 h-20">
+          <ImageDropzone onImageUpload={handleProfilePictureUpload} circle />
+        </div>
       </div>
     </div>
   );
