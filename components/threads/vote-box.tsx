@@ -69,7 +69,7 @@ export const VoteBox: FC<VoteBoxProps> = ({ thread, signedIn }) => {
         onClick={handleLikePost}
         className={cn(
           "w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center",
-          hasUpvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-neutral-800"
+          hasUpvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border"
         )}
       >
         <span>{upvoteCount}</span>
@@ -79,7 +79,7 @@ export const VoteBox: FC<VoteBoxProps> = ({ thread, signedIn }) => {
         onClick={handleDislikePost}
         className={cn(
           "w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center",
-          hasDownvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-neutral-800"
+          hasDownvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border"
         )}
       >
         <span>{downvoteCount}</span>
