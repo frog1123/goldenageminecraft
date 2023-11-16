@@ -44,7 +44,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   console.log("layout loaded", currentUser);
 
   return (
-    <ContextProvider initalValue={{ currentUser, deletedThread: { id: null } }}>
+    <ContextProvider initalValue={{ currentUser, deletedThread: { id: null }, mobileUserSettingsNavOpen: false }}>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className} dir="ltr">
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="golden-age-minecraft-theme">

@@ -6,6 +6,7 @@ export interface ContextData {
   deletedThread: {
     id: string | null;
   };
+  mobileUserSettingsNavOpen: boolean;
 }
 
 type ContextType = {
@@ -18,7 +19,8 @@ export const Context = createContext<ContextType>({
     currentUser: null,
     deletedThread: {
       id: null
-    }
+    },
+    mobileUserSettingsNavOpen: false
   },
   setValue: () => {}
 });
