@@ -16,7 +16,6 @@ export const UserSettingsSidebarItem: FC<UserSettingsSidebarProps> = ({ item, mo
 
   const handleTabPress = () => {
     if (!mobile) return;
-    console.log("pow");
     context.setValue({ ...context.value, mobileUserSettingsNavOpen: false });
   };
 
