@@ -4,6 +4,7 @@ import { useUserSettings } from "@/hooks/use-user-settings-store";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { EditProfilePicture } from "@/components/users/settings/edit-profile-picture";
+import { Separator } from "@/components/separator";
 
 export const CustomizationTab: FC = () => {
   const userSettings = useUserSettings();
@@ -16,8 +17,13 @@ export const CustomizationTab: FC = () => {
         <div className="grid grid-flow-row gap-2">
           <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
             <p className="uppercase text-xs font-bold text-zinc-500">Edit profile picture</p>
-            <div className="w-20 h-20">
-              <EditProfilePicture />
+            <div className="grid grid-cols-[max-content_max-content_auto] gap-2 ">
+              <div className="w-20 h-20">
+                <EditProfilePicture />
+              </div>
+              <Separator orientation="vertical" />
+
+              <p>This will be displayed as your user avatar.</p>
             </div>
           </div>
           <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
