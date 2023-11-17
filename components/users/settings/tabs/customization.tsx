@@ -13,11 +13,17 @@ export const CustomizationTab: FC = () => {
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
 
-  const handleProfilePictureUpload = (file: File) => {
+  const handleProfilePictureUpload = async (file: File) => {
     console.log(file);
-  };
 
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+    const res = await edgestore.publicFiles.upload({
+      file
+    });
+
+    console.log(res);
+
+    return { url: res.url };
+  };
 
   return (
     <div className={cn("", isUserSettingsOpen ? "block" : "hidden")}>

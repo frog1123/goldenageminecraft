@@ -6,7 +6,7 @@ import { FC, useCallback, useState } from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 
 interface ImageDropzoneProps {
-  onImageUpload: (file: File) => void;
+  onImageUpload: (file: File) => Promise<{ url: string }> | { url: string };
   circle?: boolean;
 }
 
@@ -14,15 +14,13 @@ export const ImageDropzone: FC<ImageDropzoneProps> = ({ onImageUpload, circle })
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPath[]) => {
+    async (acceptedFiles: FileWithPath[]) => {
       // get first file
       const [firstFile] = acceptedFiles;
       if (firstFile) {
-        onImageUpload(firstFile);
+        const i = await onImageUpload(firstFile);
 
-        // Assuming the image is hosted somewhere, set the URL
-        const url = URL.createObjectURL(firstFile);
-        setImageUrl(url);
+        setImageUrl(i.url);
       }
     },
     [onImageUpload]
