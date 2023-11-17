@@ -13,8 +13,6 @@ export const EditProfilePicture: FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleProfilePictureUpload = async (file: File) => {
-    console.log(file);
-
     const res = await edgestore.publicFiles.upload({
       file
     });
