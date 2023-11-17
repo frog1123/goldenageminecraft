@@ -23,11 +23,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
       firstName: true,
       lastName: true,
       bio: true,
-      avatar: {
-        select: {
-          url: true
-        }
-      },
+      imageUrl: true,
       rank: true,
       role: true,
       plan: true,
@@ -94,11 +90,7 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
     select: {
       name: true,
       bio: true,
-      avatar: {
-        select: {
-          url: true
-        }
-      }
+      imageUrl: true
     }
   });
 
@@ -112,7 +104,7 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
       }
     };
 
-  if (!user.avatar)
+  if (!user.imageUrl)
     return {
       title: user.name,
       description: user.bio,
@@ -128,7 +120,7 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
     openGraph: {
       title: user.name,
       description: user.bio,
-      images: [user.avatar.url]
+      images: [user.imageUrl]
     }
   };
 }

@@ -37,11 +37,7 @@ export async function GET(req: Request) {
                   select: {
                     id: true,
                     name: true,
-                    avatar: {
-                      select: {
-                        url: true
-                      }
-                    },
+                    imageUrl: true,
                     rank: true,
                     role: true,
                     plan: true
@@ -91,11 +87,7 @@ export async function GET(req: Request) {
               select: {
                 id: true,
                 name: true,
-                avatar: {
-                  select: {
-                    url: true
-                  }
-                },
+                imageUrl: true,
                 rank: true,
                 role: true,
                 plan: true
@@ -142,11 +134,7 @@ export async function GET(req: Request) {
               select: {
                 id: true,
                 name: true,
-                avatar: {
-                  select: {
-                    url: true
-                  }
-                },
+                imageUrl: true,
                 rank: true,
                 role: true,
                 plan: true
@@ -204,11 +192,7 @@ export async function GET(req: Request) {
                 select: {
                   id: true,
                   name: true,
-                  avatar: {
-                    select: {
-                      url: true
-                    }
-                  },
+                  imageUrl: true,
                   rank: true,
                   role: true,
                   plan: true
@@ -249,11 +233,7 @@ export async function GET(req: Request) {
             select: {
               id: true,
               name: true,
-              avatar: {
-                select: {
-                  url: true
-                }
-              },
+              imageUrl: true,
               rank: true,
               role: true,
               plan: true
@@ -291,11 +271,7 @@ export async function GET(req: Request) {
             select: {
               id: true,
               name: true,
-              avatar: {
-                select: {
-                  url: true
-                }
-              },
+              imageUrl: true,
               rank: true,
               role: true,
               plan: true
