@@ -1,4 +1,4 @@
-import { User, UserPlan, UserRank, UserRole } from "@prisma/client";
+import { UserPlan, UserRank, UserRole } from "@prisma/client";
 
 export interface CurrentUserType {
   id: string;

@@ -1,15 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import { formatDateLong } from "@/utils/format-date-long";
-import { UserRank, UserRole } from "@prisma/client";
-
-import coal from "@/public/assets/ranks/coal.png";
-import iron from "@/public/assets/ranks/iron.png";
-import gold from "@/public/assets/ranks/gold.png";
-import redstone from "@/public/assets/ranks/redstone.png";
-import lapis from "@/public/assets/ranks/lapis.png";
-import diamond from "@/public/assets/ranks/diamond.png";
-import { Crown, Edit, Gavel, Palmtree, Sailboat, Shield } from "lucide-react";
+import { Crown, Edit, Palmtree } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/separator";
 import { VotesRatio } from "../votes-ratio";
@@ -17,6 +9,8 @@ import { Link } from "@/components/link";
 import { Content } from "@/components/content";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserProfileData } from "@/types/users";
+import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
+
 interface UserInfoProps {
   user: UserProfileData;
   voteStats: {
@@ -27,38 +21,6 @@ interface UserInfoProps {
 }
 
 export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
-  const rankMap = {
-    [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
-    [UserRank.IRON]: <Image src={iron} alt="rank" fill />,
-    [UserRank.GOLD]: <Image src={gold} alt="rank" fill />,
-    [UserRank.REDSTONE]: <Image src={redstone} alt="rank" fill />,
-    [UserRank.LAPIS]: <Image src={lapis} alt="rank" fill />,
-    [UserRank.DIAMOND]: <Image src={diamond} alt="rank" fill />
-  };
-
-  const rankColorMap = {
-    [UserRank.COAL]: "bg-neutral-950",
-    [UserRank.IRON]: "bg-neutral-400",
-    [UserRank.GOLD]: "bg-yellow-500",
-    [UserRank.REDSTONE]: "bg-red-800",
-    [UserRank.LAPIS]: "bg-blue-600",
-    [UserRank.DIAMOND]: "bg-cyan-500"
-  };
-
-  const roleIconMap = {
-    [UserRole.USER]: null,
-    [UserRole.MODERATOR]: <Shield className="w-5 h-5 text-white" />,
-    [UserRole.ADMIN]: <Gavel className="w-5 h-5 text-white" />,
-    [UserRole.OWNER]: <Sailboat className="w-5 h-5 text-white" />
-  };
-
-  const roleColorMap = {
-    [UserRole.USER]: null,
-    [UserRole.MODERATOR]: "bg-blue-500",
-    [UserRole.ADMIN]: "bg-rose-500",
-    [UserRole.OWNER]: "bg-indigo-700"
-  };
-
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
