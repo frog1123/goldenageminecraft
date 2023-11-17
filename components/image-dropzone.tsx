@@ -29,7 +29,7 @@ export const ImageDropzone: FC<ImageDropzoneProps> = ({ onImageUpload, circle })
   );
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: { "image/png": [".png"], "image/jpg": [".jpg"], "image/jpeg": [".jpeg"] },
     onDrop,
     maxFiles: 1
   });
