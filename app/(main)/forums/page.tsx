@@ -1,5 +1,5 @@
-import Control from "@/components/control";
-import Threads from "@/components/threads/threads";
+import { Control } from "@/components/control";
+import { Threads } from "@/components/threads/threads";
 import { db } from "@/lib/db";
 import { BarChartBig, MessagesSquare, Users } from "lucide-react";
 import { Metadata, NextPage } from "next";

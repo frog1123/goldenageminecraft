@@ -1,15 +1,14 @@
-import { UserThreadType } from "@/types";
 import { FC } from "react";
 import { formatDate } from "@/utils/format-date";
 import { Link } from "@/components/link";
 
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";
 
 interface UserThreadProps {
-  thread: UserThreadType;
+  thread: any;
   canEdit: boolean;
   signedIn: boolean;
 }
@@ -22,7 +21,7 @@ export const UserThread: FC<UserThreadProps> = ({ thread, canEdit, signedIn }) =
           <p className="text-gray-500 text-sm">{formatDate(thread.createdAt.toString())}</p>
         </div>
         <div className="grid grid-cols-[auto_max-content] gap-2 w-max place-items-center ml-auto">
-          <div className="ml-auto grid grid-flow-col gap-2">{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
+          <div className="ml-auto grid grid-flow-col gap-2">{thread.tags && thread.tags.map((tag: any) => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
           <ThreadActions canEdit={canEdit} thread={thread} />
         </div>
       </div>

@@ -12,7 +12,7 @@ type ThemeMap = {
   [key: string]: string;
 };
 
-const Tag: FC<TagProps> = ({ id, name }) => {
+export const Tag: FC<TagProps> = ({ id, name }) => {
   // prettier-ignore
   const themeMap: ThemeMap = {
     "beta-1.7.3": "bg-purple-300/40 hover:bg-purple-500/40",
@@ -31,5 +31,3 @@ const Tag: FC<TagProps> = ({ id, name }) => {
     </Link>
   );
 };
-
-export default Tag;

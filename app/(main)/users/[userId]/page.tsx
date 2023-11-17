@@ -2,8 +2,9 @@ import { UserThreads } from "@/components/threads/user-threads";
 import { UserInfo } from "@/components/users/user-info";
 import { db } from "@/lib/db";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
-import { UserProfileData, VoteStats } from "@/types";
+import { UserProfileData } from "@/types/users";
 import { getServerCurrentUser } from "@/lib/current-user";
+import { ThreadVoteStats } from "@/types/threads";
 
 interface UserIdPageProps {
   params: {
@@ -50,7 +51,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     }
   });
 
-  let voteStats: VoteStats = {
+  let voteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
   };

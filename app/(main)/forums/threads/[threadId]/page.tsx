@@ -10,12 +10,13 @@ import { Content } from "@/components/content";
 import { Link } from "@/components/link";
 import { VoteBox } from "@/components/threads/vote-box";
 import { getServerCurrentUser } from "@/lib/current-user";
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { ThreadActions } from "@/components/threads/thread-actions";
-import { VoteStats } from "@/types";
+import { ThreadVoteStats } from "@/types/threads";
 import { VotesRatio } from "@/components/votes-ratio";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { rankColorMap, rankMap, roleIconMap } from "@/components/users/styles";
+
 interface ThreadIdPageProps {
   params: {
     threadId: string;
@@ -144,7 +145,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     });
   }
 
-  let voteStats: VoteStats = {
+  let voteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
   };

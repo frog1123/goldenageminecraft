@@ -1,17 +1,18 @@
-import { CurrentUserType, ThreadType } from "@/types";
 import { FC } from "react";
 import { formatDate } from "@/utils/format-date";
 import { Link } from "@/components/link";
 import { Crown, Dot } from "lucide-react";
 import Image from "next/image";
 
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserPlan } from "@prisma/client";
 import { rankMap, roleIconMapColored } from "@/components/users/styles";
+import { ThreadType } from "@/types/threads";
+import { CurrentUserType } from "@/types/users";
 interface ThreadProps {
   thread: ThreadType;
   signedIn: boolean;

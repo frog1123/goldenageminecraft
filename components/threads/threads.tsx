@@ -2,13 +2,13 @@
 
 import { FC, useEffect, useState, useRef, useContext } from "react";
 import Thread from "@/components/threads/thread";
-import { ThreadType } from "@/types";
+import { ThreadType } from "@/types/threads";
 import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { Context } from "@/context";
 import { SkeleThread } from "@/components/threads/skele-thread";
 
-const Threads: FC = () => {
+export const Threads: FC = () => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -120,5 +120,3 @@ const Threads: FC = () => {
     </div>
   );
 };
-
-export default Threads;

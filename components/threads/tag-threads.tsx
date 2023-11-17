@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState, useRef, useContext } from "react";
 import Thread from "@/components/threads/thread";
-import { ThreadType } from "@/types";
+import { ThreadType } from "@/types/threads";
 import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { Context } from "@/context";
@@ -12,7 +12,7 @@ interface TagThreadsProps {
   tagId: string;
 }
 
-const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
+export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -123,5 +123,3 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     </div>
   );
 };
-
-export default TagThreads;

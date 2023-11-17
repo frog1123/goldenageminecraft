@@ -16,7 +16,7 @@ import { VotesRatio } from "../votes-ratio";
 import { Link } from "@/components/link";
 import { Content } from "@/components/content";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
-import { UserProfileData } from "@/types";
+import { UserProfileData } from "@/types/users";
 interface UserInfoProps {
   user: UserProfileData;
   voteStats: {

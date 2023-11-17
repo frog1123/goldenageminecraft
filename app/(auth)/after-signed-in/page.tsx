@@ -2,8 +2,7 @@
 
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Context } from "@/context";
-import { db } from "@/lib/db";
-import { CurrentUserType } from "@/types";
+import { CurrentUserType } from "@/types/users";
 import axios from "axios";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";

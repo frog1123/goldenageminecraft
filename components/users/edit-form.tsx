@@ -11,7 +11,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import { useRouter } from "next/navigation";
-import { CurrentUserType } from "@/types";
+import { CurrentUserType } from "@/types/users";
 
 interface EditUserFormProps {
   user: CurrentUserType;
