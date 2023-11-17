@@ -3,15 +3,8 @@ import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
 import Image from "next/image";
-import { UserRank, UserRole } from "@prisma/client";
 
-import coal from "@/public/assets/ranks/coal.png";
-import iron from "@/public/assets/ranks/iron.png";
-import gold from "@/public/assets/ranks/gold.png";
-import redstone from "@/public/assets/ranks/redstone.png";
-import lapis from "@/public/assets/ranks/lapis.png";
-import diamond from "@/public/assets/ranks/diamond.png";
-import { Crown, Gavel, Sailboat, Shield } from "lucide-react";
+import { Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Content } from "@/components/content";
 import { Link } from "@/components/link";
@@ -22,6 +15,7 @@ import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteStats } from "@/types";
 import { VotesRatio } from "@/components/votes-ratio";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
+import { rankColorMap, rankMap, roleIconMap } from "@/components/users/styles";
 interface ThreadIdPageProps {
   params: {
     threadId: string;
@@ -162,38 +156,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
 
   const canEdit = thread?.author.id === currentUser?.id;
 
-  const rankMap = {
-    [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
-    [UserRank.IRON]: <Image src={iron} alt="rank" fill />,
-    [UserRank.GOLD]: <Image src={gold} alt="rank" fill />,
-    [UserRank.REDSTONE]: <Image src={redstone} alt="rank" fill />,
-    [UserRank.LAPIS]: <Image src={lapis} alt="rank" fill />,
-    [UserRank.DIAMOND]: <Image src={diamond} alt="rank" fill />
-  };
-
-  const rankColorMap = {
-    [UserRank.COAL]: "bg-neutral-950",
-    [UserRank.IRON]: "bg-neutral-400",
-    [UserRank.GOLD]: "bg-yellow-500",
-    [UserRank.REDSTONE]: "bg-red-800",
-    [UserRank.LAPIS]: "bg-blue-600",
-    [UserRank.DIAMOND]: "bg-cyan-500"
-  };
-
-  const roleIconMap = {
-    [UserRole.USER]: null,
-    [UserRole.MODERATOR]: <Shield className="w-5 h-5 text-white" />,
-    [UserRole.ADMIN]: <Gavel className="w-5 h-5 text-white" />,
-    [UserRole.OWNER]: <Sailboat className="w-5 h-5 text-white" />
-  };
-
-  const roleColorMap = {
-    [UserRole.USER]: null,
-    [UserRole.MODERATOR]: "bg-blue-500",
-    [UserRole.ADMIN]: "bg-rose-500",
-    [UserRole.OWNER]: "bg-indigo-700"
-  };
-
   if (!thread)
     return (
       <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
@@ -230,7 +192,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
                 <span className="mr-auto font-semibold text-white">{thread.author.rank}</span>
               </div>
               {thread.author.role !== "USER" && (
-                <div className={cn("grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1", roleColorMap[thread.author.role])}>
+                <div className={cn("grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1", roleIconMap[thread.author.role])}>
                   <div className="w-6 h-6 overflow-hidden relative">{roleIconMap[thread.author.role]}</div>
                   <span className="mr-auto font-semibold text-white">{thread.author.role}</span>
                 </div>

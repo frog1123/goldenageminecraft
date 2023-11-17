@@ -11,7 +11,7 @@ import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserPlan } from "@prisma/client";
-import { rankMap, roleMap } from "@/components/users/styles";
+import { rankMap, roleIconMapColored } from "@/components/users/styles";
 interface ThreadProps {
   thread: ThreadType;
   signedIn: boolean;
@@ -29,7 +29,7 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn, currentUser }) => {
             <div className="grid grid-flow-col place-items-center gap-1 bg-neutral-300 dark:bg-neutral-800 p-1 rounded-md">
               <div className="grid grid-flow-col place-items-center">
                 {thread.author.plan === UserPlan.PREMIUM && <Crown className="w-5 h-5 text-pink-500 mr-1" />}
-                {roleMap[thread.author.role]}
+                {roleIconMapColored[thread.author.role]}
                 <div className="relative w-6 h-6">{rankMap[thread.author.rank]}</div>
               </div>
               <div className="relative w-6 h-6 rounded-[50%] overflow-hidden">

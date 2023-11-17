@@ -2,7 +2,7 @@ import { UserThreads } from "@/components/threads/user-threads";
 import { UserInfo } from "@/components/users/user-info";
 import { db } from "@/lib/db";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
-import { VoteStats } from "@/types";
+import { UserProfileData, VoteStats } from "@/types";
 import { getServerCurrentUser } from "@/lib/current-user";
 
 interface UserIdPageProps {
@@ -12,7 +12,7 @@ interface UserIdPageProps {
 }
 
 const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
-  const user = await db.user.findUnique({
+  const user: UserProfileData | null = await db.user.findUnique({
     where: {
       id: params.userId
     },
@@ -22,7 +22,11 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
       firstName: true,
       lastName: true,
       bio: true,
-      imageUrl: true,
+      avatar: {
+        select: {
+          url: true
+        }
+      },
       rank: true,
       role: true,
       plan: true,
@@ -42,8 +46,7 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
           }
         }
       },
-      createdAt: true,
-      updatedAt: true
+      createdAt: true
     }
   });
 
@@ -90,7 +93,11 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
     select: {
       name: true,
       bio: true,
-      imageUrl: true
+      avatar: {
+        select: {
+          url: true
+        }
+      }
     }
   });
 
@@ -104,7 +111,7 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
       }
     };
 
-  if (!user.imageUrl)
+  if (!user.avatar)
     return {
       title: user.name,
       description: user.bio,
@@ -120,7 +127,7 @@ export async function generateMetadata({ params }: UserIdPageProps, parent: Reso
     openGraph: {
       title: user.name,
       description: user.bio,
-      images: [user.imageUrl]
+      images: [user.avatar.url]
     }
   };
 }

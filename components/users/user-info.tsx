@@ -1,6 +1,5 @@
 import { FC } from "react";
 import Image from "next/image";
-import { UserWithoutEmail } from "@/types";
 import { formatDateLong } from "@/utils/format-date-long";
 import { UserRank, UserRole } from "@prisma/client";
 
@@ -17,8 +16,9 @@ import { VotesRatio } from "../votes-ratio";
 import { Link } from "@/components/link";
 import { Content } from "@/components/content";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
+import { UserProfileData } from "@/types";
 interface UserInfoProps {
-  user: Omit<UserWithoutEmail, "password">;
+  user: UserProfileData;
   voteStats: {
     receivedUpvotes: number;
     receivedDownvotes: number;
@@ -64,7 +64,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
         <div className="grid grid-flow-row place-items-center gap-2">
           <div className="w-28 h-28 rounded-md overflow-hidden relative">
-            {user.imageUrl ? <Image src={user.imageUrl} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
+            {user.avatar?.url ? <Image src={user.avatar.url} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
           </div>
           <div className="grid grid-flow-row gap-0 place-items-center">
             <p className="font-semibold p-1">{user.name}</p>

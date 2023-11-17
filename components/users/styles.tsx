@@ -19,7 +19,23 @@ export const rankMap = {
   [UserRank.DIAMOND]: <Image src={diamond} alt="rank" fill />
 };
 
-export const roleMap = {
+export const rankColorMap = {
+  [UserRank.COAL]: "bg-neutral-950",
+  [UserRank.IRON]: "bg-neutral-400",
+  [UserRank.GOLD]: "bg-yellow-500",
+  [UserRank.REDSTONE]: "bg-red-800",
+  [UserRank.LAPIS]: "bg-blue-600",
+  [UserRank.DIAMOND]: "bg-cyan-500"
+};
+
+export const roleIconMap = {
+  [UserRole.USER]: null,
+  [UserRole.MODERATOR]: <Shield className="w-5 h-5 text-white" />,
+  [UserRole.ADMIN]: <Gavel className="w-5 h-5 text-white" />,
+  [UserRole.OWNER]: <Sailboat className="w-5 h-5 text-white" />
+};
+
+export const roleIconMapColored = {
   [UserRole.USER]: null,
   [UserRole.MODERATOR]: <Shield className="w-5 h-5 text-blue-500" />,
   [UserRole.ADMIN]: <Gavel className="w-5 h-5 text-rose-500" />,
