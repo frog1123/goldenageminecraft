@@ -125,8 +125,8 @@ const Navbar: FC = () => {
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className="h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative">
-                    {context.value.currentUser.avatar?.url ? (
-                      <Image src={context.value.currentUser?.avatar?.url} alt="user" fill objectPosition="relative" />
+                    {context.value.currentUser?.imageUrl ? (
+                      <Image src={context.value.currentUser?.imageUrl} alt="user" fill objectPosition="relative" />
                     ) : (
                       <Image src={defaultUserProfilePicture()} alt="user" fill objectPosition="relative" />
                     )}

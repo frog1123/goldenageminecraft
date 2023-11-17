@@ -5,10 +5,7 @@ export interface CurrentUserType {
   name: string;
   firstName: string | null;
   lastName: string | null;
-  avatar: {
-    id: string;
-    url: string;
-  } | null;
+  imageUrl: string | null;
   bio: string;
   rank: UserRank;
   role: UserRole;
@@ -30,9 +27,7 @@ export type UserProfileData = {
   _count: {
     threads: number;
   };
-  avatar: {
-    url: string;
-  } | null;
+  imageUrl: string | null;
   threads: {
     _count: {
       upvotes: number;

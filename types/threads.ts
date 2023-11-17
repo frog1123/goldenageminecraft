@@ -7,9 +7,7 @@ export type ThreadType = {
   author: {
     id: string;
     name: string;
-    avatar: {
-      url: string;
-    } | null;
+    imageUrl: string | null;
     rank: UserRank;
     role: UserRole;
     plan: UserPlan;
