@@ -26,7 +26,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
         <div className="grid grid-flow-row place-items-center gap-2">
           <div className="w-28 h-28 rounded-md overflow-hidden relative">
-            {user.avatar?.url ? <Image src={user.avatar.url} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
+            {user.imageUrl ? <Image src={user.imageUrl} fill alt="author" /> : <Image src={defaultUserProfilePicture()} fill alt="author" />}
           </div>
           <div className="grid grid-flow-row gap-0 place-items-center">
             <p className="font-semibold p-1">{user.name}</p>
