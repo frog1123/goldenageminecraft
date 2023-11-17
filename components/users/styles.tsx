@@ -41,3 +41,10 @@ export const roleIconMapColored = {
   [UserRole.ADMIN]: <Gavel className="w-5 h-5 text-rose-500" />,
   [UserRole.OWNER]: <Sailboat className="w-5 h-5 text-indigo-700" />
 };
+
+export const roleColorMap = {
+  [UserRole.USER]: null,
+  [UserRole.MODERATOR]: "bg-blue-500",
+  [UserRole.ADMIN]: "bg-rose-500",
+  [UserRole.OWNER]: "bg-indigo-700"
+};

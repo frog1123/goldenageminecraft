@@ -15,7 +15,7 @@ import { ThreadActions } from "@/components/threads/thread-actions";
 import { ThreadVoteStats } from "@/types/threads";
 import { VotesRatio } from "@/components/votes-ratio";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
-import { rankColorMap, rankMap, roleIconMap } from "@/components/users/styles";
+import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
 
 interface ThreadIdPageProps {
   params: {
@@ -193,7 +193,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
                 <span className="mr-auto font-semibold text-white">{thread.author.rank}</span>
               </div>
               {thread.author.role !== "USER" && (
-                <div className={cn("grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1", roleIconMap[thread.author.role])}>
+                <div className={cn("grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1", roleColorMap[thread.author.role])}>
                   <div className="w-6 h-6 overflow-hidden relative">{roleIconMap[thread.author.role]}</div>
                   <span className="mr-auto font-semibold text-white">{thread.author.role}</span>
                 </div>
