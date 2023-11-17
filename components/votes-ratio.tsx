@@ -1,10 +1,10 @@
-import { VoteStats } from "@/types";
+import { ThreadVoteStats } from "@/types/threads";
 import { HelpCircle, ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface VotesRatioProps {
-  votesStats: VoteStats;
+  votesStats: ThreadVoteStats;
   expanded: boolean;
 }
 

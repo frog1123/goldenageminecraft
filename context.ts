@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { CurrentUserType } from "./types";
+import { CurrentUserType } from "@/types/users";
 
 export interface ContextData {
   currentUser: CurrentUserType | null;

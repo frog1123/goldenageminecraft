@@ -1,7 +1,6 @@
 "use client";
 
 import { FC, useEffect, useState, useRef, useContext } from "react";
-import { ThreadType } from "@/types";
 import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { UserThread } from "@/components/threads/user-thread";
@@ -14,7 +13,7 @@ interface UserThreadsProps {
 }
 
 export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
-  const [threads, setThreads] = useState<ThreadType[]>([]);
+  const [threads, setThreads] = useState<any[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);

@@ -1,6 +1,6 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
-import { ThreadType, ThreadTypeSignedIn } from "@/types";
+import { ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
 import { NextResponse } from "next/server";
