@@ -11,7 +11,8 @@ module.exports = {
         protocol: "https",
         hostname: "img.clerk.com"
       }
-    ]
+    ],
+    domains: ["files.edgestore.dev"]
   }
   // async headers() {
   //   return [

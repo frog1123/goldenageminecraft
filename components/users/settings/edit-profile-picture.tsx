@@ -1,13 +1,15 @@
 "use client";
 
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
-import { cn } from "@/lib/utils";
+import { Context } from "@/context";
+import axios from "axios";
 import { Pencil } from "lucide-react";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useContext, useState } from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 
 export const EditProfilePicture: FC = () => {
   const { edgestore } = useEdgeStore();
+  const context = useContext(Context);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleProfilePictureUpload = async (file: File) => {
@@ -17,7 +19,10 @@ export const EditProfilePicture: FC = () => {
       file
     });
 
-    console.log(res);
+    await axios.patch("/api/users/avatar", {
+      id: context.value.currentUser?.id,
+      imageUrl: res.url
+    });
 
     return { url: res.url };
   };
