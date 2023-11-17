@@ -2,6 +2,7 @@
 
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
 import { Context } from "@/context";
+import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Pencil } from "lucide-react";
 import { FC, useCallback, useContext, useState } from "react";
@@ -10,7 +11,8 @@ import { useDropzone, FileWithPath } from "react-dropzone";
 export const EditProfilePicture: FC = () => {
   const { edgestore } = useEdgeStore();
   const context = useContext(Context);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(context.value.currentUser?.imageUrl ? context.value.currentUser?.imageUrl : null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleProfilePictureUpload = async (file: File) => {
     const res = await edgestore.publicFiles.upload({
@@ -45,10 +47,15 @@ export const EditProfilePicture: FC = () => {
   });
 
   return (
-    <div {...getRootProps()} className="border-2 border-dashed border-zinc-500 text-center cursor-pointer w-full h-full overflow-hidden rounded-[50%]">
+    <div
+      {...getRootProps()}
+      className="border-2 border-dashed border-zinc-500 text-center cursor-pointer w-full h-full overflow-hidden rounded-[50%]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="relative w-full h-full">
-        <div className="absolute grid place-items-center w-full h-full">
-          <Pencil />
+        <div className={cn("absolute grid place-items-center w-full h-full", isHovered && "bg-black/50")}>
+          {context.value.currentUser?.imageUrl ? isHovered && <Pencil /> : <Pencil />}
         </div>
         {imageUrl && <img src={imageUrl} alt="Uploaded" className="w-full h-full" />}
         <input {...getInputProps()} />
