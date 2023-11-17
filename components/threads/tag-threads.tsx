@@ -12,7 +12,7 @@ interface TagThreadsProps {
   tagId: string;
 }
 
-const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
+export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   const [threads, setThreads] = useState<ThreadType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -123,5 +123,3 @@ const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
     </div>
   );
 };
-
-export default TagThreads;

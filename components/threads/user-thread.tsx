@@ -2,7 +2,7 @@ import { FC } from "react";
 import { formatDate } from "@/utils/format-date";
 import { Link } from "@/components/link";
 
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";

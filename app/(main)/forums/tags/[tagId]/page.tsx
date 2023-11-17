@@ -1,8 +1,7 @@
-import Tag from "@/components/threads/tag";
-import TagThreads from "@/components/threads/tag-threads";
+import { Tag } from "@/components/threads/tag";
+import { TagThreads } from "@/components/threads/tag-threads";
 import { db } from "@/lib/db";
 import { formatDateLong } from "@/utils/format-date-long";
-import { Hash } from "lucide-react";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
 
 interface TagIdPageProps {

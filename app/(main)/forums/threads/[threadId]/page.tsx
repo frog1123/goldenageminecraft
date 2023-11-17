@@ -10,7 +10,7 @@ import { Content } from "@/components/content";
 import { Link } from "@/components/link";
 import { VoteBox } from "@/components/threads/vote-box";
 import { getServerCurrentUser } from "@/lib/current-user";
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { ThreadVoteStats } from "@/types/threads";
 import { VotesRatio } from "@/components/votes-ratio";

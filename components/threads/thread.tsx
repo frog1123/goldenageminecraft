@@ -4,7 +4,7 @@ import { Link } from "@/components/link";
 import { Crown, Dot } from "lucide-react";
 import Image from "next/image";
 
-import Tag from "@/components/threads/tag";
+import { Tag } from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { VoteBox } from "@/components/threads/vote-box";

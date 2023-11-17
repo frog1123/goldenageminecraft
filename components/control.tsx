@@ -4,10 +4,10 @@ import { Context } from "@/context";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
 import { FC, useContext, useEffect, useState } from "react";
-import { Calculator, Calendar, Command, CreditCard, Newspaper, PenSquare, Search, Settings, Smile, User } from "lucide-react";
+import { Command, Newspaper, PenSquare, Search, User } from "lucide-react";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "@/components/ui/command";
 
-const Control: FC = () => {
+export const Control: FC = () => {
   const modal = useModal();
   const context = useContext(Context);
   const router = useRouter();
@@ -83,5 +83,3 @@ const Control: FC = () => {
     </>
   );
 };
-
-export default Control;
