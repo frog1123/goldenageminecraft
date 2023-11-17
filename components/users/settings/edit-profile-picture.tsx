@@ -1,29 +1,41 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { useEdgeStore } from "@/components/providers/edgestore-provider";
+import { Context } from "@/context";
+import axios from "axios";
 import { Pencil } from "lucide-react";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useContext, useState } from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 
-interface ImageDropzoneProps {
-  onImageUpload: (file: File) => Promise<{ url: string }> | { url: string };
-  circle?: boolean;
-}
-
-export const ImageDropzone: FC<ImageDropzoneProps> = ({ onImageUpload, circle }) => {
+export const EditProfilePicture: FC = () => {
+  const { edgestore } = useEdgeStore();
+  const context = useContext(Context);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const handleProfilePictureUpload = async (file: File) => {
+    const res = await edgestore.publicFiles.upload({
+      file
+    });
+
+    await axios.patch("/api/users/avatar", {
+      id: context.value.currentUser?.id,
+      imageUrl: res.url
+    });
+
+    return { url: res.url };
+  };
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithPath[]) => {
       // get first file
       const [firstFile] = acceptedFiles;
       if (firstFile) {
-        const i = await onImageUpload(firstFile);
+        const i = await handleProfilePictureUpload(firstFile);
 
         setImageUrl(i.url);
       }
     },
-    [onImageUpload]
+    [handleProfilePictureUpload]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -33,7 +45,7 @@ export const ImageDropzone: FC<ImageDropzoneProps> = ({ onImageUpload, circle })
   });
 
   return (
-    <div {...getRootProps()} className={cn("border-2 border-dashed border-zinc-500 text-center cursor-pointer w-full h-full overflow-hidden", circle && "rounded-[50%]")}>
+    <div {...getRootProps()} className="border-2 border-dashed border-zinc-500 text-center cursor-pointer w-full h-full overflow-hidden rounded-[50%]">
       <div className="relative w-full h-full">
         <div className="absolute grid place-items-center w-full h-full">
           <Pencil />
