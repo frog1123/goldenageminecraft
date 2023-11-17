@@ -54,7 +54,7 @@ export const EditProfilePicture: FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full h-full">
-        <div className={cn("absolute grid place-items-center w-full h-full", isHovered && "bg-black/50")}>
+        <div className={cn("absolute grid place-items-center w-full h-full transition", isHovered && "bg-black/50")}>
           {context.value.currentUser?.imageUrl ? isHovered && <Pencil /> : <Pencil />}
         </div>
         {imageUrl && <img src={imageUrl} alt="Uploaded" className="w-full h-full" />}
