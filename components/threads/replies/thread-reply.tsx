@@ -86,7 +86,7 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser, replyNum
               <p className="uppercase text-xs font-bold text-zinc-500">{formatDateLong(reply.createdAt.toString())}</p>
             </div>
             <div className="ml-auto grid grid-flow-col gap-1 place-items-center">
-              <div className="bg-orange-500/20 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center gap-[2px]">
+              <div className="bg-cyan-500/20 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center gap-[2px]">
                 <CornerDownRight className="w-4 h-4" />
                 <span className="text-xs font-bold">#{replyNum}</span>
               </div>

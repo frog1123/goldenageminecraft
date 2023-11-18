@@ -6,6 +6,7 @@ import { ThreadExpanded } from "@/components/threads/thread-expanded";
 import { ReplyThreadForm } from "@/components/threads/replies/reply-form";
 import { ThreadReplies } from "@/components/threads/replies/thread-replies";
 import { isPositiveWholeNumber } from "@/utils/is-positive-whole";
+import { RepliesPageSwitcher } from "@/components/threads/replies/page-switcher";
 
 interface ThreadIdPageNumPageProps {
   params: {
@@ -130,6 +131,12 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
     });
   }
 
+  const threadReplies = await db.threadReply.count({
+    where: {
+      threadId: params.threadId
+    }
+  });
+
   let voteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
@@ -151,10 +158,11 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
 
   return (
     <div className="grid grid-flow-row gap-2">
-      <p>{params.pageNum}</p>
+      <RepliesPageSwitcher totalReplies={threadReplies} />
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={(parseInt(params.pageNum) - 1) * 5} />
       <ReplyThreadForm threadId={params.threadId} />
+      <RepliesPageSwitcher totalReplies={threadReplies} />
     </div>
   );
 };

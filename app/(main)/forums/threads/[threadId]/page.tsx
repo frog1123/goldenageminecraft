@@ -5,6 +5,7 @@ import { ThreadExpandedSignedType, ThreadExpandedUnsignedType, ThreadVoteStats }
 import { ThreadExpanded } from "@/components/threads/thread-expanded";
 import { ReplyThreadForm } from "@/components/threads/replies/reply-form";
 import { ThreadReplies } from "@/components/threads/replies/thread-replies";
+import { RepliesPageSwitcher } from "@/components/threads/replies/page-switcher";
 
 interface ThreadIdPageProps {
   params: {
@@ -126,6 +127,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     });
   }
 
+  const threadReplies = await db.threadReply.count({
+    where: {
+      threadId: params.threadId
+    }
+  });
+
   let voteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
@@ -147,9 +154,11 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
 
   return (
     <div className="grid grid-flow-row gap-2">
+      <RepliesPageSwitcher totalReplies={threadReplies} />
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={0} />
       <ReplyThreadForm threadId={params.threadId} />
+      <RepliesPageSwitcher totalReplies={threadReplies} />
     </div>
   );
 };
