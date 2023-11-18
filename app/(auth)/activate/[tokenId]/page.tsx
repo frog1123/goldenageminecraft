@@ -32,6 +32,15 @@ const ActivateTokenIdPage: NextPage<ActivateTokenIdPageProps> = async ({ params 
       </div>
     );
 
+  await db.activateToken.update({
+    where: {
+      token: tokenId
+    },
+    data: {
+      activatedAt: new Date()
+    }
+  });
+
   await db.user.update({
     where: {
       id: activateToken.user.id
