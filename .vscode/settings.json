@@ -1,4 +1,5 @@
 {
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "editor.fontFamily": "Fira Code Regular",
   "editor.fontLigatures": true,
   "diffEditor.codeLens": true,
