@@ -3,7 +3,8 @@ import { Metadata, NextPage, ResolvingMetadata } from "next";
 import { getServerCurrentUser } from "@/lib/current-user";
 import { ThreadExpandedSignedType, ThreadExpandedUnsignedType, ThreadVoteStats } from "@/types/threads";
 import { ThreadExpanded } from "@/components/threads/thread-expanded";
-import { ReplyThreadForm } from "@/components/threads/reply-form";
+import { ReplyThreadForm } from "@/components/threads/replies/reply-form";
+import { ThreadReplies } from "@/components/threads/replies/thread-replies";
 
 interface ThreadIdPageProps {
   params: {
@@ -147,9 +148,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   return (
     <div className="grid grid-flow-row gap-2">
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
-      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
-        <p>hi</p>
-      </div>
+      <ThreadReplies threadId={params.threadId} />
       <ReplyThreadForm threadId={params.threadId} />
     </div>
   );
