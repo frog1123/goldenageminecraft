@@ -69,3 +69,38 @@ export type ThreadExpandedSignedType = ThreadExpandedUnsignedType & {
   upvotes: any[];
   downvotes: any[];
 };
+
+export type ThreadReplyUnsignedType = {
+  id: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+    firstName: string | null;
+    lastName: string | null;
+    imageUrl: string | null;
+    rank: UserRank;
+    role: UserRole;
+    plan: UserPlan;
+    threads: {
+      _count: {
+        upvotes: number;
+        downvotes: number;
+      };
+    }[];
+    createdAt: Date;
+    _count: {
+      threads: number;
+    };
+  };
+  _count: {
+    upvotes: number;
+    downvotes: number;
+  };
+  createdAt: Date;
+};
+
+export type ThreadReplySignedType = ThreadReplyUnsignedType & {
+  upvotes: any[];
+  downvotes: any[];
+};

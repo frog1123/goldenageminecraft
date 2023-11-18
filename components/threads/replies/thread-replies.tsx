@@ -4,21 +4,21 @@ import { FC, useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import LoadingIcon from "@/components/loading-icon";
 import { Context } from "@/context";
+import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
+import { ThreadReply } from "@/components/threads/replies/thread-reply";
 
 interface ThreadRepliesProps {
   threadId: string;
 }
 
 export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
-  const [replies, setReplies] = useState<any>([]);
+  const [replies, setReplies] = useState<ThreadReplySignedType[] | ThreadReplyUnsignedType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
-
-  const signedIn = !!context.value.currentUser?.id;
 
   const initalReplyCount = 5;
   const fetchMoreAmount = 3;
@@ -35,10 +35,8 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
     const fetchThreads = async () => {
       try {
         const withoutUserLink = `/api/threads/replies?tid=${threadId}&tk=${initalReplyCount}&sk=${0}`;
-        const withUserLink = `/api/threads/replies?tid=${threadId}&tk=${initalReplyCount}&sk=${0}&u=${context.value.currentUser?.id}`;
-
         let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
+
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -50,7 +48,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
     };
 
     fetchThreads();
-  }, [context.value.currentUser?.id, signedIn]);
+  }, [context.value.currentUser?.id]);
 
   useEffect(() => {
     const fetchMoreThreads = async () => {
@@ -59,10 +57,8 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
         setDontFetch(true);
 
         const withoutUserLink = `/api/threads/replies?tid=${threadId}&tk=${fetchMoreAmount}&sk=${skip + initalReplyCount}`;
-        const withUserLink = `/api/threads/replies?tid=${threadId}&tk=${fetchMoreAmount}&sk=${skip + initalReplyCount}&u=${context.value.currentUser?.id}`;
 
         let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -97,7 +93,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
     return () => {
       observer.disconnect();
     };
-  }, [replies, skip, context.value.currentUser?.id, signedIn, dontFetch]);
+  }, [replies, skip, context.value.currentUser?.id, dontFetch]);
 
   if (isLoading)
     return (
@@ -113,7 +109,8 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
 
   return (
     <div className="grid grid-flow-row gap-2 w-full">
-      {replies.length > 0 && replies.map((reply: any) => <div>{reply.id}</div>)}
+      {`/api/threads/replies?tid=${threadId}&tk=${fetchMoreAmount}&sk=${skip + initalReplyCount}&u=${context.value.currentUser?.id}`}
+      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} />)}
       <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
     </div>
   );
