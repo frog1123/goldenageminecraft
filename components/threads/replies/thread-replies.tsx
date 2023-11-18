@@ -57,6 +57,13 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
       </>
     );
 
+  if (replies.length === 0)
+    return (
+      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
+        <p className="text-center">No replies found</p>
+      </div>
+    );
+
   return (
     <div className="grid grid-flow-row gap-2 w-full">
       {replies.length > 0 &&
