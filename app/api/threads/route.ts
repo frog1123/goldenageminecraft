@@ -1,4 +1,5 @@
 import { getServerCurrentUser } from "@/lib/current-user";
+import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
 import { ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
@@ -11,11 +12,10 @@ export async function GET(req: Request) {
   const skip = searchParams.get("sk");
   const authorId = searchParams.get("a");
   const tagId = searchParams.get("t");
-  const userId = searchParams.get("u");
 
-  const currentUser = await getServerCurrentUser();
+  const userId = await getServerCurrentUserId();
+
   if (userId) {
-    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     try {
       if (tagId) {
         const threadsWithTag: { threads: ThreadTypeSignedIn[] } | null = await db.tag.findUnique({
@@ -50,12 +50,12 @@ export async function GET(req: Request) {
                 },
                 upvotes: {
                   where: {
-                    authorId: currentUser.id
+                    authorId: userId
                   }
                 },
                 downvotes: {
                   where: {
-                    authorId: currentUser.id
+                    authorId: userId
                   }
                 },
                 createdAt: true
@@ -100,12 +100,12 @@ export async function GET(req: Request) {
             },
             upvotes: {
               where: {
-                authorId: currentUser.id
+                authorId: userId
               }
             },
             downvotes: {
               where: {
-                authorId: currentUser.id
+                authorId: userId
               }
             },
             createdAt: true
@@ -147,12 +147,12 @@ export async function GET(req: Request) {
             },
             upvotes: {
               where: {
-                authorId: currentUser.id
+                authorId: userId
               }
             },
             downvotes: {
               where: {
-                authorId: currentUser.id
+                authorId: userId
               }
             },
             createdAt: true

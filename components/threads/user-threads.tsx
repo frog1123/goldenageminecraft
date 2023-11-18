@@ -36,11 +36,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}`;
-        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}&u=${context.value.currentUser?.id}`;
-
-        let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
+        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -60,11 +56,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
       try {
         setDontFetch(true);
 
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`;
-        const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}&u=${context.value.currentUser?.id}`;
-
-        let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
+        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;

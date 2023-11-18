@@ -36,11 +36,7 @@ export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const withoutUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&t=${tagId}`;
-        const withUserLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&t=${tagId}&u=${context.value.currentUser?.id}`;
-
-        let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
+        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&t=${tagId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -60,11 +56,7 @@ export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
       try {
         setDontFetch(true);
 
-        const withoutUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
-        const withUserLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}&u=${context.value.currentUser?.id}`;
-
-        let fetchLink = withoutUserLink;
-        if (signedIn) fetchLink = withUserLink;
+        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
