@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+// $role-owner-gradient-color1: #696eff;
+// $role-owner-gradient-color2: #f8acff;
+// .bg-role-owner {
+//   background-image: linear-gradient(90deg, $role-owner-gradient-color1 35%, $role-owner-gradient-color2 100%);
+//   background-image: -webkit-linear-gradient(90deg, $role-owner-gradient-color1 0%, $role-owner-gradient-color2 100%);
+//   background-image: -moz-linear-gradient(90deg, $role-owner-gradient-color1 0%, $role-owner-gradient-color2 100%);
+// }
+
 $forums-info-gradient-color1: #368384;
 $forums-info-gradient-color2: #0c3738;
-
 .forums-info-gradient-bg {
   background-image: linear-gradient(160deg, $forums-info-gradient-color1 0%, $forums-info-gradient-color2 100%);
   background-image: -webkit-linear-gradient(160deg, $forums-info-gradient-color1 0%, $forums-info-gradient-color2 100%);
