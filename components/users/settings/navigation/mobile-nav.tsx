@@ -38,7 +38,7 @@ export const UserSettingsMobileNav: FC = () => {
               <Menu className="w-6 h-6 text-zinc-500" />
             </div>
           </SheetTrigger>
-          <SheetContent side="left" className="w-full block sm:hidden">
+          <SheetContent side="left" className="w-[400px] max-w-full block sm:hidden">
             <div className="grid grid-flow-row gap-1">
               <UserSettingsNavContent mobile={true} />
             </div>

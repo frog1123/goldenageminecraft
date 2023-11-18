@@ -22,7 +22,6 @@ export const CustomizationTab: FC = () => {
                 <EditProfilePicture />
               </div>
               <Separator orientation="vertical" />
-
               <p>This will be displayed as your user avatar.</p>
             </div>
           </div>

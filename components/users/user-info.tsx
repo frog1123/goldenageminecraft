@@ -4,7 +4,7 @@ import { formatDateLong } from "@/utils/format-date-long";
 import { Crown, Edit, Palmtree } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/separator";
-import { VotesRatio } from "../votes-ratio";
+import { VotesRatio } from "@/components/votes-ratio";
 import { Link } from "@/components/link";
 import { Content } from "@/components/content";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
