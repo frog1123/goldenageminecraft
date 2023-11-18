@@ -73,7 +73,7 @@ export async function GET(req: Request) {
           createdAt: true
         },
         orderBy: {
-          createdAt: "desc"
+          createdAt: "asc"
         },
         take: take ? parseInt(take) : 0,
         skip: skip ? parseInt(skip) : 0
