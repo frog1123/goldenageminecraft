@@ -14,7 +14,6 @@ export async function GET(req: Request) {
   const userId = searchParams.get("u");
 
   const currentUser = await getServerCurrentUser();
-
   if (userId) {
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     try {
