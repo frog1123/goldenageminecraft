@@ -8,6 +8,7 @@ export async function GET(req: Request) {
     const threadId = searchParams.get("tid");
     const take = searchParams.get("tk");
     const skip = searchParams.get("sk");
+    const userId = searchParams.get("u");
 
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
