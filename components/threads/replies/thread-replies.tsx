@@ -15,15 +15,8 @@ interface ThreadRepliesProps {
 
 export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
   const [replies, setReplies] = useState<ThreadReplySignedType[] | ThreadReplyUnsignedType[]>([]);
-  const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [skip, setSkip] = useState(0);
-  const lastElementRef = useRef<HTMLDivElement>(null);
-
   const context = useContext(Context);
-
-  const initalReplyCount = 5;
-  const fetchMoreAmount = 3;
 
   // useEffect(() => {
   //   if (context.value.deletedThread.id !== null) {
@@ -45,7 +38,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
         setReplies(data);
         setIsLoading(false);
       } catch (err) {
-        console.error("Error fetching threads [INITIAL]:", err);
+        console.error("Error fetching replies:", err);
       }
     };
 

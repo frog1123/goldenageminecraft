@@ -16,7 +16,10 @@ export async function GET(req: Request) {
   const take = _take ? parseInt(_take) : null;
   const skip = _skip ? parseInt(_skip) : null;
 
-  if (!take || !skip) return new NextResponse("Bad request", { status: 400 });
+  console.log(take, skip, !take, !skip);
+
+  // dont use !
+  if (take === null || skip === null) return new NextResponse("Bad request", { status: 400 });
   if (take >= 20) return new NextResponse("tk too large", { status: 400 });
 
   const userId = await getServerCurrentUserId();
