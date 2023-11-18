@@ -12,11 +12,16 @@ import TextareaAutosize from "react-textarea-autosize";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Image from "next/image";
 
+interface ReplyThreadFormProps {
+  threadId: string;
+}
+
 const formSchema = z.object({
+  threadId: z.string(),
   content: z.string()
 });
 
-export const ReplyThreadForm: FC = () => {
+export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
   const router = useRouter();
   const [contentMessage, setContentMessage] = useState("");
 
@@ -25,6 +30,7 @@ export const ReplyThreadForm: FC = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      threadId,
       content: ""
     }
   });

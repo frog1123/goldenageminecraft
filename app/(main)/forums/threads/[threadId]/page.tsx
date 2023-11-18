@@ -1,21 +1,7 @@
-import { Separator } from "@/components/separator";
 import { db } from "@/lib/db";
-import { formatDateLong } from "@/utils/format-date-long";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
-import Image from "next/image";
-
-import { Crown } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Content } from "@/components/content";
-import { Link } from "@/components/link";
-import { VoteBox } from "@/components/threads/vote-box";
 import { getServerCurrentUser } from "@/lib/current-user";
-import { Tag } from "@/components/threads/tag";
-import { ThreadActions } from "@/components/threads/thread-actions";
 import { ThreadExpandedSignedType, ThreadExpandedUnsignedType, ThreadVoteStats } from "@/types/threads";
-import { VotesRatio } from "@/components/votes-ratio";
-import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
-import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
 import { ThreadExpanded } from "@/components/threads/thread-expanded";
 import { ReplyThreadForm } from "@/components/threads/reply-form";
 
@@ -164,7 +150,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
         <p>hi</p>
       </div>
-      <ReplyThreadForm />
+      <ReplyThreadForm threadId={params.threadId} />
     </div>
   );
 };
