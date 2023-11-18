@@ -13,8 +13,15 @@ export async function POST(req: Request) {
     if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.password.length === 0) return new NextResponse("Bad request", { status: 400 });
+
+    // for testing
     const allowedUsernames = ["test1", "test2", "test3"];
-    if (!allowedUsernames.includes(data.name)) {
+
+    // quick testing
+    const noVerifyUsernames = ["noverify1", "noverify2", "noverify3"];
+    const noVerifyTrue = noVerifyUsernames.includes(data.name);
+
+    if (!allowedUsernames.includes(data.name) && !noVerifyUsernames.includes(data.name)) {
       return new NextResponse("Invalid", { status: 409 });
     }
 
@@ -33,6 +40,21 @@ export async function POST(req: Request) {
       }
     });
     if (existingUserEmail) return new NextResponse("Email is already in use", { status: 409 });
+
+    // quick test cont
+    if (noVerifyTrue) {
+      const newUser = await db.user.create({
+        data: {
+          name: data.name,
+          email: data.email,
+          password,
+          bio: "",
+          active: true
+        }
+      });
+
+      return new NextResponse("Success", { status: 200 });
+    }
 
     const newUser = await db.user.create({
       data: {
