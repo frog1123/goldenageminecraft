@@ -1,4 +1,3 @@
-import { Link } from "@/components/link";
 import { AccessibilityTab } from "@/components/users/settings/tabs/accessibility";
 import { AppearanceTab } from "@/components/users/settings/tabs/appearance";
 import { CustomizationTab } from "@/components/users/settings/tabs/customization";
@@ -10,8 +9,8 @@ import { redirect } from "next/navigation";
 import { WhatsNewTab } from "@/components/users/settings/tabs/whats-new";
 import { PremiumTab } from "@/components/users/settings/tabs/premium";
 import { DangerTab } from "@/components/users/settings/tabs/danger";
-import { X } from "lucide-react";
 import { UserSettingsMobileNav } from "@/components/users/settings/navigation/mobile-nav";
+import { UserSettingsExit } from "@/components/users/settings/navigation/exit";
 
 const ManageUserPage: NextPage = async () => {
   const currentUser = await getServerCurrentUser();
@@ -34,11 +33,7 @@ const ManageUserPage: NextPage = async () => {
               <DangerTab />
             </div>
             <div className="w-full pl-2">
-              <Link href="/">
-                <button className="transition rounded-[50%] border-zinc-500 text-zinc-500 dark:border-white dark:text-white border-2 hover:text-zinc-800 hover:border-zinc-800 dark:hover:text-zinc-700 dark:hover:border-zinc-700 p-1 mt-4">
-                  <X className="w-6 h-6" />
-                </button>
-              </Link>
+              <UserSettingsExit />
             </div>
           </div>
         </div>
