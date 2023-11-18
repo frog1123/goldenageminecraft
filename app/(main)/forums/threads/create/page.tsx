@@ -1,4 +1,4 @@
-import CreateThreadForm from "@/components/threads/create-form";
+import { CreateThreadForm } from "@/components/threads/create-form";
 import { getServerCurrentUser } from "@/lib/current-user";
 import { Metadata, NextPage } from "next";
 import { redirect } from "next/navigation";

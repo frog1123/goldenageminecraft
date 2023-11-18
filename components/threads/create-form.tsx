@@ -20,7 +20,7 @@ const formSchema = z.object({
   tags: z.array(z.string())
 });
 
-const CreateThreadForm: FC = () => {
+export const CreateThreadForm: FC = () => {
   const router = useRouter();
   const [tagMessage, setTagMessage] = useState("");
   const [contentMessage, setContentMessage] = useState("");
@@ -186,5 +186,3 @@ const CreateThreadForm: FC = () => {
     </div>
   );
 };
-
-export default CreateThreadForm;

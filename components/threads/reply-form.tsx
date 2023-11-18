@@ -82,7 +82,6 @@ export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
               </FormItem>
             )}
           />
-
           <div>
             <Button disabled={isLoading || !formValid.content} className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">
               {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Create</p>}
