@@ -1,4 +1,8 @@
+"use client";
+
 import { Link } from "@/components/link";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 import { FC } from "react";
 
 interface RepliesPageSwitcherItemProps {
@@ -7,9 +11,17 @@ interface RepliesPageSwitcherItemProps {
 }
 
 export const RepliesPageSwitcherItem: FC<RepliesPageSwitcherItemProps> = ({ threadId, pageNum }) => {
+  const pathname = usePathname();
+  const pathnames = pathname.split("/");
+
+  let page = parseInt(pathnames[4]);
+  if (pathnames.length < 5) page = 1;
+
   return (
     <Link href={`/forums/threads/${threadId}/${pageNum}`}>
-      <div>a</div>
+      <div className={cn("px-2 py-1 transition", pageNum === page ? "bg-emerald-500" : "bg-gray-500 hover:bg-gray-600")}>
+        <span>{pageNum}</span>
+      </div>
     </Link>
   );
 };

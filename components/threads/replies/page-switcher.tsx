@@ -20,15 +20,25 @@ export const RepliesPageSwitcher: FC<RepliesPageSwitcherProps> = ({ threadId, to
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2 w-max mx-auto">
-      {totalPages === 1 && (
-        <div className="grid grid-cols-1">
-          <RepliesPageSwitcherItem threadId={threadId} pageNum={page} />
-        </div>
-      )}
-
-      <p>
-        page t:{totalPages} p:{page}
-      </p>
+      <div className="rounded-md overflow-hidden">
+        {totalPages === 1 && (
+          <div className="grid grid-cols-1">
+            <RepliesPageSwitcherItem threadId={threadId} pageNum={page} />
+          </div>
+        )}
+        {totalPages === 2 && page === 1 && (
+          <div className="grid grid-cols-2">
+            <RepliesPageSwitcherItem threadId={threadId} pageNum={page} />
+            <RepliesPageSwitcherItem threadId={threadId} pageNum={page + 1} />
+          </div>
+        )}
+        {totalPages === 2 && page === 2 && (
+          <div className="grid grid-cols-2">
+            <RepliesPageSwitcherItem threadId={threadId} pageNum={page - 1} />
+            <RepliesPageSwitcherItem threadId={threadId} pageNum={page} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

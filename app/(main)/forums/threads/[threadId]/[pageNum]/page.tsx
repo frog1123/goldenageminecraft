@@ -158,11 +158,11 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
 
   return (
     <div className="grid grid-flow-row gap-2">
-      <RepliesPageSwitcher totalReplies={threadReplies} />
+      <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={(parseInt(params.pageNum) - 1) * 5} />
       <ReplyThreadForm threadId={params.threadId} />
-      <RepliesPageSwitcher totalReplies={threadReplies} />
+      <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
     </div>
   );
 };
