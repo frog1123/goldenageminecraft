@@ -2,7 +2,7 @@
 
 import { FC, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ChevronRight, LogOut, Moon, Settings, Sun, User, Wrench } from "lucide-react";
+import { ChevronRight, Crown, LogOut, Moon, Settings, Sun, User, Wrench } from "lucide-react";
 import Path from "@/components/navigation/path";
 import { Link } from "@/components/link";
 import { cn } from "@/lib/utils";
@@ -25,15 +25,18 @@ import { SignUpButton } from "@/components/auth/sign-up-button";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { Separator } from "@/components/separator";
+import { useUserSettings } from "@/hooks/use-user-settings-store";
+import { useRouter } from "next/navigation";
 
 const Navbar: FC = () => {
   const pathname = usePathname();
   const pathnames = pathname.split("/");
   const modal = useModal();
-  const { theme, systemTheme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
-
   const context = useContext(Context);
+  const userSettings = useUserSettings();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,6 +125,18 @@ const Navbar: FC = () => {
             <div className="grid grid-flow-col place-items-center gap-2">
               {/* <SignOutButton afterSignOutUrl="/" /> */}
               {/* modal needs to be false */}
+              <button
+                onClick={() => {
+                  userSettings.onOpen("premium");
+                  router.push("/account/manage");
+                }}
+                className="bg-pink-500 rounded-md px-2 hover:bg-pink-800 transition h-[32px] text-white"
+              >
+                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                  <Crown className="w-4 h-4" />
+                  <span>Premium</span>
+                </div>
+              </button>
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className="h-8 w-8 aspect-square rounded-[50%] overflow-hidden box-border cursor-pointer relative">
