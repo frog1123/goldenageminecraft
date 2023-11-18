@@ -5,6 +5,7 @@ import { Context } from "@/context";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Pencil } from "lucide-react";
+import Image from "next/image";
 import { FC, useCallback, useContext, useState } from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 
@@ -57,7 +58,7 @@ export const EditProfilePicture: FC = () => {
         <div className={cn("absolute grid place-items-center w-full h-full transition", isHovered && "bg-black/50")}>
           {context.value.currentUser?.imageUrl ? isHovered && <Pencil /> : <Pencil />}
         </div>
-        {imageUrl && <img src={imageUrl} alt="Uploaded" className="w-full h-full" />}
+        {imageUrl && <Image src={imageUrl} alt="Edit avatar" fill />}
         <input {...getInputProps()} />
       </div>
     </div>
