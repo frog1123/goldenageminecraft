@@ -109,8 +109,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
 
   return (
     <div className="grid grid-flow-row gap-2 w-full">
-      {`/api/threads/replies?tid=${threadId}&tk=${fetchMoreAmount}&sk=${skip + initalReplyCount}&u=${context.value.currentUser?.id}`}
-      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} />)}
+      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} currentUser={context.value.currentUser} />)}
       <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
     </div>
   );

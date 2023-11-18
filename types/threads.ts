@@ -97,6 +97,7 @@ export type ThreadReplyUnsignedType = {
     upvotes: number;
     downvotes: number;
   };
+  editedAt: Date | null;
   createdAt: Date;
 };
 

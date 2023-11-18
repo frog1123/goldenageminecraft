@@ -6,16 +6,21 @@ import { Link } from "@/components/link";
 import { formatDateLong } from "@/utils/format-date-long";
 import { cn } from "@/lib/utils";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
-import { Crown } from "lucide-react";
+import { CornerDownRight, Crown } from "lucide-react";
 import { Separator } from "@/components/separator";
 import { Content } from "@/components/content";
 import { VotesRatio } from "@/components/votes-ratio";
+import { ReplyActions } from "@/components/threads/replies/reply-actions";
+import { CurrentUserType } from "@/types/users";
 
 interface ThreadReplyProps {
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
+  currentUser: CurrentUserType;
 }
 
-export const ThreadReply: FC<ThreadReplyProps> = ({ reply }) => {
+export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser }) => {
+  const canEdit = currentUser?.id === reply.author.id;
+
   let voteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
@@ -72,11 +77,20 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply }) => {
         <Separator orientation="vertical" />
         <div className="overflow-hidden grid grid-rows-[max-content_max-content_auto]">
           <div className="grid grid-flow-col place-items-center">
-            <div className="mr-auto grid grid-flow-col place-items-center gap-2">
+            <div className="hidden sm:grid mr-auto grid-flow-col place-items-center gap-2">
               <p className="uppercase text-xs font-bold text-zinc-500">Replied {formatDateLong(reply.createdAt.toString())}</p>
-              {/* {thread.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">Edited {formatDateLong(reply.editedAt.toString())}</p>} */}
+              {reply.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">Edited {formatDateLong(reply.editedAt.toString())}</p>}
             </div>
-            <div className="ml-auto">{/* <ThreadActions thread={thread} canEdit={canEdit} /> */}</div>
+            <div className="flex sm:hidden mr-auto">
+              <p className="uppercase text-xs font-bold text-zinc-500">{formatDateLong(reply.createdAt.toString())}</p>
+            </div>
+            <div className="ml-auto grid grid-flow-col gap-1 place-items-center">
+              <div className="bg-orange-500/20 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center gap-[2px]">
+                <CornerDownRight className="w-4 h-4" />
+                <span className="text-xs font-bold">#1</span>
+              </div>
+              <ReplyActions reply={reply} canEdit={canEdit} />
+            </div>
           </div>
           <Content text={reply.content} />
         </div>

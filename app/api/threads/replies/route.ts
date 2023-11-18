@@ -69,9 +69,9 @@ export async function GET(req: Request) {
               downvotes: true
             }
           },
+          editedAt: true,
           createdAt: true
         },
-
         orderBy: {
           createdAt: "desc"
         },
@@ -120,6 +120,7 @@ export async function GET(req: Request) {
               downvotes: true
             }
           },
+          editedAt: true,
           createdAt: true
         },
         orderBy: {

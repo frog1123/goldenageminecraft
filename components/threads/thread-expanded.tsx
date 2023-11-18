@@ -7,7 +7,7 @@ import { formatDateLong } from "@/utils/format-date-long";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
 import { cn } from "@/lib/utils";
-import { Crown } from "lucide-react";
+import { Component, Crown } from "lucide-react";
 import { Separator } from "@/components/separator";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { Content } from "@/components/content";
@@ -68,11 +68,18 @@ export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, voteStats, can
         <Separator orientation="vertical" />
         <div className="overflow-hidden grid grid-rows-[max-content_max-content_auto]">
           <div className="grid grid-flow-col place-items-center">
-            <div className="mr-auto grid grid-flow-col place-items-center gap-2">
+            <div className="hidden sm:grid mr-auto grid-flow-col place-items-center gap-2">
               <p className="uppercase text-xs font-bold text-zinc-500">Posted {formatDateLong(thread.createdAt.toString())}</p>
               {thread.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">Edited {formatDateLong(thread.editedAt.toString())}</p>}
             </div>
-            <div className="ml-auto">
+            <div className="flex sm:hidden mr-auto">
+              <p className="uppercase text-xs font-bold text-zinc-500">{formatDateLong(thread.createdAt.toString())}</p>
+            </div>
+            <div className="ml-auto grid grid-flow-col gap-1 place-items-center">
+              <div className="bg-yellow-500/20 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center gap-[2px]">
+                <Component className="w-4 h-4" />
+                <span className="text-xs font-bold">OP</span>
+              </div>
               <ThreadActions thread={thread} canEdit={canEdit} />
             </div>
           </div>
