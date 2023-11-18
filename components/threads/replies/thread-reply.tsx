@@ -1,4 +1,4 @@
-import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
+import { ThreadReplySignedType, ThreadReplyUnsignedType, ThreadVoteStats } from "@/types/threads";
 import { FC } from "react";
 import Image from "next/image";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
@@ -6,16 +6,26 @@ import { Link } from "@/components/link";
 import { formatDateLong } from "@/utils/format-date-long";
 import { cn } from "@/lib/utils";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
-import thread from "@/components/threads/thread";
 import { Crown } from "lucide-react";
 import { Separator } from "@/components/separator";
 import { Content } from "@/components/content";
+import { VotesRatio } from "@/components/votes-ratio";
 
 interface ThreadReplyProps {
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
 }
 
 export const ThreadReply: FC<ThreadReplyProps> = ({ reply }) => {
+  let voteStats: ThreadVoteStats = {
+    receivedUpvotes: 0,
+    receivedDownvotes: 0
+  };
+
+  reply?.author?.threads.forEach(thread => {
+    voteStats.receivedUpvotes += thread._count.upvotes;
+    voteStats.receivedDownvotes += thread._count.downvotes;
+  });
+
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
@@ -34,9 +44,9 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply }) => {
             )}
           </div>
           <p className="uppercase text-xs font-bold text-zinc-500">Joined {formatDateLong(reply.author.createdAt.toString())}</p>
-          {/* <div className="w-full my-1">
+          <div className="w-full my-1">
             <VotesRatio votesStats={voteStats} expanded />
-          </div> */}
+          </div>
           <p className="uppercase text-xs font-bold text-zinc-500">{reply.author._count.threads} Threads</p>
           <div className="w-full rounded-md overflow-hidden">
             <div className={cn("grid grid-flow-col grid-cols-[max-content_auto] gap-1 w-full place-items-center p-1", rankColorMap[reply.author.rank])}>
@@ -63,7 +73,7 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply }) => {
         <div className="overflow-hidden grid grid-rows-[max-content_max-content_auto]">
           <div className="grid grid-flow-col place-items-center">
             <div className="mr-auto grid grid-flow-col place-items-center gap-2">
-              <p className="uppercase text-xs font-bold text-zinc-500">Posted {formatDateLong(reply.createdAt.toString())}</p>
+              <p className="uppercase text-xs font-bold text-zinc-500">Replied {formatDateLong(reply.createdAt.toString())}</p>
               {/* {thread.editedAt && <p className="uppercase text-xs font-bold text-zinc-500">Edited {formatDateLong(reply.editedAt.toString())}</p>} */}
             </div>
             <div className="ml-auto">{/* <ThreadActions thread={thread} canEdit={canEdit} /> */}</div>
