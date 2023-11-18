@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import Image from "next/image";
 import { formatDateLong } from "@/utils/format-date-long";
@@ -5,11 +7,12 @@ import { Crown, Edit, Palmtree } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/separator";
 import { VotesRatio } from "@/components/votes-ratio";
-import { Link } from "@/components/link";
 import { Content } from "@/components/content";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserProfileData } from "@/types/users";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
+import { useRouter } from "next/navigation";
+import { useUserSettings } from "@/hooks/use-user-settings-store";
 
 interface UserInfoProps {
   user: UserProfileData;
@@ -21,6 +24,9 @@ interface UserInfoProps {
 }
 
 export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
+  const router = useRouter();
+  const userSettings = useUserSettings();
+
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
@@ -64,14 +70,19 @@ export const UserInfo: FC<UserInfoProps> = ({ user, voteStats, canEdit }) => {
         <Separator orientation="vertical" />
         <div>
           {canEdit ? (
-            <Link href={`/users/${user.id}/edit`}>
+            <button
+              onClick={() => {
+                userSettings.onOpen("customization");
+                router.push("/account/manage");
+              }}
+            >
               <div className="grid grid-flow-col place-items-center w-max gap-1 mr-auto hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
                 <div>
                   <Edit className="w-4 h-4 text-zinc-500" />
                 </div>
                 <p className="uppercase font-bold text-zinc-500">Bio</p>
               </div>
-            </Link>
+            </button>
           ) : (
             <div className="grid grid-flow-col place-items-center w-max gap-1 mr-auto p-1 rounded-md">
               <div>
