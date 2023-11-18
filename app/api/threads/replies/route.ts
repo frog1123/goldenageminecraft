@@ -8,8 +8,14 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const threadId = searchParams.get("tid");
-    const take = searchParams.get("tk");
-    const skip = searchParams.get("sk");
+    const _take = searchParams.get("tk");
+    const _skip = searchParams.get("sk");
+
+    const take = _take ? parseInt(_take) : null;
+    const skip = _skip ? parseInt(_skip) : null;
+
+    if (!take || !skip) return new NextResponse("Bad request", { status: 400 });
+    if (take >= 20) return new NextResponse("tk too large", { status: 400 });
 
     const userId = await getServerCurrentUserId();
 
@@ -75,8 +81,8 @@ export async function GET(req: Request) {
         orderBy: {
           createdAt: "asc"
         },
-        take: take ? parseInt(take) : 0,
-        skip: skip ? parseInt(skip) : 0
+        take,
+        skip
       });
     } else {
       threadReplies = await db.threadReply.findMany({
@@ -126,8 +132,8 @@ export async function GET(req: Request) {
         orderBy: {
           createdAt: "desc"
         },
-        take: take ? parseInt(take) : 0,
-        skip: skip ? parseInt(skip) : 0
+        take,
+        skip
       });
     }
 

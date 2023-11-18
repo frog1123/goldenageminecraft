@@ -8,10 +8,16 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const take = searchParams.get("tk");
-  const skip = searchParams.get("sk");
+  const _take = searchParams.get("tk");
+  const _skip = searchParams.get("sk");
   const authorId = searchParams.get("a");
   const tagId = searchParams.get("t");
+
+  const take = _take ? parseInt(_take) : null;
+  const skip = _skip ? parseInt(_skip) : null;
+
+  if (!take || !skip) return new NextResponse("Bad request", { status: 400 });
+  if (take >= 20) return new NextResponse("tk too large", { status: 400 });
 
   const userId = await getServerCurrentUserId();
 
@@ -63,8 +69,8 @@ export async function GET(req: Request) {
               orderBy: {
                 createdAt: "desc"
               },
-              take: take ? parseInt(take) : 0,
-              skip: skip ? parseInt(skip) : 0
+              take,
+              skip
             }
           }
         });
@@ -113,8 +119,8 @@ export async function GET(req: Request) {
           orderBy: {
             createdAt: "desc"
           },
-          take: take ? parseInt(take) : 0,
-          skip: skip ? parseInt(skip) : 0
+          take,
+          skip
         });
         return NextResponse.json(threadsFromAuthor);
       } else {
@@ -160,8 +166,8 @@ export async function GET(req: Request) {
           orderBy: {
             createdAt: "desc"
           },
-          take: take ? parseInt(take) : 0,
-          skip: skip ? parseInt(skip) : 0
+          take,
+          skip
         });
         return NextResponse.json(threads);
       }
@@ -208,8 +214,8 @@ export async function GET(req: Request) {
             orderBy: {
               createdAt: "desc"
             },
-            take: take ? parseInt(take) : 0,
-            skip: skip ? parseInt(skip) : 0
+            take,
+            skip
           }
         }
       });
@@ -249,8 +255,8 @@ export async function GET(req: Request) {
         orderBy: {
           createdAt: "desc"
         },
-        take: take ? parseInt(take) : 0,
-        skip: skip ? parseInt(skip) : 0
+        take,
+        skip
       });
 
       return NextResponse.json(threadsFromAuthor);
@@ -288,8 +294,8 @@ export async function GET(req: Request) {
         orderBy: {
           createdAt: "desc"
         },
-        take: take ? parseInt(take) : 0,
-        skip: skip ? parseInt(skip) : 0
+        take,
+        skip
       });
 
       return NextResponse.json(threads);
