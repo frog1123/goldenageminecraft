@@ -153,7 +153,7 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
     <div className="grid grid-flow-row gap-2">
       <p>{params.pageNum}</p>
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
-      <ThreadReplies threadId={params.threadId} tk={5} sk={parseInt(params.pageNum) * 5} />
+      <ThreadReplies threadId={params.threadId} tk={5} sk={(parseInt(params.pageNum) - 1) * 5} />
       <ReplyThreadForm threadId={params.threadId} />
     </div>
   );
