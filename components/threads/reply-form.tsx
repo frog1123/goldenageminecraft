@@ -22,10 +22,10 @@ const formSchema = z.object({
 });
 
 export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [contentMessage, setContentMessage] = useState("");
 
-  const [formValid, setFormValid] = useState({ content: true });
+  const [formValid, setFormValid] = useState({ content: false });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -47,10 +47,6 @@ export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
     }
   };
 
-  useEffect(() => {
-    setContentMessage("Content is required");
-  }, []);
-
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
       <Form {...form}>
@@ -71,6 +67,8 @@ export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
                       const value = e.target.value;
                       if (value.length >= 1000) {
                         setContentMessage(`Content must be under 1000 characters (${999 - value.length})`);
+                        setFormValid({ ...formValid, content: false });
+                      } else if (value.length === 0) {
                         setFormValid({ ...formValid, content: false });
                       } else {
                         setContentMessage("");
