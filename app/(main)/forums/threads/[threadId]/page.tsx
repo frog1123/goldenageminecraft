@@ -17,6 +17,7 @@ import { VotesRatio } from "@/components/votes-ratio";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
 import { ThreadExpanded } from "@/components/threads/thread-expanded";
+import { ReplyThreadForm } from "@/components/threads/reply-form";
 
 interface ThreadIdPageProps {
   params: {
@@ -158,8 +159,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     );
 
   return (
-    <div>
+    <div className="grid grid-flow-row gap-2">
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
+      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
+        <p>hi</p>
+      </div>
+      <ReplyThreadForm />
     </div>
   );
 };
