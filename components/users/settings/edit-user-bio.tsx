@@ -11,7 +11,6 @@ import TextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import { useRouter } from "next/navigation";
-import { CurrentUserType } from "@/types/users";
 import { Context } from "@/context";
 
 const formSchema = z.object({
@@ -20,20 +19,18 @@ const formSchema = z.object({
 });
 
 export const EditUserBio: FC = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [bioMessage, setBioMessage] = useState("");
   const [formValid, setFormValid] = useState({ bio: true });
 
   const context = useContext(Context);
   const user = context.value.currentUser;
 
-  if (!user) return <p>something went wrong :/</p>;
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: user.id,
-      bio: user.bio
+      id: user?.id ?? "",
+      bio: user?.bio ?? ""
     }
   });
 

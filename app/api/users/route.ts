@@ -102,7 +102,6 @@ export async function PATCH(req: Request) {
     const { id, bio } = await req.json();
 
     if (id !== currentUser.id) return new NextResponse("Unauthorized", { status: 401 });
-
     if (bio.length >= 500) return new NextResponse("Bio too long", { status: 400 });
 
     await db.user.update({
