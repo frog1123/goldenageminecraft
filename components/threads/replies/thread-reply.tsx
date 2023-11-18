@@ -16,9 +16,10 @@ import { CurrentUserType } from "@/types/users";
 interface ThreadReplyProps {
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
   currentUser: CurrentUserType | null;
+  replyNum: number;
 }
 
-export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser }) => {
+export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser, replyNum }) => {
   const canEdit = currentUser?.id === reply.author.id;
 
   let voteStats: ThreadVoteStats = {
@@ -87,7 +88,7 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser }) => {
             <div className="ml-auto grid grid-flow-col gap-1 place-items-center">
               <div className="bg-orange-500/20 transition p-1 rounded-md grid grid-cols-[max-content_max-content] place-items-center gap-[2px]">
                 <CornerDownRight className="w-4 h-4" />
-                <span className="text-xs font-bold">#1</span>
+                <span className="text-xs font-bold">#{replyNum}</span>
               </div>
               <ReplyActions reply={reply} canEdit={canEdit} />
             </div>

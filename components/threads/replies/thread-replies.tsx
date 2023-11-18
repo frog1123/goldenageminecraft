@@ -59,7 +59,8 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
 
   return (
     <div className="grid grid-flow-row gap-2 w-full">
-      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} currentUser={context.value.currentUser} key={`reply-${reply.id}`} />)}
+      {replies.length > 0 &&
+        replies.map((reply, index) => <ThreadReply reply={reply} currentUser={context.value.currentUser} replyNum={5 * sk + index + 1} key={`reply-${reply.id}`} />)}
     </div>
   );
 };
