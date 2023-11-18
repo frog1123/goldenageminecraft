@@ -9,9 +9,11 @@ import { ThreadReply } from "@/components/threads/replies/thread-reply";
 
 interface ThreadRepliesProps {
   threadId: string;
+  tk: number;
+  sk: number;
 }
 
-export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
+export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
   const [replies, setReplies] = useState<ThreadReplySignedType[] | ThreadReplyUnsignedType[]>([]);
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +36,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const withoutUserLink = `/api/threads/replies?tid=${threadId}&tk=${initalReplyCount}&sk=${0}`;
+        const withoutUserLink = `/api/threads/replies?tid=${threadId}&tk=${tk}&sk=${sk}`;
         let fetchLink = withoutUserLink;
 
         const response = await axios.get(fetchLink);
@@ -50,51 +52,6 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
     fetchThreads();
   }, [context.value.currentUser?.id]);
 
-  useEffect(() => {
-    const fetchMoreThreads = async () => {
-      if (dontFetch) return;
-      try {
-        setDontFetch(true);
-
-        const withoutUserLink = `/api/threads/replies?tid=${threadId}&tk=${fetchMoreAmount}&sk=${skip + initalReplyCount}`;
-
-        let fetchLink = withoutUserLink;
-        const response = await axios.get(fetchLink);
-
-        const data = response.data;
-
-        // TODO change later
-        setReplies((prevReplies: any) => [...prevReplies, ...data]);
-        setSkip(prevSkip => prevSkip + fetchMoreAmount);
-        if (data.length === 0) {
-          setDontFetch(true);
-          return;
-        }
-        setDontFetch(false);
-      } catch (err) {
-        console.error("Error fetching threads [INCREMENTAL]:", err);
-      }
-    };
-
-    const container = lastElementRef.current;
-    if (!container) return;
-
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          fetchMoreThreads();
-        }
-      },
-      { threshold: 0.1 } // Adjust the threshold as needed
-    );
-
-    observer.observe(container);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [replies, skip, context.value.currentUser?.id, dontFetch]);
-
   if (isLoading)
     return (
       <>
@@ -109,8 +66,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId }) => {
 
   return (
     <div className="grid grid-flow-row gap-2 w-full">
-      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} currentUser={context.value.currentUser} />)}
-      <div ref={lastElementRef} className="z-[-1] text-center w-full h-[400px] mt-[-400px]"></div>
+      {replies.length > 0 && replies.map(reply => <ThreadReply reply={reply} currentUser={context.value.currentUser} key={`reply-${reply.id}`} />)}
     </div>
   );
 };

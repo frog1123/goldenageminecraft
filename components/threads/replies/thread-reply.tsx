@@ -15,7 +15,7 @@ import { CurrentUserType } from "@/types/users";
 
 interface ThreadReplyProps {
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
-  currentUser: CurrentUserType;
+  currentUser: CurrentUserType | null;
 }
 
 export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser }) => {

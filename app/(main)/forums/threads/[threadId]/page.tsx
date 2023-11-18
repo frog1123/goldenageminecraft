@@ -148,7 +148,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   return (
     <div className="grid grid-flow-row gap-2">
       <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
-      <ThreadReplies threadId={params.threadId} />
+      <ThreadReplies threadId={params.threadId} tk={5} sk={0} />
       <ReplyThreadForm threadId={params.threadId} />
     </div>
   );
