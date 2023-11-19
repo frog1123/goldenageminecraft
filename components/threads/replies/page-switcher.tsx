@@ -55,7 +55,18 @@ export const RepliesPageSwitcher: FC<RepliesPageSwitcherProps> = ({ threadId, to
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto w-max mx-auto">
-      <div className={cn("grid grid-flow-row rounded-md overflow-hidden", `grid-cols-${Math.min(totalPages, 5)}`)}>{renderSwitchItems()}</div>
+      <div
+        className={cn(
+          "grid grid-flow-row rounded-md overflow-hidden",
+          totalPages === 1 && "grid-cols-1",
+          totalPages === 2 && "grid-cols-2",
+          totalPages === 3 && "grid-cols-3",
+          totalPages === 4 && "grid-cols-4",
+          totalPages === 5 && "grid-cols-5"
+        )}
+      >
+        {renderSwitchItems()}
+      </div>
     </div>
   );
 };
