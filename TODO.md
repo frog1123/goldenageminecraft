@@ -1,4 +1,5 @@
 TODO
 
-- add types for current user and user profile
-- add edgestore
+- add thread actions
+- try million
+- add image attachmentd
