@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import TextareaAutosize from "react-textarea-autosize";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Image from "next/image";
+import { Context } from "@/context";
+import { SignInButton } from "@/components/auth/sign-in-button";
 
 interface ReplyThreadFormProps {
   threadId: string;
@@ -24,6 +26,7 @@ const formSchema = z.object({
 export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
   // const router = useRouter();
   const [contentMessage, setContentMessage] = useState("");
+  const context = useContext(Context);
 
   const [formValid, setFormValid] = useState({ content: false });
 
@@ -46,6 +49,16 @@ export const ReplyThreadForm: FC<ReplyThreadFormProps> = ({ threadId }) => {
       console.log(err);
     }
   };
+
+  if (!context.value.currentUser)
+    return (
+      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
+        <div className="grid grid-flow-row gap-2 place-items-center">
+          <p className="text-center">You must be is signed in to reply</p>
+          <SignInButton />
+        </div>
+      </div>
+    );
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
