@@ -8,11 +8,12 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Separator } from "@/components/ui/separator";
 
 interface ThreadActionsProps {
+  noView?: boolean;
   canEdit: boolean;
   thread: any;
 }
 
-export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
+export const ThreadActions: FC<ThreadActionsProps> = ({ noView, canEdit, thread }) => {
   const modal = useModal();
 
   return (
@@ -23,14 +24,16 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
-        <DropdownMenuItem>
-          <Link href={`/forums/threads/${thread.id}`} className="w-full">
-            <div className="flex place-items-center w-full gap-2">
-              <span>View thread</span>
-              <Eye className="w-4 h-4 ml-auto" />
-            </div>
-          </Link>
-        </DropdownMenuItem>
+        {!noView && (
+          <DropdownMenuItem>
+            <Link href={`/forums/threads/${thread.id}`} className="w-full">
+              <div className="flex place-items-center w-full gap-2">
+                <span>View thread</span>
+                <Eye className="w-4 h-4 ml-auto" />
+              </div>
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={() => modal.onOpen("share-thread", { shareThread: { threadId: thread.id } })}>
           <div className="flex place-items-center w-full gap-2">
             <span>Share thread</span>

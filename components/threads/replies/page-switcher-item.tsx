@@ -19,7 +19,12 @@ export const RepliesPageSwitcherItem: FC<RepliesPageSwitcherItemProps> = ({ thre
 
   return (
     <Link href={`/forums/threads/${threadId}/${pageNum}`}>
-      <div className={cn("px-2 py-1 transition", pageNum === page ? "bg-emerald-500" : "bg-gray-500 hover:bg-gray-600")}>
+      <div
+        className={cn(
+          "px-2 py-1 transition",
+          pageNum === page ? "bg-emerald-500 text-white" : "dark:text-white bg-gray-300 hover:bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-600"
+        )}
+      >
         <span>{pageNum}</span>
       </div>
     </Link>
