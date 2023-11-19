@@ -22,7 +22,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ canEdit, thread }) => {
           <MoreHorizontal className="w-4 h-4 cursor-pointer" />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="z-[20]">
         <DropdownMenuItem>
           <Link href={`/forums/threads/${thread.id}`} className="w-full">
             <div className="flex place-items-center w-full gap-2">

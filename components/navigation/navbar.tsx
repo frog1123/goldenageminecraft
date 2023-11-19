@@ -58,7 +58,7 @@ const Navbar: FC = () => {
           <div className="grid grid-flow-col gap-2 place-items-center h-full">
             <Link href="/" className="h-full">
               <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 h-full aspect-square grid place-items-center transition rounded-md">
-                <Image src={grass_block_old} className="w-6 h-6 md:w-5 md:h-5" alt="logo" />
+                <Image src={grass_block_old} className="w-6 h-6 md:w-5 md:h-5 aspect-square" alt="logo" />
               </div>
             </Link>
             {pathname !== "/" && <ChevronRight className="ml-2 navbar-routes w-4 h-4 text-gray-500" />}

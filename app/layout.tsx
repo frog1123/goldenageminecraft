@@ -12,7 +12,7 @@ import { EdgeStoreProvider } from "@/components/providers/edgestore-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://goldenageminecraft-app.vercel.app"),
+  metadataBase: new URL("https://goldenageminecraft.net"),
   title: "Golden Age Minecraft",
   description: "The forum for the golden age of Minecraft.",
   openGraph: {
