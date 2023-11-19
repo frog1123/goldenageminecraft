@@ -2,6 +2,7 @@
 
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
 import { Context } from "@/context";
+import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Pencil } from "lucide-react";
@@ -55,10 +56,8 @@ export const EditProfilePicture: FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full h-full">
-        <div className={cn("absolute grid place-items-center w-full h-full transition z-20", isHovered && "bg-black/50")}>
-          {context.value.currentUser?.imageUrl ? isHovered && <Pencil /> : <Pencil />}
-        </div>
-        {imageUrl && <Image src={imageUrl} alt="Edit avatar" fill />}
+        <div className={cn("absolute grid place-items-center w-full h-full transition z-20", isHovered && "bg-black/50")}>{isHovered && <Pencil />}</div>
+        {imageUrl ? <Image src={imageUrl} alt="Edit avatar" fill /> : <Image src={defaultUserProfilePicture()} alt="Edit avatar" fill />}
         <input {...getInputProps()} />
       </div>
     </div>
