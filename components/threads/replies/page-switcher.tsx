@@ -1,6 +1,7 @@
 "use client";
 
 import { RepliesPageSwitcherItem } from "@/components/threads/replies/page-switcher-item";
+import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 
@@ -17,35 +18,44 @@ export const RepliesPageSwitcher: FC<RepliesPageSwitcherProps> = ({ threadId, to
   if (pathnames.length < 5) page = 1;
 
   const totalPages = Math.ceil(totalReplies / 5);
-  const maxCols = Math.min(totalPages, 5);
 
   const renderSwitchItems = () => {
     const switchItems = [];
+
+    if (totalPages <= 1) {
+      switchItems.push(<RepliesPageSwitcherItem key={1} threadId={threadId} pageNum={1} />);
+    }
+
     if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) {
         switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
       }
-    } else if (page <= 3) {
-      for (let i = 1; i <= maxCols - 1; i++) {
-        switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
-      }
-      switchItems.push(<RepliesPageSwitcherItem key={totalPages} threadId={threadId} pageNum={totalPages} />);
-    } else if (page >= totalPages - 2) {
-      switchItems.push(<RepliesPageSwitcherItem key={1} threadId={threadId} pageNum={1} />);
-      for (let i = totalPages - maxCols + 2; i <= totalPages; i++) {
-        switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
-      }
     } else {
-      for (let i = page - 2; i <= page + 2; i++) {
-        switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
+      if (page <= 3) {
+        for (let i = 1; i <= 4; i++) {
+          switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
+        }
+        switchItems.push(<RepliesPageSwitcherItem key={totalPages} threadId={threadId} pageNum={totalPages} />);
+      } else if (page >= totalPages - 2) {
+        switchItems.push(<RepliesPageSwitcherItem key={1} threadId={threadId} pageNum={1} />);
+        for (let i = totalPages - 3; i <= totalPages; i++) {
+          switchItems.push(<RepliesPageSwitcherItem key={i} threadId={threadId} pageNum={i} />);
+        }
+      } else {
+        switchItems.push(<RepliesPageSwitcherItem key={1} threadId={threadId} pageNum={1} />);
+        switchItems.push(<RepliesPageSwitcherItem key={page - 1} threadId={threadId} pageNum={page - 1} />);
+        switchItems.push(<RepliesPageSwitcherItem key={page} threadId={threadId} pageNum={page} />);
+        switchItems.push(<RepliesPageSwitcherItem key={page + 1} threadId={threadId} pageNum={page + 1} />);
+        switchItems.push(<RepliesPageSwitcherItem key={totalPages} threadId={threadId} pageNum={totalPages} />);
       }
     }
+
     return switchItems;
   };
 
   return (
-    <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto w-max mx-auto">
-      <div className={`grid grid-flow-row grid-cols-${maxCols} rounded-md overflow-hidden`}>{renderSwitchItems()}</div>
+    <div className="bg-neutral-200 dark:bg-neutral-900 rounded-md p-2 overflow-auto w-max mx-auto">
+      <div className={cn("grid grid-flow-row rounded-md overflow-hidden", `grid-cols-${Math.min(totalPages, 5)}`)}>{renderSwitchItems()}</div>
     </div>
   );
 };
