@@ -22,8 +22,9 @@ export const RepliesPageSwitcher: FC<RepliesPageSwitcherProps> = ({ threadId, to
   const renderSwitchItems = () => {
     const switchItems = [];
 
-    if (totalPages <= 1) {
+    if (totalPages === 1) {
       switchItems.push(<RepliesPageSwitcherItem key={1} threadId={threadId} pageNum={1} />);
+      return switchItems;
     }
 
     if (totalPages <= 5) {
