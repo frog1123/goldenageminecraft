@@ -145,6 +145,7 @@ model Vote {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([threadId, authorId])
   @@index([authorId])
   @@index([threadId])
   @@index([threadReplyId])

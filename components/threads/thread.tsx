@@ -11,10 +11,10 @@ import { ThreadVoteBox } from "@/components/threads/vote-box";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserPlan } from "@prisma/client";
 import { rankMap, roleIconMapColored } from "@/components/users/styles";
-import { ThreadType } from "@/types/threads";
+import { ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { CurrentUserType } from "@/types/users";
 interface ThreadProps {
-  thread: ThreadType;
+  thread: ThreadType | ThreadTypeSignedIn;
   signedIn: boolean;
   currentUser: CurrentUserType | null;
 }

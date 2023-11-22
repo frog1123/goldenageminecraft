@@ -1,4 +1,4 @@
-import { UserPlan, UserRank, UserRole } from "@prisma/client";
+import { UserPlan, UserRank, UserRole, Vote } from "@prisma/client";
 
 export type ThreadTypeWithoutVotes = {
   id: string;
@@ -26,7 +26,7 @@ export type ThreadTypeWithVotes = ThreadTypeWithoutVotes & {
   };
 };
 
-export type ThreadTypeSignedIn = ThreadTypeWithVotes & { upvotes: any; downvotes: any };
+export type ThreadTypeSignedIn = ThreadTypeWithVotes & { signedInVote?: Vote };
 export type ThreadType = ThreadTypeWithVotes;
 
 export interface ThreadVoteStats {

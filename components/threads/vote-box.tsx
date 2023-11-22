@@ -2,13 +2,14 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
-import { ThreadType } from "@/types/threads";
+import { ThreadType, ThreadTypeSignedIn } from "@/types/threads";
+import { VoteType } from "@prisma/client";
 import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC, useState } from "react";
 
 interface ThreadVoteBoxProps {
-  thread: ThreadType;
+  thread: ThreadType | ThreadTypeSignedIn;
   signedIn: boolean;
 }
 
@@ -17,8 +18,9 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
   const [downvoteCount, setDownvoteCount] = useState(thread.count.downvotes);
 
   // TODO add
-  // const [hasUpvoted, setHasUpvoted] = useState(signedIn ? thread.upvotes.length > 0 : false);
-  // const [hasDownvoted, setHasDownvoted] = useState(signedIn ? thread.downvotes.length > 0 : false);
+
+  const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn && (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.UPVOTE);
+  const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn && (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.DOWNVOTE);
   const modal = useModal();
 
   const handleLikePost = async () => {
