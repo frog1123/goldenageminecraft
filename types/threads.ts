@@ -89,23 +89,25 @@ export type ThreadReplyUnsignedType = {
     rank: UserRank;
     role: UserRole;
     plan: UserPlan;
-    threads: {
-      _count: {
-        votes: number;
-      };
-    }[];
     createdAt: Date;
     _count: {
       threads: number;
     };
+    votes: {
+      upvotes: number;
+      downvotes: number;
+    };
   };
-  _count: {
-    votes: number;
+  count: {
+    upvotes: number;
+    downvotes: number;
   };
   editedAt: Date | null;
   createdAt: Date;
 };
 
 export type ThreadReplySignedType = ThreadReplyUnsignedType & {
-  signedInVote?: Vote;
+  signedInVote: Vote | null;
 };
+
+export type OmitAuthorVotes<T> = T extends { author: infer A } ? Omit<T, "author"> & { author: Omit<A, "votes"> } : T;

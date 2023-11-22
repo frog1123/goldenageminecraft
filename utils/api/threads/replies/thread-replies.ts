@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { OmitAuthorVotes, ThreadExpandedUnsignedType, ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
 
 interface Params {
   take: number;
@@ -7,8 +8,9 @@ interface Params {
   userId?: string;
 }
 
-export const threadReplies = async ({ take, skip, threadId, userId }: Params) => {
-  const threadReplies = await db.threadReply.findMany({
+export const threadReplies = async ({ take, skip, threadId, userId }: Params): Promise<ThreadReplySignedType[] | ThreadReplyUnsignedType[]> => {
+  // no count yet
+  const replies: OmitAuthorVotes<Omit<Omit<ThreadReplySignedType, "count">, "signedInVote">>[] = await db.threadReply.findMany({
     where: {
       threadId
     },
@@ -30,11 +32,9 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params) =>
               threads: true
             }
           },
-
           createdAt: true
         }
       },
-
       editedAt: true,
       createdAt: true
     },
@@ -44,4 +44,127 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params) =>
     take,
     skip
   });
+
+  // TODO add votes if signed in
+  if (userId !== null && userId !== undefined) {
+    const repliesWithUserRep: ThreadReplySignedType[] | ThreadReplyUnsignedType[] = await Promise.all(
+      (replies || []).map(async reply => {
+        let authorRecievedUpvotes = 0;
+        let authorRecievedDownvotes = 0;
+
+        const authorUpvoteCount = await db.thread.findMany({
+          select: {
+            _count: {
+              select: {
+                votes: {
+                  where: {
+                    type: "UPVOTE"
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        const authorDownvoteCount = await db.thread.findMany({
+          select: {
+            _count: {
+              select: {
+                votes: {
+                  where: {
+                    type: "UPVOTE"
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        authorUpvoteCount.forEach(thread => {
+          authorRecievedUpvotes += thread._count.votes;
+        });
+
+        authorDownvoteCount.forEach(thread => {
+          authorRecievedDownvotes += thread._count.votes;
+        });
+
+        return {
+          ...reply,
+          author: {
+            ...reply.author,
+            count: {
+              upvotes: authorRecievedUpvotes,
+              downvotes: authorRecievedDownvotes
+            }
+          },
+          count: {
+            upvotes: 0,
+            downvotes: 0
+          },
+          signedInVote: null
+        };
+      })
+    );
+
+    // keep
+    return repliesWithUserRep;
+  } else {
+    const repliesWithUserRep: OmitAuthorVotes<ThreadReplySignedType>[] | null = await Promise.all(
+      (replies || []).map(async reply => {
+        let authorRecievedUpvotes = 0;
+        let authorRecievedDownvotes = 0;
+
+        const authorUpvoteCount = await db.thread.findMany({
+          select: {
+            _count: {
+              select: {
+                votes: {
+                  where: {
+                    type: "UPVOTE"
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        const authorDownvoteCount = await db.thread.findMany({
+          select: {
+            _count: {
+              select: {
+                votes: {
+                  where: {
+                    type: "UPVOTE"
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        authorUpvoteCount.forEach(thread => {
+          authorRecievedUpvotes += thread._count.votes;
+        });
+
+        authorDownvoteCount.forEach(thread => {
+          authorRecievedDownvotes += thread._count.votes;
+        });
+
+        return {
+          ...reply,
+          author: {
+            ...reply.author,
+            count: {
+              upvotes: authorRecievedUpvotes,
+              downvotes: authorRecievedDownvotes
+            }
+          },
+          signedInVote: null
+        };
+      })
+    );
+
+    // keep
+    return repliesWithUserRep;
+  }
 };

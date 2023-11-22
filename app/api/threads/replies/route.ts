@@ -22,69 +22,17 @@ export async function GET(req: Request) {
 
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
-    let threadReplies: ThreadReplySignedType[] | ThreadReplyUnsignedType[] | null;
+    let threadReplies: ThreadReplySignedType[] | ThreadReplyUnsignedType[];
 
     if (userId) {
-      threadReplies = await db.threadReply.findMany({
-        where: {
-          threadId
-        },
-        select: {
-          id: true,
-          content: true,
-          author: {
-            select: {
-              id: true,
-              name: true,
-              firstName: true,
-              lastName: true,
-              imageUrl: true,
-              rank: true,
-              role: true,
-              plan: true,
-              _count: {
-                select: {
-                  threads: true
-                }
-              },
-              threads: {
-                select: {
-                  _count: {
-                    select: {
-                      upvotes: true,
-                      downvotes: true
-                    }
-                  }
-                }
-              },
-              createdAt: true
-            }
-          },
-          upvotes: {
-            where: {
-              authorId: userId
-            }
-          },
-          downvotes: {
-            where: {
-              authorId: userId
-            }
-          },
-          _count: {
-            select: {
-              upvotes: true,
-              downvotes: true
-            }
-          },
-          editedAt: true,
-          createdAt: true
-        },
-        orderBy: {
-          createdAt: "asc"
-        },
-        take,
-        skip
-      });
+      return NextResponse.json(
+        await threadReplies({
+          take,
+          skip,
+          threadId,
+          userId
+        })
+      );
     } else {
       threadReplies = await db.threadReply.findMany({
         where: {
