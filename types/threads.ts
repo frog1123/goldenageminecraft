@@ -74,7 +74,7 @@ export type ThreadExpandedUnsignedType = {
 };
 
 export type ThreadExpandedSignedType = ThreadExpandedUnsignedType & {
-  signedInVote?: Vote;
+  signedInVote: Vote | null;
 };
 
 export type ThreadReplyUnsignedType = {

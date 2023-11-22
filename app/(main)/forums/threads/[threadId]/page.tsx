@@ -17,73 +17,49 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   const currentUser = await getServerCurrentUser();
   const signedIn = !!currentUser;
 
-  let thread: any;
+  // no count yet
+  const thread: Omit<ThreadExpandedSignedType, "count"> | Omit<ThreadExpandedUnsignedType, "count"> | null = await db.thread.findUnique({
+    where: {
+      id: params.threadId
+    },
+    select: {
+      title: true,
+      content: true,
+      author: {
+        select: {
+          id: true,
+          name: true,
+          firstName: true,
+          lastName: true,
+          imageUrl: true,
+          rank: true,
+          role: true,
+          plan: true,
+          _count: {
+            select: {
+              threads: true
+            }
+          },
+          createdAt: true
+        }
+      },
+      tags: {
+        select: {
+          id: true,
+          name: true
+        }
+      },
+      editedAt: true,
+      createdAt: true
+    }
+  });
 
-  if (signedIn) {
-    thread = await db.thread.findUnique({
-      where: {
-        id: params.threadId
-      },
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            firstName: true,
-            lastName: true,
-            imageUrl: true,
-            rank: true,
-            role: true,
-            plan: true,
-            _count: {
-              select: {
-                threads: true
-              }
-            },
-            createdAt: true
-          }
-        },
-        tags: {
-          select: {
-            id: true,
-            name: true
-          }
-        }
-      }
-    });
-  } else {
-    thread = await db.thread.findUnique({
-      where: {
-        id: params.threadId
-      },
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            firstName: true,
-            lastName: true,
-            imageUrl: true,
-            rank: true,
-            role: true,
-            plan: true,
-            _count: {
-              select: {
-                threads: true
-              }
-            },
-            createdAt: true
-          }
-        },
-        tags: {
-          select: {
-            id: true,
-            name: true
-          }
-        }
-      }
-    });
-  }
+  if (!thread)
+    return (
+      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
+        <p className="text-center">:( Thread does not exist or cannot be found</p>
+      </div>
+    );
 
   const threadReplies = await db.threadReply.count({
     where: {
@@ -97,6 +73,9 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   };
 
   const authorUpvoteCount = await db.thread.findMany({
+    where: {
+      authorId: thread?.author.id
+    },
     select: {
       _count: {
         select: {
@@ -111,6 +90,9 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   });
 
   const authorDownvoteCount = await db.thread.findMany({
+    where: {
+      authorId: thread?.author.id
+    },
     select: {
       _count: {
         select: {
@@ -123,6 +105,17 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       }
     }
   });
+
+  const signedInVote = thread?.author.id
+    ? await db.vote.findUnique({
+        where: {
+          threadId_authorId: {
+            threadId: params.threadId,
+            authorId: thread?.author.id
+          }
+        }
+      })
+    : null;
 
   console.log(authorUpvoteCount, authorDownvoteCount);
 
@@ -139,17 +132,11 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     count: {
       upvotes: voteStats.receivedUpvotes,
       downvotes: voteStats.receivedDownvotes
-    }
+    },
+    signedInVote
   };
 
   const canEdit = thread?.author.id === currentUser?.id;
-
-  if (!thread)
-    return (
-      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2">
-        <p className="text-center">:( Thread does not exist or cannot be found</p>
-      </div>
-    );
 
   return (
     <div className="grid grid-flow-row gap-2">
