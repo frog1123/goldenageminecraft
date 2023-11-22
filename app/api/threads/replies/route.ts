@@ -188,7 +188,8 @@ export async function PATCH(req: Request) {
         id: id
       },
       data: {
-        content
+        content,
+        editedAt: new Date().toISOString()
       }
     });
 
