@@ -103,53 +103,35 @@ export const SignInForm: FC = () => {
                   <FormControl>
                     <div className="grid grid-cols-[auto_max-content] rounded-md overflow-hidden">
                       <FormControl>
-                        {showPassword ? (
-                          // Show password as plain text
-                          <input
-                            type="text"
-                            disabled={isLoading}
-                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
-                            placeholder="Enter password"
-                            {...field}
-                            onChange={e => {
-                              const value = e.target.value;
+                        {/* Toggle password as dots */}
+                        <input
+                          type={showPassword ? "password" : "text"}
+                          disabled={isLoading}
+                          className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                          placeholder="Enter password"
+                          {...field}
+                          onChange={e => {
+                            const value = e.target.value;
 
-                              setError("");
+                            setError("");
 
-                              if (value.length === 0) {
-                                setFormValid({ ...formValid, password: false });
-                              } else {
-                                setFormValid({ ...formValid, password: true });
-                              }
+                            if (value.length === 0) {
+                              setFormValid({ ...formValid, password: false });
+                            } else {
+                              setFormValid({ ...formValid, password: true });
+                            }
 
-                              field.onChange(e);
-                            }}
-                          />
-                        ) : (
-                          // Show password as dots
-                          <input
-                            type="password"
-                            disabled={isLoading}
-                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
-                            placeholder="Enter password"
-                            {...field}
-                            onChange={e => {
-                              const value = e.target.value;
-
-                              setError("");
-
-                              if (value.length === 0) {
-                                setFormValid({ ...formValid, password: false });
-                              } else {
-                                setFormValid({ ...formValid, password: true });
-                              }
-
-                              field.onChange(e);
-                            }}
-                          />
-                        )}
+                            field.onChange(e);
+                          }}
+                        />
                       </FormControl>
-                      <button className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 p-2" onClick={() => setShowPassword(!showPassword)}>
+                      <button
+                        className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 px-3"
+                        onClick={e => {
+                          e.preventDefault();
+                          setShowPassword(!showPassword);
+                        }}
+                      >
                         <div>{showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
                       </button>
                     </div>
