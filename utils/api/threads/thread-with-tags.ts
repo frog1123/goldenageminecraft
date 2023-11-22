@@ -49,34 +49,77 @@ export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {
     }
   });
 
-  const threadsWithTagsWithVotes: { threads: ThreadTypeWithVotes[] } | null = {
-    threads: await Promise.all(
-      (threadsWithTag?.threads || []).map(async thread => {
-        const upvotesCount = await db.vote.count({
-          where: {
-            threadId: thread.id,
-            type: "UPVOTE"
-          }
-        });
+  if (userId !== null && userId !== undefined) {
+    const threadsWithTagsWithVotesWithSignedInVotes: { threads: ThreadTypeWithVotes[] } | null = {
+      threads: await Promise.all(
+        (threadsWithTag?.threads || []).map(async thread => {
+          const upvotesCount = await db.vote.count({
+            where: {
+              threadId: thread.id,
+              type: "UPVOTE"
+            }
+          });
 
-        const downvotesCount = await db.vote.count({
-          where: {
-            threadId: thread.id,
-            type: "DOWNVOTE"
-          }
-        });
+          const downvotesCount = await db.vote.count({
+            where: {
+              threadId: thread.id,
+              type: "DOWNVOTE"
+            }
+          });
 
-        return {
-          ...thread,
-          count: {
-            upvotes: upvotesCount,
-            downvotes: downvotesCount
-          }
-        };
-      })
-    )
-  };
+          const signedInVote = await db.vote.findUnique({
+            where: {
+              threadId_authorId: {
+                threadId: thread.id,
+                authorId: userId
+              }
+            }
+          });
 
-  // keep
-  return threadsWithTagsWithVotes?.threads;
+          return {
+            ...thread,
+            count: {
+              upvotes: upvotesCount,
+              downvotes: downvotesCount
+            },
+            signedInVote
+          };
+        })
+      )
+    };
+
+    // keep
+    return threadsWithTagsWithVotesWithSignedInVotes?.threads;
+  } else {
+    const threadsWithTagsWithVotes: { threads: ThreadTypeWithVotes[] } | null = {
+      threads: await Promise.all(
+        (threadsWithTag?.threads || []).map(async thread => {
+          const upvotesCount = await db.vote.count({
+            where: {
+              threadId: thread.id,
+              type: "UPVOTE"
+            }
+          });
+
+          const downvotesCount = await db.vote.count({
+            where: {
+              threadId: thread.id,
+              type: "DOWNVOTE"
+            }
+          });
+
+          return {
+            ...thread,
+            count: {
+              upvotes: upvotesCount,
+              downvotes: downvotesCount
+            }
+          };
+        })
+      )
+    };
+
+    // keep
+    return threadsWithTagsWithVotes?.threads;
+  }
 };

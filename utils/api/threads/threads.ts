@@ -8,37 +8,37 @@ interface Params {
 }
 
 export const threads = async ({ take, skip, userId }: Params): Promise<ThreadTypeWithVotes[]> => {
-  if (userId !== null && userId !== undefined) {
-    const threads: ThreadTypeWithoutVotes[] = await db.thread.findMany({
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        tags: {
-          select: {
-            id: true,
-            name: true
-          }
-        },
-        author: {
-          select: {
-            id: true,
-            name: true,
-            imageUrl: true,
-            rank: true,
-            role: true,
-            plan: true
-          }
-        },
-        createdAt: true
+  const threads: ThreadTypeWithoutVotes[] = await db.thread.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      tags: {
+        select: {
+          id: true,
+          name: true
+        }
       },
-      orderBy: {
-        createdAt: "desc"
+      author: {
+        select: {
+          id: true,
+          name: true,
+          imageUrl: true,
+          rank: true,
+          role: true,
+          plan: true
+        }
       },
-      take,
-      skip
-    });
+      createdAt: true
+    },
+    orderBy: {
+      createdAt: "desc"
+    },
+    take,
+    skip
+  });
 
+  if (userId !== null && userId !== undefined) {
     const threadsWithVotesWithSignedInVote: ThreadTypeWithVotes[] | null = await Promise.all(
       (threads || []).map(async (thread: ThreadTypeWithoutVotes) => {
         const upvotesCount = await db.vote.count({
@@ -77,36 +77,6 @@ export const threads = async ({ take, skip, userId }: Params): Promise<ThreadTyp
 
     return threadsWithVotesWithSignedInVote;
   } else {
-    const threads: ThreadTypeWithoutVotes[] = await db.thread.findMany({
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        tags: {
-          select: {
-            id: true,
-            name: true
-          }
-        },
-        author: {
-          select: {
-            id: true,
-            name: true,
-            imageUrl: true,
-            rank: true,
-            role: true,
-            plan: true
-          }
-        },
-        createdAt: true
-      },
-      orderBy: {
-        createdAt: "desc"
-      },
-      take,
-      skip
-    });
-
     const threadsWithVotes: ThreadTypeWithVotes[] | null = await Promise.all(
       (threads || []).map(async (thread: ThreadTypeWithoutVotes) => {
         const upvotesCount = await db.vote.count({

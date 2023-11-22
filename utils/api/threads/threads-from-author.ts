@@ -40,31 +40,71 @@ export const threadsFromAuthor = async ({ take, skip, userId, authorId }: Params
     skip
   });
 
-  const threadsFromAuthorWithVotes: ThreadTypeWithVotes[] | null = await Promise.all(
-    (threadsFromAuthor || []).map(async (thread: ThreadTypeWithoutVotes) => {
-      const upvotesCount = await db.vote.count({
-        where: {
-          threadId: thread.id,
-          type: "UPVOTE"
-        }
-      });
+  if (userId !== null && userId !== undefined) {
+    const threadsFromAuthorWithVotesWithSignedInVotes: ThreadTypeWithVotes[] | null = await Promise.all(
+      (threadsFromAuthor || []).map(async (thread: ThreadTypeWithoutVotes) => {
+        const upvotesCount = await db.vote.count({
+          where: {
+            threadId: thread.id,
+            type: "UPVOTE"
+          }
+        });
 
-      const downvotesCount = await db.vote.count({
-        where: {
-          threadId: thread.id,
-          type: "DOWNVOTE"
-        }
-      });
+        const downvotesCount = await db.vote.count({
+          where: {
+            threadId: thread.id,
+            type: "DOWNVOTE"
+          }
+        });
 
-      return {
-        ...thread,
-        count: {
-          upvotes: upvotesCount,
-          downvotes: downvotesCount
-        }
-      };
-    })
-  );
+        const signedInVote = await db.vote.findUnique({
+          where: {
+            threadId_authorId: {
+              threadId: thread.id,
+              authorId: userId
+            }
+          }
+        });
 
-  return threadsFromAuthorWithVotes;
+        return {
+          ...thread,
+          count: {
+            upvotes: upvotesCount,
+            downvotes: downvotesCount
+          },
+          signedInVote
+        };
+      })
+    );
+
+    return threadsFromAuthorWithVotesWithSignedInVotes;
+  } else {
+    const threadsFromAuthorWithVotes: ThreadTypeWithVotes[] | null = await Promise.all(
+      (threadsFromAuthor || []).map(async (thread: ThreadTypeWithoutVotes) => {
+        const upvotesCount = await db.vote.count({
+          where: {
+            threadId: thread.id,
+            type: "UPVOTE"
+          }
+        });
+
+        const downvotesCount = await db.vote.count({
+          where: {
+            threadId: thread.id,
+            type: "DOWNVOTE"
+          }
+        });
+
+        return {
+          ...thread,
+          count: {
+            upvotes: upvotesCount,
+            downvotes: downvotesCount
+          }
+        };
+      })
+    );
+
+    return threadsFromAuthorWithVotes;
+  }
 };
