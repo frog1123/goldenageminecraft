@@ -1,4 +1,4 @@
-import EditThreadForm from "@/components/threads/edit-form";
+import { EditThreadForm } from "@/components/threads/edit-form";
 import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
 import { Metadata, NextPage } from "next";

@@ -24,7 +24,7 @@ const formSchema = z.object({
 interface EditThreadFormProps {
   thread: {
     id: string;
-    authorId: string;
+    authorId: string; // not here but for checking if user is author of thread
     title: string;
     content: string;
     tags: {
@@ -33,7 +33,7 @@ interface EditThreadFormProps {
   };
 }
 
-const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
+export const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
   const router = useRouter();
   const [tagMessage, setTagMessage] = useState("");
   const [contentMessage, setContentMessage] = useState("");
@@ -196,5 +196,3 @@ const EditThreadForm: FC<EditThreadFormProps> = ({ thread }) => {
     </div>
   );
 };
-
-export default EditThreadForm;
