@@ -92,7 +92,7 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params): P
           ...reply,
           author: {
             ...reply.author,
-            count: {
+            votes: {
               upvotes: authorRecievedUpvotes,
               downvotes: authorRecievedDownvotes
             }
@@ -109,7 +109,7 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params): P
     // keep
     return repliesWithUserRep;
   } else {
-    const repliesWithUserRep: OmitAuthorVotes<ThreadReplySignedType>[] | null = await Promise.all(
+    const repliesWithUserRep: ThreadReplySignedType[] | ThreadReplyUnsignedType[] = await Promise.all(
       (replies || []).map(async reply => {
         let authorRecievedUpvotes = 0;
         let authorRecievedDownvotes = 0;
@@ -154,10 +154,14 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params): P
           ...reply,
           author: {
             ...reply.author,
-            count: {
+            votes: {
               upvotes: authorRecievedUpvotes,
               downvotes: authorRecievedDownvotes
             }
+          },
+          count: {
+            upvotes: 0,
+            downvotes: 0
           },
           signedInVote: null
         };
