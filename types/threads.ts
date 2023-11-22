@@ -27,6 +27,7 @@ export type ThreadTypeWithVotes = ThreadTypeWithoutVotes & {
 };
 
 export type ThreadTypeSignedIn = ThreadTypeWithVotes & { upvotes: any; downvotes: any };
+export type ThreadType = ThreadTypeWithVotes;
 
 export interface ThreadVoteStats {
   receivedUpvotes: number;
