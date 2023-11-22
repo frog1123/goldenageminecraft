@@ -26,14 +26,9 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser
   const canEdit = currentUser?.id === reply.author.id;
 
   let voteStats: ThreadVoteStats = {
-    receivedUpvotes: 0,
-    receivedDownvotes: 0
+    receivedUpvotes: reply.count.upvotes,
+    receivedDownvotes: reply.count.downvotes
   };
-
-  reply?.author?.threads.forEach(thread => {
-    voteStats.receivedUpvotes += thread._count.upvotes;
-    voteStats.receivedDownvotes += thread._count.downvotes;
-  });
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
@@ -100,9 +95,7 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser
         </div>
       </div>
       <Separator orientation="horizontal" />
-      <div className="grid grid-flow-col">
-        <ReplyVoteBox reply={reply} signedIn={signedIn} />
-      </div>
+      <div className="grid grid-flow-col">{/* <ReplyVoteBox reply={reply} signedIn={signedIn} /> */}</div>
     </div>
   );
 };
