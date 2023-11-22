@@ -67,44 +67,38 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     }
   });
 
-  let voteStats: ThreadVoteStats = {
-    receivedUpvotes: 0,
-    receivedDownvotes: 0
+  const authorUpvotesCount = await db.vote.count({
+    where: {
+      authorId: thread.author.id,
+      type: "UPVOTE"
+    }
+  });
+
+  const authorDownvotesCount = await db.vote.count({
+    where: {
+      authorId: thread.author.id,
+      type: "DOWNVOTE"
+    }
+  });
+
+  const threadUpvotesCount = await db.vote.count({
+    where: {
+      threadId: params.threadId,
+      type: "UPVOTE"
+    }
+  });
+
+  const threadDownvotesCount = await db.vote.count({
+    where: {
+      threadId: params.threadId,
+      type: "DOWNVOTE"
+    }
+  });
+
+  const authorVoteStats: ThreadVoteStats = {
+    receivedUpvotes: authorUpvotesCount,
+    receivedDownvotes: authorDownvotesCount
   };
-
-  const authorUpvoteCount = await db.thread.findMany({
-    where: {
-      authorId: thread?.author.id
-    },
-    select: {
-      _count: {
-        select: {
-          votes: {
-            where: {
-              type: "UPVOTE"
-            }
-          }
-        }
-      }
-    }
-  });
-
-  const authorDownvoteCount = await db.thread.findMany({
-    where: {
-      authorId: thread?.author.id
-    },
-    select: {
-      _count: {
-        select: {
-          votes: {
-            where: {
-              type: "UPVOTE"
-            }
-          }
-        }
-      }
-    }
-  });
 
   const signedInVote = thread?.author.id
     ? await db.vote.findUnique({
@@ -117,22 +111,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
       })
     : null;
 
-  console.log(authorUpvoteCount, authorDownvoteCount);
-
-  authorUpvoteCount.forEach(thread => {
-    voteStats.receivedUpvotes += thread._count.votes;
-  });
-
-  authorDownvoteCount.forEach(thread => {
-    voteStats.receivedDownvotes += thread._count.votes;
-  });
-
   const formattedThread: ThreadExpandedSignedType | ThreadExpandedUnsignedType = {
     ...thread,
     id: params.threadId,
     count: {
-      upvotes: voteStats.receivedUpvotes,
-      downvotes: voteStats.receivedDownvotes
+      upvotes: threadUpvotesCount,
+      downvotes: threadDownvotesCount
     },
     signedInVote
   };
@@ -142,7 +126,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   return (
     <div className="grid grid-flow-row gap-2">
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
-      <ThreadExpanded thread={formattedThread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
+      <ThreadExpanded thread={formattedThread} authorVoteStats={authorVoteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={0} />
       <ReplyThreadForm threadId={params.threadId} />
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />

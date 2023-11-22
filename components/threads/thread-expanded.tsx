@@ -16,12 +16,12 @@ import { Tag } from "@/components/threads/tag";
 
 interface ThreadExpandedProps {
   thread: ThreadExpandedSignedType | ThreadExpandedUnsignedType;
-  voteStats: ThreadVoteStats;
+  authorVoteStats: ThreadVoteStats;
   canEdit: boolean;
   signedIn: boolean;
 }
 
-export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, voteStats, canEdit, signedIn }) => {
+export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, authorVoteStats, canEdit, signedIn }) => {
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-flow-row gap-2">
       <div className="grid grid-cols-[max-content_max-content_auto] gap-2">
@@ -41,7 +41,7 @@ export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, voteStats, can
           </div>
           <p className="uppercase text-xs font-bold text-zinc-500">Joined {formatDateLong(thread.author.createdAt.toString())}</p>
           <div className="w-full my-1">
-            <VotesRatio votesStats={voteStats} expanded />
+            <VotesRatio votesStats={authorVoteStats} expanded />
           </div>
           <p className="uppercase text-xs font-bold text-zinc-500">{thread.author._count.threads} Threads</p>
           <div className="w-full rounded-md overflow-hidden">
