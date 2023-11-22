@@ -2,6 +2,7 @@ import { getServerCurrentUser } from "@/lib/current-user";
 import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
 import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
+import { threadReplies } from "@/utils/api/threads/replies/thread-replies";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -22,71 +23,14 @@ export async function GET(req: Request) {
 
     if (!threadId) return new NextResponse("Bad request", { status: 400 });
 
-    let threadReplies: ThreadReplySignedType[] | ThreadReplyUnsignedType[];
-
-    if (userId) {
-      return NextResponse.json(
-        await threadReplies({
-          take,
-          skip,
-          threadId,
-          userId
-        })
-      );
-    } else {
-      threadReplies = await db.threadReply.findMany({
-        where: {
-          threadId
-        },
-        select: {
-          id: true,
-          content: true,
-          author: {
-            select: {
-              id: true,
-              name: true,
-              firstName: true,
-              lastName: true,
-              imageUrl: true,
-              rank: true,
-              role: true,
-              plan: true,
-              _count: {
-                select: {
-                  threads: true
-                }
-              },
-              threads: {
-                select: {
-                  _count: {
-                    select: {
-                      upvotes: true,
-                      downvotes: true
-                    }
-                  }
-                }
-              },
-              createdAt: true
-            }
-          },
-          _count: {
-            select: {
-              upvotes: true,
-              downvotes: true
-            }
-          },
-          editedAt: true,
-          createdAt: true
-        },
-        orderBy: {
-          createdAt: "desc"
-        },
+    return NextResponse.json(
+      await threadReplies({
         take,
-        skip
-      });
-    }
-
-    return NextResponse.json(threadReplies);
+        skip,
+        threadId,
+        userId
+      })
+    );
   } catch (err) {
     console.log("[THREADS_REPLIES_GET]", err);
     return new NextResponse("Internal Error", { status: 500 });

@@ -5,7 +5,7 @@ interface Params {
   take: number;
   skip: number;
   threadId: string;
-  userId?: string;
+  userId: string | null;
 }
 
 export const threadReplies = async ({ take, skip, threadId, userId }: Params): Promise<ThreadReplySignedType[] | ThreadReplyUnsignedType[]> => {
