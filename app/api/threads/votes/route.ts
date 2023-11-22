@@ -57,14 +57,28 @@ export async function PATCH(req: Request) {
     const voteId = searchParams.get("v");
     const voteType = searchParams.get("ty");
 
-    console.log("run", req.url);
-
     const currentUser = await getServerCurrentUser();
 
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     if (!currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
     if (!voteId || voteId === undefined) return new NextResponse("Vote not found", { status: 400 });
     if (!voteType) return new NextResponse("Vote type required", { status: 400 });
+
+    const existingVote = await db.vote.findUnique({
+      where: {
+        id: voteId
+      },
+      select: {
+        author: {
+          select: {
+            id: true
+          }
+        }
+      }
+    });
+
+    if (!existingVote) return new NextResponse("Vote not found", { status: 400 });
+    if (currentUser.id !== existingVote?.author.id) return new NextResponse("Unauthorized", { status: 400 });
 
     if (voteType === "u") {
       await db.vote.update({
@@ -85,6 +99,46 @@ export async function PATCH(req: Request) {
         }
       });
     }
+
+    return new NextResponse("Success", { status: 200 });
+  } catch (err) {
+    console.log("[VOTES_POST]", err);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const voteId = searchParams.get("v");
+
+    const currentUser = await getServerCurrentUser();
+
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+    if (!currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
+    if (!voteId || voteId === undefined) return new NextResponse("Vote not found", { status: 400 });
+
+    const existingVote = await db.vote.findUnique({
+      where: {
+        id: voteId
+      },
+      select: {
+        author: {
+          select: {
+            id: true
+          }
+        }
+      }
+    });
+
+    if (!existingVote) return new NextResponse("Vote not found", { status: 400 });
+    if (currentUser.id !== existingVote?.author.id) return new NextResponse("Unauthorized", { status: 400 });
+
+    await db.vote.delete({
+      where: {
+        id: voteId
+      }
+    });
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
