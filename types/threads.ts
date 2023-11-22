@@ -1,6 +1,6 @@
 import { UserPlan, UserRank, UserRole } from "@prisma/client";
 
-export type ThreadType = {
+export type ThreadTypeWithoutVotes = {
   id: string;
   title: string;
   content: string | null;
@@ -16,14 +16,17 @@ export type ThreadType = {
     id: string;
     name: string;
   }>;
-  _count: {
-    downvotes: number;
-    upvotes: number;
-  };
   createdAt: Date;
 };
 
-export type ThreadTypeSignedIn = ThreadType & { upvotes: any; downvotes: any };
+export type ThreadTypeWithVotes = ThreadTypeWithoutVotes & {
+  count: {
+    upvotes: number;
+    downvotes: number;
+  };
+};
+
+export type ThreadTypeSignedIn = ThreadTypeWithVotes & { upvotes: any; downvotes: any };
 
 export interface ThreadVoteStats {
   receivedUpvotes: number;
@@ -84,8 +87,7 @@ export type ThreadReplyUnsignedType = {
     plan: UserPlan;
     threads: {
       _count: {
-        upvotes: number;
-        downvotes: number;
+        votes: number;
       };
     }[];
     createdAt: Date;
@@ -94,8 +96,7 @@ export type ThreadReplyUnsignedType = {
     };
   };
   _count: {
-    upvotes: number;
-    downvotes: number;
+    votes: number;
   };
   editedAt: Date | null;
   createdAt: Date;
