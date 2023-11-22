@@ -8,7 +8,7 @@ interface Params {
   userId: string;
 }
 
-export const threadWithTags = async ({ take, skip, tagId, userId }: Params) => {
+export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {
   const threadsWithTag: { threads: ThreadTypeWithoutVotes[] } | null = await db.tag.findUnique({
     where: { id: tagId },
     select: {

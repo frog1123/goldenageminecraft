@@ -2,7 +2,8 @@ import { getServerCurrentUser } from "@/lib/current-user";
 import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
 import { ThreadTypeSignedIn, ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
-import { threadWithTags } from "@/utils/api/threads/thread-with-tags";
+import { threadsWithTag } from "@/utils/api/threads/thread-with-tags";
+import { threads } from "@/utils/api/threads/threads";
 import { threadsFromAuthor } from "@/utils/api/threads/threads-from-author";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
@@ -28,7 +29,7 @@ export async function GET(req: Request) {
     try {
       if (tagId) {
         return NextResponse.json(
-          threadWithTags({
+          threadsWithTag({
             take,
             skip,
             tagId,
@@ -40,13 +41,71 @@ export async function GET(req: Request) {
           threadsFromAuthor({
             take,
             skip,
-
             userId,
             authorId
           })
         );
       } else {
-        const threads: ThreadTypeSignedIn[] = await db.thread.findMany({
+        return NextResponse.json(
+          threads({
+            take,
+            skip,
+            userId
+          })
+        );
+      }
+    } catch (err) {
+      console.log("[THREADS_GET_USER]", err);
+      return new NextResponse("Internal Error", { status: 500 });
+    }
+  } else {
+    try {
+      if (tagId) {
+        const threadsWithTag: { threads: ThreadType[] } | null = await db.tag.findUnique({
+          where: { id: tagId },
+          select: {
+            threads: {
+              select: {
+                id: true,
+                title: true,
+                content: true,
+                tags: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                },
+                author: {
+                  select: {
+                    id: true,
+                    name: true,
+                    imageUrl: true,
+                    rank: true,
+                    role: true,
+                    plan: true
+                  }
+                },
+                _count: {
+                  select: {
+                    downvotes: true,
+                    upvotes: true
+                  }
+                },
+                createdAt: true
+              },
+              orderBy: {
+                createdAt: "desc"
+              },
+              take,
+              skip
+            }
+          }
+        });
+
+        return NextResponse.json(threadsWithTag?.threads);
+      } else if (authorId) {
+        const threadsFromAuthor: ThreadType[] = await db.thread.findMany({
+          where: { authorId },
           select: {
             id: true,
             title: true,
@@ -73,16 +132,6 @@ export async function GET(req: Request) {
                 upvotes: true
               }
             },
-            upvotes: {
-              where: {
-                authorId: userId
-              }
-            },
-            downvotes: {
-              where: {
-                authorId: userId
-              }
-            },
             createdAt: true
           },
           orderBy: {
@@ -91,140 +140,52 @@ export async function GET(req: Request) {
           take,
           skip
         });
+
+        return NextResponse.json(threadsFromAuthor);
+      } else {
+        const threads: ThreadType[] = await db.thread.findMany({
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
+            author: {
+              select: {
+                id: true,
+                name: true,
+                imageUrl: true,
+                rank: true,
+                role: true,
+                plan: true
+              }
+            },
+            _count: {
+              select: {
+                downvotes: true,
+                upvotes: true
+              }
+            },
+            createdAt: true
+          },
+
+          orderBy: {
+            createdAt: "desc"
+          },
+          take,
+          skip
+        });
+
         return NextResponse.json(threads);
       }
     } catch (err) {
-      console.log("[THREADS_GET_USER]", err);
+      console.log("[THREADS_GET_NOUSER]", err);
       return new NextResponse("Internal Error", { status: 500 });
     }
-  }
-
-  try {
-    if (tagId) {
-      const threadsWithTag: { threads: ThreadType[] } | null = await db.tag.findUnique({
-        where: { id: tagId },
-        select: {
-          threads: {
-            select: {
-              id: true,
-              title: true,
-              content: true,
-              tags: {
-                select: {
-                  id: true,
-                  name: true
-                }
-              },
-              author: {
-                select: {
-                  id: true,
-                  name: true,
-                  imageUrl: true,
-                  rank: true,
-                  role: true,
-                  plan: true
-                }
-              },
-              _count: {
-                select: {
-                  downvotes: true,
-                  upvotes: true
-                }
-              },
-              createdAt: true
-            },
-            orderBy: {
-              createdAt: "desc"
-            },
-            take,
-            skip
-          }
-        }
-      });
-
-      return NextResponse.json(threadsWithTag?.threads);
-    } else if (authorId) {
-      const threadsFromAuthor: ThreadType[] = await db.thread.findMany({
-        where: { authorId },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          tags: {
-            select: {
-              id: true,
-              name: true
-            }
-          },
-          author: {
-            select: {
-              id: true,
-              name: true,
-              imageUrl: true,
-              rank: true,
-              role: true,
-              plan: true
-            }
-          },
-          _count: {
-            select: {
-              downvotes: true,
-              upvotes: true
-            }
-          },
-          createdAt: true
-        },
-        orderBy: {
-          createdAt: "desc"
-        },
-        take,
-        skip
-      });
-
-      return NextResponse.json(threadsFromAuthor);
-    } else {
-      const threads: ThreadType[] = await db.thread.findMany({
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          tags: {
-            select: {
-              id: true,
-              name: true
-            }
-          },
-          author: {
-            select: {
-              id: true,
-              name: true,
-              imageUrl: true,
-              rank: true,
-              role: true,
-              plan: true
-            }
-          },
-          _count: {
-            select: {
-              downvotes: true,
-              upvotes: true
-            }
-          },
-          createdAt: true
-        },
-
-        orderBy: {
-          createdAt: "desc"
-        },
-        take,
-        skip
-      });
-
-      return NextResponse.json(threads);
-    }
-  } catch (err) {
-    console.log("[THREADS_GET]", err);
-    return new NextResponse("Internal Error", { status: 500 });
   }
 }
 
