@@ -24,8 +24,7 @@ model User {
   threads       Thread[]
   threadReplies ThreadReply[]
 
-  upvotes   ThreadUpvote[]
-  downvotes ThreadDownVote[]
+  votes Vote[]
 
   active        Boolean         @default(false)
   activateToken ActivateToken[]
@@ -88,10 +87,9 @@ model Thread {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  tags      Tag[]
-  replies   ThreadReply[]
-  upvotes   ThreadUpvote[]
-  downvotes ThreadDownVote[]
+  tags    Tag[]
+  replies ThreadReply[]
+  votes   Vote[]
 
   editedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -110,54 +108,11 @@ model Tag {
   updatedAt DateTime @updatedAt
 }
 
-model ThreadUpvote {
-  id String @id @default(uuid())
-
-  threadId String
-  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-
-  threadReplyId String?
-  threadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([threadId, authorId])
-  @@index([authorId])
-  @@index([threadId])
-  @@index([threadReplyId])
-}
-
-model ThreadDownVote {
-  id String @id @default(uuid())
-
-  threadId String
-  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-
-  threadReplyId String?
-  threadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([threadId, authorId])
-  @@index([authorId])
-  @@index([threadId])
-  @@index([threadReplyId])
-}
-
 model ThreadReply {
   id      String @id @default(uuid())
   content String
 
-  upvotes   ThreadUpvote[]
-  downvotes ThreadDownVote[]
+  votes Vote[]
 
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -171,4 +126,31 @@ model ThreadReply {
 
   @@index([threadId])
   @@index([authorId])
+}
+
+model Vote {
+  id String @id @default(uuid())
+
+  type VoteType
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  threadReplyId String
+  threadReply   ThreadReply @relation(fields: [threadReplyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([threadId])
+  @@index([threadReplyId])
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
 }

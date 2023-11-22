@@ -12,15 +12,17 @@ import { Content } from "@/components/content";
 import { VotesRatio } from "@/components/votes-ratio";
 import { ReplyActions } from "@/components/threads/replies/reply-actions";
 import { CurrentUserType } from "@/types/users";
+import { ReplyVoteBox } from "@/components/threads/replies/vote-box";
 
 interface ThreadReplyProps {
   threadId: string;
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
   currentUser: CurrentUserType | null;
   replyNum: number;
+  signedIn: boolean;
 }
 
-export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser, replyNum }) => {
+export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser, replyNum, signedIn }) => {
   const canEdit = currentUser?.id === reply.author.id;
 
   let voteStats: ThreadVoteStats = {
@@ -98,10 +100,9 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser
         </div>
       </div>
       <Separator orientation="horizontal" />
-      {/* <div className="grid grid-flow-col">
-        <VoteBox thread={thread} signedIn={signedIn} />
-        <div className="ml-auto grid grid-flow-col gap-2">{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
-      </div> */}
+      <div className="grid grid-flow-col">
+        <ReplyVoteBox reply={reply} signedIn={signedIn} />
+      </div>
     </div>
   );
 };

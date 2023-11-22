@@ -6,17 +6,17 @@ import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC, useState } from "react";
 
-interface ThreadVoteBoxProps {
-  thread: any;
+interface ReplyVoteBoxProps {
+  reply: any;
   signedIn: boolean;
 }
 
-export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
-  const [upvoteCount, setUpvoteCount] = useState(thread._count.upvotes);
-  const [downvoteCount, setDownvoteCount] = useState(thread._count.downvotes);
+export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
+  const [upvoteCount, setUpvoteCount] = useState(reply._count.upvotes);
+  const [downvoteCount, setDownvoteCount] = useState(reply._count.downvotes);
 
-  const [hasUpvoted, setHasUpvoted] = useState(signedIn ? thread.upvotes.length > 0 : false);
-  const [hasDownvoted, setHasDownvoted] = useState(signedIn ? thread.downvotes.length > 0 : false);
+  const [hasUpvoted, setHasUpvoted] = useState(signedIn ? reply.upvotes.length > 0 : false);
+  const [hasDownvoted, setHasDownvoted] = useState(signedIn ? reply.downvotes.length > 0 : false);
   const modal = useModal();
 
   const handleLikePost = async () => {
@@ -26,13 +26,13 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
     }
 
     if (hasUpvoted) {
-      await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
+      await axios.delete(`/api/threads/replies/votes?t=${reply.id}&ty=${"u"}`);
       setHasUpvoted(false);
       setUpvoteCount(upvoteCount - 1);
       return;
     }
 
-    await axios.post("/api/threads/votes", { threadId: thread.id, type: "u" });
+    await axios.post("/api/threads/replies/votes", { replyId: reply.id, type: "u" });
 
     if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
 
@@ -48,13 +48,13 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
     }
 
     if (hasDownvoted) {
-      await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${"d"}`);
+      await axios.delete(`/api/threads/replies/votes?t=${reply.id}&ty=${"d"}`);
       setHasDownvoted(false);
       setDownvoteCount(downvoteCount - 1);
       return;
     }
 
-    await axios.post("/api/threads/votes", { threadId: thread.id, type: "d" });
+    await axios.post("/api/threads/replies/votes", { replyId: reply.id, type: "d" });
 
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
 

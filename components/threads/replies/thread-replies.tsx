@@ -18,6 +18,8 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
   const [isLoading, setIsLoading] = useState(true);
   const context = useContext(Context);
 
+  const signedIn = !!context.value.currentUser?.id;
+
   // useEffect(() => {
   //   if (context.value.deletedThread.id !== null) {
   //     const updatedThreads = threads.filter(thread => thread.id !== context.value.deletedThread.id);
@@ -68,7 +70,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
     <div className="grid grid-flow-row gap-2 w-full">
       {replies.length > 0 &&
         replies.map((reply, index) => (
-          <ThreadReply threadId={threadId} reply={reply} currentUser={context.value.currentUser} replyNum={sk + index + 1} key={`reply-${reply.id}`} />
+          <ThreadReply threadId={threadId} reply={reply} currentUser={context.value.currentUser} replyNum={sk + index + 1} signedIn={signedIn} key={`reply-${reply.id}`} />
         ))}
     </div>
   );

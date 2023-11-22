@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Tag } from "@/components/threads/tag";
 import { Content } from "@/components/content";
 import { ThreadActions } from "@/components/threads/thread-actions";
-import { VoteBox } from "@/components/threads/vote-box";
+import { ThreadVoteBox } from "@/components/threads/vote-box";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { UserPlan } from "@prisma/client";
 import { rankMap, roleIconMapColored } from "@/components/users/styles";
@@ -52,7 +52,7 @@ const Thread: FC<ThreadProps> = ({ thread, signedIn, currentUser }) => {
       </Link>
       <Content text={thread?.content} />
       <div className="mt-1">
-        <VoteBox thread={thread} signedIn={signedIn} />
+        <ThreadVoteBox thread={thread} signedIn={signedIn} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { Component, Crown } from "lucide-react";
 import { Separator } from "@/components/separator";
 import { ThreadActions } from "@/components/threads/thread-actions";
 import { Content } from "@/components/content";
-import { VoteBox } from "@/components/threads/vote-box";
+import { ThreadVoteBox } from "@/components/threads/vote-box";
 import { Tag } from "@/components/threads/tag";
 
 interface ThreadExpandedProps {
@@ -89,7 +89,7 @@ export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, voteStats, can
       </div>
       <Separator orientation="horizontal" />
       <div className="grid grid-flow-col">
-        <VoteBox thread={thread} signedIn={signedIn} />
+        <ThreadVoteBox thread={thread} signedIn={signedIn} />
         <div className="ml-auto grid grid-flow-col gap-2">{thread.tags && thread.tags.map(tag => <Tag id={tag.id} name={tag.name} key={tag.id} />)}</div>
       </div>
     </div>
