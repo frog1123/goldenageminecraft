@@ -19,8 +19,10 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
 
   // TODO add
 
-  const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn && (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.UPVOTE);
-  const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn && (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.DOWNVOTE);
+  console.log(signedIn, thread);
+
+  const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.UPVOTE : false);
+  const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.DOWNVOTE : false);
   const modal = useModal();
 
   const handleLikePost = async () => {
