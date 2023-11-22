@@ -19,7 +19,7 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
 
   // TODO add
 
-  console.log(signedIn, thread);
+  console.log("votebox", thread);
 
   const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.UPVOTE : false);
   const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.DOWNVOTE : false);
@@ -31,11 +31,13 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       return;
     }
     if (hasUpvoted) {
+      // vote modify
       await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
       setHasUpvoted(false);
       setUpvoteCount(upvoteCount - 1);
       return;
     }
+    // vote create
     await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
     if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
     setHasUpvoted(true);
@@ -49,11 +51,13 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       return;
     }
     if (hasDownvoted) {
-      await axios.delete(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+      // vote modify
+      await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
       setHasDownvoted(false);
       setDownvoteCount(downvoteCount - 1);
       return;
     }
+    // vote modify
     await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
     setHasUpvoted(false);
@@ -67,7 +71,7 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
         onClick={handleLikePost}
         className={cn(
           "w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center",
-          false ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border" // change to hasUpvoted ?
+          hasUpvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border"
         )}
       >
         <span>{upvoteCount}</span>
@@ -77,7 +81,7 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
         onClick={handleDislikePost}
         className={cn(
           "w-max border-[1px] rounded-md px-1 font-semibold grid grid-flow-col gap-1 place-items-center",
-          false ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border" // change to hasDownvoted ?
+          hasDownvoted ? "bg-blue-500/30 border-blue-500/60" : "bg-white-500/40 border-zinc-400 dark:border-border"
         )}
       >
         <span>{downvoteCount}</span>
