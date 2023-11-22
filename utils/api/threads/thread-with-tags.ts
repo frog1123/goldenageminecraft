@@ -5,7 +5,7 @@ interface Params {
   take: number;
   skip: number;
   tagId: string;
-  userId: string;
+  userId?: string;
 }
 
 export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {

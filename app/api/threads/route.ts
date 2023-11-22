@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     try {
       if (tagId) {
         return NextResponse.json(
-          threadsWithTag({
+          await threadsWithTag({
             take,
             skip,
             tagId,
@@ -38,7 +38,7 @@ export async function GET(req: Request) {
         );
       } else if (authorId) {
         return NextResponse.json(
-          threadsFromAuthor({
+          await threadsFromAuthor({
             take,
             skip,
             userId,
@@ -47,7 +47,7 @@ export async function GET(req: Request) {
         );
       } else {
         return NextResponse.json(
-          threads({
+          await threads({
             take,
             skip,
             userId
@@ -61,126 +61,28 @@ export async function GET(req: Request) {
   } else {
     try {
       if (tagId) {
-        const threadsWithTag: { threads: ThreadType[] } | null = await db.tag.findUnique({
-          where: { id: tagId },
-          select: {
-            threads: {
-              select: {
-                id: true,
-                title: true,
-                content: true,
-                tags: {
-                  select: {
-                    id: true,
-                    name: true
-                  }
-                },
-                author: {
-                  select: {
-                    id: true,
-                    name: true,
-                    imageUrl: true,
-                    rank: true,
-                    role: true,
-                    plan: true
-                  }
-                },
-                _count: {
-                  select: {
-                    downvotes: true,
-                    upvotes: true
-                  }
-                },
-                createdAt: true
-              },
-              orderBy: {
-                createdAt: "desc"
-              },
-              take,
-              skip
-            }
-          }
-        });
-
-        return NextResponse.json(threadsWithTag?.threads);
+        return NextResponse.json(
+          await threadsWithTag({
+            take,
+            skip,
+            tagId
+          })
+        );
       } else if (authorId) {
-        const threadsFromAuthor: ThreadType[] = await db.thread.findMany({
-          where: { authorId },
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            tags: {
-              select: {
-                id: true,
-                name: true
-              }
-            },
-            author: {
-              select: {
-                id: true,
-                name: true,
-                imageUrl: true,
-                rank: true,
-                role: true,
-                plan: true
-              }
-            },
-            _count: {
-              select: {
-                downvotes: true,
-                upvotes: true
-              }
-            },
-            createdAt: true
-          },
-          orderBy: {
-            createdAt: "desc"
-          },
-          take,
-          skip
-        });
-
-        return NextResponse.json(threadsFromAuthor);
+        return NextResponse.json(
+          await threadsFromAuthor({
+            take,
+            skip,
+            authorId
+          })
+        );
       } else {
-        const threads: ThreadType[] = await db.thread.findMany({
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            tags: {
-              select: {
-                id: true,
-                name: true
-              }
-            },
-            author: {
-              select: {
-                id: true,
-                name: true,
-                imageUrl: true,
-                rank: true,
-                role: true,
-                plan: true
-              }
-            },
-            _count: {
-              select: {
-                downvotes: true,
-                upvotes: true
-              }
-            },
-            createdAt: true
-          },
-
-          orderBy: {
-            createdAt: "desc"
-          },
-          take,
-          skip
-        });
-
-        return NextResponse.json(threads);
+        return NextResponse.json(
+          await threads({
+            take,
+            skip
+          })
+        );
       }
     } catch (err) {
       console.log("[THREADS_GET_NOUSER]", err);

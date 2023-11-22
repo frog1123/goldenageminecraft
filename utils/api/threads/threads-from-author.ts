@@ -4,7 +4,7 @@ import { ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
 interface Params {
   take: number;
   skip: number;
-  userId: string;
+  userId?: string;
   authorId: string;
 }
 
