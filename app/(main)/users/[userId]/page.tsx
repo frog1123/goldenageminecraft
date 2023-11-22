@@ -13,7 +13,7 @@ interface UserIdPageProps {
 }
 
 const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
-  const user: UserProfileData | null = await db.user.findUnique({
+  const user: Omit<UserProfileData, "votes"> | null = await db.user.findUnique({
     where: {
       id: params.userId
     },
@@ -33,29 +33,28 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
           threads: true
         }
       },
-      threads: {
-        select: {
-          _count: {
-            select: {
-              upvotes: true,
-              downvotes: true
-            }
-          }
-        }
-      },
       createdAt: true
     }
   });
 
-  let voteStats: ThreadVoteStats = {
-    receivedUpvotes: 0,
-    receivedDownvotes: 0
-  };
-
-  user?.threads.forEach(thread => {
-    voteStats.receivedUpvotes += thread._count.upvotes;
-    voteStats.receivedDownvotes += thread._count.downvotes;
+  const upvotesCount = await db.vote.count({
+    where: {
+      authorId: params.userId,
+      type: "UPVOTE"
+    }
   });
+
+  const downvotesCount = await db.vote.count({
+    where: {
+      authorId: params.userId,
+      type: "DOWNVOTE"
+    }
+  });
+
+  const voteStats: ThreadVoteStats = {
+    receivedUpvotes: upvotesCount,
+    receivedDownvotes: downvotesCount
+  };
 
   if (!user || !user.active)
     return (

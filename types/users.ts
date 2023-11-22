@@ -28,11 +28,5 @@ export type UserProfileData = {
     threads: number;
   };
   imageUrl: string | null;
-  threads: {
-    _count: {
-      upvotes: number;
-      downvotes: number;
-    };
-  }[];
   createdAt: Date;
 };
