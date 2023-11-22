@@ -17,7 +17,8 @@ import { Eye, EyeOff, MailWarning } from "lucide-react";
 const formSchema = z.object({
   name: z.string(),
   email: z.string(),
-  password: z.string()
+  password: z.string(),
+  retypePassword: z.string()
 });
 
 export const SignUpForm: FC = () => {
@@ -28,6 +29,8 @@ export const SignUpForm: FC = () => {
   const [error, setError] = useState("");
   const [phase, setPhase] = useState("register");
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [retypedPassword, setRetypedPassword] = useState("");
 
   const [formValid, setFormValid] = useState({ name: false, email: false, password: false });
 
@@ -36,13 +39,19 @@ export const SignUpForm: FC = () => {
     defaultValues: {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      retypePassword: ""
     }
   });
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (password !== retypedPassword) {
+      setError("Passwords need to be the same");
+      return;
+    }
+
     try {
       const res = await axios.post("/api/users", values);
 
@@ -161,12 +170,14 @@ export const SignUpForm: FC = () => {
                           {...field}
                           onChange={e => {
                             const value = e.target.value;
-
+                            setPassword(value);
                             setError("");
 
                             if (value.length === 0) {
+                              setPasswordMessage("Password is required");
                               setFormValid({ ...formValid, password: false });
                             } else {
+                              setPasswordMessage("");
                               setFormValid({ ...formValid, password: true });
                             }
 
@@ -185,6 +196,51 @@ export const SignUpForm: FC = () => {
                       </button>
                     </div>
                     <FormMessage>{passwordMessage}</FormMessage>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="retypePassword"
+                render={({ field }) => (
+                  <FormItem className="grid grid-flow-row">
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-white">Retype Password</FormLabel>
+                    <div className="grid grid-cols-[auto_max-content] rounded-md overflow-hidden">
+                      <FormControl>
+                        {/* Toggle password as dots */}
+                        <input
+                          type={showPassword ? "password" : "text"}
+                          disabled={isLoading}
+                          className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                          placeholder="Enter password"
+                          {...field}
+                          onChange={e => {
+                            const value = e.target.value;
+                            setRetypedPassword(value);
+                            setError("");
+
+                            if (value.length === 0) {
+                              setPasswordMessage("Password is required");
+                              setFormValid({ ...formValid, password: false });
+                            } else {
+                              setPasswordMessage("");
+                              setFormValid({ ...formValid, password: true });
+                            }
+
+                            field.onChange(e);
+                          }}
+                        />
+                      </FormControl>
+                      <button
+                        className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 px-3"
+                        onClick={e => {
+                          e.preventDefault();
+                          setShowPassword(!showPassword);
+                        }}
+                      >
+                        <div>{showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
+                      </button>
+                    </div>
                   </FormItem>
                 )}
               />

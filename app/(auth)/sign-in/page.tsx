@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 
 const SignInPage: NextPage = async () => {
   return (
-    <div className="w-full sm:w-[400px] mx-auto mt-20">
+    <div className="w-full sm:w-[400px] mx-auto">
       <SignInForm />
     </div>
   );

@@ -3,7 +3,7 @@ import { NextPage } from "next";
 
 const SignUpPage: NextPage = () => {
   return (
-    <div className="w-full sm:w-[400px] mx-auto mt-20">
+    <div className="w-full sm:w-[400px] mx-auto">
       <SignUpForm />
     </div>
   );
