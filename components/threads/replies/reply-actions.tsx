@@ -40,7 +40,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ reply, canEdit }) => {
         {canEdit && (
           <>
             <DropdownMenuItem>
-              <Link href={`/forums/threads/${reply.id}/edit`} className="w-full">
+              <Link href={`/forums/replies/${reply.id}/edit`} className="w-full">
                 <div className="flex place-items-center w-full gap-2">
                   <span>Edit reply</span>
                   <Edit className="w-4 h-4 ml-auto" />
