@@ -49,9 +49,7 @@ const ThreadIdEditPage: NextPage<ThreadIdEditPageProps> = async ({ params }) => 
 
   return (
     <div>
-      <div>
-        <EditThreadForm thread={formattedThread} />
-      </div>
+      <EditThreadForm thread={formattedThread} />
     </div>
   );
 };
