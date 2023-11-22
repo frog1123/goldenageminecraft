@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     if (!currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
-    if (!threadId) return new NextResponse("Bad request", { status: 400 });
+    if (!threadId || threadId === undefined) return new NextResponse("Thread not found", { status: 400 });
     if (!voteType) return new NextResponse("Vote type required", { status: 400 });
 
     const existingVote = await db.vote.findUnique({

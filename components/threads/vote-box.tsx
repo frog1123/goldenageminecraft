@@ -36,7 +36,7 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       setUpvoteCount(upvoteCount - 1);
       return;
     }
-    await axios.post(`/api/threads/votes?t=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+    await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
     if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
     setHasUpvoted(true);
     setHasDownvoted(false);
@@ -54,7 +54,7 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       setDownvoteCount(downvoteCount - 1);
       return;
     }
-    await axios.post(`/api/threads/votes?t=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+    await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
     setHasUpvoted(false);
     setHasDownvoted(true);

@@ -64,6 +64,8 @@ export const threads = async ({ take, skip, userId }: Params): Promise<ThreadTyp
           }
         });
 
+        console.log(upvotesCount, downvotesCount, signedInVote);
+
         return {
           ...thread,
           count: {
