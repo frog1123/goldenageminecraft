@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { logo } from "@/lib/logo";
 import Image from "next/image";
+import { Eye, EyeOff } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string(),
@@ -22,6 +23,7 @@ export const SignInForm: FC = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formValid, setFormValid] = useState({ email: false, password: false });
 
@@ -99,25 +101,58 @@ export const SignInForm: FC = () => {
                 <FormItem className="grid grid-flow-row">
                   <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-white">Password</FormLabel>
                   <FormControl>
-                    <input
-                      disabled={isLoading}
-                      className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none"
-                      placeholder="Enter password"
-                      {...field}
-                      onChange={e => {
-                        const value = e.target.value;
+                    <div className="grid grid-cols-[auto_max-content] rounded-md overflow-hidden">
+                      <FormControl>
+                        {showPassword ? (
+                          // Show password as plain text
+                          <input
+                            type="text"
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                            placeholder="Enter password"
+                            {...field}
+                            onChange={e => {
+                              const value = e.target.value;
 
-                        setError("");
+                              setError("");
 
-                        if (value.length === 0) {
-                          setFormValid({ ...formValid, password: false });
-                        } else {
-                          setFormValid({ ...formValid, password: true });
-                        }
+                              if (value.length === 0) {
+                                setFormValid({ ...formValid, password: false });
+                              } else {
+                                setFormValid({ ...formValid, password: true });
+                              }
 
-                        field.onChange(e);
-                      }}
-                    />
+                              field.onChange(e);
+                            }}
+                          />
+                        ) : (
+                          // Show password as dots
+                          <input
+                            type="password"
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                            placeholder="Enter password"
+                            {...field}
+                            onChange={e => {
+                              const value = e.target.value;
+
+                              setError("");
+
+                              if (value.length === 0) {
+                                setFormValid({ ...formValid, password: false });
+                              } else {
+                                setFormValid({ ...formValid, password: true });
+                              }
+
+                              field.onChange(e);
+                            }}
+                          />
+                        )}
+                      </FormControl>
+                      <button className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 p-2" onClick={() => setShowPassword(!showPassword)}>
+                        <div>{showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</div>
+                      </button>
+                    </div>
                   </FormControl>
                 </FormItem>
               )}

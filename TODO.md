@@ -1,5 +1,4 @@
 TODO
 
-- add thread actions
-- try million
+- add thread reply actions (delete, vote)
 - add image attachmentd

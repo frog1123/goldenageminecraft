@@ -52,7 +52,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
             <DropdownMenuItem>
               <button onClick={() => {}}>
                 <div className="flex place-items-center w-full gap-2 text-red-500">
-                  <span>Delete reply</span>
+                  <span>Delete reply (wip)</span>
                   <Trash2 className="w-4 h-4 ml-auto" />
                 </div>
               </button>

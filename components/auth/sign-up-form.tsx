@@ -12,7 +12,7 @@ import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/lib/logo";
-import { MailWarning } from "lucide-react";
+import { Eye, EyeOff, MailWarning } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string(),
@@ -21,12 +21,13 @@ const formSchema = z.object({
 });
 
 export const SignUpForm: FC = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [nameMessage, setNameMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [error, setError] = useState("");
   const [phase, setPhase] = useState("register");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formValid, setFormValid] = useState({ name: false, email: false, password: false });
 
@@ -149,29 +150,58 @@ export const SignUpForm: FC = () => {
                 render={({ field }) => (
                   <FormItem className="grid grid-flow-row">
                     <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-white">Password</FormLabel>
-                    <FormControl>
-                      <input
-                        disabled={isLoading}
-                        className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 rounded-md resize-none"
-                        placeholder="Enter password"
-                        {...field}
-                        onChange={e => {
-                          const value = e.target.value;
+                    <div className="grid grid-cols-[auto_max-content] rounded-md overflow-hidden">
+                      <FormControl>
+                        {showPassword ? (
+                          // Show password as plain text
+                          <input
+                            type="text"
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                            placeholder="Enter password"
+                            {...field}
+                            onChange={e => {
+                              const value = e.target.value;
 
-                          setError("");
+                              setError("");
 
-                          if (value.length === 0) {
-                            setPasswordMessage("Password is required");
-                            setFormValid({ ...formValid, password: false });
-                          } else {
-                            setPasswordMessage("");
-                            setFormValid({ ...formValid, password: true });
-                          }
+                              if (value.length === 0) {
+                                setFormValid({ ...formValid, password: false });
+                              } else {
+                                setFormValid({ ...formValid, password: true });
+                              }
 
-                          field.onChange(e);
-                        }}
-                      />
-                    </FormControl>
+                              field.onChange(e);
+                            }}
+                          />
+                        ) : (
+                          // Show password as dots
+                          <input
+                            type="password"
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
+                            placeholder="Enter password"
+                            {...field}
+                            onChange={e => {
+                              const value = e.target.value;
+
+                              setError("");
+
+                              if (value.length === 0) {
+                                setFormValid({ ...formValid, password: false });
+                              } else {
+                                setFormValid({ ...formValid, password: true });
+                              }
+
+                              field.onChange(e);
+                            }}
+                          />
+                        )}
+                      </FormControl>
+                      <button className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 p-2" onClick={() => setShowPassword(!showPassword)}>
+                        <div>{showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</div>
+                      </button>
+                    </div>
                     <FormMessage>{passwordMessage}</FormMessage>
                   </FormItem>
                 )}
