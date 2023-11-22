@@ -185,7 +185,7 @@ export async function PATCH(req: Request) {
 
     const threadReply = await db.threadReply.update({
       where: {
-        id: id
+        id
       },
       data: {
         content,

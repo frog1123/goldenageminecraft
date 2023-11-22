@@ -80,7 +80,7 @@ export const ThreadExpanded: FC<ThreadExpandedProps> = ({ thread, voteStats, can
                 <Component className="w-4 h-4" />
                 <span className="text-xs font-bold">OP</span>
               </div>
-              <ThreadActions thread={thread} canEdit={canEdit} noView />
+              <ThreadActions thread={thread} canEdit={canEdit} noView redirectToHomeOnDelete />
             </div>
           </div>
           <p className="font-semibold text-lg">{thread.title}</p>

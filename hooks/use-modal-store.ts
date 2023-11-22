@@ -4,7 +4,7 @@ export type ModalType = "share-thread" | "sign-out-conf" | "sign-in-req" | "dele
 
 interface ModalData {
   shareThread?: { threadId: string };
-  deleteThreadConf?: { threadId: string };
+  deleteThreadConf?: { threadId: string; redirectToHome: boolean };
 }
 
 interface ModalStore {

@@ -6,18 +6,21 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Context } from "@/context";
+import { useRouter } from "next/navigation";
 
 export const DeleteThreadConfModal: FC = () => {
   const modal = useModal();
-
   const isModalOpen = modal.isOpen && modal.type === "delete-thread-conf";
-
   const context = useContext(Context);
+
+  const router = useRouter();
 
   const handleDeleteThread = async () => {
     if (!modal.data.deleteThreadConf?.threadId) return;
 
     await axios.delete(`/api/threads/?id=${modal.data.deleteThreadConf.threadId}`);
+
+    if (modal.data.deleteThreadConf.redirectToHome) router.push("/forums");
 
     context.setValue({ ...context.value, deletedThread: { id: modal.data.deleteThreadConf.threadId } });
 

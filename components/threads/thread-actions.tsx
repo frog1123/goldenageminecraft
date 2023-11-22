@@ -8,12 +8,13 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Separator } from "@/components/ui/separator";
 
 interface ThreadActionsProps {
+  redirectToHomeOnDelete?: boolean;
   noView?: boolean;
   canEdit: boolean;
   thread: any;
 }
 
-export const ThreadActions: FC<ThreadActionsProps> = ({ noView, canEdit, thread }) => {
+export const ThreadActions: FC<ThreadActionsProps> = ({ redirectToHomeOnDelete, noView, canEdit, thread }) => {
   const modal = useModal();
 
   return (
@@ -52,7 +53,11 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ noView, canEdit, thread 
             </DropdownMenuItem>
             <Separator className="my-1" />
             <DropdownMenuItem>
-              <button onClick={() => modal.onOpen("delete-thread-conf", { deleteThreadConf: { threadId: thread.id } })}>
+              <button
+                onClick={() =>
+                  modal.onOpen("delete-thread-conf", { deleteThreadConf: { threadId: thread.id, redirectToHome: redirectToHomeOnDelete ? redirectToHomeOnDelete : false } })
+                }
+              >
                 <div className="flex place-items-center w-full gap-2 text-red-500">
                   <span>Delete thread</span>
                   <Trash2 className="w-4 h-4 ml-auto" />
