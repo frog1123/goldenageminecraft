@@ -34,6 +34,14 @@ export async function POST(req: Request) {
           type: "UPVOTE"
         }
       });
+    } else if (voteType === "d") {
+      await db.vote.create({
+        data: {
+          threadId,
+          authorId: currentUser.id,
+          type: "DOWNVOTE"
+        }
+      });
     }
 
     return new NextResponse("Success", { status: 200 });
