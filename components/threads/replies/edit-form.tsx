@@ -11,8 +11,6 @@ import { useRouter } from "next/navigation";
 import TextareaAutosize from "react-textarea-autosize";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Image from "next/image";
-import { containsSpecialCharacters } from "@/utils/contains-special-characters";
-import { hasDuplicates } from "@/utils/has-duplicates";
 
 const formSchema = z.object({
   id: z.string(),
@@ -25,9 +23,10 @@ interface EditReplyFormProps {
     authorId: string; // not here but for checking if user is author of thread
     content: string;
   };
+  threadId: string;
 }
 
-export const EditReplyForm: FC<EditReplyFormProps> = ({ reply }) => {
+export const EditReplyForm: FC<EditReplyFormProps> = ({ reply, threadId }) => {
   const router = useRouter();
   const [contentMessage, setContentMessage] = useState("");
 
@@ -46,7 +45,7 @@ export const EditReplyForm: FC<EditReplyFormProps> = ({ reply }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch("/api/threads/replies", values);
-      router.push(`/forums/replies/${response.data}`);
+      router.push(`/forums/threads/${threadId}/replies/${reply.id}`);
     } catch (err) {
       console.log(err);
     }

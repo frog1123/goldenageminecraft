@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 interface ReplyIdEditPageProps {
   params: {
+    threadId: string;
     replyId: string;
   };
 }
@@ -29,7 +30,7 @@ const ReplyIdEditPage: NextPage<ReplyIdEditPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <EditReplyForm reply={reply} />
+      <EditReplyForm reply={reply} threadId={params.threadId} />
     </div>
   );
 };
