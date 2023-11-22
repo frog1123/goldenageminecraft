@@ -176,15 +176,16 @@ export async function PATCH(req: Request) {
     const currentUser = await getServerCurrentUser();
     if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { replyId, content } = await req.json();
+    const { id, content } = await req.json();
+    // id is replyId
 
-    if (!replyId) return new NextResponse("Bad request", { status: 400 });
+    if (!id) return new NextResponse("Bad request", { status: 400 });
     if (content.length === 0) return new NextResponse("Content is required", { status: 400 });
     if (content.length >= 1000) return new NextResponse("Content too long", { status: 400 });
 
     const threadReply = await db.threadReply.update({
       where: {
-        id: replyId
+        id: id
       },
       data: {
         content
