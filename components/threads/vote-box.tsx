@@ -2,14 +2,14 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
-import { ThreadExpandedUnsignedType, ThreadType, ThreadTypeSignedIn } from "@/types/threads";
+import { ThreadExpandedSignedType, ThreadExpandedUnsignedType, ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { VoteType } from "@prisma/client";
 import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC, useState } from "react";
 
 interface ThreadVoteBoxProps {
-  thread: ThreadType | ThreadTypeSignedIn | ThreadExpandedUnsignedType | ThreadTypeSignedIn;
+  thread: ThreadType | ThreadTypeSignedIn | ThreadExpandedUnsignedType | ThreadExpandedSignedType;
   signedIn: boolean;
 }
 
@@ -26,39 +26,39 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
   const modal = useModal();
 
   const handleLikePost = async () => {
-    // if (!signedIn) {
-    //   modal.onOpen("sign-in-req");
-    //   return;
-    // }
-    // if (hasUpvoted) {
-    //   await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
-    //   setHasUpvoted(false);
-    //   setUpvoteCount(upvoteCount - 1);
-    //   return;
-    // }
-    // await axios.post("/api/threads/votes", { threadId: thread.id, type: "u" });
-    // if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
-    // setHasUpvoted(true);
-    // setHasDownvoted(false);
-    // setUpvoteCount(upvoteCount + 1);
+    if (!signedIn) {
+      modal.onOpen("sign-in-req");
+      return;
+    }
+    if (hasUpvoted) {
+      await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+      setHasUpvoted(false);
+      setUpvoteCount(upvoteCount - 1);
+      return;
+    }
+    await axios.post(`/api/threads/votes?t=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+    if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
+    setHasUpvoted(true);
+    setHasDownvoted(false);
+    setUpvoteCount(upvoteCount + 1);
   };
 
   const handleDislikePost = async () => {
-    // if (!signedIn) {
-    //   modal.onOpen("sign-in-req");
-    //   return;
-    // }
-    // if (hasDownvoted) {
-    //   await axios.delete(`/api/threads/votes?t=${thread.id}&ty=${"d"}`);
-    //   setHasDownvoted(false);
-    //   setDownvoteCount(downvoteCount - 1);
-    //   return;
-    // }
-    // await axios.post("/api/threads/votes", { threadId: thread.id, type: "d" });
-    // if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
-    // setHasUpvoted(false);
-    // setHasDownvoted(true);
-    // setDownvoteCount(downvoteCount + 1);
+    if (!signedIn) {
+      modal.onOpen("sign-in-req");
+      return;
+    }
+    if (hasDownvoted) {
+      await axios.delete(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+      setHasDownvoted(false);
+      setDownvoteCount(downvoteCount - 1);
+      return;
+    }
+    await axios.post(`/api/threads/votes?t=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
+    if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
+    setHasUpvoted(false);
+    setHasDownvoted(true);
+    setDownvoteCount(downvoteCount + 1);
   };
 
   return (

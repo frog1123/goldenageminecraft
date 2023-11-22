@@ -136,16 +136,17 @@ model Vote {
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  threadId String
-  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  threadId String?
+  thread   Thread? @relation(fields: [threadId], references: [id], onDelete: Cascade)
 
-  threadReplyId String
-  threadReply   ThreadReply @relation(fields: [threadReplyId], references: [id], onDelete: Cascade)
+  threadReplyId String?
+  threadReply   ThreadReply? @relation(fields: [threadReplyId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([threadId, authorId])
+  @@unique([authorId, threadId])
+  @@unique([authorId, threadReplyId])
   @@index([authorId])
   @@index([threadId])
   @@index([threadReplyId])

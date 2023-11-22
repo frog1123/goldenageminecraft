@@ -18,7 +18,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   const signedIn = !!currentUser;
 
   // no count yet
-  const thread: Omit<ThreadExpandedSignedType, "count"> | Omit<ThreadExpandedUnsignedType, "count"> | null = await db.thread.findUnique({
+  const thread: Omit<Omit<ThreadExpandedSignedType, "count">, "id"> | Omit<Omit<ThreadExpandedUnsignedType, "count">, "id"> | null = await db.thread.findUnique({
     where: {
       id: params.threadId
     },
@@ -109,7 +109,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   const signedInVote = thread?.author.id
     ? await db.vote.findUnique({
         where: {
-          threadId_authorId: {
+          authorId_threadId: {
             threadId: params.threadId,
             authorId: thread?.author.id
           }
@@ -129,6 +129,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
 
   const formattedThread: ThreadExpandedSignedType | ThreadExpandedUnsignedType = {
     ...thread,
+    id: params.threadId,
     count: {
       upvotes: voteStats.receivedUpvotes,
       downvotes: voteStats.receivedDownvotes

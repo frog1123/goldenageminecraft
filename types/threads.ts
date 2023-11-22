@@ -35,6 +35,7 @@ export interface ThreadVoteStats {
 }
 
 export type ThreadExpandedUnsignedType = {
+  id: string;
   title: string;
   content: string | null;
   author: {
