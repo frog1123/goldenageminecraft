@@ -69,7 +69,7 @@ export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {
 
           const signedInVote = await db.vote.findUnique({
             where: {
-              threadId_authorId: {
+              authorId_threadId: {
                 threadId: thread.id,
                 authorId: userId
               }

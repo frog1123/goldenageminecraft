@@ -163,7 +163,7 @@ export const SignUpForm: FC = () => {
                       <FormControl>
                         {/* Toggle password as dots */}
                         <input
-                          type={showPassword ? "password" : "text"}
+                          type={!showPassword ? "password" : "text"}
                           disabled={isLoading}
                           className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
                           placeholder="Enter password"
@@ -192,7 +192,7 @@ export const SignUpForm: FC = () => {
                           setShowPassword(!showPassword);
                         }}
                       >
-                        <div>{showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
+                        <div>{!showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
                       </button>
                     </div>
                     <FormMessage>{passwordMessage}</FormMessage>
@@ -209,7 +209,7 @@ export const SignUpForm: FC = () => {
                       <FormControl>
                         {/* Toggle password as dots */}
                         <input
-                          type={showPassword ? "password" : "text"}
+                          type={!showPassword ? "password" : "text"}
                           disabled={isLoading}
                           className="bg-zinc-300/50 dark:bg-neutral-800 border-0 focus-visible:ring-0 text-black dark:text-white outline-none p-2 resize-none"
                           placeholder="Enter password"
@@ -238,7 +238,7 @@ export const SignUpForm: FC = () => {
                           setShowPassword(!showPassword);
                         }}
                       >
-                        <div>{showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
+                        <div>{!showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
                       </button>
                     </div>
                   </FormItem>
