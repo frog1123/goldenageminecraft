@@ -199,7 +199,7 @@ export const SignUpForm: FC = () => {
                         )}
                       </FormControl>
                       <button className="cursor-pointer bg-cyan-500 hover:bg-cyan-600 p-2" onClick={() => setShowPassword(!showPassword)}>
-                        <div>{showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</div>
+                        <div>{showPassword ? <EyeOff className="text-white w-4 h-4" /> : <Eye className="text-white w-4 h-4" />}</div>
                       </button>
                     </div>
                     <FormMessage>{passwordMessage}</FormMessage>
