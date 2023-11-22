@@ -68,10 +68,10 @@ export async function generateMetadata({ params }: TagIdPageProps, parent: Resol
     };
 
   return {
-    title: `#${tag.name}`,
+    title: `#${tag.name} (${tag._count.threads} threads)`,
     description: `${tag._count.threads} threads have this tag`,
     openGraph: {
-      title: `#${tag.name}`,
+      title: `#${tag.name} (${tag._count.threads} threads)`,
       description: `${tag._count.threads} threads have this tag`
     }
   };

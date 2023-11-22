@@ -17,7 +17,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   const currentUser = await getServerCurrentUser();
   const signedIn = !!currentUser;
 
-  let thread: ThreadExpandedSignedType | ThreadExpandedUnsignedType | null;
+  let thread: any;
 
   if (signedIn) {
     thread = await db.thread.findUnique({
@@ -40,16 +40,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
                 threads: true
               }
             },
-            threads: {
-              select: {
-                _count: {
-                  select: {
-                    upvotes: true,
-                    downvotes: true
-                  }
-                }
-              }
-            },
             createdAt: true
           }
         },
@@ -57,22 +47,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           select: {
             id: true,
             name: true
-          }
-        },
-        upvotes: {
-          where: {
-            authorId: currentUser.id
-          }
-        },
-        downvotes: {
-          where: {
-            authorId: currentUser.id
-          }
-        },
-        _count: {
-          select: {
-            upvotes: true,
-            downvotes: true
           }
         }
       }
@@ -98,16 +72,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
                 threads: true
               }
             },
-            threads: {
-              select: {
-                _count: {
-                  select: {
-                    upvotes: true,
-                    downvotes: true
-                  }
-                }
-              }
-            },
             createdAt: true
           }
         },
@@ -115,12 +79,6 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
           select: {
             id: true,
             name: true
-          }
-        },
-        _count: {
-          select: {
-            upvotes: true,
-            downvotes: true
           }
         }
       }
@@ -138,10 +96,51 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     receivedDownvotes: 0
   };
 
-  thread?.author?.threads.forEach(thread => {
-    voteStats.receivedUpvotes += thread._count.upvotes;
-    voteStats.receivedDownvotes += thread._count.downvotes;
+  const authorUpvoteCount = await db.thread.findMany({
+    select: {
+      _count: {
+        select: {
+          votes: {
+            where: {
+              type: "UPVOTE"
+            }
+          }
+        }
+      }
+    }
   });
+
+  const authorDownvoteCount = await db.thread.findMany({
+    select: {
+      _count: {
+        select: {
+          votes: {
+            where: {
+              type: "UPVOTE"
+            }
+          }
+        }
+      }
+    }
+  });
+
+  console.log(authorUpvoteCount, authorDownvoteCount);
+
+  authorUpvoteCount.forEach(thread => {
+    voteStats.receivedUpvotes += thread._count.votes;
+  });
+
+  authorDownvoteCount.forEach(thread => {
+    voteStats.receivedDownvotes += thread._count.votes;
+  });
+
+  const formattedThread: ThreadExpandedSignedType | ThreadExpandedUnsignedType = {
+    ...thread,
+    count: {
+      upvotes: voteStats.receivedUpvotes,
+      downvotes: voteStats.receivedDownvotes
+    }
+  };
 
   const canEdit = thread?.author.id === currentUser?.id;
 
@@ -155,7 +154,7 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
   return (
     <div className="grid grid-flow-row gap-2">
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
-      <ThreadExpanded thread={thread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
+      <ThreadExpanded thread={formattedThread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={0} />
       <ReplyThreadForm threadId={params.threadId} />
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />

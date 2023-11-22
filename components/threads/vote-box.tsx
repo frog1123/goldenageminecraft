@@ -2,14 +2,14 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
-import { ThreadType, ThreadTypeSignedIn } from "@/types/threads";
+import { ThreadExpandedUnsignedType, ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { VoteType } from "@prisma/client";
 import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC, useState } from "react";
 
 interface ThreadVoteBoxProps {
-  thread: ThreadType | ThreadTypeSignedIn;
+  thread: ThreadType | ThreadTypeSignedIn | ThreadExpandedUnsignedType | ThreadTypeSignedIn;
   signedIn: boolean;
 }
 

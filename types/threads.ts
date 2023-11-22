@@ -49,19 +49,23 @@ export type ThreadExpandedUnsignedType = {
     _count: {
       threads: number;
     };
-    threads: {
-      _count: {
-        upvotes: number;
-        downvotes: number;
-      };
-    }[];
+    // threads: {
+    //   _count: {
+    //     upvotes: number;
+    //     downvotes: number;
+    //   };
+    // }[];
     createdAt: Date;
   };
   tags: {
     id: string;
     name: string;
   }[];
-  _count: {
+  // _count: {
+  //   upvotes: number;
+  //   downvotes: number;
+  // };
+  count: {
     upvotes: number;
     downvotes: number;
   };
@@ -70,8 +74,7 @@ export type ThreadExpandedUnsignedType = {
 };
 
 export type ThreadExpandedSignedType = ThreadExpandedUnsignedType & {
-  upvotes: any[];
-  downvotes: any[];
+  signedInVote?: Vote;
 };
 
 export type ThreadReplyUnsignedType = {
@@ -104,6 +107,5 @@ export type ThreadReplyUnsignedType = {
 };
 
 export type ThreadReplySignedType = ThreadReplyUnsignedType & {
-  upvotes: any[];
-  downvotes: any[];
+  signedInVote?: Vote;
 };
