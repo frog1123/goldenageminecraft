@@ -30,11 +30,13 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       modal.onOpen("sign-in-req");
       return;
     }
-    if (hasUpvoted) {
-      // vote modify
+    if (hasDownvoted) {
+      // vote modify u -> d
       await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
-      setHasUpvoted(false);
-      setUpvoteCount(upvoteCount - 1);
+      setHasUpvoted(true);
+      setHasDownvoted(false);
+      setDownvoteCount(downvoteCount - 1);
+      setUpvoteCount(upvoteCount + 1);
       return;
     }
     // vote create
@@ -50,15 +52,17 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
       modal.onOpen("sign-in-req");
       return;
     }
-    if (hasDownvoted) {
-      // vote modify
-      await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"u"}`);
-      setHasDownvoted(false);
-      setDownvoteCount(downvoteCount - 1);
+    if (hasUpvoted) {
+      // vote modify d -> u
+      await axios.patch(`/api/threads/votes?v=${(thread as ThreadTypeSignedIn).signedInVote?.id}&ty=${"d"}`);
+      setHasUpvoted(false);
+      setHasDownvoted(true);
+      setDownvoteCount(downvoteCount + 1);
+      setUpvoteCount(upvoteCount - 1);
       return;
     }
     // vote modify
-    await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"u"}`);
+    await axios.post(`/api/threads/votes?t=${thread.id}&ty=${"d"}`);
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
     setHasUpvoted(false);
     setHasDownvoted(true);
