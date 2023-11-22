@@ -14,12 +14,13 @@ import { ReplyActions } from "@/components/threads/replies/reply-actions";
 import { CurrentUserType } from "@/types/users";
 
 interface ThreadReplyProps {
+  threadId: string;
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
   currentUser: CurrentUserType | null;
   replyNum: number;
 }
 
-export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser, replyNum }) => {
+export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser, replyNum }) => {
   const canEdit = currentUser?.id === reply.author.id;
 
   let voteStats: ThreadVoteStats = {
@@ -90,7 +91,7 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ reply, currentUser, replyNum
                 <CornerDownRight className="w-4 h-4" />
                 <span className="text-xs font-bold">#{replyNum}</span>
               </div>
-              <ReplyActions reply={reply} canEdit={canEdit} />
+              <ReplyActions threadId={threadId} reply={reply} canEdit={canEdit} />
             </div>
           </div>
           <Content text={reply.content} />

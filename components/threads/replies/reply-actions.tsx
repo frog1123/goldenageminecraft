@@ -8,11 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
 
 interface ReplyActionsProps {
+  threadId: string;
   reply: ThreadReplySignedType | ThreadReplyUnsignedType;
   canEdit: boolean;
 }
 
-export const ReplyActions: FC<ReplyActionsProps> = ({ reply, canEdit }) => {
+export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }) => {
   const modal = useModal();
 
   return (
@@ -24,7 +25,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ reply, canEdit }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
         <DropdownMenuItem>
-          <Link href={`/forums/threads/${reply.id}`} className="w-full">
+          <Link href={`/forums/threads/${threadId}/replies/${reply.id}`} className="w-full">
             <div className="flex place-items-center w-full gap-2">
               <span>View reply</span>
               <Eye className="w-4 h-4 ml-auto" />
@@ -40,7 +41,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ reply, canEdit }) => {
         {canEdit && (
           <>
             <DropdownMenuItem>
-              <Link href={`/forums/replies/${reply.id}/edit`} className="w-full">
+              <Link href={`/forums/threads/${threadId}/replies/${reply.id}/edit`} className="w-full">
                 <div className="flex place-items-center w-full gap-2">
                   <span>Edit reply</span>
                   <Edit className="w-4 h-4 ml-auto" />
