@@ -1,8 +1,9 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
-import { ThreadType, ThreadTypeSignedIn, ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
+import { ThreadTypeSignedIn, ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
 import { threadWithTags } from "@/utils/api/threads/thread-with-tags";
+import { threadsFromAuthor } from "@/utils/api/threads/threads-from-author";
 import { containsSpecialCharacters } from "@/utils/contains-special-characters";
 import { hasDuplicates } from "@/utils/has-duplicates";
 import { NextResponse } from "next/server";
@@ -35,64 +36,15 @@ export async function GET(req: Request) {
           })
         );
       } else if (authorId) {
-        const threadsFromAuthor: ThreadTypeWithoutVotes[] = await db.thread.findMany({
-          where: { authorId },
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            tags: {
-              select: {
-                id: true,
-                name: true
-              }
-            },
-            author: {
-              select: {
-                id: true,
-                name: true,
-                imageUrl: true,
-                rank: true,
-                role: true,
-                plan: true
-              }
-            },
-            createdAt: true
-          },
-          orderBy: {
-            createdAt: "desc"
-          },
-          take,
-          skip
-        });
+        return NextResponse.json(
+          threadsFromAuthor({
+            take,
+            skip,
 
-        const threadsFromAuthorWithVotes: ThreadTypeWithVotes[] | null = await Promise.all(
-          (threadsFromAuthor || []).map(async (thread: ThreadTypeWithoutVotes) => {
-            const upvotesCount = await db.vote.count({
-              where: {
-                threadId: thread.id,
-                type: "UPVOTE"
-              }
-            });
-
-            const downvotesCount = await db.vote.count({
-              where: {
-                threadId: thread.id,
-                type: "DOWNVOTE"
-              }
-            });
-
-            return {
-              ...thread,
-              count: {
-                upvotes: upvotesCount,
-                downvotes: downvotesCount
-              }
-            };
+            userId,
+            authorId
           })
         );
-
-        return NextResponse.json(threadsFromAuthorWithVotes);
       } else {
         const threads: ThreadTypeSignedIn[] = await db.thread.findMany({
           select: {
