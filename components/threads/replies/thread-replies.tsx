@@ -45,7 +45,7 @@ export const ThreadReplies: FC<ThreadRepliesProps> = ({ threadId, tk, sk }) => {
     };
 
     fetchThreads();
-  }, [context.value.currentUser?.id]);
+  }, [context.value.currentUser?.id, tk, sk, threadId]);
 
   if (isLoading)
     return (

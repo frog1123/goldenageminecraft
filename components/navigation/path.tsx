@@ -9,7 +9,10 @@ interface PathProps {
 const Path: FC<PathProps> = ({ path, route }) => {
   return (
     <Link href={route}>
-      <p className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">{path}</p>
+      <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
+        {/* truncate doesnt work with <span> */}
+        <p className="whitespace-nowrap overflow-hidden truncate max-w-[150px] md:max-w-none">{path}</p>
+      </div>
     </Link>
   );
 };
