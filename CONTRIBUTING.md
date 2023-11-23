@@ -23,7 +23,7 @@ To run:
 "prettier": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
 ```
 
-# env
+## env
 
 use dev values not prod values
 
@@ -39,3 +39,9 @@ NODEMAILER_PASS=
 SEND_EMAILS=
 
 ```
+
+then go to `localhost:3000`
+
+## routes
+
+![routes](https://github.com/frog1123/goldenageminecraft/blob/master/assets/contributing/routes.png)

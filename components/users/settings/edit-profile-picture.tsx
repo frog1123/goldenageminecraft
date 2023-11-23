@@ -29,7 +29,7 @@ export const EditProfilePicture: FC = () => {
 
       return { url: res.url };
     },
-    [edgestore.publicFiles, axios, context.value.currentUser?.id]
+    [edgestore.publicFiles, context.value.currentUser?.id]
   );
 
   const onDrop = useCallback(
