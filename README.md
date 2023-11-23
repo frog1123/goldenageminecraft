@@ -12,7 +12,7 @@
 
   <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/typescript.svg" width="30px" height="30px" />
   <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/next.svg" width="30px" height="30px" />
-  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/tailwindcss.svg" width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/tailwind.svg" width="30px" height="30px" />
   <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/nodejs.svg" width="30px" height="30px" />
   <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/prisma.svg"  width="30px" height="30px" />
   <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/master/assets/readme/nextauth.png"  width="30px" height="30px" />
