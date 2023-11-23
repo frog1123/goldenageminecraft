@@ -5,20 +5,20 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const threadId = searchParams.get("t");
+    const replyId = searchParams.get("r");
     const voteType = searchParams.get("ty");
 
     const currentUser = await getServerCurrentUser();
 
     if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
     if (!currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
-    if (!threadId || threadId === undefined) return new NextResponse("Thread not found", { status: 400 });
+    if (!replyId || replyId === undefined) return new NextResponse("Reply not found", { status: 400 });
     if (!voteType) return new NextResponse("Vote type required", { status: 400 });
 
     const existingVote = await db.vote.findUnique({
       where: {
-        authorId_threadId: {
-          threadId,
+        authorId_threadReplyId: {
+          threadReplyId: replyId,
           authorId: currentUser.id
         }
       }
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     if (voteType === "u") {
       await db.vote.create({
         data: {
-          threadId,
+          threadReplyId: replyId,
           authorId: currentUser.id,
           type: "UPVOTE"
         }
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     } else if (voteType === "d") {
       await db.vote.create({
         data: {
-          threadId,
+          threadReplyId: replyId,
           authorId: currentUser.id,
           type: "DOWNVOTE"
         }
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log("[VOTES_POST]", err);
+    console.log("[REPLIES_VOTE_POST]", err);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -102,7 +102,7 @@ export async function PATCH(req: Request) {
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log("[VOTES_PATCH]", err);
+    console.log("[REPLIES_VOTE_PATCH]", err);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -142,7 +142,7 @@ export async function DELETE(req: Request) {
 
     return new NextResponse("Success", { status: 200 });
   } catch (err) {
-    console.log("[VOTES_DELETE]", err);
+    console.log("[REPLIES_VOTE_DELETE]", err);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

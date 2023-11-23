@@ -32,7 +32,7 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
     }
     if (hasDownvoted) {
       // vote modify u -> d
-      await axios.patch(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"u"}`);
+      await axios.patch(`/api/threads/replies/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"u"}`);
       setHasUpvoted(true);
       setHasDownvoted(false);
       setDownvoteCount(downvoteCount - 1);
@@ -41,13 +41,13 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
     }
     if (hasUpvoted) {
       // vote delete
-      await axios.delete(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
+      await axios.delete(`/api/threads/replies/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
       setHasUpvoted(false);
       setUpvoteCount(upvoteCount - 1);
       return;
     }
     // vote create
-    await axios.post(`/api/threads/votes?t=${reply.id}&ty=${"u"}`);
+    await axios.post(`/api/threads/replies/votes?r=${reply.id}&ty=${"u"}`);
     if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
     setHasUpvoted(true);
     setHasDownvoted(false);
@@ -61,7 +61,7 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
     }
     if (hasUpvoted) {
       // vote modify d -> u
-      await axios.patch(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"d"}`);
+      await axios.patch(`/api/threads/replies/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"d"}`);
       setHasUpvoted(false);
       setHasDownvoted(true);
       setDownvoteCount(downvoteCount + 1);
@@ -70,13 +70,13 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
     }
     if (hasDownvoted) {
       // vote delete
-      await axios.delete(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
+      await axios.delete(`/api/threads/replies/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
       setHasDownvoted(false);
       setDownvoteCount(downvoteCount - 1);
       return;
     }
     // vote modify
-    await axios.post(`/api/threads/votes?t=${reply.id}&ty=${"d"}`);
+    await axios.post(`/api/threads/replies/votes?r=${reply.id}&ty=${"d"}`);
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
     setHasUpvoted(false);
     setHasDownvoted(true);
