@@ -95,7 +95,9 @@ export const ThreadReply: FC<ThreadReplyProps> = ({ threadId, reply, currentUser
         </div>
       </div>
       <Separator orientation="horizontal" />
-      <div className="grid grid-flow-col">{/* <ReplyVoteBox reply={reply} signedIn={signedIn} /> */}</div>
+      <div className="grid grid-flow-col">
+        <ReplyVoteBox reply={reply} signedIn={signedIn} />
+      </div>
     </div>
   );
 };

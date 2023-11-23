@@ -17,10 +17,6 @@ export const ThreadVoteBox: FC<ThreadVoteBoxProps> = ({ thread, signedIn }) => {
   const [upvoteCount, setUpvoteCount] = useState(thread.count.upvotes);
   const [downvoteCount, setDownvoteCount] = useState(thread.count.downvotes);
 
-  // TODO add
-
-  console.log("votebox", thread);
-
   const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.UPVOTE : false);
   const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn ? (thread as ThreadTypeSignedIn).signedInVote?.type === VoteType.DOWNVOTE : false);
   const modal = useModal();

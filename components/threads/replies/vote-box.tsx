@@ -2,21 +2,27 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import { cn } from "@/utils/cn";
+import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
+import { VoteType } from "@prisma/client";
 import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FC, useState } from "react";
 
 interface ReplyVoteBoxProps {
-  reply: any;
+  reply: ThreadReplySignedType | ThreadReplyUnsignedType;
   signedIn: boolean;
 }
 
 export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
-  const [upvoteCount, setUpvoteCount] = useState(reply._count.upvotes);
-  const [downvoteCount, setDownvoteCount] = useState(reply._count.downvotes);
+  const [upvoteCount, setUpvoteCount] = useState(reply.count.upvotes);
+  const [downvoteCount, setDownvoteCount] = useState(reply.count.downvotes);
 
-  const [hasUpvoted, setHasUpvoted] = useState(signedIn ? reply.upvotes.length > 0 : false);
-  const [hasDownvoted, setHasDownvoted] = useState(signedIn ? reply.downvotes.length > 0 : false);
+  // TODO add
+
+  console.log("votebox", reply);
+
+  const [hasUpvoted, setHasUpvoted] = useState<boolean>(signedIn ? (reply as ThreadReplySignedType).signedInVote?.type === VoteType.UPVOTE : false);
+  const [hasDownvoted, setHasDownvoted] = useState<boolean>(signedIn ? (reply as ThreadReplySignedType).signedInVote?.type === VoteType.DOWNVOTE : false);
   const modal = useModal();
 
   const handleLikePost = async () => {
@@ -24,18 +30,25 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
       modal.onOpen("sign-in-req");
       return;
     }
-
+    if (hasDownvoted) {
+      // vote modify u -> d
+      await axios.patch(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"u"}`);
+      setHasUpvoted(true);
+      setHasDownvoted(false);
+      setDownvoteCount(downvoteCount - 1);
+      setUpvoteCount(upvoteCount + 1);
+      return;
+    }
     if (hasUpvoted) {
-      await axios.delete(`/api/threads/replies/votes?t=${reply.id}&ty=${"u"}`);
+      // vote delete
+      await axios.delete(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
       setHasUpvoted(false);
       setUpvoteCount(upvoteCount - 1);
       return;
     }
-
-    await axios.post("/api/threads/replies/votes", { replyId: reply.id, type: "u" });
-
+    // vote create
+    await axios.post(`/api/threads/votes?t=${reply.id}&ty=${"u"}`);
     if (hasDownvoted) setDownvoteCount(downvoteCount - 1);
-
     setHasUpvoted(true);
     setHasDownvoted(false);
     setUpvoteCount(upvoteCount + 1);
@@ -46,18 +59,25 @@ export const ReplyVoteBox: FC<ReplyVoteBoxProps> = ({ reply, signedIn }) => {
       modal.onOpen("sign-in-req");
       return;
     }
-
+    if (hasUpvoted) {
+      // vote modify d -> u
+      await axios.patch(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}&ty=${"d"}`);
+      setHasUpvoted(false);
+      setHasDownvoted(true);
+      setDownvoteCount(downvoteCount + 1);
+      setUpvoteCount(upvoteCount - 1);
+      return;
+    }
     if (hasDownvoted) {
-      await axios.delete(`/api/threads/replies/votes?t=${reply.id}&ty=${"d"}`);
+      // vote delete
+      await axios.delete(`/api/threads/votes?v=${(reply as ThreadReplySignedType).signedInVote?.id}`);
       setHasDownvoted(false);
       setDownvoteCount(downvoteCount - 1);
       return;
     }
-
-    await axios.post("/api/threads/replies/votes", { replyId: reply.id, type: "d" });
-
+    // vote modify
+    await axios.post(`/api/threads/votes?t=${reply.id}&ty=${"d"}`);
     if (hasUpvoted) setUpvoteCount(upvoteCount - 1);
-
     setHasUpvoted(false);
     setHasDownvoted(true);
     setDownvoteCount(downvoteCount + 1);
