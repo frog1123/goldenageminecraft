@@ -1,6 +1,7 @@
-// Define an array of select colors
-const bannerColors: string[] = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"];
+// possible banner colors
+const bannerColors: string[] = ["#3fc68e", "#289dba", "#a056ce", "#d16236", "#d3b51f"];
 
+//  uuid -> banner color (user id doesn't chnage)
 export const defaultBannerColor = (uuid: string) => {
   // convert uuid to a numeric value
   const hash = uuid.split("-").reduce((acc, segment) => {
