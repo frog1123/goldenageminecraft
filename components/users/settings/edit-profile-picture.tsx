@@ -23,17 +23,16 @@ export const EditProfilePicture: FC = () => {
         file
       });
 
-      await axios.patch("/api/users/avatar", {
-        id: context.value.currentUser?.id,
-        imageUrl: res.url
-      });
+      await axios.patch("/api/users/avatar");
 
       return { url: res.url };
     },
     [edgestore.publicFiles, context.value.currentUser?.id]
   );
 
-  const handleProfilEPictureReset = () => {};
+  const handleProfilEPictureReset = async () => {
+    await axios.delete("/api/users/avatar");
+  };
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithPath[]) => {
