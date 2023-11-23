@@ -23,8 +23,6 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
-    "@types/bcrypt": "^5.0.2",
-    "@types/react-dropzone": "^5.1.0",
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
@@ -52,14 +50,16 @@
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
-    "zustand": "^4.4.6"
+    "zustand": "^4.4.6",
+    "autoprefixer": "^10.4.16"
   },
   "devDependencies": {
     "@types/node": "^20.9.1",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
-    "autoprefixer": "^10.4.16",
+    "@types/bcrypt": "^5.0.2",
+    "@types/react-dropzone": "^5.1.0",
     "eslint": "^8.53.0",
     "eslint-config-next": "13.5.4",
     "postcss": "^8.4.31",
