@@ -30,13 +30,22 @@ use dev values not prod values
 ```python
 # .env
 
-NEXTAUTH_SECRET=
+# db (dev)
 DATABASE_URL=
+
+# edgestore
 EDGE_STORE_ACCESS_KEY=
 EDGE_STORE_SECRET_KEY=
+
+# nodemailer
 NODEMAILER_USER=
 NODEMAILER_PASS=
 SEND_EMAILS=
+
+# auth
+NEXTAUTH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
 
 ```
 
