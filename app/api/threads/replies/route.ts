@@ -1,7 +1,6 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
-import { ThreadReplySignedType, ThreadReplyUnsignedType } from "@/types/threads";
 import { threadReplies } from "@/utils/api/threads/replies/thread-replies";
 import { NextResponse } from "next/server";
 

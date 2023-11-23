@@ -52,40 +52,45 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params): P
         let authorRecievedUpvotes = 0;
         let authorRecievedDownvotes = 0;
 
-        const authorUpvoteCount = await db.thread.findMany({
-          select: {
-            _count: {
-              select: {
-                votes: {
-                  where: {
-                    type: "UPVOTE"
-                  }
-                }
-              }
-            }
+        const authorUpvotesCount = await db.vote.count({
+          where: {
+            thread: {
+              authorId: reply.author.id
+            },
+            type: "UPVOTE"
           }
         });
 
-        const authorDownvoteCount = await db.thread.findMany({
-          select: {
-            _count: {
-              select: {
-                votes: {
-                  where: {
-                    type: "UPVOTE"
-                  }
-                }
-              }
-            }
+        const authorDownvotesCount = await db.vote.count({
+          where: {
+            thread: {
+              authorId: reply.author.id
+            },
+            type: "DOWNVOTE"
           }
         });
 
-        authorUpvoteCount.forEach(thread => {
-          authorRecievedUpvotes += thread._count.votes;
+        const replyUpvotesCount = await db.vote.count({
+          where: {
+            threadReplyId: reply.id,
+            type: "UPVOTE"
+          }
         });
 
-        authorDownvoteCount.forEach(thread => {
-          authorRecievedDownvotes += thread._count.votes;
+        const replyDownvotesCount = await db.vote.count({
+          where: {
+            threadReplyId: reply.id,
+            type: "DOWNVOTE"
+          }
+        });
+
+        const signedInVote = await db.vote.findUnique({
+          where: {
+            authorId_threadReplyId: {
+              threadReplyId: reply.id,
+              authorId: userId
+            }
+          }
         });
 
         return {
@@ -98,10 +103,10 @@ export const threadReplies = async ({ take, skip, threadId, userId }: Params): P
             }
           },
           count: {
-            upvotes: 0,
-            downvotes: 0
+            upvotes: replyUpvotesCount,
+            downvotes: replyDownvotesCount
           },
-          signedInVote: null
+          signedInVote
         };
       })
     );
