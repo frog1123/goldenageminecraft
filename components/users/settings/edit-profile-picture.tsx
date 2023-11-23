@@ -23,15 +23,16 @@ export const EditProfilePicture: FC = () => {
         file
       });
 
-      await axios.patch("/api/users/avatar");
+      await axios.patch("/api/users/avatar", { imageUrl: res.url });
 
       return { url: res.url };
     },
     [edgestore.publicFiles, context.value.currentUser?.id]
   );
 
-  const handleProfilEPictureReset = async () => {
+  const handleProfilePictureReset = async () => {
     await axios.delete("/api/users/avatar");
+    setImageUrl(null);
   };
 
   const onDrop = useCallback(
@@ -78,7 +79,7 @@ export const EditProfilePicture: FC = () => {
             <span>This will be displayed as your user avatar.</span>
           </div>
           <div>
-            <button onClick={handleProfilEPictureReset} className="bg-indigo-500 rounded-md px-2 hover:bg-indigo-800 transition h-[32px] text-white">
+            <button onClick={handleProfilePictureReset} className="bg-indigo-500 rounded-md px-2 hover:bg-indigo-800 transition h-[32px] text-white">
               <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
                 <Trash2 className="w-4 h-4" />
                 <span>Reset</span>
