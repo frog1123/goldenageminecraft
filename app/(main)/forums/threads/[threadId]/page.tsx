@@ -69,14 +69,18 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
 
   const authorUpvotesCount = await db.vote.count({
     where: {
-      authorId: thread.author.id,
+      thread: {
+        authorId: thread.author.id
+      },
       type: "UPVOTE"
     }
   });
 
   const authorDownvotesCount = await db.vote.count({
     where: {
-      authorId: thread.author.id,
+      thread: {
+        authorId: thread.author.id
+      },
       type: "DOWNVOTE"
     }
   });
@@ -100,12 +104,12 @@ const ThreadIdPage: NextPage<ThreadIdPageProps> = async ({ params }) => {
     receivedDownvotes: authorDownvotesCount
   };
 
-  const signedInVote = thread?.author.id
+  const signedInVote = currentUser
     ? await db.vote.findUnique({
         where: {
           authorId_threadId: {
             threadId: params.threadId,
-            authorId: thread?.author.id
+            authorId: currentUser.id
           }
         }
       })
