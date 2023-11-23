@@ -16,18 +16,21 @@ export const EditProfilePicture: FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(context.value.currentUser?.imageUrl ? context.value.currentUser?.imageUrl : null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleProfilePictureUpload = async (file: File) => {
-    const res = await edgestore.publicFiles.upload({
-      file
-    });
+  const handleProfilePictureUpload = useCallback(
+    async (file: File) => {
+      const res = await edgestore.publicFiles.upload({
+        file
+      });
 
-    await axios.patch("/api/users/avatar", {
-      id: context.value.currentUser?.id,
-      imageUrl: res.url
-    });
+      await axios.patch("/api/users/avatar", {
+        id: context.value.currentUser?.id,
+        imageUrl: res.url
+      });
 
-    return { url: res.url };
-  };
+      return { url: res.url };
+    },
+    [edgestore.publicFiles, axios, context.value.currentUser?.id]
+  );
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithPath[]) => {

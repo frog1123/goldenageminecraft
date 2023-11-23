@@ -16,30 +16,33 @@ export const EditBannerImage: FC = () => {
   const [bannerUrl, setBannerUrl] = useState<string | null>(context.value.currentUser?.bannerUrl ? context.value.currentUser?.bannerUrl : null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleProfilePictureUpload = async (file: File) => {
-    const res = await edgestore.publicFiles.upload({
-      file
-    });
+  const handleBannerImageUpload = useCallback(
+    async (file: File) => {
+      const res = await edgestore.publicFiles.upload({
+        file
+      });
 
-    await axios.patch("/api/users/banner", {
-      id: context.value.currentUser?.id,
-      bannerUrl: res.url
-    });
+      await axios.patch("/api/users/banner", {
+        id: context.value.currentUser?.id,
+        bannerUrl: res.url
+      });
 
-    return { url: res.url };
-  };
+      return { url: res.url };
+    },
+    [edgestore.publicFiles, axios, context.value.currentUser?.id]
+  );
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithPath[]) => {
       // get first file
       const [firstFile] = acceptedFiles;
       if (firstFile) {
-        const i = await handleProfilePictureUpload(firstFile);
+        const i = await handleBannerImageUpload(firstFile);
 
         setBannerUrl(i.url);
       }
     },
-    [handleProfilePictureUpload]
+    [handleBannerImageUpload]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
