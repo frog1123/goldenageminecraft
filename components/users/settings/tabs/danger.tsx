@@ -1,7 +1,7 @@
 "use client";
 
 import { useUserSettings } from "@/hooks/use-user-settings-store";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { FC } from "react";
 
 export const DangerTab: FC = () => {

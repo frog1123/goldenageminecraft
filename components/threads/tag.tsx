@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "@/components/link";
 import { Hash } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 
 interface TagProps {
   id: string;

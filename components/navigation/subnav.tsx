@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FC, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 
 const navItems = [
   {

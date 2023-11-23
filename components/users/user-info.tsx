@@ -4,7 +4,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { formatDateLong } from "@/utils/format-date-long";
 import { Crown, Edit, Palmtree } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { Separator } from "@/components/separator";
 import { VotesRatio } from "@/components/votes-ratio";
 import { Content } from "@/components/content";

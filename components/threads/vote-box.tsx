@@ -1,7 +1,7 @@
 "use client";
 
 import { useModal } from "@/hooks/use-modal-store";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { ThreadExpandedSignedType, ThreadExpandedUnsignedType, ThreadType, ThreadTypeSignedIn } from "@/types/threads";
 import { VoteType } from "@prisma/client";
 import axios from "axios";

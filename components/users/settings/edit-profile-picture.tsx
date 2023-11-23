@@ -3,7 +3,7 @@
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
 import { Context } from "@/context";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import axios from "axios";
 import { Pencil } from "lucide-react";
 import Image from "next/image";

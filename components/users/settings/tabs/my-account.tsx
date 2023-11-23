@@ -3,7 +3,7 @@
 import { Context } from "@/context";
 import { useUserSettings } from "@/hooks/use-user-settings-store";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { FC, useContext } from "react";
 import Image from "next/image";
 import { Separator } from "@/components/separator";

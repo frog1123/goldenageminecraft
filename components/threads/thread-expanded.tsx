@@ -6,7 +6,7 @@ import Image from "next/image";
 import { formatDateLong } from "@/utils/format-date-long";
 import { defaultUserProfilePicture } from "@/lib/default-profile-picture";
 import { rankColorMap, rankMap, roleColorMap, roleIconMap } from "@/components/users/styles";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { Component, Crown } from "lucide-react";
 import { Separator } from "@/components/separator";
 import { ThreadActions } from "@/components/threads/thread-actions";

@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/components/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 

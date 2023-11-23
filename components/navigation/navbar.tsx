@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ChevronRight, Crown, LogOut, Moon, Settings, Sun, User, Wrench } from "lucide-react";
 import Path from "@/components/navigation/path";
 import { Link } from "@/components/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import {
   DropdownMenu,
   DropdownMenuContent,

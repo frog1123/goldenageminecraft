@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { UserSettingsItem } from "@/components/users/settings/navigation/nav-content";
 import { useUserSettings } from "@/hooks/use-user-settings-store";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { SheetClose } from "@/components/ui/sheet";
 import { Context } from "@/context";
 

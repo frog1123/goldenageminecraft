@@ -1,7 +1,7 @@
 "use client";
 
 import { RepliesPageSwitcherItem } from "@/components/threads/replies/page-switcher-item";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 
