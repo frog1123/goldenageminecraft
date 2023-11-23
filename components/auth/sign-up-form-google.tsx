@@ -15,7 +15,7 @@ export const SignUpFormGoogle: FC = () => {
           </div>
           <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
         </div>
-        <p>google</p>
+        <p>google (wip)</p>
       </div>
     </div>
   );
