@@ -9,6 +9,18 @@
 </div>
 
 <div align="center">
+
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/typescript.svg" width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/next.svg" width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/tailwindcss.svg" width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/nodejs.svg" width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/prisma.svg"  width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/nextauth.png"  width="30px" height="30px" />
+  <img src="https://raw.githubusercontent.com/frog1123/goldenageminecraft/blob/master/assets/readme/vercel.svg" width="30px" height="30px" />
+
+</div>
+
+<div align="center">
   <!-- prettier-ignore -->
   <a href="https://goldenageminecraft.net/"><img src="https://vercelbadge.vercel.app/api/frog1123/goldenageminecraft?style=for-the-badge" alt="vercel" /></a>
   <a href="https://github.com/frog1123/goldenageminecraft/blob/master/CONTRIBUTING.md"><img src="https://img.shields.io/badge/%F0%9F%AA%B7-contributing-33bf82?labelColor=gray&style=for-the-badge" alt="contributing" /><a>
