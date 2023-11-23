@@ -18,8 +18,9 @@ export const EditBannerImage: FC = () => {
 
   const handleBannerImageUpload = useCallback(
     async (file: File) => {
-      const res = await edgestore.publicFiles.upload({
-        file
+      const res = await edgestore.publicImages.upload({
+        file,
+        input: { type: "avatar" }
       });
 
       await axios.patch("/api/users/banner", {
@@ -29,7 +30,7 @@ export const EditBannerImage: FC = () => {
 
       return { url: res.url };
     },
-    [edgestore.publicFiles, context.value.currentUser?.id]
+    [edgestore.publicImages, context.value.currentUser?.id]
   );
 
   const onDrop = useCallback(

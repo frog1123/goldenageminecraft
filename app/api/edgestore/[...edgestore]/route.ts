@@ -1,5 +1,6 @@
 import { initEdgeStore } from "@edgestore/server";
 import { createEdgeStoreNextHandler } from "@edgestore/server/adapters/next/app";
+import { z } from "zod";
 
 const es = initEdgeStore.create();
 
@@ -7,10 +8,17 @@ const es = initEdgeStore.create();
  * This is the main router for the Edge Store buckets.
  */
 const edgeStoreRouter = es.router({
-  publicFiles: es.fileBucket().beforeUpload(info => {
-    // console.log("beforeUpload", info);
-    return true;
-  })
+  publicImages: es
+    .imageBucket()
+    .input(z.object({ type: z.enum(["avatar"]) }))
+    .beforeUpload(info => {
+      // console.log("beforeUpload", info);
+      return true;
+    })
+    .beforeDelete(({ ctx, fileInfo }) => {
+      console.log("beforeDelete", ctx, fileInfo);
+      return true; // allow delete
+    })
 });
 
 const handler = createEdgeStoreNextHandler({
