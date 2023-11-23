@@ -13,6 +13,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/lib/logo";
 import { Eye, EyeOff, MailWarning } from "lucide-react";
+import { Separator } from "@/components/separator";
+import { signIn } from "next-auth/react";
+import google from "@/public/assets/google.png";
 
 const formSchema = z.object({
   name: z.string(),
@@ -244,6 +247,21 @@ export const SignUpForm: FC = () => {
                   </FormItem>
                 )}
               />
+              <div className="grid grid-cols-[auto_max-content_auto] place-items-center gap-2">
+                <Separator orientation="horizontal" />
+                <span>or</span>
+                <Separator orientation="horizontal" />
+              </div>
+              <div>
+                <button onClick={() => signIn("google")} className="text-black bg-white hover:bg-gray-300 transition p-2 rounded-md w-full">
+                  <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                    <div className="w-4 h-4 relative">
+                      <Image src={google} fill alt="google" />
+                    </div>
+                    <span>Sign up with google</span>
+                  </div>
+                </button>
+              </div>
               <div>
                 <Button
                   disabled={isLoading || !(formValid.name && formValid.email && formValid.password)}
