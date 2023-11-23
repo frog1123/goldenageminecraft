@@ -6,6 +6,7 @@ export interface CurrentUserType {
   firstName: string | null;
   lastName: string | null;
   imageUrl: string | null;
+  bannerUrl: string | null;
   bio: string;
   rank: UserRank;
   role: UserRole;
@@ -19,6 +20,8 @@ export type UserProfileData = {
   name: string;
   firstName: string | null;
   lastName: string | null;
+  imageUrl: string | null;
+  bannerUrl: string | null;
   bio: string;
   rank: UserRank;
   role: UserRole;
@@ -27,6 +30,5 @@ export type UserProfileData = {
   _count: {
     threads: number;
   };
-  imageUrl: string | null;
   createdAt: Date;
 };

@@ -13,7 +13,7 @@ import { useDropzone, FileWithPath } from "react-dropzone";
 export const EditBannerImage: FC = () => {
   const { edgestore } = useEdgeStore();
   const context = useContext(Context);
-  const [imageUrl, setImageUrl] = useState<string | null>(context.value.currentUser?.imageUrl ? context.value.currentUser?.imageUrl : null);
+  const [bannerUrl, setBannerUrl] = useState<string | null>(context.value.currentUser?.bannerUrl ? context.value.currentUser?.bannerUrl : null);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleProfilePictureUpload = async (file: File) => {
@@ -36,7 +36,7 @@ export const EditBannerImage: FC = () => {
       if (firstFile) {
         const i = await handleProfilePictureUpload(firstFile);
 
-        setImageUrl(i.url);
+        setBannerUrl(i.url);
       }
     },
     [handleProfilePictureUpload]
@@ -57,8 +57,8 @@ export const EditBannerImage: FC = () => {
     >
       <div className="relative w-full h-full">
         <div className={cn("absolute grid place-items-center w-full h-full transition z-20", isHovered && "bg-black/50")}>{isHovered && <Pencil />}</div>
-        {imageUrl ? (
-          <Image src={imageUrl} alt="Edit avatar" fill />
+        {bannerUrl ? (
+          <Image src={bannerUrl} alt="Edit banner" fill />
         ) : (
           <div className="w-full h-full" style={{ backgroundColor: defaultBannerColor(context.value.currentUser!.id) }}></div>
         )}
