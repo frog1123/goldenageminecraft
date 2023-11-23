@@ -18,13 +18,17 @@ export const VotesRatio: FC<VotesRatioProps> = ({ votesStats, expanded }) => {
       {expanded && (
         <div className="grid grid-cols-[max-content_auto] place-items-center w-full">
           <p className="uppercase text-xs font-bold text-zinc-500">Approval</p>
+
           <div className="ml-auto grid place-items-center">
             <Popover>
               <PopoverTrigger>
                 <HelpCircle className="w-4 h-4 text-zinc-500" />
               </PopoverTrigger>
               <PopoverContent className="p-2 w-max">
-                <div>Upvote to downvote ratio</div>
+                <div>
+                  <p>Upvote to downvote ratio</p>
+                  <p>(replies not included)</p>
+                </div>
                 <div className="grid grid-flow-col place-items-center">
                   <div className="grid grid-flow-col gap-1 place-items-center w-max mr-auto">
                     <ThumbsUp className="w-4 h-4" />
