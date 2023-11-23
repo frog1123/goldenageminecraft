@@ -126,7 +126,7 @@ export const CreateThreadForm: FC = () => {
             name="tags"
             render={({ field }) => (
               <FormItem className="grid grid-flow-row">
-                <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-white">Tags</FormLabel>
+                <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-white">Tags | seperate by comma</FormLabel>
                 <FormControl>
                   <input
                     disabled={isLoading}

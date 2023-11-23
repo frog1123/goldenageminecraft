@@ -27,12 +27,12 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
         <DropdownMenuItem>
           <Link href={`/forums/threads/${threadId}/replies/${reply.id}`} className="w-full">
             <div className="flex place-items-center w-full gap-2">
-              <span>View reply</span>
+              <span>View reply (wip)</span>
               <Eye className="w-4 h-4 ml-auto" />
             </div>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => modal.onOpen("share-reply", { shareReply: { threadId, replyId: reply.id } })}>
           <div className="flex place-items-center w-full gap-2">
             <span>Share reply</span>
             <Share className="w-4 h-4 ml-auto" />

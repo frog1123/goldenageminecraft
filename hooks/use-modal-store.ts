@@ -1,9 +1,10 @@
 import { create } from "zustand";
 
-export type ModalType = "share-thread" | "sign-out-conf" | "sign-in-req" | "delete-thread-conf";
+export type ModalType = "share-thread" | "sign-out-conf" | "sign-in-req" | "delete-thread-conf" | "share-reply";
 
 interface ModalData {
   shareThread?: { threadId: string };
+  shareReply?: { threadId: string; replyId: string };
   deleteThreadConf?: { threadId: string; redirectToHome: boolean };
 }
 
