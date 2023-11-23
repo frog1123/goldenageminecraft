@@ -1,5 +1,6 @@
-import { FC } from "react";
+"use client";
 
+import { FC } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Edit, Eye, MoreHorizontal, Share, Trash2 } from "lucide-react";
 import { Link } from "@/components/link";

@@ -1,4 +1,7 @@
+import { ThreadReply } from "@/components/threads/replies/thread-reply";
+import { getServerCurrentUser } from "@/lib/current-user";
 import { db } from "@/lib/db";
+import { OmitAuthorVotes, ThreadExpandedUnsignedType, ThreadReplySignedType } from "@/types/threads";
 import { NextPage } from "next";
 
 interface ReplyIdPageProps {
@@ -9,11 +12,54 @@ interface ReplyIdPageProps {
 }
 
 const ReplyIdPage: NextPage<ReplyIdPageProps> = async ({ params }) => {
-  const reply = await db.threadReply.findFirst({
+  const currentUser = await getServerCurrentUser();
+
+  const tempReply = await db.threadReply.findFirst({
     where: {
       id: params.replyId
     },
     select: {
+      createdAt: true
+    }
+  });
+
+  const replyCreatedAt = tempReply?.createdAt;
+
+  const position = await db.threadReply.count({
+    where: {
+      threadId: params.threadId,
+      createdAt: {
+        lte: replyCreatedAt
+      }
+    }
+  });
+
+  const reply: OmitAuthorVotes<Omit<Omit<ThreadReplySignedType, "count">, "signedInVote">> | null = await db.threadReply.findUnique({
+    where: {
+      id: params.replyId
+    },
+    select: {
+      id: true,
+      content: true,
+      author: {
+        select: {
+          id: true,
+          name: true,
+          firstName: true,
+          lastName: true,
+          imageUrl: true,
+          rank: true,
+          role: true,
+          plan: true,
+          _count: {
+            select: {
+              threads: true
+            }
+          },
+          createdAt: true
+        }
+      },
+      editedAt: true,
       createdAt: true
     }
   });
@@ -25,22 +71,64 @@ const ReplyIdPage: NextPage<ReplyIdPageProps> = async ({ params }) => {
       </div>
     );
 
-  const replyCreatedAt = reply.createdAt;
+  let authorRecievedUpvotes = 0;
+  let authorRecievedDownvotes = 0;
 
-  const position = await db.threadReply.count({
-    where: {
-      threadId: params.threadId,
-      createdAt: {
-        lte: replyCreatedAt
+  const authorUpvoteCount = await db.thread.findMany({
+    select: {
+      _count: {
+        select: {
+          votes: {
+            where: {
+              type: "UPVOTE"
+            }
+          }
+        }
       }
     }
   });
 
+  const authorDownvoteCount = await db.thread.findMany({
+    select: {
+      _count: {
+        select: {
+          votes: {
+            where: {
+              type: "UPVOTE"
+            }
+          }
+        }
+      }
+    }
+  });
+
+  authorUpvoteCount.forEach(thread => {
+    authorRecievedUpvotes += thread._count.votes;
+  });
+
+  authorDownvoteCount.forEach(thread => {
+    authorRecievedDownvotes += thread._count.votes;
+  });
+
+  const formattedReply = {
+    ...reply,
+    author: {
+      ...reply.author,
+      votes: {
+        upvotes: authorRecievedUpvotes,
+        downvotes: authorRecievedDownvotes
+      }
+    },
+    count: {
+      upvotes: 0,
+      downvotes: 0
+    },
+    signedInVote: null
+  };
+
   return (
     <div>
-      <p>thread {params.threadId}</p>
-      <p>reply {params.replyId}</p>
-      <p>reply position {position}</p>
+      <ThreadReply threadId={params.threadId} reply={formattedReply} currentUser={currentUser} replyNum={position} signedIn={!!currentUser} />
     </div>
   );
 };
