@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { compare } from "bcrypt";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -38,9 +39,28 @@ export const authOptions: NextAuthOptions = {
           name: user.name
         };
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     })
   ],
   callbacks: {
+    async signIn(data) {
+      if (data.account?.provider === "google") {
+        console.log(data);
+
+        return true;
+      }
+      return false;
+    },
     session: ({ session, token }) => {
       // console.log("session callback", { session, token });
       return session;
