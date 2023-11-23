@@ -68,72 +68,60 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
     }
   });
 
-  let authorVoteStats: ThreadVoteStats = {
-    receivedUpvotes: 0,
-    receivedDownvotes: 0
+  const authorUpvotesCount = await db.vote.count({
+    where: {
+      thread: {
+        authorId: thread.author.id
+      },
+      type: "UPVOTE"
+    }
+  });
+
+  const authorDownvotesCount = await db.vote.count({
+    where: {
+      thread: {
+        authorId: thread.author.id
+      },
+      type: "DOWNVOTE"
+    }
+  });
+
+  const threadUpvotesCount = await db.vote.count({
+    where: {
+      threadId: params.threadId,
+      type: "UPVOTE"
+    }
+  });
+
+  const threadDownvotesCount = await db.vote.count({
+    where: {
+      threadId: params.threadId,
+      type: "DOWNVOTE"
+    }
+  });
+
+  const authorVoteStats: ThreadVoteStats = {
+    receivedUpvotes: authorUpvotesCount,
+    receivedDownvotes: authorDownvotesCount
   };
 
-  const authorUpvoteCount = await db.thread.findMany({
-    where: {
-      authorId: thread?.author.id
-    },
-    select: {
-      _count: {
-        select: {
-          votes: {
-            where: {
-              type: "UPVOTE"
-            }
-          }
-        }
-      }
-    }
-  });
-
-  const authorDownvoteCount = await db.thread.findMany({
-    where: {
-      authorId: thread?.author.id
-    },
-    select: {
-      _count: {
-        select: {
-          votes: {
-            where: {
-              type: "UPVOTE"
-            }
-          }
-        }
-      }
-    }
-  });
-
-  const signedInVote = thread?.author.id
+  const signedInVote = currentUser
     ? await db.vote.findUnique({
         where: {
           authorId_threadId: {
             threadId: params.threadId,
-            authorId: thread?.author.id
+            authorId: currentUser.id
           }
         }
       })
     : null;
 
-  console.log(authorUpvoteCount, authorDownvoteCount);
-
-  authorUpvoteCount.forEach(thread => {
-    authorVoteStats.receivedUpvotes += thread._count.votes;
-  });
-
-  authorDownvoteCount.forEach(thread => {
-    authorVoteStats.receivedDownvotes += thread._count.votes;
-  });
-
   const formattedThread: ThreadExpandedSignedType | ThreadExpandedUnsignedType = {
     ...thread,
     id: params.threadId,
     count: {
-      upvotes: authorVoteStats.receivedUpvotes,
-      downvotes: authorVoteStats.receivedDownvotes
+      upvotes: threadUpvotesCount,
+      downvotes: threadDownvotesCount
     },
     signedInVote
   };

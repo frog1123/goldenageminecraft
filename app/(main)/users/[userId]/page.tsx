@@ -38,23 +38,27 @@ const UserIdPage: NextPage<UserIdPageProps> = async ({ params }) => {
     }
   });
 
-  const upvotesCount = await db.vote.count({
+  const userRecievedUpvotesCount = await db.vote.count({
     where: {
-      authorId: params.userId,
+      thread: {
+        authorId: params.userId
+      },
       type: "UPVOTE"
     }
   });
 
-  const downvotesCount = await db.vote.count({
+  const userRecievedDownvotesCount = await db.vote.count({
     where: {
-      authorId: params.userId,
+      thread: {
+        authorId: params.userId
+      },
       type: "DOWNVOTE"
     }
   });
 
   const voteStats: ThreadVoteStats = {
-    receivedUpvotes: upvotesCount,
-    receivedDownvotes: downvotesCount
+    receivedUpvotes: userRecievedUpvotesCount,
+    receivedDownvotes: userRecievedDownvotesCount
   };
 
   if (!user || !user.active)
