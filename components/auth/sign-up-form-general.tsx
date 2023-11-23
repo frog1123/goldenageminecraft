@@ -28,7 +28,10 @@ export const SignUpFormGeneral: FC = () => {
               </div>
             </button>
           </Link>
-          <button onClick={() => signIn("google")} className="text-black bg-white hover:bg-gray-300 transition p-2 rounded-md w-full">
+          <button
+            onClick={() => signIn("google", { redirect: true, callbackUrl: "/sign-up/google" })}
+            className="text-black bg-white hover:bg-gray-300 transition p-2 rounded-md w-full"
+          >
             <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
               <div className="w-4 h-4 relative">
                 <Image src={google} fill alt="google" />
