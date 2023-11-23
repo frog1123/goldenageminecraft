@@ -16,6 +16,7 @@ model User {
   firstName String?
   lastName  String?
   imageUrl  String?  @db.Text
+  bannerUrl String?  @db.Text
   bio       String   @db.Text
   rank      UserRank @default(COAL)
   role      UserRole @default(USER)
@@ -67,17 +68,6 @@ enum UserPlan {
   NONE
   PREMIUM
 }
-
-// model AvatarImage {
-//   id  String @id @default(uuid())
-//   url String @db.Text
-
-//   user   User   @relation(fields: [userId], references: [id])
-//   userId String @unique
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
 
 model Thread {
   id      String  @id @default(uuid())

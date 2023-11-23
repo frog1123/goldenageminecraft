@@ -6,6 +6,7 @@ import { FC } from "react";
 import { EditProfilePicture } from "@/components/users/settings/edit-profile-picture";
 import { Separator } from "@/components/separator";
 import { EditUserBio } from "@/components/users/settings/edit-user-bio";
+import { EditBannerImage } from "@/components/users/settings/edit-banner-image";
 
 export const CustomizationTab: FC = () => {
   const userSettings = useUserSettings();
@@ -28,8 +29,8 @@ export const CustomizationTab: FC = () => {
           </div>
           <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
             <p className="uppercase text-xs font-bold text-zinc-500">Edit banner image</p>
-            <div>
-              <p>coming soon!</p>
+            <div className="w-full h-28">
+              <EditBannerImage />
             </div>
           </div>
           <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 grid grid-flow-row gap-2">
