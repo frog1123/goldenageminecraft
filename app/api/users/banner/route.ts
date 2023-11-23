@@ -7,15 +7,14 @@ export async function PATCH(req: Request) {
     const currentUser = await getServerCurrentUser();
     if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { id, bannerUrl } = await req.json();
+    const { bannerUrl } = await req.json();
 
-    if (id !== currentUser.id) return new NextResponse("Unauthorized", { status: 401 });
     if (!bannerUrl) return new NextResponse("Bad request", { status: 400 });
     if (!bannerUrl.startsWith("https://files.edgestore.dev")) return new NextResponse("Invalid image", { status: 400 });
 
     await db.user.update({
       where: {
-        id
+        id: currentUser.id
       },
       data: {
         bannerUrl

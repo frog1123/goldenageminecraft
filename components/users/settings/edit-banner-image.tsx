@@ -23,8 +23,15 @@ export const EditBannerImage: FC = () => {
         input: { type: "avatar" }
       });
 
+      if (!context.value.currentUser) return;
+
+      if (context.value.currentUser.bannerUrl) {
+        await edgestore.publicImages.delete({
+          url: context.value.currentUser.bannerUrl
+        });
+      }
+
       await axios.patch("/api/users/banner", {
-        id: context.value.currentUser?.id,
         bannerUrl: res.url
       });
 
@@ -40,7 +47,7 @@ export const EditBannerImage: FC = () => {
       if (firstFile) {
         const i = await handleBannerImageUpload(firstFile);
 
-        setBannerUrl(i.url);
+        setBannerUrl(i!.url);
       }
     },
     [handleBannerImageUpload]
