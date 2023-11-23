@@ -68,7 +68,7 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
     }
   });
 
-  let voteStats: ThreadVoteStats = {
+  let authorVoteStats: ThreadVoteStats = {
     receivedUpvotes: 0,
     receivedDownvotes: 0
   };
@@ -121,19 +121,19 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
   console.log(authorUpvoteCount, authorDownvoteCount);
 
   authorUpvoteCount.forEach(thread => {
-    voteStats.receivedUpvotes += thread._count.votes;
+    authorVoteStats.receivedUpvotes += thread._count.votes;
   });
 
   authorDownvoteCount.forEach(thread => {
-    voteStats.receivedDownvotes += thread._count.votes;
+    authorVoteStats.receivedDownvotes += thread._count.votes;
   });
 
   const formattedThread: ThreadExpandedSignedType | ThreadExpandedUnsignedType = {
     ...thread,
     id: params.threadId,
     count: {
-      upvotes: voteStats.receivedUpvotes,
-      downvotes: voteStats.receivedDownvotes
+      upvotes: authorVoteStats.receivedUpvotes,
+      downvotes: authorVoteStats.receivedDownvotes
     },
     signedInVote
   };
@@ -143,7 +143,7 @@ const ThreadIdPageNumPage: NextPage<ThreadIdPageNumPageProps> = async ({ params 
   return (
     <div className="grid grid-flow-row gap-2">
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
-      <ThreadExpanded thread={formattedThread} voteStats={voteStats} canEdit={canEdit} signedIn={signedIn} />
+      <ThreadExpanded thread={formattedThread} authorVoteStats={authorVoteStats} canEdit={canEdit} signedIn={signedIn} />
       <ThreadReplies threadId={params.threadId} tk={5} sk={0} />
       <ReplyThreadForm threadId={params.threadId} />
       <RepliesPageSwitcher totalReplies={threadReplies} threadId={params.threadId} />
