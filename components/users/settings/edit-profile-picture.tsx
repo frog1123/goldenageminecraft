@@ -27,9 +27,13 @@ export const EditProfilePicture: FC = () => {
       if (!context.value.currentUser) return;
 
       if (context.value.currentUser.imageUrl) {
-        await edgestore.publicImages.delete({
-          url: context.value.currentUser.imageUrl
-        });
+        try {
+          await edgestore.publicImages.delete({
+            url: context.value.currentUser.imageUrl
+          });
+        } catch (err) {
+          console.error("[EDGESTORE_DELETE]", err);
+        }
       }
 
       await axios.patch("/api/users/avatar", { imageUrl: res.url });

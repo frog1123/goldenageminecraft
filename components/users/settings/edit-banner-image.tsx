@@ -26,9 +26,13 @@ export const EditBannerImage: FC = () => {
       if (!context.value.currentUser) return;
 
       if (context.value.currentUser.bannerUrl) {
-        await edgestore.publicImages.delete({
-          url: context.value.currentUser.bannerUrl
-        });
+        try {
+          await edgestore.publicImages.delete({
+            url: context.value.currentUser.bannerUrl
+          });
+        } catch (err) {
+          console.error("[EDGESTORE_DELETE]", err);
+        }
       }
 
       await axios.patch("/api/users/banner", {
