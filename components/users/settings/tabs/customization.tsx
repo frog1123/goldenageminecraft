@@ -22,7 +22,12 @@ export const CustomizationTab: FC = () => {
   const handleProfilePictureReset = async () => {
     if (!context.value.currentUser) return;
 
-    await axios.delete("/api/users/avatar");
+    if (context.value.currentUser.imageUrl) {
+      await edgestore.publicImages.delete({
+        url: context.value.currentUser.imageUrl
+      });
+    }
+
     context.setValue({ ...context.value, currentUser: { ...(context.value.currentUser as CurrentUserType), imageUrl: null } });
   };
 

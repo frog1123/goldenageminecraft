@@ -27,24 +27,3 @@ export async function PATCH(req: Request) {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
-
-export async function DELETE(req: Request) {
-  try {
-    const currentUser = await getServerCurrentUser();
-    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
-
-    await db.user.update({
-      where: {
-        id: currentUser.id
-      },
-      data: {
-        imageUrl: null
-      }
-    });
-
-    return new NextResponse("Success", { status: 200 });
-  } catch (err) {
-    console.log("[USER_AVATAR_DELETE]", err);
-    return new NextResponse("Internal Error", { status: 500 });
-  }
-}
