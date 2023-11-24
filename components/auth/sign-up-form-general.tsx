@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import google from "@/public/assets/google.png";
 import { Mail } from "lucide-react";
 import { Link } from "@/components/link";
+import { Separator } from "@/components/separator";
 
 export const SignUpFormGeneral: FC = () => {
   return (
@@ -28,6 +29,11 @@ export const SignUpFormGeneral: FC = () => {
               </div>
             </button>
           </Link>
+          <div className="grid grid-cols-[auto_max-content_auto] place-items-center gap-2">
+            <Separator orientation="horizontal" />
+            <span className="uppercase text-xs font-bold text-zinc-500 dark:text-white">or</span>
+            <Separator orientation="horizontal" />
+          </div>
           <button
             onClick={() => signIn("google", { redirect: true, callbackUrl: "/sign-up/google" })}
             className="text-black bg-white hover:bg-gray-300 transition p-2 rounded-md w-full"
