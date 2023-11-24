@@ -24,6 +24,7 @@ export const getServerCurrentUser = async () => {
       role: true,
       plan: true,
       active: true,
+      authMethod: true,
       createdAt: true
     }
   });

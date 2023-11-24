@@ -25,7 +25,7 @@ const ForumsPage: NextPage = async () => {
 
   return (
     <>
-      <div className="w-full h-[60px] md:h-[100px] forums-info-gradient-bg sm:rounded-md p-2 overflow-auto">
+      <div className="w-full h-[60px] md:h-[100px] bg-forums-info-gradient sm:rounded-md p-2 overflow-auto">
         <div className="grid grid-cols-3 place-items-center h-full px-2 md:px-10">
           <div className="w-max grid grid-cols-[max-content_auto] place-items-center gap-1 fade-up" style={{ animationDelay: "100ms" }}>
             <BarChartBig className="w-6 h-6 text-white" />

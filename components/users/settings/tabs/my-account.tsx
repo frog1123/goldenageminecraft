@@ -7,7 +7,7 @@ import { cn } from "@/utils/cn";
 import { FC, useContext } from "react";
 import Image from "next/image";
 import { Separator } from "@/components/separator";
-import { Crown, Edit, Gavel, Sailboat, Shield } from "lucide-react";
+import { Crown, Edit, Gavel, Mail, Sailboat, Shield } from "lucide-react";
 import { UserRank, UserRole, UserPlan } from "@prisma/client";
 
 import coal from "@/public/assets/ranks/coal.png";
@@ -19,6 +19,8 @@ import diamond from "@/public/assets/ranks/diamond.png";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { formatDateLong } from "@/utils/format-date-long";
+
+import google from "@/public/assets/google.png";
 
 const rankMap = {
   [UserRank.COAL]: <Image src={coal} alt="rank" fill />,
@@ -97,6 +99,29 @@ export const MyAccountTab: FC = () => {
               <div className="grid grid-flow-row mr-auto">
                 <span className="uppercase text-xs font-bold text-zinc-500">Email</span>
                 <span>{session.data?.user?.email ? session.data.user.email : "loading..."}</span>
+              </div>
+
+              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                  <Edit className="w-4 h-4" />
+                  <span>Edit</span>
+                </div>
+              </Button>
+            </div>
+          </div>
+          <div>
+            <div className="grid grid-flow-col place-items-center">
+              <div className="grid grid-flow-row mr-auto">
+                <span className="uppercase text-xs font-bold text-zinc-500">Auth Method</span>
+                <div className="grid grid-cols-[max-content_max-content] gap-2 place-items-center">
+                  {context.value.currentUser.authMethod === "EMAIL" && <Mail className="w-4 h-4" />}
+                  {context.value.currentUser.authMethod === "GOOGLE" && (
+                    <div className="w-4 h-4 relative">
+                      <Image src={google} fill alt="google" />
+                    </div>
+                  )}
+                  <span>{context.value.currentUser.authMethod}</span>
+                </div>
               </div>
               <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
                 <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
