@@ -20,6 +20,7 @@ export const SignUpFormGoogle: FC = () => {
           <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
         </div>
         <p>email: {session.data?.user?.email}</p>
+        <p>email: {JSON.stringify(session, null, 2)}</p>
         <p>google (wip)</p>
       </div>
     </div>

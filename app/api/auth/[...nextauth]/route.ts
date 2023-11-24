@@ -57,6 +57,14 @@ export const authOptions: NextAuthOptions = {
       if (data.account?.provider === "google") {
         console.log(data);
 
+        const existingNonGoogleUser = await db.user.findUnique({
+          where: {
+            email: data.profile?.email
+          }
+        });
+
+        if (existingNonGoogleUser) return false;
+
         return true;
       }
       return false;
