@@ -63,6 +63,11 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       // console.log("session callback", { session, token });
+
+      if (typeof session.user !== "undefined") {
+        (session.user as any).id = token.id;
+        session.user.email = token.email;
+      }
       return session;
     },
     jwt: ({ token, user }) => {

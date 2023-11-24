@@ -3,8 +3,12 @@
 import { logo } from "@/lib/logo";
 import { FC } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export const SignUpFormGoogle: FC = () => {
+  const session = useSession();
+  console.log("ses", session);
+
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md overflow-hidden">
       <div className="bg-emerald-500 h-1 hidden sm:block"></div>
@@ -15,6 +19,7 @@ export const SignUpFormGoogle: FC = () => {
           </div>
           <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
         </div>
+        <p>email: {session.data?.user?.email}</p>
         <p>google (wip)</p>
       </div>
     </div>
