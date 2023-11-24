@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     });
     if (existingUserEmail) return new NextResponse("Email is already in use", { status: 409 });
 
-    const newUser = await db.user.create({
+    await db.user.create({
       data: {
         name: data.name,
         email: data.email,

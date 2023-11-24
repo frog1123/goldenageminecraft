@@ -43,7 +43,7 @@ export const SignUpGoogleForm: FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post("/api/users/register/google", values);
+      await axios.post("/api/users/register/google", values);
     } catch (err: any) {
       if (err.response.status === 409) {
         setError(err.response.data);

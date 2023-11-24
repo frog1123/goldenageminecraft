@@ -30,7 +30,8 @@ export const authOptions: NextAuthOptions = {
         if (!user) return null;
         // if (!user.active) throw new Error("User is not active");
 
-        const isPasswordValid = await compare(credentials.password, user.password);
+        // password must exist on users with email auth
+        const isPasswordValid = await compare(credentials.password, user.password as string);
         if (!isPasswordValid) return null;
 
         return {
@@ -59,7 +60,8 @@ export const authOptions: NextAuthOptions = {
 
         const existingNonGoogleUser = await db.user.findUnique({
           where: {
-            email: data.profile?.email
+            email: data.profile?.email,
+            authMethod: "EMAIL"
           }
         });
 
