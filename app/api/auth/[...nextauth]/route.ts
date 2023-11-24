@@ -56,7 +56,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn(data) {
       if (data.account?.provider === "google") {
-        console.log(data);
+        // console.log("google", data);
 
         const existingNonGoogleUser = await db.user.findUnique({
           where: {
@@ -66,6 +66,10 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (existingNonGoogleUser) return false;
+
+        return true;
+      } else if (data.account?.provider === "credentials") {
+        console.log("credentials", data);
 
         return true;
       }
