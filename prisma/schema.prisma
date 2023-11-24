@@ -12,7 +12,7 @@ model User {
   id        String   @id @default(uuid())
   name      String   @unique
   email     String   @unique
-  password  String   @db.Text
+  password  String?  @db.Text
   firstName String?
   lastName  String?
   imageUrl  String?  @db.Text

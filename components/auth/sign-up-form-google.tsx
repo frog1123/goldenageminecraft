@@ -11,6 +11,8 @@ import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/lib/logo";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string(),
@@ -21,6 +23,7 @@ export const SignUpGoogleForm: FC = () => {
   // const router = useRouter();
   const [nameMessage, setNameMessage] = useState("");
   const [error, setError] = useState("");
+  const session = useSession();
 
   const [formValid, setFormValid] = useState({ name: false });
 
@@ -28,17 +31,19 @@ export const SignUpGoogleForm: FC = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      email: "",
-      password: "",
-      retypePassword: ""
+      email: session?.data?.user?.email ?? ""
     }
   });
+
+  useEffect(() => {
+    form.setValue("email", session?.data?.user?.email ?? "");
+  }, [session?.status]);
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post("/api/users/register/email", values);
+      const res = await axios.post("/api/users/register/google", values);
     } catch (err: any) {
       if (err.response.status === 409) {
         setError(err.response.data);
