@@ -1,7 +1,7 @@
 "use client";
 
 import { logo } from "@/lib/logo";
-import { FC, useContext } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import google from "@/public/assets/google.png";
@@ -11,11 +11,7 @@ import { Separator } from "@/components/separator";
 import { Context } from "@/context";
 
 export const SignUpFormGeneral: FC = () => {
-  const context = useContext(Context);
-
-  const handleGoogleRegister = async () => {
-    const result = await signIn("google", { redirect: true, callbackUrl: "/sign-up/google" });
-  };
+  const handleGoogleRegister = async () => await signIn("google", { redirect: true, callbackUrl: "/sign-up/google" });
 
   return (
     <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md overflow-hidden">

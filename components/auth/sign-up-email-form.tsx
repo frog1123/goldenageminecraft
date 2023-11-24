@@ -53,7 +53,7 @@ export const SignUpEmailForm: FC = () => {
     }
 
     try {
-      const res = await axios.post("/api/users", values);
+      const res = await axios.post("/api/users/register/email", values);
 
       if (res.status === 200) {
         setPhase("waiting-email");
