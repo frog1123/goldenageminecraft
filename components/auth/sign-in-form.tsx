@@ -21,7 +21,18 @@ const formSchema = z.object({
 });
 
 export const SignInForm: FC = () => {
-  const handleGoogleSignIn = async () => await signIn("google", { redirect: true, callbackUrl: "/" });
+  const [googleSignInLoading, setGoogleSignInLoading] = useState(false);
+
+  const handleGoogleSignIn = async () => {
+    setGoogleSignInLoading(true);
+    try {
+      await signIn("google", { redirect: true, callbackUrl: "/" });
+    } catch (error) {
+      console.error("Google sign-in error", error);
+    } finally {
+      setGoogleSignInLoading(false);
+    }
+  };
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,6 +53,8 @@ export const SignInForm: FC = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (googleSignInLoading) return;
+
     try {
       const res = await signIn("credentials", { email: values.email, password: values.password, redirect: false, callbackUrl });
 
