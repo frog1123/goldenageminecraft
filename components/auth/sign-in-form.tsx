@@ -12,6 +12,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { logo } from "@/lib/logo";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
+import { Separator } from "@/components/separator";
+import google from "@/public/assets/google.png";
 
 const formSchema = z.object({
   email: z.string(),
@@ -19,6 +21,8 @@ const formSchema = z.object({
 });
 
 export const SignInForm: FC = () => {
+  const handleGoogleSignIn = async () => await signIn("google", { redirect: true, callbackUrl: "/" });
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -139,6 +143,19 @@ export const SignInForm: FC = () => {
                 </FormItem>
               )}
             />
+            <div className="grid grid-cols-[auto_max-content_auto] place-items-center gap-2">
+              <Separator orientation="horizontal" />
+              <span className="uppercase text-xs font-bold text-zinc-500 dark:text-white">or</span>
+              <Separator orientation="horizontal" />
+            </div>
+            <button onClick={handleGoogleSignIn} className="text-black bg-white hover:bg-gray-300 transition p-2 rounded-md w-full">
+              <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                <div className="w-4 h-4 relative">
+                  <Image src={google} fill alt="google" />
+                </div>
+                <span>Sign in with google</span>
+              </div>
+            </button>
             <div>
               <Button disabled={isLoading || !(formValid.email && formValid.password)} className="bg-emerald-500 text-white hover:bg-emerald-800 transition w-[80px]">
                 {isLoading ? <Image src={spinner} alt="loading" className="h-[100%]" /> : <p>Sign in</p>}
