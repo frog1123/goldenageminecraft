@@ -49,7 +49,8 @@ export async function POST(req: Request) {
           email: data.email,
           password,
           bio: "",
-          active: true
+          active: true,
+          authMethod: "EMAIL"
         }
       });
 
@@ -62,7 +63,8 @@ export async function POST(req: Request) {
         email: data.email,
         password,
         bio: "",
-        active: false
+        active: false,
+        authMethod: "EMAIL"
       }
     });
 
