@@ -1,4 +1,4 @@
-import { SignUpEmailForm } from "@/components/auth/sign-up-email-form";
+import { SignUpEmailForm } from "@/components/auth/sign-up-form-email";
 import { NextPage } from "next";
 
 const SignUpEmailPage: NextPage = () => {

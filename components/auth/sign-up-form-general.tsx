@@ -8,7 +8,6 @@ import google from "@/public/assets/google.png";
 import { Mail } from "lucide-react";
 import { Link } from "@/components/link";
 import { Separator } from "@/components/separator";
-import { Context } from "@/context";
 
 export const SignUpFormGeneral: FC = () => {
   const handleGoogleRegister = async () => await signIn("google", { redirect: true, callbackUrl: "/sign-up/google" });
