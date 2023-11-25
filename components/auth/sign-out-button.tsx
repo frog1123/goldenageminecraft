@@ -3,7 +3,6 @@
 import { Context } from "@/context";
 import { LogIn } from "lucide-react";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
 
 interface SignOutButtonProps {
@@ -12,7 +11,6 @@ interface SignOutButtonProps {
 }
 
 export const SignOutButton: FC<SignOutButtonProps> = ({ text, afterSignOutUrl }) => {
-  const router = useRouter();
   const context = useContext(Context);
 
   const handleClick = async () => {

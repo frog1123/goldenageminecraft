@@ -1,14 +1,17 @@
 "use client";
 
+import { Context } from "@/context";
 import { Home } from "lucide-react";
 import { signOut } from "next-auth/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 export const NotAuthorized: FC = () => {
   const [mounted, setMounted] = useState(false);
+  const context = useContext(Context);
 
   const handleClick = async () => {
     await signOut({ callbackUrl: "/" });
+    context.setValue({ currentUser: null, deletedThread: { id: null }, mobileUserSettingsNavOpen: false });
   };
 
   useEffect(() => {
