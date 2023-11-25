@@ -10,7 +10,6 @@ import { getServerCurrentUser } from "@/lib/current-user";
 import { EdgeStoreProvider } from "@/components/providers/edgestore-provider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import { NotAuthorized } from "@/components/auth/not-authorized";
 
 const inter = Inter({ subsets: ["latin"] });
