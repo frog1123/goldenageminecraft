@@ -11,7 +11,7 @@ export const NotAuthorized: FC = () => {
 
   const handleClick = async () => {
     await signOut({ callbackUrl: "/" });
-    context.setValue({ currentUser: null, deletedThread: { id: null }, mobileUserSettingsNavOpen: false });
+    context.setValue({ ...context.value, currentUser: null });
   };
 
   useEffect(() => {

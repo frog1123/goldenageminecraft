@@ -25,6 +25,7 @@ const SignUpGooglePage: NextPage = async () => {
             <div className="p-4">
               <p className="text-center">Account already exists</p>
               <p className="text-center">You do not have to register a new one</p>
+              <p className="text-center">You have been signed in automatically</p>
               <div className="w-full grid place-items-center mt-2">
                 <Link href="/">
                   <button className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white">
