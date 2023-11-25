@@ -47,16 +47,6 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
 
   console.log("layout loaded", session, currentUser);
 
-  if (session?.user && !currentUser) {
-    return (
-      <div className="w-full h-screen grid place-items-center">
-        <div className="w-full sm:w-[400px] mx-auto">
-          <NotAuthorized />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <ContextProvider initalValue={{ currentUser, deletedThread: { id: null }, mobileUserSettingsNavOpen: false }}>
       <html lang="en" suppressHydrationWarning>
@@ -64,9 +54,19 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="golden-age-minecraft-theme">
             <NextAuthSessionProvider>
               <EdgeStoreProvider>
-                <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
-                <ModalProvider />
-                {children}
+                {session?.user && !currentUser ? (
+                  <div className="w-full h-screen grid place-items-center">
+                    <div className="w-full sm:w-[400px] mx-auto">
+                      <NotAuthorized />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
+                    <ModalProvider />
+                    {children}
+                  </>
+                )}
               </EdgeStoreProvider>
             </NextAuthSessionProvider>
           </ThemeProvider>
