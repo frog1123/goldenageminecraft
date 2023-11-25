@@ -90,7 +90,9 @@ export const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: "/sign-in"
+    signIn: "/sign-in",
+    signOut: "/sign-out",
+    error: "/auth-error"
   }
 };
 
