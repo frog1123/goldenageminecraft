@@ -184,7 +184,7 @@ const Navbar: FC = () => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger className="flex items-center">
+                    <DropdownMenuSubTrigger className="flex items-center cursor-pointer">
                       <span>Set theme</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
