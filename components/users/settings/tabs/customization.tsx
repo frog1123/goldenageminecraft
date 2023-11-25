@@ -7,11 +7,11 @@ import { EditProfilePicture } from "@/components/users/settings/edit-profile-pic
 import { Separator } from "@/components/separator";
 import { EditUserBio } from "@/components/users/settings/edit-user-bio";
 import { EditBannerImage } from "@/components/users/settings/edit-banner-image";
-import { Lightbulb, Trash2 } from "lucide-react";
-import axios from "axios";
+import { Trash2 } from "lucide-react";
 import { Context } from "@/context";
 import { CurrentUserType } from "@/types/users";
 import { useEdgeStore } from "@/components/providers/edgestore-provider";
+import { Content } from "@/components/content";
 
 export const CustomizationTab: FC = () => {
   const userSettings = useUserSettings();
@@ -43,12 +43,10 @@ export const CustomizationTab: FC = () => {
                 <EditProfilePicture />
               </div>
               <Separator orientation="vertical" />
-              <div className="grid grid-flow-row gap-1 h-full">
-                <div className="grid grid-cols-[max-content_auto] gap-1 place-items-center w-max">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>This will be displayed as your user avatar.</span>
-                </div>
-                <div>
+              <div className="w-full">
+                <Content text="This will be displayed as your user avatar" />
+
+                <div className="mt-4">
                   <button onClick={handleProfilePictureReset} className="bg-indigo-500 rounded-md px-2 hover:bg-indigo-800 transition h-[32px] text-white">
                     <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
                       <Trash2 className="w-4 h-4" />
