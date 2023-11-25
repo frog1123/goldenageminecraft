@@ -2,7 +2,7 @@
 
 import { FC, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Crown, LogOut, Moon, Settings, Sun, User, Wrench } from "lucide-react";
+import { ChevronRight, Crown, LogOut, Moon, Settings, Sun, User, UserX, Wrench } from "lucide-react";
 import Path from "@/components/navigation/path";
 import { Link } from "@/components/link";
 import { cn } from "@/utils/cn";
@@ -90,6 +90,13 @@ const Navbar: FC = () => {
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="mr-2">
+                    <DropdownMenuItem className="pointer-events-none">
+                      <div className="grid grid-cols-[max-content_auto] gap-2 place-items-center">
+                        <UserX className="w-4 h-4" />
+                        <span>Guest</span>
+                      </div>
+                    </DropdownMenuItem>
+                    <Separator orientation="horizontal" className="my-1" />
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger className="flex items-center">
                         <span>Set theme</span>
