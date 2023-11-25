@@ -20,13 +20,13 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ redirectToHomeOnDelete, 
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
-          <MoreHorizontal className="w-4 h-4 cursor-pointer" />
+        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md cursor-pointer">
+          <MoreHorizontal className="w-4 h-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
         {!noView && (
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <Link href={`/forums/threads/${thread.id}`} className="w-full">
               <div className="flex place-items-center w-full gap-2">
                 <span>View thread</span>
@@ -35,7 +35,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ redirectToHomeOnDelete, 
             </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onClick={() => modal.onOpen("share-thread", { shareThread: { threadId: thread.id } })}>
+        <DropdownMenuItem onClick={() => modal.onOpen("share-thread", { shareThread: { threadId: thread.id } })} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Share thread</span>
             <Share className="w-4 h-4 ml-auto" />
@@ -43,7 +43,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ redirectToHomeOnDelete, 
         </DropdownMenuItem>
         {canEdit && (
           <>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Link href={`/forums/threads/${thread.id}/edit`} className="w-full">
                 <div className="flex place-items-center w-full gap-2">
                   <span>Edit thread</span>
@@ -52,7 +52,7 @@ export const ThreadActions: FC<ThreadActionsProps> = ({ redirectToHomeOnDelete, 
               </Link>
             </DropdownMenuItem>
             <Separator className="my-1" />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <button
                 onClick={() =>
                   modal.onOpen("delete-thread-conf", { deleteThreadConf: { threadId: thread.id, redirectToHome: redirectToHomeOnDelete ? redirectToHomeOnDelete : false } })

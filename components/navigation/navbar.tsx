@@ -98,24 +98,24 @@ const Navbar: FC = () => {
                     </DropdownMenuItem>
                     <Separator orientation="horizontal" className="my-1" />
                     <DropdownMenuSub>
-                      <DropdownMenuSubTrigger className="flex items-center">
+                      <DropdownMenuSubTrigger className="flex items-center cursor-pointer">
                         <span>Set theme</span>
                       </DropdownMenuSubTrigger>
                       <DropdownMenuPortal>
                         <DropdownMenuSubContent className="mr-1">
-                          <DropdownMenuItem onClick={() => setTheme("light")}>
+                          <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
                             <div className="flex place-items-center w-full gap-2">
                               <span>Light</span>
                               <Sun className="w-4 h-4 ml-auto" />
                             </div>
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => setTheme("dark")}>
+                          <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
                             <div className="flex place-items-center w-full gap-2">
                               <span>Dark</span>
                               <Moon className="w-4 h-4 ml-auto" />
                             </div>
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => setTheme("system")}>
+                          <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
                             <div className="flex place-items-center w-full gap-2">
                               <span>System</span>
                               <Settings className="w-4 h-4 ml-auto" />
@@ -161,13 +161,13 @@ const Navbar: FC = () => {
                     </div>
                   </DropdownMenuItem>
                   <Separator orientation="horizontal" className="my-1" />
-                  <DropdownMenuItem onClick={() => modal.onOpen("sign-out-conf")}>
+                  <DropdownMenuItem onClick={() => modal.onOpen("sign-out-conf")} className="cursor-pointer">
                     <div className="flex place-items-center w-full gap-2">
                       <span>Sign out</span>
                       <LogOut className="w-4 h-4 ml-auto" />
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
                     <Link href="/account/manage">
                       <div className="flex place-items-center w-full gap-2">
                         <span>Manage account</span>
@@ -175,7 +175,7 @@ const Navbar: FC = () => {
                       </div>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
                     <Link href={`/users/${context.value.currentUser?.id}`} className="w-full">
                       <div className="flex place-items-center w-full gap-2">
                         <span>View profile</span>
@@ -189,19 +189,19 @@ const Navbar: FC = () => {
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent className="mr-1">
-                        <DropdownMenuItem onClick={() => setTheme("light")}>
+                        <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
                           <div className="flex place-items-center w-full gap-2">
                             <span>Light</span>
                             <Sun className="w-4 h-4 ml-auto" />
                           </div>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
                           <div className="flex place-items-center w-full gap-2">
                             <span>Dark</span>
                             <Moon className="w-4 h-4 ml-auto" />
                           </div>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme("system")}>
+                        <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
                           <div className="flex place-items-center w-full gap-2">
                             <span>System</span>
                             <Settings className="w-4 h-4 ml-auto" />

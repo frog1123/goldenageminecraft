@@ -55,13 +55,13 @@ const SortTimeDropdown: FC = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Recent</span>
             <Rabbit className="w-4 h-4 ml-auto" />
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Oldest</span>
             <Snail className="w-4 h-4 ml-auto" />
@@ -84,13 +84,13 @@ const SortPopularityDropdown: FC = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Most upvoted</span>
             <ThumbsUp className="w-4 h-4 ml-auto" />
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Most downvoted</span>
             <ThumbsDown className="w-4 h-4 ml-auto" />
@@ -113,13 +113,13 @@ const ToggleThreadView: FC = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Classic</span>
             <Gem className="w-4 h-4 ml-auto" />
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Modern</span>
             <Martini className="w-4 h-4 ml-auto" />

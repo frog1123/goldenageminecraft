@@ -20,12 +20,12 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
-          <MoreHorizontal className="w-4 h-4 cursor-pointer" />
+        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md cursor-pointer">
+          <MoreHorizontal className="w-4 h-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[20]">
-        <DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
           <Link href={`/forums/threads/${threadId}/replies/${reply.id}`} className="w-full">
             <div className="flex place-items-center w-full gap-2">
               <span>View reply (wip)</span>
@@ -33,7 +33,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
             </div>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => modal.onOpen("share-reply", { shareReply: { threadId, replyId: reply.id } })}>
+        <DropdownMenuItem onClick={() => modal.onOpen("share-reply", { shareReply: { threadId, replyId: reply.id } })} className="cursor-pointer">
           <div className="flex place-items-center w-full gap-2">
             <span>Share reply</span>
             <Share className="w-4 h-4 ml-auto" />
@@ -41,7 +41,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
         </DropdownMenuItem>
         {canEdit && (
           <>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Link href={`/forums/threads/${threadId}/replies/${reply.id}/edit`} className="w-full">
                 <div className="flex place-items-center w-full gap-2">
                   <span>Edit reply</span>
@@ -50,7 +50,7 @@ export const ReplyActions: FC<ReplyActionsProps> = ({ threadId, reply, canEdit }
               </Link>
             </DropdownMenuItem>
             <Separator className="my-1" />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <button onClick={() => {}}>
                 <div className="flex place-items-center w-full gap-2 text-red-500">
                   <span>Delete reply (wip)</span>
