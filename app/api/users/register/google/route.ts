@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const data = await req.json();
 
-  console.log(data);
-
   try {
     if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });

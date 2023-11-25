@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,9 @@ export const SignUpGoogleForm: FC = () => {
     try {
       await axios.post("/api/users/register/google", values);
     } catch (err: any) {
+      if (err.resonse.status === 200) {
+        return redirect("/");
+      }
       if (err.response.status === 409) {
         setError(err.response.data);
       } else {

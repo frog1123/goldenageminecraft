@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { transporter } from "@/lib/transporter";
+import { isEmailValid } from "@/utils/is-email-valid";
 import { hash } from "bcrypt";
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
@@ -12,6 +13,7 @@ export async function POST(req: Request) {
     if (data.name.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.email.length === 0) return new NextResponse("Bad request", { status: 400 });
     if (data.password.length === 0) return new NextResponse("Bad request", { status: 400 });
+    if (!isEmailValid(data.email)) return new NextResponse("Bad request", { status: 400 });
 
     // for testing
     const allowedUsernames = ["test1", "test2", "test3"];

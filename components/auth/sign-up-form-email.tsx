@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import spinner from "@/public/assets/spinners/3dots-spinner.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { logo } from "@/lib/logo";
 import { Eye, EyeOff, MailWarning } from "lucide-react";
+import { isEmailValid } from "@/utils/is-email-valid";
 
 const formSchema = z.object({
   name: z.string(),
@@ -139,6 +139,9 @@ export const SignUpEmailForm: FC = () => {
 
                           if (value.length === 0) {
                             setEmailMessage("Email is required");
+                            setFormValid({ ...formValid, email: false });
+                          } else if (!isEmailValid(value)) {
+                            setEmailMessage("Enter a valid email address");
                             setFormValid({ ...formValid, email: false });
                           } else {
                             setEmailMessage("");
