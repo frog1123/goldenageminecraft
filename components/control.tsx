@@ -4,7 +4,7 @@ import { Context } from "@/context";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
-import { BarChart, Clock, PenSquare, Rabbit, Search, Snail, ThumbsDown, ThumbsUp } from "lucide-react";
+import { BarChart, Clock, Gem, Layers, Martini, PenSquare, Rabbit, Search, Snail, ThumbsDown, ThumbsUp } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const Control: FC = () => {
@@ -37,6 +37,7 @@ export const Control: FC = () => {
       <div className="grid grid-flow-col gap-1 place-items-center w-max">
         <SortTimeDropdown />
         <SortPopularityDropdown />
+        <ToggleThreadView />
       </div>
     </div>
   );
@@ -93,6 +94,35 @@ const SortPopularityDropdown: FC = () => {
           <div className="flex place-items-center w-full gap-2">
             <span>Most downvoted</span>
             <ThumbsDown className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const ToggleThreadView: FC = () => {
+  return (
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+            <Layers className="w-4 h-4" />
+            <p className="uppercase text-sm font-bold">View</p>
+          </div>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="z-[20]">
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Classic</span>
+            <Gem className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Modern</span>
+            <Martini className="w-4 h-4 ml-auto" />
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
