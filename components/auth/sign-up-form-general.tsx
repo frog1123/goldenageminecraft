@@ -22,7 +22,7 @@ export const SignUpFormGeneral: FC = () => {
           </div>
           <span className="uppercase text-xl font-bold text-zinc-500 dark:text-white">Register</span>
         </div>
-        <div className="grid grid-flow-row gap-6 mt-4">
+        <div className="grid grid-flow-row gap-4 mt-6">
           <Link href="/sign-up/email">
             <button className="text-white bg-emerald-500 hover:bg-emerald-800 transition p-2 rounded-md w-full">
               <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
