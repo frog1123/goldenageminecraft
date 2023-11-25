@@ -80,56 +80,49 @@ export const MyAccountTab: FC = () => {
             </div>
           </div>
           <Separator orientation="horizontal" />
-          <div>
-            <div className="grid grid-flow-col place-items-center">
-              <div className="grid grid-flow-row mr-auto">
-                <span className="uppercase text-xs font-bold text-zinc-500">Username</span>
-                <span>{context.value.currentUser.name}</span>
-              </div>
-              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
-                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
-                  <Edit className="w-4 h-4" />
-                  <span>Edit</span>
-                </div>
-              </Button>
+          <div className="grid grid-flow-col place-items-center">
+            <div className="grid grid-flow-row mr-auto">
+              <span className="uppercase text-xs font-bold text-zinc-500 text-ellipsis">Username</span>
+              <p className="truncate max-w-full">{context.value.currentUser.name}</p>
             </div>
+            <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+              <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                <Edit className="w-4 h-4" />
+                <span>Edit</span>
+              </div>
+            </Button>
           </div>
-          <div>
-            <div className="grid grid-flow-col place-items-center">
-              <div className="grid grid-flow-row mr-auto">
-                <span className="uppercase text-xs font-bold text-zinc-500">Email</span>
-                <span>{session.data?.user?.email ? session.data.user.email : "loading..."}</span>
-              </div>
-
-              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
-                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
-                  <Edit className="w-4 h-4" />
-                  <span>Edit</span>
-                </div>
-              </Button>
+          <div className="grid grid-flow-col place-items-center">
+            <div className="grid grid-flow-row mr-auto">
+              <span className="uppercase text-xs font-bold text-zinc-500">Email</span>
+              <p className="truncate max-w-full">{session.data?.user?.email ? session.data.user.email : "loading..."}</p>
             </div>
+            <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+              <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                <Edit className="w-4 h-4" />
+                <span>Edit</span>
+              </div>
+            </Button>
           </div>
-          <div>
-            <div className="grid grid-flow-col place-items-center">
-              <div className="grid grid-flow-row mr-auto">
-                <span className="uppercase text-xs font-bold text-zinc-500">Auth Method</span>
-                <div className="grid grid-cols-[max-content_max-content] gap-2 place-items-center">
-                  {context.value.currentUser.authMethod === "EMAIL" && <Mail className="w-4 h-4" />}
-                  {context.value.currentUser.authMethod === "GOOGLE" && (
-                    <div className="w-4 h-4 relative">
-                      <Image src={google} fill alt="google" />
-                    </div>
-                  )}
-                  <span>{context.value.currentUser.authMethod}</span>
-                </div>
+          <div className="grid grid-flow-col place-items-center">
+            <div className="grid grid-flow-row mr-auto">
+              <span className="uppercase text-xs font-bold text-zinc-500">Auth Method</span>
+              <div className="grid grid-cols-[max-content_max-content] gap-2 place-items-center">
+                {context.value.currentUser.authMethod === "EMAIL" && <Mail className="w-4 h-4" />}
+                {context.value.currentUser.authMethod === "GOOGLE" && (
+                  <div className="w-4 h-4 relative">
+                    <Image src={google} fill alt="google" />
+                  </div>
+                )}
+                <span>{context.value.currentUser.authMethod}</span>
               </div>
-              <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
-                <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
-                  <Edit className="w-4 h-4" />
-                  <span>Edit</span>
-                </div>
-              </Button>
             </div>
+            <Button disabled className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-[32px] text-white ml-auto">
+              <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                <Edit className="w-4 h-4" />
+                <span>Edit</span>
+              </div>
+            </Button>
           </div>
         </div>
       </div>
