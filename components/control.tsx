@@ -46,12 +46,10 @@ const SortTimeDropdown: FC = () => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
-          <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
-            <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
-              <Clock className="w-4 h-4" />
-              <p className="uppercase text-sm font-bold">Sort time</p>
-            </div>
+        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+            <Clock className="w-4 h-4" />
+            <p className="uppercase text-sm font-bold">Sort time</p>
           </div>
         </div>
       </DropdownMenuTrigger>
@@ -77,12 +75,10 @@ const SortPopularityDropdown: FC = () => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
-          <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
-            <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
-              <BarChart className="w-4 h-4" />
-              <p className="uppercase text-sm font-bold">Sort popularity</p>
-            </div>
+        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+            <BarChart className="w-4 h-4" />
+            <p className="uppercase text-sm font-bold">Sort popularity</p>
           </div>
         </div>
       </DropdownMenuTrigger>
