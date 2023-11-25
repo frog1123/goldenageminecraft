@@ -5,7 +5,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import google from "@/public/assets/google.png";
-import { Mail } from "lucide-react";
+import { Eye, Mail } from "lucide-react";
 import { Link } from "@/components/link";
 import { Separator } from "@/components/separator";
 
@@ -44,6 +44,14 @@ export const SignUpFormGeneral: FC = () => {
               <span>Sign up with google</span>
             </div>
           </button>
+          <Link href="/">
+            <button className="text-white bg-cyan-500 hover:bg-cyan-800 transition p-2 rounded-md w-full">
+              <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+                <Eye className="w-4 h-4" />
+                <span>Continue as guest</span>
+              </div>
+            </button>
+          </Link>
           <p className="uppercase text-xs font-bold text-zinc-500 dark:text-white text-center">
             Have an account?{" "}
             <Link href="/sign-in" className="text-blue-500 hover:text-blue-600 transition">
