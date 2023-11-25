@@ -4,7 +4,8 @@ import { Context } from "@/context";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
 import { FC, useContext } from "react";
-import { BarChart, Clock, PenSquare, Search } from "lucide-react";
+import { BarChart, Clock, PenSquare, Rabbit, Search, Snail, ThumbsDown, ThumbsUp } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const Control: FC = () => {
   const modal = useModal();
@@ -34,19 +35,71 @@ export const Control: FC = () => {
         </button>
       </div>
       <div className="grid grid-flow-col gap-1 place-items-center w-max">
-        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
-          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
-            <Clock className="w-4 h-4" />
-            <p className="uppercase text-sm font-bold">Sort time</p>
-          </div>
-        </div>
-        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
-          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
-            <BarChart className="w-4 h-4" />
-            <p className="uppercase text-sm font-bold">Sort popularity</p>
-          </div>
-        </div>
+        <SortTimeDropdown />
+        <SortPopularityDropdown />
       </div>
     </div>
+  );
+};
+
+const SortTimeDropdown: FC = () => {
+  return (
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
+          <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+            <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+              <Clock className="w-4 h-4" />
+              <p className="uppercase text-sm font-bold">Sort time</p>
+            </div>
+          </div>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="z-[20]">
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Recent</span>
+            <Rabbit className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Oldest</span>
+            <Snail className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const SortPopularityDropdown: FC = () => {
+  return (
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <div className="hover:bg-neutral-300 dark:hover:bg-neutral-800 p-1 transition rounded-md">
+          <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+            <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+              <BarChart className="w-4 h-4" />
+              <p className="uppercase text-sm font-bold">Sort popularity</p>
+            </div>
+          </div>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="z-[20]">
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Most upvoted</span>
+            <ThumbsUp className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>
+          <div className="flex place-items-center w-full gap-2">
+            <span>Most downvoted</span>
+            <ThumbsDown className="w-4 h-4 ml-auto" />
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
