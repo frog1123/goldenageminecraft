@@ -5,10 +5,12 @@ interface Params {
   take: number;
   skip: number;
   tagId: string;
+  dateFetched: string;
+  dateSortOrder: "asc" | "desc";
   userId?: string;
 }
 
-export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {
+export const threadsWithTag = async ({ take, skip, tagId, dateFetched, dateSortOrder, userId }: Params) => {
   const threadsWithTag: { threads: ThreadTypeWithoutVotes[] } | null = await db.tag.findUnique({
     where: { id: tagId },
     select: {
@@ -40,8 +42,13 @@ export const threadsWithTag = async ({ take, skip, tagId, userId }: Params) => {
           },
           createdAt: true
         },
+        where: {
+          createdAt: {
+            gte: dateFetched
+          }
+        },
         orderBy: {
-          createdAt: "desc"
+          createdAt: dateSortOrder
         },
         take,
         skip

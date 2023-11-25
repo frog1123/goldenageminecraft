@@ -1,7 +1,6 @@
 import { getServerCurrentUser } from "@/lib/current-user";
 import { getServerCurrentUserId } from "@/lib/current-user-id";
 import { db } from "@/lib/db";
-import { ThreadTypeSignedIn, ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
 import { threadsWithTag } from "@/utils/api/threads/thread-with-tags";
 import { threads } from "@/utils/api/threads/threads";
 import { threadsFromAuthor } from "@/utils/api/threads/threads-from-author";
@@ -15,6 +14,8 @@ export async function GET(req: Request) {
   const _skip = searchParams.get("sk");
   const authorId = searchParams.get("a");
   const tagId = searchParams.get("t");
+  const dateFetched = searchParams.get("d");
+  const dateSortOrder = searchParams.get("o");
 
   const take = _take ? parseInt(_take) : null;
   const skip = _skip ? parseInt(_skip) : null;
@@ -22,6 +23,9 @@ export async function GET(req: Request) {
   // dont use !
   if (take === null || skip === null) return new NextResponse("Bad request", { status: 400 });
   if (take >= 20) return new NextResponse("tk too large", { status: 400 });
+  if (dateFetched === null) return new NextResponse("Add date fetched", { status: 400 });
+  if (dateSortOrder === null) return new NextResponse("Add date sort order", { status: 400 });
+  if (dateSortOrder !== "asc" && dateSortOrder !== "desc") return new NextResponse("Invalid date sort order", { status: 400 });
 
   const userId = await getServerCurrentUserId();
 
@@ -33,6 +37,8 @@ export async function GET(req: Request) {
             take,
             skip,
             tagId,
+            dateFetched,
+            dateSortOrder,
             userId
           })
         );
@@ -42,6 +48,8 @@ export async function GET(req: Request) {
             take,
             skip,
             userId,
+            dateFetched,
+            dateSortOrder,
             authorId
           })
         );
@@ -50,6 +58,8 @@ export async function GET(req: Request) {
           await threads({
             take,
             skip,
+            dateFetched,
+            dateSortOrder,
             userId
           })
         );
@@ -65,6 +75,8 @@ export async function GET(req: Request) {
           await threadsWithTag({
             take,
             skip,
+            dateFetched,
+            dateSortOrder,
             tagId
           })
         );
@@ -73,6 +85,8 @@ export async function GET(req: Request) {
           await threadsFromAuthor({
             take,
             skip,
+            dateFetched,
+            dateSortOrder,
             authorId
           })
         );
@@ -80,7 +94,9 @@ export async function GET(req: Request) {
         return NextResponse.json(
           await threads({
             take,
-            skip
+            skip,
+            dateFetched,
+            dateSortOrder
           })
         );
       }

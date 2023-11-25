@@ -4,13 +4,14 @@ import { ThreadTypeWithVotes, ThreadTypeWithoutVotes } from "@/types/threads";
 interface Params {
   take: number;
   skip: number;
-  userId?: string;
   authorId: string;
+  dateFetched: string;
+  dateSortOrder: "asc" | "desc";
+  userId?: string;
 }
 
-export const threadsFromAuthor = async ({ take, skip, userId, authorId }: Params) => {
+export const threadsFromAuthor = async ({ take, skip, authorId, dateFetched, dateSortOrder, userId }: Params) => {
   const threadsFromAuthor: ThreadTypeWithoutVotes[] = await db.thread.findMany({
-    where: { authorId },
     select: {
       id: true,
       title: true,
@@ -33,8 +34,14 @@ export const threadsFromAuthor = async ({ take, skip, userId, authorId }: Params
       },
       createdAt: true
     },
+    where: {
+      authorId,
+      createdAt: {
+        gte: dateFetched
+      }
+    },
     orderBy: {
-      createdAt: "desc"
+      createdAt: dateSortOrder
     },
     take,
     skip
