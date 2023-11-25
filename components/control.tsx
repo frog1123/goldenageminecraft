@@ -3,9 +3,8 @@
 import { Context } from "@/context";
 import { useModal } from "@/hooks/use-modal-store";
 import { useRouter } from "next/navigation";
-import { FC, useContext, useEffect, useState } from "react";
-import { Command, Newspaper, PenSquare, Search, User } from "lucide-react";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "@/components/ui/command";
+import { FC, useContext } from "react";
+import { BarChart, Clock, PenSquare, Search } from "lucide-react";
 
 export const Control: FC = () => {
   const modal = useModal();
@@ -14,72 +13,40 @@ export const Control: FC = () => {
 
   const signedIn = !!context.value.currentUser?.id;
 
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(open => !open);
-      }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
-
   return (
-    <>
-      <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2">
-        <div
-          onClick={() => setOpen(true)}
-          className="cursor-pointer group py-1 px-2 rounded-md flex items-center gap-x-2 w-full bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-700/10 dark:hover:bg-neutral-700/50 transition"
+    <div className="bg-neutral-200 dark:bg-neutral-900 sm:rounded-md p-2 overflow-auto grid grid-cols-[auto_max-content] gap-2">
+      <div className="group py-1 px-2 rounded-md flex items-center gap-x-2 w-full bg-neutral-300 dark:bg-neutral-800">
+        <Search className="w-4 h-4 text-gray-500 transition" />
+        <input placeholder="search (wip)" className="border-none bg-transparent focus:outline-none" />
+      </div>
+      <div className="ml-auto">
+        <button
+          onClick={() => {
+            if (!signedIn) modal.onOpen("sign-in-req");
+            else router.push("/forums/threads/create");
+          }}
+          className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full text-white"
         >
-          <Search className="w-4 h-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition" />
-          <p className="pointer-events-none text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition">Search (wip)</p>
-          <div className="hidden md:block ml-auto">
-            <kbd className="pointer-events-none">
-              <div className="grid grid-flow-col place-items-center gap-[2px]">
-                <Command className="w-4 h-4 text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition" />
-                <span className="font-semibold text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300 transition">K</span>
-              </div>
-            </kbd>
+          <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
+            <PenSquare className="w-4 h-4" />
+            <span>Create thread</span>
+          </div>
+        </button>
+      </div>
+      <div className="grid grid-flow-col gap-1 place-items-center w-max">
+        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+            <Clock className="w-4 h-4" />
+            <p className="uppercase text-sm font-bold">Sort time</p>
           </div>
         </div>
-        <div className="ml-auto">
-          <button
-            onClick={() => {
-              if (!signedIn) modal.onOpen("sign-in-req");
-              else router.push("/forums/threads/create");
-            }}
-            className="bg-emerald-500 rounded-md px-2 hover:bg-emerald-800 transition h-full text-white"
-          >
-            <div className="grid grid-cols-[max-content_auto] place-items-center gap-1">
-              <PenSquare className="w-4 h-4" />
-              <span>Create thread</span>
-            </div>
-          </button>
+        <div className="dark:border-border border-zinc-400 border-[1px] rounded-md w-max p-1 cursor-pointer dark:hover:bg-neutral-800/50 hover:bg-neutral-300/50 transition">
+          <div className="grid grid-cols-[max-content_auto] gap-1 text-zinc-500 place-items-center">
+            <BarChart className="w-4 h-4" />
+            <p className="uppercase text-sm font-bold">Sort popularity</p>
+          </div>
         </div>
       </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search (wip)" />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Threads" className="p-2">
-            <CommandItem>
-              <Newspaper className="mr-2 h-4 w-4" />
-              <span>Thread</span>
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Users" className="p-2">
-            <CommandItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>User</span>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </>
+    </div>
   );
 };
