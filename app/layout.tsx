@@ -8,6 +8,10 @@ import ContextProvider from "@/components/providers/context-provider";
 import { NextAuthSessionProvider } from "@/components/providers/next-auth-session-provider";
 import { getServerCurrentUser } from "@/lib/current-user";
 import { EdgeStoreProvider } from "@/components/providers/edgestore-provider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import { NotAuthorized } from "@/components/auth/not-authorized";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,8 +44,19 @@ interface RootLayoutProps {
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   const currentUser = await getServerCurrentUser();
+  const session = await getServerSession(authOptions);
 
-  console.log("layout loaded", currentUser);
+  console.log("layout loaded", session, currentUser);
+
+  if (session?.user && !currentUser) {
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div className="w-full sm:w-[400px] mx-auto">
+          <NotAuthorized />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ContextProvider initalValue={{ currentUser, deletedThread: { id: null }, mobileUserSettingsNavOpen: false }}>
