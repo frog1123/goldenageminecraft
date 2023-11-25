@@ -17,6 +17,7 @@ export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
+  const initalDate = new Date().toISOString();
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
@@ -36,7 +37,7 @@ export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&t=${tagId}`;
+        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&d=${initalDate}&o=${"desc"}&t=${tagId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -56,7 +57,7 @@ export const TagThreads: FC<TagThreadsProps> = ({ tagId }) => {
       try {
         setDontFetch(true);
 
-        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&t=${tagId}`;
+        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&d=${initalDate}&o=${"desc"}&t=${tagId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;

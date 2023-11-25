@@ -44,7 +44,7 @@ export const threadsWithTag = async ({ take, skip, tagId, dateFetched, dateSortO
         },
         where: {
           createdAt: {
-            gte: dateFetched
+            lte: dateFetched
           }
         },
         orderBy: {

@@ -35,7 +35,7 @@ export const threads = async ({ take, skip, dateFetched, dateSortOrder, userId }
     },
     where: {
       createdAt: {
-        gte: dateFetched
+        lte: dateFetched
       }
     },
     orderBy: {

@@ -13,6 +13,7 @@ export const Threads: FC = () => {
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
+  const initalDate = new Date().toISOString();
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
@@ -33,7 +34,7 @@ export const Threads: FC = () => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}`;
+        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&d=${initalDate}&o=${"desc"}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -53,7 +54,7 @@ export const Threads: FC = () => {
       try {
         setDontFetch(true);
 
-        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}`;
+        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&d=${initalDate}&o=${"desc"}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;

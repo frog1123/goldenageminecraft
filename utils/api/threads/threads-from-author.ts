@@ -37,7 +37,7 @@ export const threadsFromAuthor = async ({ take, skip, authorId, dateFetched, dat
     where: {
       authorId,
       createdAt: {
-        gte: dateFetched
+        lte: dateFetched
       }
     },
     orderBy: {

@@ -17,6 +17,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   const [dontFetch, setDontFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
+  const initalDate = new Date().toISOString();
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(Context);
@@ -36,7 +37,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&a=${authorId}`;
+        const fetchLink = `/api/threads?tk=${initalThreadCount}&sk=${0}&d=${initalDate}&o=${"desc"}&a=${authorId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
@@ -56,7 +57,7 @@ export const UserThreads: FC<UserThreadsProps> = ({ authorId, canEdit }) => {
       try {
         setDontFetch(true);
 
-        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&a=${authorId}`;
+        const fetchLink = `/api/threads?tk=${fetchMoreAmount}&sk=${skip + initalThreadCount}&d=${initalDate}&o=${"desc"}&a=${authorId}`;
         const response = await axios.get(fetchLink);
 
         const data = response.data;
