@@ -39,7 +39,7 @@ export const Subnav: FC = () => {
           return (
             <Link
               key={item.path}
-              className={cn("p-1 rounded-md relative no-underline duration-300 ease-in", !isActive && "text-white")}
+              className={cn("p-1 rounded-md relative no-underline duration-300 ease-in", !isActive && "dark:text-white")}
               data-active={isActive}
               href={item.path}
               onClick={() => setCurrentPath(item.path)}
