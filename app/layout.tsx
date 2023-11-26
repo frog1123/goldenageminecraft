@@ -10,7 +10,6 @@ import { getServerCurrentUser } from "@/lib/current-user";
 import { EdgeStoreProvider } from "@/components/providers/edgestore-provider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { NotAuthorized } from "@/components/auth/not-authorized";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,19 +53,9 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="golden-age-minecraft-theme">
             <NextAuthSessionProvider>
               <EdgeStoreProvider>
-                {session?.user && !currentUser ? (
-                  <div className="w-full h-screen grid place-items-center">
-                    <div className="w-full sm:w-[400px] mx-auto">
-                      <NotAuthorized />
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
-                    <ModalProvider />
-                    {children}
-                  </>
-                )}
+                <Next13NProgress color="#10B981" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow options={{ showSpinner: false }} />
+                <ModalProvider />
+                {children}
               </EdgeStoreProvider>
             </NextAuthSessionProvider>
           </ThemeProvider>
