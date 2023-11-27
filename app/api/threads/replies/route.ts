@@ -90,3 +90,42 @@ export async function PATCH(req: Request) {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const currentUser = await getServerCurrentUser();
+    if (!currentUser || !currentUser.active) return new NextResponse("Unauthorized", { status: 401 });
+
+    const { searchParams } = new URL(req.url);
+    const replyId = searchParams.get("id");
+
+    if (!replyId) return new NextResponse("Bad request", { status: 400 });
+
+    const existingReply = await db.threadReply.findUnique({
+      where: {
+        id: replyId
+      },
+      select: {
+        author: {
+          select: {
+            id: true
+          }
+        }
+      }
+    });
+
+    if (!existingReply) return new NextResponse("Bad request", { status: 400 });
+    if (currentUser.id !== existingReply.author.id) return new NextResponse("Unauthorized", { status: 401 });
+
+    await db.threadReply.delete({
+      where: {
+        id: replyId
+      }
+    });
+
+    return new NextResponse("Success", { status: 200 });
+  } catch (err) {
+    console.log("[THREADS_DELETE]", err);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
