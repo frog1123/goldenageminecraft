@@ -11,11 +11,35 @@ import { PremiumTab } from "@/components/users/settings/tabs/premium";
 import { DangerTab } from "@/components/users/settings/tabs/danger";
 import { UserSettingsMobileNav } from "@/components/users/settings/navigation/mobile-nav";
 import { UserSettingsExit } from "@/components/users/settings/navigation/exit";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { NotAuthorized } from "@/components/auth/not-authorized";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
 const ManageUserPage: NextPage = async () => {
   const currentUser = await getServerCurrentUser();
+  const session = await getServerSession(authOptions);
 
   if (!currentUser || !currentUser.active) return redirect("/");
+
+  if (session?.user && !currentUser)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div className="w-full sm:w-[400px] mx-auto">
+          <NotAuthorized />
+        </div>
+      </div>
+    );
+
+  if (currentUser && !currentUser.active)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div className="w-max grid grid-flow-row gap-2 place-items-center">
+          <p>Your account hasn&apos;t been activated</p>
+          <SignOutButton afterSignOutUrl="/" text="Sign out and return home" />
+        </div>
+      </div>
+    );
 
   return (
     <>
